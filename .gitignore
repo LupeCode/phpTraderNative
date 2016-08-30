@@ -1,0 +1,39 @@
+vendor/
+
+# OS generated files #
+######################
+ehthumbs.db
+Thumbs.db
+
+# Backup Files #
+################
+*~
+*.bak
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.log
+*.sql
+*.sqlite
+
+# IDE files #
+#############
+nbproject
+*.iml
+*.ipr
+
+# dot files and directories #
+#############################
+.*
+!/.gitignore
