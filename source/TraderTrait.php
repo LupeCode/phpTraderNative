@@ -2,8 +2,6 @@
 
 namespace LupeCode\phpTraderNative;
 
-use LupeCode\phpTraderNative\ta_func\ta__common;
-
 /**
  * Trait TraderTrait
  *
@@ -14,7 +12,6 @@ use LupeCode\phpTraderNative\ta_func\ta__common;
 trait TraderTrait
 {
 
-    use ta__common;
     use TraderOriginal;
 
     /**
