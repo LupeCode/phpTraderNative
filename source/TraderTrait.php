@@ -21,12 +21,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function acos(array $real): array
+    public function acos(array $real): array
     {
         $values  = array_values($real);
         $outReal = [];
-        $return  = static::trader_acos(0, count($values), $values, new MInteger(), new MInteger(), $outReal);
-        static::checkForError($return);
+        $return  = $this->trader_acos(0, count($values), $values, new MInteger(), new MInteger(), $outReal);
+        $this->checkForError($return);
 
         return $outReal;
     }
@@ -41,16 +41,16 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ad(array $high, array $low, array $close, array $volume): array
+    public function ad(array $high, array $low, array $close, array $volume): array
     {
-        self::compareArrayCount($high, $low, $close, $volume);
+        $this->compareArrayCount($high, $low, $close, $volume);
         $high    = array_values($high);
         $low     = array_values($low);
         $close   = array_values($close);
         $volume  = array_values($volume);
         $outReal = [];
-        $return  = static::trader_ad(0, count($high), $high, $low, $close, $volume, new MInteger(), new MInteger(), $outReal);
-        static::checkForError($return);
+        $return  = $this->trader_ad(0, count($high), $high, $low, $close, $volume, new MInteger(), new MInteger(), $outReal);
+        $this->checkForError($return);
 
         return $outReal;
     }
@@ -63,14 +63,14 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function add(array $real0, array $real1): array
+    public function add(array $real0, array $real1): array
     {
-        self::compareArrayCount($real0, $real1);
+        $this->compareArrayCount($real0, $real1);
         $real0   = array_values($real0);
         $real1   = array_values($real1);
         $outReal = [];
-        $return  = static::trader_add(0, count($real0), $real0, $real1, new MInteger(), new MInteger(), $outReal);
-        static::checkForError($return;
+        $return  = $this->trader_add(0, count($real0), $real0, $real1, new MInteger(), new MInteger(), $outReal);
+        $this->checkForError($return;
 
         return $outReal;
     }
@@ -87,12 +87,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
+    public function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
     {
         $fastPeriod = $fastPeriod ?? 3;
         $slowPeriod = $slowPeriod ?? 10;
         $return     = trader_adosc($high, $low, $close, $volume, $fastPeriod, $slowPeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -107,11 +107,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function adx(array $high, array $low, array $close, int $timePeriod = null): array
+    public function adx(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_adx($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -126,11 +126,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function adxr(array $high, array $low, array $close, int $timePeriod = null): array
+    public function adxr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_adxr($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -145,13 +145,13 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function apo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
+    public function apo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
     {
         $fastPeriod = $fastPeriod ?? 12;
         $slowPeriod = $slowPeriod ?? 26;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType     = $mAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return     = trader_apo($real, $fastPeriod, $slowPeriod, $mAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -165,11 +165,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function aroon(array $high, array $low, int $timePeriod = null): array
+    public function aroon(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_aroon($high, $low, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -183,11 +183,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function aroonosc(array $high, array $low, int $timePeriod = null): array
+    public function aroonosc(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_aroonosc($high, $low, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -200,10 +200,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function asin(array $real): array
+    public function asin(array $real): array
     {
         $return = trader_asin($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -216,10 +216,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function atan(array $real): array
+    public function atan(array $real): array
     {
         $return = trader_atan($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -234,11 +234,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function atr(array $high, array $low, array $close, int $timePeriod = null): array
+    public function atr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_atr($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -253,10 +253,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function avgprice(array $open, array $high, array $low, array $close): array
+    public function avgprice(array $open, array $high, array $low, array $close): array
     {
         $return = trader_avgprice($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -272,14 +272,14 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function bbands(array $real, int $timePeriod = null, float $nbDevUp = null, float $nbDevDn = null, int $mAType = null): array
+    public function bbands(array $real, int $timePeriod = null, float $nbDevUp = null, float $nbDevDn = null, int $mAType = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $nbDevUp    = $nbDevUp ?? 2.0;
         $nbDevDn    = $nbDevDn ?? 2.0;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType     = $mAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return     = trader_bbands($real, $timePeriod, $nbDevUp, $nbDevDn, $mAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -293,11 +293,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function beta(array $real0, array $real1, int $timePeriod = null): array
+    public function beta(array $real0, array $real1, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $return     = trader_beta($real0, $real1, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -312,10 +312,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function bop(array $open, array $high, array $low, array $close): array
+    public function bop(array $open, array $high, array $low, array $close): array
     {
         $return = trader_bop($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -330,11 +330,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cci(array $high, array $low, array $close, int $timePeriod = null): array
+    public function cci(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_cci($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -349,10 +349,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl2crows(array $open, array $high, array $low, array $close): array
+    public function cdl2crows(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl2crows($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -367,10 +367,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl3blackcrows(array $open, array $high, array $low, array $close): array
+    public function cdl3blackcrows(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl3blackcrows($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -385,10 +385,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl3inside(array $open, array $high, array $low, array $close): array
+    public function cdl3inside(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl3inside($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -403,10 +403,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl3linestrike(array $open, array $high, array $low, array $close): array
+    public function cdl3linestrike(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl3linestrike($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -421,10 +421,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl3outside(array $open, array $high, array $low, array $close): array
+    public function cdl3outside(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl3outside($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -439,10 +439,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl3starsinsouth(array $open, array $high, array $low, array $close): array
+    public function cdl3starsinsouth(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl3starsinsouth($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -457,10 +457,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdl3whitesoldiers(array $open, array $high, array $low, array $close): array
+    public function cdl3whitesoldiers(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdl3whitesoldiers($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -476,11 +476,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlabandonedbaby(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdlabandonedbaby(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
         $return      = trader_cdlabandonedbaby($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -495,10 +495,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdladvanceblock(array $open, array $high, array $low, array $close): array
+    public function cdladvanceblock(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdladvanceblock($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -513,10 +513,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlbelthold(array $open, array $high, array $low, array $close): array
+    public function cdlbelthold(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlbelthold($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -531,10 +531,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlbreakaway(array $open, array $high, array $low, array $close): array
+    public function cdlbreakaway(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlbreakaway($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -549,10 +549,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlclosingmarubozu(array $open, array $high, array $low, array $close): array
+    public function cdlclosingmarubozu(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlclosingmarubozu($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -567,10 +567,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlconcealbabyswall(array $open, array $high, array $low, array $close): array
+    public function cdlconcealbabyswall(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlconcealbabyswall($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -585,10 +585,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlcounterattack(array $open, array $high, array $low, array $close): array
+    public function cdlcounterattack(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlcounterattack($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -604,11 +604,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdldarkcloudcover(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdldarkcloudcover(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.5;
         $return      = trader_cdldarkcloudcover($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -623,10 +623,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdldoji(array $open, array $high, array $low, array $close): array
+    public function cdldoji(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdldoji($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -641,10 +641,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdldojistar(array $open, array $high, array $low, array $close): array
+    public function cdldojistar(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdldojistar($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -659,10 +659,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdldragonflydoji(array $open, array $high, array $low, array $close): array
+    public function cdldragonflydoji(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdldragonflydoji($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -677,10 +677,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlengulfing(array $open, array $high, array $low, array $close): array
+    public function cdlengulfing(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlengulfing($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -696,11 +696,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdleveningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdleveningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
         $return      = trader_cdleveningdojistar($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -716,11 +716,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdleveningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdleveningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
         $return      = trader_cdleveningstar($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -735,10 +735,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlgapsidesidewhite(array $open, array $high, array $low, array $close): array
+    public function cdlgapsidesidewhite(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlgapsidesidewhite($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -753,10 +753,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlgravestonedoji(array $open, array $high, array $low, array $close): array
+    public function cdlgravestonedoji(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlgravestonedoji($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -771,10 +771,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlhammer(array $open, array $high, array $low, array $close): array
+    public function cdlhammer(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlhammer($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -789,10 +789,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlhangingman(array $open, array $high, array $low, array $close): array
+    public function cdlhangingman(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlhangingman($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -807,10 +807,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlharami(array $open, array $high, array $low, array $close): array
+    public function cdlharami(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlharami($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -825,10 +825,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlharamicross(array $open, array $high, array $low, array $close): array
+    public function cdlharamicross(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlharamicross($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -843,10 +843,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlhighwave(array $open, array $high, array $low, array $close): array
+    public function cdlhighwave(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlhighwave($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -861,10 +861,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlhikkake(array $open, array $high, array $low, array $close): array
+    public function cdlhikkake(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlhikkake($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -879,10 +879,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlhikkakemod(array $open, array $high, array $low, array $close): array
+    public function cdlhikkakemod(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlhikkakemod($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -897,10 +897,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlhomingpigeon(array $open, array $high, array $low, array $close): array
+    public function cdlhomingpigeon(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlhomingpigeon($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -915,10 +915,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlidentical3crows(array $open, array $high, array $low, array $close): array
+    public function cdlidentical3crows(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlidentical3crows($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -933,10 +933,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlinneck(array $open, array $high, array $low, array $close): array
+    public function cdlinneck(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlinneck($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -951,10 +951,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlinvertedhammer(array $open, array $high, array $low, array $close): array
+    public function cdlinvertedhammer(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlinvertedhammer($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -969,10 +969,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlkicking(array $open, array $high, array $low, array $close): array
+    public function cdlkicking(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlkicking($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -987,10 +987,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlkickingbylength(array $open, array $high, array $low, array $close): array
+    public function cdlkickingbylength(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlkickingbylength($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1005,10 +1005,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlladderbottom(array $open, array $high, array $low, array $close): array
+    public function cdlladderbottom(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlladderbottom($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1023,10 +1023,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdllongleggeddoji(array $open, array $high, array $low, array $close): array
+    public function cdllongleggeddoji(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdllongleggeddoji($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1041,10 +1041,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdllongline(array $open, array $high, array $low, array $close): array
+    public function cdllongline(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdllongline($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1059,10 +1059,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlmarubozu(array $open, array $high, array $low, array $close): array
+    public function cdlmarubozu(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlmarubozu($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1077,10 +1077,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlmatchinglow(array $open, array $high, array $low, array $close): array
+    public function cdlmatchinglow(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlmatchinglow($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1096,11 +1096,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlmathold(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdlmathold(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.5;
         $return      = trader_cdlmathold($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1116,11 +1116,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlmorningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdlmorningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
         $return      = trader_cdlmorningdojistar($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1136,11 +1136,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlmorningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public function cdlmorningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
         $return      = trader_cdlmorningstar($open, $high, $low, $close, $penetration);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1155,10 +1155,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlonneck(array $open, array $high, array $low, array $close): array
+    public function cdlonneck(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlonneck($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1173,10 +1173,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlpiercing(array $open, array $high, array $low, array $close): array
+    public function cdlpiercing(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlpiercing($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1191,10 +1191,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlrickshawman(array $open, array $high, array $low, array $close): array
+    public function cdlrickshawman(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlrickshawman($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1209,10 +1209,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlrisefall3methods(array $open, array $high, array $low, array $close): array
+    public function cdlrisefall3methods(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlrisefall3methods($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1227,10 +1227,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlseparatinglines(array $open, array $high, array $low, array $close): array
+    public function cdlseparatinglines(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlseparatinglines($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1245,10 +1245,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlshootingstar(array $open, array $high, array $low, array $close): array
+    public function cdlshootingstar(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlshootingstar($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1263,10 +1263,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlshortline(array $open, array $high, array $low, array $close): array
+    public function cdlshortline(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlshortline($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1281,10 +1281,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlspinningtop(array $open, array $high, array $low, array $close): array
+    public function cdlspinningtop(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlspinningtop($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1299,10 +1299,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlstalledpattern(array $open, array $high, array $low, array $close): array
+    public function cdlstalledpattern(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlstalledpattern($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1317,10 +1317,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlsticksandwich(array $open, array $high, array $low, array $close): array
+    public function cdlsticksandwich(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlsticksandwich($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1335,10 +1335,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdltakuri(array $open, array $high, array $low, array $close): array
+    public function cdltakuri(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdltakuri($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1353,10 +1353,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdltasukigap(array $open, array $high, array $low, array $close): array
+    public function cdltasukigap(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdltasukigap($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1371,10 +1371,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlthrusting(array $open, array $high, array $low, array $close): array
+    public function cdlthrusting(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlthrusting($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1389,10 +1389,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdltristar(array $open, array $high, array $low, array $close): array
+    public function cdltristar(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdltristar($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1407,10 +1407,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlunique3river(array $open, array $high, array $low, array $close): array
+    public function cdlunique3river(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlunique3river($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1425,10 +1425,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlupsidegap2crows(array $open, array $high, array $low, array $close): array
+    public function cdlupsidegap2crows(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlupsidegap2crows($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1443,10 +1443,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cdlxsidegap3methods(array $open, array $high, array $low, array $close): array
+    public function cdlxsidegap3methods(array $open, array $high, array $low, array $close): array
     {
         $return = trader_cdlxsidegap3methods($open, $high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1459,10 +1459,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ceil(array $real): array
+    public function ceil(array $real): array
     {
         $return = trader_ceil($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1475,11 +1475,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cmo(array $real, int $timePeriod = null): array
+    public function cmo(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_cmo($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1493,11 +1493,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function correl(array $real0, array $real1, int $timePeriod = null): array
+    public function correl(array $real0, array $real1, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_correl($real0, $real1, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1510,10 +1510,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cos(array $real): array
+    public function cos(array $real): array
     {
         $return = trader_cos($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1526,10 +1526,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function cosh(array $real): array
+    public function cosh(array $real): array
     {
         $return = trader_cosh($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1542,11 +1542,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function dema(array $real, int $timePeriod = null): array
+    public function dema(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_dema($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1560,10 +1560,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function div(array $real0, array $real1): array
+    public function div(array $real0, array $real1): array
     {
         $return = trader_div($real0, $real1);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1578,11 +1578,11 @@ trait TraderTrait
      *
      * @return array  Returns an array with calculated data or false on failure.
      */
-    public static function dx(array $high, array $low, array $close, int $timePeriod = null): array
+    public function dx(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_dx($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1595,11 +1595,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ema(array $real, int $timePeriod = null): array
+    public function ema(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_ema($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1610,10 +1610,10 @@ trait TraderTrait
      *
      * @return int Returns the error code identified by one of the TRADER_ERR_* constants.
      */
-    public static function errno(): integer
+    public function errno(): integer
     {
         $return = trader_errno();
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1626,10 +1626,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function exp(array $real): array
+    public function exp(array $real): array
     {
         $return = trader_exp($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1642,10 +1642,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function floor(array $real): array
+    public function floor(array $real): array
     {
         $return = trader_floor($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1656,10 +1656,10 @@ trait TraderTrait
      *
      * @return int Returns the compatibility mode id which can be identified by TRADER_COMPATIBILITY_* series of constants.
      */
-    public static function get_compat(): integer
+    public function get_compat(): integer
     {
         $return = trader_get_compat();
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1672,10 +1672,10 @@ trait TraderTrait
      *
      * @return int Returns the unstable period factor for the corresponding function.
      */
-    public static function get_unstable_period(integer $functionId): integer
+    public function get_unstable_period(integer $functionId): integer
     {
         $return = trader_get_unstable_period($functionId);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1687,10 +1687,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ht_dcperiod(array $real): array
+    public function ht_dcperiod(array $real): array
     {
         $return = trader_ht_dcperiod($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1702,10 +1702,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ht_dcphase(array $real): array
+    public function ht_dcphase(array $real): array
     {
         $return = trader_ht_dcphase($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1718,10 +1718,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ht_phasor(array $real, array &$inPhase): array
+    public function ht_phasor(array $real, array &$inPhase): array
     {
         $return = trader_ht_phasor($real, $inPhase);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1734,10 +1734,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ht_sine(array $real, array &$sine): array
+    public function ht_sine(array $real, array &$sine): array
     {
         $return = trader_ht_sine($real, $sine);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1749,10 +1749,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ht_trendline(array $real): array
+    public function ht_trendline(array $real): array
     {
         $return = trader_ht_trendline($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1764,10 +1764,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ht_trendmode(array $real): array
+    public function ht_trendmode(array $real): array
     {
         $return = trader_ht_trendmode($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1780,11 +1780,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function kama(array $real, int $timePeriod = null): array
+    public function kama(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_kama($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1797,11 +1797,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function linearreg_angle(array $real, int $timePeriod = null): array
+    public function linearreg_angle(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_linearreg_angle($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1814,11 +1814,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function linearreg_intercept(array $real, int $timePeriod = null): array
+    public function linearreg_intercept(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_linearreg_intercept($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1831,11 +1831,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function linearreg_slope(array $real, int $timePeriod = null): array
+    public function linearreg_slope(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_linearreg_slope($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1848,11 +1848,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function linearreg(array $real, int $timePeriod = null): array
+    public function linearreg(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_linearreg($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1865,10 +1865,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ln(array $real): array
+    public function ln(array $real): array
     {
         $return = trader_ln($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1881,10 +1881,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function log10(array $real): array
+    public function log10(array $real): array
     {
         $return = trader_log10($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1898,12 +1898,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ma(array $real, int $timePeriod = null, int $mAType = null): array
+    public function ma(array $real, int $timePeriod = null, int $mAType = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType     = $mAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return     = trader_ma($real, $timePeriod, $mAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1918,13 +1918,13 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function macd(array $real, int $fastPeriod = null, int $slowPeriod = null, int $signalPeriod = null): array
+    public function macd(array $real, int $fastPeriod = null, int $slowPeriod = null, int $signalPeriod = null): array
     {
         $fastPeriod   = $fastPeriod ?? 12;
         $slowPeriod   = $slowPeriod ?? 26;
         $signalPeriod = $signalPeriod ?? 9;
         $return       = trader_macd($real, $fastPeriod, $slowPeriod, $signalPeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1941,15 +1941,15 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null): array
+    public function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null): array
     {
         $fastPeriod   = $fastPeriod ?? 12;
-        $fastMAType   = $fastMAType ?? static::$TRADER_MA_TYPE_SMA;
+        $fastMAType   = $fastMAType ?? $this->$TRADER_MA_TYPE_SMA;
         $slowPeriod   = $slowPeriod ?? 26;
-        $slowMAType   = $slowMAType ?? static::$TRADER_MA_TYPE_SMA;
+        $slowMAType   = $slowMAType ?? $this->$TRADER_MA_TYPE_SMA;
         $signalPeriod = $signalPeriod ?? 9;
         $return       = trader_macdext($real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1962,11 +1962,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function macdfix(array $real, int $signalPeriod = null): array
+    public function macdfix(array $real, int $signalPeriod = null): array
     {
         $signalPeriod = $signalPeriod ?? 9;
         $return       = trader_macdfix($real, $signalPeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -1980,12 +1980,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function mama(array $real, float $fastLimit = null, float $slowLimit = null): array
+    public function mama(array $real, float $fastLimit = null, float $slowLimit = null): array
     {
         $fastLimit = $fastLimit ?? 0.5;
         $slowLimit = $slowLimit ?? 0.05;
         $return    = trader_mama($real, $fastLimit, $slowLimit);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2001,13 +2001,13 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function mavp(array $real, array $periods, int $minPeriod = null, int $maxPeriod = null, int $mAType = null): array
+    public function mavp(array $real, array $periods, int $minPeriod = null, int $maxPeriod = null, int $mAType = null): array
     {
         $minPeriod = $minPeriod ?? 2;
         $maxPeriod = $maxPeriod ?? 30;
-        $mAType    = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType    = $mAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return    = trader_mavp($real, $periods, $minPeriod, $maxPeriod, $mAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2020,11 +2020,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function max(array $real, int $timePeriod = null): array
+    public function max(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_max($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2037,11 +2037,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function maxindex(array $real, int $timePeriod = null): array
+    public function maxindex(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_maxindex($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2054,10 +2054,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function medprice(array $high, array $low): array
+    public function medprice(array $high, array $low): array
     {
         $return = trader_medprice($high, $low);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2073,11 +2073,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function mfi(array $high, array $low, array $close, array $volume, int $timePeriod = null): array
+    public function mfi(array $high, array $low, array $close, array $volume, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_mfi($high, $low, $close, $volume, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2090,11 +2090,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function midpoint(array $real, int $timePeriod = null): array
+    public function midpoint(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_midpoint($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2108,11 +2108,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function midprice(array $high, array $low, int $timePeriod = null)
+    public function midprice(array $high, array $low, int $timePeriod = null)
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_midprice($high, $low, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2125,11 +2125,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function min(array $real, int $timePeriod = null): array
+    public function min(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_min($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2142,11 +2142,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function minindex(array $real, int $timePeriod = null): array
+    public function minindex(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_minindex($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2159,11 +2159,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function minmax(array $real, int $timePeriod = null): array
+    public function minmax(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_minmax($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2176,11 +2176,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function minmaxindex(array $real, int $timePeriod = null): array
+    public function minmaxindex(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_minmaxindex($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2195,11 +2195,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function minus_di(array $high, array $low, array $close, int $timePeriod = null): array
+    public function minus_di(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_minus_di($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2213,11 +2213,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function minus_dm(array $high, array $low, int $timePeriod = null): array
+    public function minus_dm(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_minus_dm($high, $low, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2230,11 +2230,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function mom(array $real, int $timePeriod = null): array
+    public function mom(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
         $return     = trader_mom($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2248,10 +2248,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function mult(array $real0, array $real1): array
+    public function mult(array $real0, array $real1): array
     {
         $return = trader_mult($real0, $real1);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2266,11 +2266,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function natr(array $high, array $low, array $close, int $timePeriod = null): array
+    public function natr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_natr($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2283,10 +2283,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function obv(array $real, array $volume): array
+    public function obv(array $real, array $volume): array
     {
         $return = trader_obv($real, $volume);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2301,11 +2301,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function plus_di(array $high, array $low, array $close, int $timePeriod = null): array
+    public function plus_di(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_plus_di($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2319,11 +2319,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function plus_dm(array $high, array $low, int $timePeriod = null): array
+    public function plus_dm(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_plus_dm($high, $low, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2338,13 +2338,13 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ppo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
+    public function ppo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
     {
         $fastPeriod = $fastPeriod ?? 12;
         $slowPeriod = $slowPeriod ?? 26;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType     = $mAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return     = trader_ppo($real, $fastPeriod, $slowPeriod, $mAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2357,11 +2357,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function roc(array $real, int $timePeriod = null): array
+    public function roc(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
         $return     = trader_roc($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2374,11 +2374,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function rocp(array $real, int $timePeriod = null): array
+    public function rocp(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
         $return     = trader_rocp($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2391,11 +2391,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function rocr100(array $real, int $timePeriod = null): array
+    public function rocr100(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
         $return     = trader_rocr100($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2408,11 +2408,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function rocr(array $real, int $timePeriod = null): array
+    public function rocr(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
         $return     = trader_rocr($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2425,11 +2425,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function rsi(array $real, int $timePeriod = null): array
+    public function rsi(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_rsi($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2444,12 +2444,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sar(array $high, array $low, float $acceleration = null, float $maximum = null): array
+    public function sar(array $high, array $low, float $acceleration = null, float $maximum = null): array
     {
         $acceleration = $acceleration ?? 0.02;
         $maximum      = $maximum ?? 0.2;
         $return       = trader_sar($high, $low, $acceleration, $maximum);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2470,7 +2470,7 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sarext(array $high, array $low, float $startValue = null, float $offsetOnReverse = null, float $accelerationInitLong = null, float $accelerationLong = null, float $accelerationMaxLong = null, float $accelerationInitShort = null, float $accelerationShort = null, float $accelerationMaxShort = null): array
+    public function sarext(array $high, array $low, float $startValue = null, float $offsetOnReverse = null, float $accelerationInitLong = null, float $accelerationLong = null, float $accelerationMaxLong = null, float $accelerationInitShort = null, float $accelerationShort = null, float $accelerationMaxShort = null): array
     {
         $startValue            = $startValue ?? 0.0;
         $offsetOnReverse       = $offsetOnReverse ?? 0.0;
@@ -2481,7 +2481,7 @@ trait TraderTrait
         $accelerationShort     = $accelerationShort ?? 0.02;
         $accelerationMaxShort  = $accelerationMaxShort ?? 0.2;
         $return                = trader_sarext($high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2492,10 +2492,10 @@ trait TraderTrait
      *
      * @param int $compatId Compatibility Id. TRADER_COMPATIBILITY_* series of constants should be used.
      */
-    public static function set_compat(integer $compatId)
+    public function set_compat(integer $compatId)
     {
         $return = trader_set_compat($compatId);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2507,10 +2507,10 @@ trait TraderTrait
      * @param int $functionId Function ID the factor should be set for. TRADER_FUNC_UNST_* constant series can be used to affect the corresponding function.
      * @param int $timePeriod Unstable period value.
      */
-    public static function set_unstable_period(integer $functionId, int $timePeriod)
+    public function set_unstable_period(integer $functionId, int $timePeriod)
     {
         $return = trader_set_unstable_period($functionId, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2523,10 +2523,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sin(array $real): array
+    public function sin(array $real): array
     {
         $return = trader_sin($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2539,10 +2539,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sinh(array $real): array
+    public function sinh(array $real): array
     {
         $return = trader_sinh($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2555,11 +2555,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sma(array $real, int $timePeriod = null): array
+    public function sma(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_sma($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2572,10 +2572,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sqrt(array $real): array
+    public function sqrt(array $real): array
     {
         $return = trader_sqrt($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2589,12 +2589,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function stddev(array $real, int $timePeriod = null, float $nbDev = null): array
+    public function stddev(array $real, int $timePeriod = null, float $nbDev = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $nbDev      = $nbDev ?? 1.0;
         $return     = trader_stddev($real, $timePeriod, $nbDev);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2613,15 +2613,15 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function stoch(array $high, array $low, array $close, int $fastK_Period = null, int $slowK_Period = null, int $slowK_MAType = null, int $slowD_Period = null, int $slowD_MAType = null): array
+    public function stoch(array $high, array $low, array $close, int $fastK_Period = null, int $slowK_Period = null, int $slowK_MAType = null, int $slowD_Period = null, int $slowD_MAType = null): array
     {
         $fastK_Period = $fastK_Period ?? 5;
         $slowK_Period = $slowK_Period ?? 3;
-        $slowK_MAType = $slowK_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $slowK_MAType = $slowK_MAType ?? $this->$TRADER_MA_TYPE_SMA;
         $slowD_Period = $slowD_Period ?? 3;
-        $slowD_MAType = $slowD_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $slowD_MAType = $slowD_MAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return       = trader_stoch($high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2638,13 +2638,13 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function stochf(array $high, array $low, array $close, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
+    public function stochf(array $high, array $low, array $close, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
     {
         $fastK_Period = $fastK_Period ?? 5;
         $fastD_Period = $fastD_Period ?? 3;
-        $fastD_MAType = $fastD_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $fastD_MAType = $fastD_MAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return       = trader_stochf($high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2660,14 +2660,14 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function stochrsi(array $real, int $timePeriod = null, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
+    public function stochrsi(array $real, int $timePeriod = null, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
     {
         $timePeriod   = $timePeriod ?? 14;
         $fastK_Period = $fastK_Period ?? 5;
         $fastD_Period = $fastD_Period ?? 3;
-        $fastD_MAType = $fastD_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $fastD_MAType = $fastD_MAType ?? $this->$TRADER_MA_TYPE_SMA;
         $return       = trader_stochrsi($real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2681,10 +2681,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sub(array $real0, array $real1): array
+    public function sub(array $real0, array $real1): array
     {
         $return = trader_sub($real0, $real1);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2697,11 +2697,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function sum(array $real, int $timePeriod = null): array
+    public function sum(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_sum($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2715,12 +2715,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function t3(array $real, int $timePeriod = null, float $vFactor = null): array
+    public function t3(array $real, int $timePeriod = null, float $vFactor = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $vFactor    = $vFactor ?? 0.7;
         $return     = trader_t3($real, $timePeriod, $vFactor);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2733,10 +2733,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function tan(array $real): array
+    public function tan(array $real): array
     {
         $return = trader_tan($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2749,10 +2749,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function tanh(array $real): array
+    public function tanh(array $real): array
     {
         $return = trader_tanh($real);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2765,11 +2765,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function tema(array $real, int $timePeriod = null): array
+    public function tema(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_tema($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2783,10 +2783,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function trange(array $high, array $low, array $close): array
+    public function trange(array $high, array $low, array $close): array
     {
         $return = trader_trange($high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2799,11 +2799,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function trima(array $real, int $timePeriod = null): array
+    public function trima(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_trima($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2816,11 +2816,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function trix(array $real, int $timePeriod = null): array
+    public function trix(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_trix($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2833,11 +2833,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function tsf(array $real, int $timePeriod = null): array
+    public function tsf(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_tsf($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2851,10 +2851,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function typprice(array $high, array $low, array $close): array
+    public function typprice(array $high, array $low, array $close): array
     {
         $return = trader_typprice($high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2871,13 +2871,13 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function ultosc(array $high, array $low, array $close, int $timePeriod1 = null, int $timePeriod2 = null, int $timePeriod3 = null): array
+    public function ultosc(array $high, array $low, array $close, int $timePeriod1 = null, int $timePeriod2 = null, int $timePeriod3 = null): array
     {
         $timePeriod1 = $timePeriod1 ?? 7;
         $timePeriod2 = $timePeriod2 ?? 14;
         $timePeriod3 = $timePeriod3 ?? 28;
         $return      = trader_ultosc($high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2891,12 +2891,12 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function var(array $real, int $timePeriod = null, float $nbDev = null): array
+    public function var(array $real, int $timePeriod = null, float $nbDev = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $nbDev      = $nbDev ?? 1.0;
         $return     = trader_var($real, $timePeriod, $nbDev);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2910,10 +2910,10 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function wclprice(array $high, array $low, array $close): array
+    public function wclprice(array $high, array $low, array $close): array
     {
         $return = trader_wclprice($high, $low, $close);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2928,11 +2928,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function willr(array $high, array $low, array $close, int $timePeriod = null): array
+    public function willr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         $return     = trader_willr($high, $low, $close, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
@@ -2945,11 +2945,11 @@ trait TraderTrait
      *
      * @return array Returns an array with calculated data or false on failure.
      */
-    public static function wma(array $real, int $timePeriod = null): array
+    public function wma(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $return     = trader_wma($real, $timePeriod);
-        static::checkForError();
+        $this->checkForError();
 
         return $return;
     }
