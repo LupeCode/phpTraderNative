@@ -4,16 +4,16 @@ namespace LupeCode\phpTraderNative;
 
 class CandleSettingType
 {
-    const BodyLong          = 1;
-    const BodyVeryLong      = 2;
-    const BodyShort         = 3;
-    const BodyDoji          = 4;
-    const ShadowLong        = 5;
-    const ShadowVeryLong    = 6;
-    const ShadowShort       = 7;
-    const ShadowVeryShort   = 8;
-    const Near              = 9;
-    const Far               = 10;
-    const Equal             = 11;
-    const AllCandleSettings = 12;
+    const BodyLong          = 0;
+    const BodyVeryLong      = 1;
+    const BodyShort         = 2;
+    const BodyDoji          = 3;
+    const ShadowLong        = 4;
+    const ShadowVeryLong    = 5;
+    const ShadowShort       = 6;
+    const ShadowVeryShort   = 7;
+    const Near              = 8;
+    const Far               = 9;
+    const Equal             = 10;
+    const AllCandleSettings = 11;
 }

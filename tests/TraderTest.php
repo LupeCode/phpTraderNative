@@ -143,7 +143,8 @@ class TraderTest extends PHPUnit_Framework_TestCase
     public function testInterfaceFunctions_acos()
     {
         $Expected = trader_acos(array_map('cos', $this->Close));
-        $Actual   = Trader::trader_acos(array_map('cos', $this->Close));
+        $Trader = new Trader();
+        $Actual   = $Trader->acos(array_map('cos', $this->Close));
         $Expected = array_map('round', $Expected, array_pad([], count($Expected), 3));
         $Actual   = array_map('round', $Actual, array_pad([], count($Actual), 3));
         $this->assertEquals($Expected, $Actual);
@@ -152,7 +153,8 @@ class TraderTest extends PHPUnit_Framework_TestCase
     public function testInterfaceFunctions_ad()
     {
         $Expected = trader_ad($this->High, $this->Low, $this->Close, $this->Volume);
-        $Actual   = Trader::trader_ad($this->High, $this->Low, $this->Close, $this->Volume);
+        $Trader = new Trader();
+        $Actual   = $Trader->ad($this->High, $this->Low, $this->Close, $this->Volume);
         $Expected = array_map('round', $Expected, array_pad([], count($Expected), 3));
         $Actual   = array_map('round', $Actual, array_pad([], count($Actual), 3));
         $this->assertEquals($Expected, $Actual);
@@ -160,13 +162,15 @@ class TraderTest extends PHPUnit_Framework_TestCase
 
     public function testInterfaceFunctions_add()
     {
-        $this->assertEquals(trader_add($this->High, $this->Low), Trader::trader_add($this->High, $this->Low));
+        $Trader = new Trader();
+        $this->assertEquals(trader_add($this->High, $this->Low), $Trader->add($this->High, $this->Low));
     }
 
     public function testInterfaceFunctions_adosc()
     {
         $Expected = trader_adosc($this->High, $this->Low, $this->Close, $this->Volume, 3, 10);
-        $Actual   = Trader::trader_adosc($this->High, $this->Low, $this->Close, $this->Volume, 3, 10);
+        $Trader = new Trader();
+        $Actual = $Trader->adosc($this->High, $this->Low, $this->Close, $this->Volume, 3, 10);
         $Expected = array_map('round', $Expected, array_pad([], count($Expected), 3));
         $Actual   = array_map('round', $Actual, array_pad([], count($Actual), 3));
         $this->assertEquals($Expected, $Actual);

@@ -25,7 +25,9 @@ trait TraderTrait
     {
         $values  = array_values($real);
         $outReal = [];
-        $return  = $this->trader_acos(0, count($values), $values, new MInteger(), new MInteger(), $outReal);
+        $ob      = new MInteger();
+        $onb     = new MInteger();
+        $return  = $this->trader_acos(0, count($values) - 1, $values, $ob, $onb, $outReal);
         $this->checkForError($return);
 
         return $outReal;
@@ -49,7 +51,9 @@ trait TraderTrait
         $close   = array_values($close);
         $volume  = array_values($volume);
         $outReal = [];
-        $return  = $this->trader_ad(0, count($high), $high, $low, $close, $volume, new MInteger(), new MInteger(), $outReal);
+        $ob      = new MInteger();
+        $onb     = new MInteger();
+        $return  = $this->trader_ad(0, count($high) - 1, $high, $low, $close, $volume, $ob, $onb, $outReal);
         $this->checkForError($return);
 
         return $outReal;
@@ -69,8 +73,10 @@ trait TraderTrait
         $real0   = array_values($real0);
         $real1   = array_values($real1);
         $outReal = [];
-        $return  = $this->trader_add(0, count($real0), $real0, $real1, new MInteger(), new MInteger(), $outReal);
-        $this->checkForError($return;
+        $ob      = new MInteger();
+        $onb     = new MInteger();
+        $return  = $this->trader_add(0, count($real0) - 1, $real0, $real1, $ob, $onb, $outReal);
+        $this->checkForError($return);
 
         return $outReal;
     }
@@ -91,10 +97,13 @@ trait TraderTrait
     {
         $fastPeriod = $fastPeriod ?? 3;
         $slowPeriod = $slowPeriod ?? 10;
-        $return     = trader_adosc($high, $low, $close, $volume, $fastPeriod, $slowPeriod);
-        $this->checkForError();
+        $outReal = [];
+        $ob      = new MInteger();
+        $onb     = new MInteger();
+        $return     = $this->trader_adosc(0, count($high) - 1, $high, $low, $close, $volume, $fastPeriod, $slowPeriod, $ob, $onb, $outReal);
+        $this->checkForError($return);
 
-        return $return;
+        return $outReal;
     }
 
     /**

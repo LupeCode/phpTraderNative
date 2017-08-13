@@ -266,7 +266,7 @@ trait TraderOriginal
         return $this->emaLookback($slowestPeriod);
     }
 
-    public function trader_adosc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod = 3, int $optInSlowPeriod = 10, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
+    public function trader_adosc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod = 3, int $optInSlowPeriod = 10, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
     {
         //int today, outIdx, lookbackTotal, slowestPeriod;
         //double high, low, close, tmp, slowEMA, slowk, one_minus_slowk, fastEMA, fastk, one_minus_fastk, ad;
@@ -306,7 +306,7 @@ trait TraderOriginal
             $slowestPeriod = $optInFastPeriod;
         }
         //lookbackTotal = emaLookback(slowestPeriod);
-        $lookbackTotal = self::trader_emaLookback($slowestPeriod);
+        $lookbackTotal = $this->emaLookback($slowestPeriod);
         //if (startIdx < lookbackTotal)
         //    startIdx = lookbackTotal;
         if ($startIdx < $lookbackTotal) {
@@ -354,6 +354,7 @@ trait TraderOriginal
             if ($tmp > 0.0) {
                 $ad += ((($close - $low) - ($high - $close)) / $tmp) * $inVolume[$today];
             }
+            $today++;
         }
         $outReal = [];
         //fastEMA = ad;
@@ -382,6 +383,7 @@ trait TraderOriginal
                 if ($tmp > 0.0) {
                     $ad += ((($close - $low) - ($high - $close)) / $tmp) * $inVolume[$today];
                 }
+                $today++;
             }
             $fastEMA = ($fastK * $ad) + ($oneMinusFastK * $fastEMA);
             $slowEMA = ($slowK * $ad) + ($oneMinusSlowK * $slowEMA);
@@ -411,6 +413,7 @@ trait TraderOriginal
                 if ($tmp > 0.0) {
                     $ad += ((($close - $low) - ($high - $close)) / $tmp) * $inVolume[$today];
                 }
+                $today++;
             }
             $fastEMA            = ($fastK * $ad) + ($oneMinusFastK * $fastEMA);
             $slowEMA            = ($slowK * $ad) + ($oneMinusSlowK * $slowEMA);
@@ -420,7 +423,7 @@ trait TraderOriginal
         $outNBElement->value = $outIdx;
 
         //return RetCode.Success;
-        return $outReal;
+        return RetCode::Success;
     }
 
     protected function emaLookback(int $optInTimePeriod)
