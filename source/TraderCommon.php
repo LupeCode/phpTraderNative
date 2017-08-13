@@ -89,9 +89,4 @@ trait TraderCommon
         return true;
     }
 
-    private static function PeriodToK(float $periods)
-    {
-        return 2.0 / $periods + 1;
-    }
-
 }
