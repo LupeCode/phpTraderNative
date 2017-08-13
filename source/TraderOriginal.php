@@ -6,61 +6,135 @@ trait TraderOriginal
 {
     use TraderCommon;
 
-    public static function trader_ad(array $inHigh, array $inLow, array $inClose, array $inVolume)
+    protected static $unstablePeriod = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    public static function getUnstablePeriod(int $id): int
     {
-        self::compareArrayCount($inHigh, $inLow, $inClose, $inVolume);
+        return static::$unstablePeriod[$id];
+    }
 
-        $ad      = 0.0;
-        $outReal = [];
-        $count   = count($inHigh);
+    public static function setUnstablePeriod(int $id, int $period): int
+    {
+        if ($id > FuncUnstId::ALL) {
+            return RetCode::BadParam;
+        }
+        static::$unstablePeriod[$id] = $period;
 
-        for ($i = 0; $i < $count; $i++) {
-            $high   = $inHigh[$i];
-            $low    = $inLow[$i];
-            $diff   = $high - $low;
-            $close  = $inClose[$i];
-            $volume = $inVolume[$i];
-            if ($diff > 0.0) {
-                $ad += ((($close - $low) - ($high - $close)) / $diff) * ((float)$volume);
+        return RetCode::Success;
+    }
+
+    protected static function checkStartEnd(int $startIdx, int $endIdx)
+    {
+        if ($startIdx < 0) {
+            return RetCode::OutOfRangeStartIndex;
+        }
+        if ($endIdx < 0 || $endIdx < $startIdx) {
+            return RetCode::OutOfRangeEndIndex;
+        }
+
+        return 0;
+    }
+
+    public static function trader_acos(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
+    {
+        $error = self::checkStartEnd($startIdx, $endIdx);
+        if ($error) {
+            return $error;
+        }
+
+        for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
+            $outReal[$outIdx] = acos($inReal[$i]);
+        }
+        $outNBElement->value = $outIdx;
+        $outBegIdx->value    = $startIdx;
+
+        return RetCode::Success;
+    }
+
+    public static function trader_ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
+    {
+        $error = self::checkStartEnd($startIdx, $endIdx);
+        if ($error) {
+            return $error;
+        }
+
+        $nbBar               = $endIdx - $startIdx + 1;
+        $outNBElement->value = $nbBar;
+        $outBegIdx->value    = $startIdx;
+        $currentBar          = $startIdx;
+        $outIdx              = 0;
+        $ad                  = 0.;
+        while ($nbBar !== 0) {
+            $high  = $inHigh[$currentBar];
+            $low   = $inLow[$currentBar];
+            $tmp   = $high - $low;
+            $close = $inClose[$currentBar];
+            if ($tmp > 0.) {
+                $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((float)$inVolume[$currentBar]);
             }
-            $outReal[$i] = $ad;
+            $outReal[$outIdx++] = $ad;
+            $currentBar++;
+            $nbBar--;
         }
 
-        return $outReal;
+        return RetCode::Success;
     }
 
-    public static function trader_acos(array $inReal)
+    public static function trader_add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
-        $outReal = [];
-        foreach ($inReal as $key => $value) {
-            $outReal[$key] = acos($value);
+        $error = self::checkStartEnd($startIdx, $endIdx);
+        if ($error) {
+            return $error;
         }
 
-        return $outReal;
-    }
-
-    public static function trader_add(array $real0, array $real1)
-    {
-        self::compareArrayCount($real0, $real1);
-
-        $outReal = [];
-        $count   = count($real0);
-        for ($i = 0; $i < $count; $i++) {
-            $outReal[$i] = $real0[$i] + $real1[$i];
+        for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
+            $outReal[$outIdx] = $inReal0[$i] + $inReal1[$i];
         }
 
-        return $outReal;
+        $outNBElement->value = $outIdx;
+        $outBegIdx->value    = $startIdx;
+
+        return RetCode::Success;
     }
 
-    public static function trader_adosc(array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod = 3, int $optInSlowPeriod = 10)
+    public static function trader_adosc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod = 3, int $optInSlowPeriod = 10, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
-        self::compareArrayCount($inHigh, $inLow, $inClose, $inVolume);
+        $error = self::checkStartEnd($startIdx, $endIdx);
+        if ($error) {
+            return $error;
+        }
 
+        if ((int)$optInFastPeriod == PHP_INT_MIN) {
+            $optInFastPeriod = 3;
+        } elseif ((int)$optInFastPeriod < 2 || (int)$optInFastPeriod > 1000) {
+            return RetCode::BadParam;
+        }
+        if ((int)$optInSlowPeriod == PHP_INT_MIN) {
+            $optInSlowPeriod = 3;
+        } elseif ((int)$optInSlowPeriod < 2 || (int)$optInSlowPeriod > 1000) {
+            return RetCode::BadParam;
+        }
         if ($optInFastPeriod < $optInSlowPeriod) {
             $slowestPeriod = $optInSlowPeriod;
         } else {
             $slowestPeriod = $optInFastPeriod;
         }
+
+        $lookbackTotal = self::trader_emaLookback($slowestPeriod);
+        if ($startIdx < $lookbackTotal) {
+            $startIdx = $lookbackTotal;
+        }
+        if ($startIdx > $endIdx) {
+            $outBegIdx->value    = 0;
+            $outNBElement->value = 0;
+
+            return RetCode::Success;
+        }
+
+        $outBegIdx->value=$startIdx;
+        $today = $startIdx-$lookbackTotal;
+        $ad=0.;
+
 
         $fastK         = self::PeriodToK($optInFastPeriod);
         $slowK         = self::PeriodToK($optInSlowPeriod);
@@ -82,13 +156,24 @@ trait TraderOriginal
         $count = count($inHigh);
 
         for (; $today < $count; $today++) {
-            $ad        = static::trader_ad([$inHigh[$today]], [$inLow[$today]], [$inClose[$today]], [$inVolume[$today]])[0];
-            $fastEMA   = ($fastK * $ad) + ($OneMinusFastK * $fastEMA);
-            $slowEMA   = ($slowK * $ad) + ($OneMinusSlowK * $slowEMA);
+            $ad              = static::trader_ad([$inHigh[$today]], [$inLow[$today]], [$inClose[$today]], [$inVolume[$today]])[0];
+            $fastEMA         = ($fastK * $ad) + ($OneMinusFastK * $fastEMA);
+            $slowEMA         = ($slowK * $ad) + ($OneMinusSlowK * $slowEMA);
             $outReal[$today] = $fastEMA - $slowEMA;
         }
 
         return $outReal;
+    }
+
+    public static function trader_emaLookback(int $optInTimePeriod)
+    {
+        if ((int)$optInTimePeriod == PHP_INT_MIN) {
+            $optInTimePeriod = 30;
+        } elseif ((int)$optInTimePeriod < 2 || (int)$optInTimePeriod > 100000) {
+            return -1;
+        }
+
+        return $optInTimePeriod - 1 + static::$unstablePeriod[FuncUnstId::EMA];
     }
 
 }

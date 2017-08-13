@@ -23,10 +23,12 @@ trait TraderTrait
      */
     public static function acos(array $real): array
     {
-        $return = static::trader_acos($real);
-        static::checkForError();
+        $values  = array_values($real);
+        $outReal = [];
+        $return  = static::trader_acos(0, count($values), $values, new MInteger(), new MInteger(), $outReal);
+        static::checkForError($return);
 
-        return $return;
+        return $outReal;
     }
 
     /**
@@ -41,10 +43,16 @@ trait TraderTrait
      */
     public static function ad(array $high, array $low, array $close, array $volume): array
     {
-        $return = static::trader_ad($high, $low, $close, $volume);
-        static::checkForError();
+        self::compareArrayCount($high, $low, $close, $volume);
+        $high    = array_values($high);
+        $low     = array_values($low);
+        $close   = array_values($close);
+        $volume  = array_values($volume);
+        $outReal = [];
+        $return  = static::trader_ad(0, count($high), $high, $low, $close, $volume, new MInteger(), new MInteger(), $outReal);
+        static::checkForError($return);
 
-        return $return;
+        return $outReal;
     }
 
     /**
@@ -57,10 +65,14 @@ trait TraderTrait
      */
     public static function add(array $real0, array $real1): array
     {
-        $return = static::trader_add($real0, $real1);
-        static::checkForError();
+        self::compareArrayCount($real0, $real1);
+        $real0   = array_values($real0);
+        $real1   = array_values($real1);
+        $outReal = [];
+        $return  = static::trader_add(0, count($real0), $real0, $real1, new MInteger(), new MInteger(), $outReal);
+        static::checkForError($return;
 
-        return $return;
+        return $outReal;
     }
 
     /**
