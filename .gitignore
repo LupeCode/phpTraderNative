@@ -37,3 +37,4 @@ nbproject
 #############################
 .*
 !/.gitignore
+/ta-lib/

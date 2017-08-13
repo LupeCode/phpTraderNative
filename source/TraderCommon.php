@@ -61,73 +61,16 @@ trait TraderCommon
     public static $TRADER_ERR_NOT_SUPPORTED             = 16;
     public static $TRADER_ERR_INTERNAL_ERROR            = 5000;
     public static $TRADER_ERR_UNKNOWN_ERROR             = 65535;
-    //
-    ///**
-    // * @deprecated
-    // * @throws \Exception
-    // */
-    //private static function checkForError()
-    //{
-    //    $ErrorCode = trader_errno();
-    //    if ($ErrorCode === static::$TRADER_ERR_SUCCESS) {
-    //        return;
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_LIB_NOT_INITIALIZE) {
-    //        throw new \Exception("Library not initialized", static::$TRADER_ERR_LIB_NOT_INITIALIZE);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_BAD_PARAM) {
-    //        throw new \Exception("Bad parameter", static::$TRADER_ERR_BAD_PARAM);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_ALLOC_ERR) {
-    //        throw new \Exception("Allocation error", static::$TRADER_ERR_ALLOC_ERR);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_GROUP_NOT_FOUND) {
-    //        throw new \Exception("Group not found", static::$TRADER_ERR_GROUP_NOT_FOUND);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_FUNC_NOT_FOUND) {
-    //        throw new \Exception("Function not found", static::$TRADER_ERR_FUNC_NOT_FOUND);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INVALID_HANDLE) {
-    //        throw new \Exception("Invalid handle", static::$TRADER_ERR_INVALID_HANDLE);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INVALID_PARAM_HOLDER) {
-    //        throw new \Exception("Invalid parameter holder", static::$TRADER_ERR_INVALID_PARAM_HOLDER);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INVALID_PARAM_HOLDER_TYPE) {
-    //        throw new \Exception("Invalid parameter holder type", static::$TRADER_ERR_INVALID_PARAM_HOLDER_TYPE);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INVALID_PARAM_FUNCTION) {
-    //        throw new \Exception("Invalid parameter function", static::$TRADER_ERR_INVALID_PARAM_FUNCTION);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INPUT_NOT_ALL_INITIALIZE) {
-    //        throw new \Exception("Input not all initialized", static::$TRADER_ERR_INPUT_NOT_ALL_INITIALIZE);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_OUTPUT_NOT_ALL_INITIALIZE) {
-    //        throw new \Exception("Output not all initialized", static::$TRADER_ERR_OUTPUT_NOT_ALL_INITIALIZE);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_OUT_OF_RANGE_START_INDEX) {
-    //        throw new \Exception("Out of range on start index", static::$TRADER_ERR_OUT_OF_RANGE_START_INDEX);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_OUT_OF_RANGE_END_INDEX) {
-    //        throw new \Exception("Out of range on end index", static::$TRADER_ERR_OUT_OF_RANGE_END_INDEX);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INVALID_LIST_TYPE) {
-    //        throw new \Exception("Invalid list type", static::$TRADER_ERR_INVALID_LIST_TYPE);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_BAD_OBJECT) {
-    //        throw new \Exception("Bad object", static::$TRADER_ERR_BAD_OBJECT);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_NOT_SUPPORTED) {
-    //        throw new \Exception("Not supported", static::$TRADER_ERR_NOT_SUPPORTED);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_INTERNAL_ERROR) {
-    //        throw new \Exception("Internal error", static::$TRADER_ERR_INTERNAL_ERROR);
-    //    }
-    //    if ($ErrorCode === static::$TRADER_ERR_UNKNOWN_ERROR) {
-    //        throw new \Exception("Unknown error", static::$TRADER_ERR_UNKNOWN_ERROR);
-    //    }
-    //
-    //}
+
+    private static function checkForError(int $retCode)
+    {
+        switch($retCode){
+            case RetCode::Success:
+                return;
+            case RetCode::BadParam:
+                throw new \Exception("Bad Parameters");
+        }
+    }
 
     /**
      * @param \array[] ...$array
