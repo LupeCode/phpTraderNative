@@ -4,13 +4,13 @@ namespace LupeCode\phpTraderNative;
 
 class MAType
 {
-    const SMA   = 1;
-    const EMA   = 2;
-    const WMA   = 3;
-    const DEMA  = 4;
-    const TEMA  = 5;
-    const TRIMA = 6;
-    const KAMA  = 7;
-    const MAMA  = 8;
-    const T3    = 9;
+    const SMA   = 0;
+    const EMA   = 1;
+    const WMA   = 2;
+    const DEMA  = 3;
+    const TEMA  = 4;
+    const TRIMA = 5;
+    const KAMA  = 6;
+    const MAMA  = 7;
+    const T3    = 8;
 }

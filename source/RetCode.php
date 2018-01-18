@@ -4,10 +4,10 @@ namespace LupeCode\phpTraderNative;
 
 class RetCode
 {
-    const Success              = 1;
-    const BadParam             = 2;
-    const OutOfRangeStartIndex = 3;
-    const OutOfRangeEndIndex   = 4;
-    const AllocError           = 5;
-    const InternalError        = 6;
+    const Success              = 0;
+    const BadParam             = 1;
+    const OutOfRangeStartIndex = 2;
+    const OutOfRangeEndIndex   = 3;
+    const AllocError           = 4;
+    const InternalError        = 5;
 }

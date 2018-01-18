@@ -7,9 +7,9 @@ class CandleSetting
 
     //<editor-fold defaultstate="collapsed" desc="Protected Members">
 
-    /** @var int */
+    /** @var CandleSettingType */
     public $settingType;
-    /** @var int */
+    /** @var RangeType */
     public $rangeType;
     /** @var int */
     public $avgPeriod;
@@ -26,7 +26,7 @@ class CandleSetting
 
     //</editor-fold>
 
-    public function __construct(int $settingType, int $rangeType = null, int $avgPeriod = null, float $factor = null)
+    public function __construct(CandleSettingType $settingType, RangeType $rangeType = null, int $avgPeriod = null, float $factor = null)
     {
         $this->settingType = $settingType;
         $this->rangeType   = $rangeType;
@@ -40,6 +40,14 @@ class CandleSetting
         $this->rangeType   = $source->rangeType;
         $this->avgPeriod   = $source->avgPeriod;
         $this->factor      = $source->factor;
+    }
+
+    public function candleSetting(CandleSetting $that)
+    {
+        $this->settingType = $that->settingType;
+        $this->rangeType   = $that->rangeType;
+        $this->avgPeriod   = $that->avgPeriod;
+        $this->factor      = $that->factor;
     }
 
 }

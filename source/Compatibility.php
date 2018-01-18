@@ -4,6 +4,6 @@ namespace LupeCode\phpTraderNative;
 
 class Compatibility
 {
-    const Default   = 1;
-    const Metastock = 2;
+    const Default   = 0;
+    const Metastock = 1;
 }
