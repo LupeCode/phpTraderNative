@@ -93,19 +93,23 @@ class Core
         return RetCode::Success;
     }
 
-    public function GetUnstablePeriod(int $id): int {
+    public function GetUnstablePeriod(int $id): int
+    {
         return $this->unstablePeriod[$id];
     }
 
-    public function SetCompatibility(int $compatibility) {
+    public function SetCompatibility(int $compatibility)
+    {
         $this->compatibility = $compatibility;
     }
 
-    public function getCompatibility(): int {
+    public function getCompatibility(): int
+    {
         return $this->compatibility;
     }
 
-    public function acosLookback(): int {
+    public function acosLookback(): int
+    {
         return 0;
     }
 
@@ -136,7 +140,8 @@ class Core
         return RetCode::Success;
     }
 
-    public function adLookback():int {
+    public function adLookback(): int
+    {
         return 0;
     }
 
@@ -153,315 +158,200 @@ class Core
      *
      * @return int
      */
-    public function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int {
-        if ($startIdx < 0)
+    public function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
+    {
+        if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
-        if (($endIdx < 0) || ($endIdx < $startIdx))
+        }
+        if (($endIdx < 0) || ($endIdx < $startIdx)) {
             return RetCode::OutOfRangeEndIndex;
-        $nbBar = $endIdx - $startIdx + 1;
+        }
+        $nbBar               = $endIdx - $startIdx + 1;
         $outNBElement->value = $nbBar;
-        $outBegIdx->value = $startIdx;
-        $currentBar = $startIdx;
-        $outIdx = 0;
-        $ad = 0.0;
+        $outBegIdx->value    = $startIdx;
+        $currentBar          = $startIdx;
+        $outIdx              = 0;
+        $ad                  = 0.0;
         while ($nbBar != 0) {
-            $high = $inHigh[$currentBar];
-            $low = $inLow[$currentBar];
-            $tmp = $high - $low;
+            $high  = $inHigh[$currentBar];
+            $low   = $inLow[$currentBar];
+            $tmp   = $high - $low;
             $close = $inClose[$currentBar];
-            if ($tmp > 0.0)
-                $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double) $inVolume[$currentBar]);
+            if ($tmp > 0.0) {
+                $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$currentBar]);
+            }
             $outReal[$outIdx++] = $ad;
             $currentBar++;
             $nbBar--;
         }
+
         return RetCode::Success;
     }
 
-//    public RetCode ad(int startIdx,
-//                      int endIdx,
-//                      float inHigh[],
-//                      float inLow[],
-//                      float inClose[],
-//                      float inVolume[],
-//                      MInteger outBegIdx,
-//                      MInteger outNBElement,
-//                      double outReal[]) {
-//        int nbBar, currentBar, outIdx;
-//        double high, low, close, tmp;
-//        double ad;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        nbBar = endIdx - startIdx + 1;
-//        outNBElement.value = nbBar;
-//        outBegIdx.value = startIdx;
-//        currentBar = startIdx;
-//        outIdx = 0;
-//        ad = 0.0;
-//        while (nbBar != 0) {
-//            high = inHigh[currentBar];
-//            low = inLow[currentBar];
-//            tmp = high - low;
-//            close = inClose[currentBar];
-//            if (tmp > 0.0)
-//                ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[currentBar]);
-//            outReal[outIdx++] = ad;
-//            currentBar++;
-//            nbBar--;
-//        }
-//        return RetCode.Success;
-//    }
-//
-//    /* Generated */
-//    public int addLookback() {
-//        return 0;
-//    }
-//
-//    public RetCode add(int startIdx,
-//                       int endIdx,
-//                       double inReal0[],
-//                       double inReal1[],
-//                       MInteger outBegIdx,
-//                       MInteger outNBElement,
-//                       double outReal[]) {
-//        int outIdx;
-//        int i;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        for (i = startIdx, outIdx = 0; i <= endIdx; i++, outIdx++) {
-//            outReal[outIdx] = inReal0[i] + inReal1[i];
-//        }
-//        outNBElement.value = outIdx;
-//        outBegIdx.value = startIdx;
-//        return RetCode.Success;
-//    }
-//
-//    public RetCode add(int startIdx,
-//                       int endIdx,
-//                       float inReal0[],
-//                       float inReal1[],
-//                       MInteger outBegIdx,
-//                       MInteger outNBElement,
-//                       double outReal[]) {
-//        int outIdx;
-//        int i;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        for (i = startIdx, outIdx = 0; i <= endIdx; i++, outIdx++) {
-//            outReal[outIdx] = inReal0[i] + inReal1[i];
-//        }
-//        outNBElement.value = outIdx;
-//        outBegIdx.value = startIdx;
-//        return RetCode.Success;
-//    }
-//
-//    /* Generated */
-//    public int adOscLookback(int optInFastPeriod,
-//                             int optInSlowPeriod) {
-//        int slowestPeriod;
-//        if ((int) optInFastPeriod == (Integer.MIN_VALUE))
-//            optInFastPeriod = 3;
-//        else if (((int) optInFastPeriod < 2) || ((int) optInFastPeriod > 100000))
-//            return -1;
-//        if ((int) optInSlowPeriod == (Integer.MIN_VALUE))
-//            optInSlowPeriod = 10;
-//        else if (((int) optInSlowPeriod < 2) || ((int) optInSlowPeriod > 100000))
-//            return -1;
-//        if (optInFastPeriod < optInSlowPeriod)
-//            slowestPeriod = optInSlowPeriod;
-//        else
-//            slowestPeriod = optInFastPeriod;
-//        return emaLookback(slowestPeriod);
-//    }
-//
-//    public RetCode adOsc(int startIdx,
-//                         int endIdx,
-//                         double inHigh[],
-//                         double inLow[],
-//                         double inClose[],
-//                         double inVolume[],
-//                         int optInFastPeriod,
-//                         int optInSlowPeriod,
-//                         MInteger outBegIdx,
-//                         MInteger outNBElement,
-//                         double outReal[]) {
-//        int today, outIdx, lookbackTotal;
-//        int slowestPeriod;
-//        double high, low, close, tmp;
-//        double slowEMA, slowk, one_minus_slowk;
-//        double fastEMA, fastk, one_minus_fastk;
-//        double ad;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        if ((int) optInFastPeriod == (Integer.MIN_VALUE))
-//            optInFastPeriod = 3;
-//        else if (((int) optInFastPeriod < 2) || ((int) optInFastPeriod > 100000))
-//            return RetCode.BadParam;
-//        if ((int) optInSlowPeriod == (Integer.MIN_VALUE))
-//            optInSlowPeriod = 10;
-//        else if (((int) optInSlowPeriod < 2) || ((int) optInSlowPeriod > 100000))
-//            return RetCode.BadParam;
-//        if (optInFastPeriod < optInSlowPeriod)
-//            slowestPeriod = optInSlowPeriod;
-//        else
-//            slowestPeriod = optInFastPeriod;
-//        lookbackTotal = emaLookback(slowestPeriod);
-//        if (startIdx < lookbackTotal)
-//            startIdx = lookbackTotal;
-//        if (startIdx > endIdx) {
-//            outBegIdx.value = 0;
-//            outNBElement.value = 0;
-//            return RetCode.Success;
-//        }
-//        outBegIdx.value = startIdx;
-//        today = startIdx - lookbackTotal;
-//        ad = 0.0;
-//        fastk = ((double) 2.0 / ((double) (optInFastPeriod + 1)));
-//        one_minus_fastk = 1.0 - fastk;
-//        slowk = ((double) 2.0 / ((double) (optInSlowPeriod + 1)));
-//        one_minus_slowk = 1.0 - slowk;
-//        {
-//            high = inHigh[today];
-//            low = inLow[today];
-//            tmp = high - low;
-//            close = inClose[today];
-//            if (tmp > 0.0) ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[today]);
-//            today++;
-//        }
-//        ;
-//        fastEMA = ad;
-//        slowEMA = ad;
-//        while (today < startIdx) {
-//            {
-//                high = inHigh[today];
-//                low = inLow[today];
-//                tmp = high - low;
-//                close = inClose[today];
-//                if (tmp > 0.0) ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[today]);
-//                today++;
-//            }
-//            ;
-//            fastEMA = (fastk * ad) + (one_minus_fastk * fastEMA);
-//            slowEMA = (slowk * ad) + (one_minus_slowk * slowEMA);
-//        }
-//        outIdx = 0;
-//        while (today <= endIdx) {
-//            {
-//                high = inHigh[today];
-//                low = inLow[today];
-//                tmp = high - low;
-//                close = inClose[today];
-//                if (tmp > 0.0) ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[today]);
-//                today++;
-//            }
-//            ;
-//            fastEMA = (fastk * ad) + (one_minus_fastk * fastEMA);
-//            slowEMA = (slowk * ad) + (one_minus_slowk * slowEMA);
-//            outReal[outIdx++] = fastEMA - slowEMA;
-//        }
-//        outNBElement.value = outIdx;
-//        return RetCode.Success;
-//    }
-//
-//    public RetCode adOsc(int startIdx,
-//                         int endIdx,
-//                         float inHigh[],
-//                         float inLow[],
-//                         float inClose[],
-//                         float inVolume[],
-//                         int optInFastPeriod,
-//                         int optInSlowPeriod,
-//                         MInteger outBegIdx,
-//                         MInteger outNBElement,
-//                         double outReal[]) {
-//        int today, outIdx, lookbackTotal;
-//        int slowestPeriod;
-//        double high, low, close, tmp;
-//        double slowEMA, slowk, one_minus_slowk;
-//        double fastEMA, fastk, one_minus_fastk;
-//        double ad;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        if ((int) optInFastPeriod == (Integer.MIN_VALUE))
-//            optInFastPeriod = 3;
-//        else if (((int) optInFastPeriod < 2) || ((int) optInFastPeriod > 100000))
-//            return RetCode.BadParam;
-//        if ((int) optInSlowPeriod == (Integer.MIN_VALUE))
-//            optInSlowPeriod = 10;
-//        else if (((int) optInSlowPeriod < 2) || ((int) optInSlowPeriod > 100000))
-//            return RetCode.BadParam;
-//        if (optInFastPeriod < optInSlowPeriod)
-//            slowestPeriod = optInSlowPeriod;
-//        else
-//            slowestPeriod = optInFastPeriod;
-//        lookbackTotal = emaLookback(slowestPeriod);
-//        if (startIdx < lookbackTotal)
-//            startIdx = lookbackTotal;
-//        if (startIdx > endIdx) {
-//            outBegIdx.value = 0;
-//            outNBElement.value = 0;
-//            return RetCode.Success;
-//        }
-//        outBegIdx.value = startIdx;
-//        today = startIdx - lookbackTotal;
-//        ad = 0.0;
-//        fastk = ((double) 2.0 / ((double) (optInFastPeriod + 1)));
-//        one_minus_fastk = 1.0 - fastk;
-//        slowk = ((double) 2.0 / ((double) (optInSlowPeriod + 1)));
-//        one_minus_slowk = 1.0 - slowk;
-//        {
-//            high = inHigh[today];
-//            low = inLow[today];
-//            tmp = high - low;
-//            close = inClose[today];
-//            if (tmp > 0.0) ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[today]);
-//            today++;
-//        }
-//        ;
-//        fastEMA = ad;
-//        slowEMA = ad;
-//        while (today < startIdx) {
-//            {
-//                high = inHigh[today];
-//                low = inLow[today];
-//                tmp = high - low;
-//                close = inClose[today];
-//                if (tmp > 0.0) ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[today]);
-//                today++;
-//            }
-//            ;
-//            fastEMA = (fastk * ad) + (one_minus_fastk * fastEMA);
-//            slowEMA = (slowk * ad) + (one_minus_slowk * slowEMA);
-//        }
-//        outIdx = 0;
-//        while (today <= endIdx) {
-//            {
-//                high = inHigh[today];
-//                low = inLow[today];
-//                tmp = high - low;
-//                close = inClose[today];
-//                if (tmp > 0.0) ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[today]);
-//                today++;
-//            }
-//            ;
-//            fastEMA = (fastk * ad) + (one_minus_fastk * fastEMA);
-//            slowEMA = (slowk * ad) + (one_minus_slowk * slowEMA);
-//            outReal[outIdx++] = fastEMA - slowEMA;
-//        }
-//        outNBElement.value = outIdx;
-//        return RetCode.Success;
-//    }
-//
+    public function addLookback(): int
+    {
+        return 0;
+    }
+
+    /**
+     * @param int                                $startIdx
+     * @param int                                $endIdx
+     * @param double[]                           $inReal0
+     * @param double[]                           $inReal1
+     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
+     * @param double[]                           $outReal
+     *
+     * @return int
+     */
+    public function add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
+    {
+        if ($startIdx < 0) {
+            return RetCode::OutOfRangeStartIndex;
+        }
+        if (($endIdx < 0) || ($endIdx < $startIdx)) {
+            return RetCode::OutOfRangeEndIndex;
+        }
+        for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
+            $outReal[$outIdx] = $inReal0[$i] + $inReal1[$i];
+        }
+        $outNBElement->value = $outIdx;
+        $outBegIdx->value    = $startIdx;
+
+        return RetCode::Success;
+    }
+
+    public function adOscLookback(int $optInFastPeriod, int $optInSlowPeriod): int
+    {
+        if ((int)$optInFastPeriod == (\PHP_INT_MIN)) {
+            $optInFastPeriod = 3;
+        } else {
+            if (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+                return -1;
+            }
+        }
+        if ((int)$optInSlowPeriod == (\PHP_INT_MIN)) {
+            $optInSlowPeriod = 10;
+        } else {
+            if (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+                return -1;
+            }
+        }
+        if ($optInFastPeriod < $optInSlowPeriod) {
+            $slowestPeriod = $optInSlowPeriod;
+        } else {
+            $slowestPeriod = $optInFastPeriod;
+        }
+
+        return $this->emaLookback($slowestPeriod);
+    }
+
+    /**
+     * @param int                                $startIdx
+     * @param int                                $endIdx
+     * @param double[]                           $inHigh
+     * @param double[]                           $inLow
+     * @param double[]                           $inClose
+     * @param double[]                           $inVolume
+     * @param int                                $optInFastPeriod
+     * @param int                                $optInSlowPeriod
+     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
+     * @param double[]                           $outReal
+     *
+     * @return int
+     */
+    public function adOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod, int $optInSlowPeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
+    {
+        if ($startIdx < 0) {
+            return RetCode::OutOfRangeStartIndex;
+        }
+        if (($endIdx < 0) || ($endIdx < $startIdx)) {
+            return RetCode::OutOfRangeEndIndex;
+        }
+        if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
+            $optInFastPeriod = 3;
+        } else {
+            if (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+                return RetCode::BadParam;
+            }
+        }
+        if ((int)$optInSlowPeriod == (PHP_INT_MIN)) {
+            $optInSlowPeriod = 10;
+        } else {
+            if (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+                return RetCode::BadParam;
+            }
+        }
+        if ($optInFastPeriod < $optInSlowPeriod) {
+            $slowestPeriod = $optInSlowPeriod;
+        } else {
+            $slowestPeriod = $optInFastPeriod;
+        }
+        $lookbackTotal = emaLookback($slowestPeriod);
+        if ($startIdx < $lookbackTotal) {
+            $startIdx = $lookbackTotal;
+        }
+        if ($startIdx > $endIdx) {
+            $outBegIdx->value    = 0;
+            $outNBElement->value = 0;
+
+            return RetCode::Success;
+        }
+        $outBegIdx->value = $startIdx;
+        $today            = $startIdx - $lookbackTotal;
+        $ad               = 0.0;
+        $fastk            = ((double)2.0 / ((double)($optInFastPeriod + 1)));
+        $one_minus_fastk  = 1.0 - $fastk;
+        $slowk            = ((double)2.0 / ((double)($optInSlowPeriod + 1)));
+        $one_minus_slowk  = 1.0 - $slowk;
+        {
+            $high  = $inHigh[$today];
+            $low   = $inLow[$today];
+            $tmp   = $high - $low;
+            $close = $inClose[$today];
+            if ($tmp > 0.0) {
+                $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
+            }
+            $today++;
+        };
+        $fastEMA = $ad;
+        $slowEMA = $ad;
+        while ($today < $startIdx) {
+            {
+                $high  = $inHigh[$today];
+                $low   = $inLow[$today];
+                $tmp   = $high - $low;
+                $close = $inClose[$today];
+                if ($tmp > 0.0) {
+                    $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
+                }
+                $today++;
+            };
+            $fastEMA = ($fastk * $ad) + ($one_minus_fastk * $fastEMA);
+            $slowEMA = ($slowk * $ad) + ($one_minus_slowk * $slowEMA);
+        }
+        $outIdx = 0;
+        while ($today <= $endIdx) {
+            {
+                $high  = $inHigh[$today];
+                $low   = $inLow[$today];
+                $tmp   = $high - $low;
+                $close = $inClose[$today];
+                if ($tmp > 0.0) {
+                    $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
+                }
+                $today++;
+            };
+            $fastEMA            = ($fastk * $ad) + ($one_minus_fastk * $fastEMA);
+            $slowEMA            = ($slowk * $ad) + ($one_minus_slowk * $slowEMA);
+            $outReal[$outIdx++] = $fastEMA - $slowEMA;
+        }
+        $outNBElement->value = $outIdx;
+
+        return RetCode::Success;
+    }
+
 //    /* Generated */
 //    public int adxLookback(int optInTimePeriod) {
 //        if ((int) optInTimePeriod == (Integer.MIN_VALUE))
@@ -12087,16 +11977,20 @@ class Core
 //        outNBElement.value = outIdx;
 //        return RetCode.Success;
 //    }
-//
-//    /* Generated */
-//    public int emaLookback(int optInTimePeriod) {
-//        if ((int) optInTimePeriod == (Integer.MIN_VALUE))
-//            optInTimePeriod = 30;
-//        else if (((int) optInTimePeriod < 2) || ((int) optInTimePeriod > 100000))
-//            return -1;
-//        return optInTimePeriod - 1 + (this.unstablePeriod[FuncUnstId.Ema.ordinal()]);
-//    }
-//
+
+    public function emaLookback(int $optInTimePeriod): int
+    {
+        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+            $optInTimePeriod = 30;
+        } else {
+            if (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+                return -1;
+            }
+        }
+
+        return $optInTimePeriod - 1 + ($this->unstablePeriod[FuncUnstId::EMA]);
+    }
+
 //    public RetCode ema(int startIdx,
 //                       int endIdx,
 //                       double inReal[],
