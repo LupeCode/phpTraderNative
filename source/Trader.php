@@ -53,24 +53,4 @@ class Trader
 
     use TraderTrait;
 
-//<editor-fold defaultstate="collapsed" desc="Public Members">
-
-//</editor-fold>
-
-//<editor-fold defaultstate="collapsed" desc="Protected Members">
-
-//</editor-fold>
-
-//<editor-fold defaultstate="collapsed" desc="Private Members">
-
-//</editor-fold>
-
-//<editor-fold defaultstate="collapsed" desc="Constant Members">
-
-//</editor-fold>
-
-//<editor-fold defaultstate="collapsed" desc="Getters and Setters">
-
-//</editor-fold>
-
 }
