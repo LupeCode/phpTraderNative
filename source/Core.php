@@ -14,26 +14,30 @@ class Core
     public function __construct()
     {
         $this->TA_CandleDefaultSettings = $this->TA_CandleDefaultSettings();
-        $this->unstablePeriod = [FuncUnstId::ALL];
-        $this->compatibility = Compatibility::Default;
-        $this->candleSettings = \array_fill(0, CandleSettingType::AllCandleSettings, null);
-        for($i = 0; $i < count($this->candleSettings); $i++) {
+        $this->unstablePeriod           = [FuncUnstId::ALL];
+        $this->compatibility            = Compatibility::Default;
+        $this->candleSettings           = \array_fill(0, CandleSettingType::AllCandleSettings, null);
+        for ($i = 0; $i < count($this->candleSettings); $i++) {
             $this->candleSettings[$i] = new CandleSetting($this->TA_CandleDefaultSettings[$i]);
         }
     }
 
     public function SetCandleSettings(int $settingType, int $rangeType, int $avgPeriod, float $factor)
     {
-        if($settingType >= CandleSettingType::AllCandleSettings)
+        if ($settingType >= CandleSettingType::AllCandleSettings) {
             return RetCode::BadParam;
+        }
         $this->candleSettings[$settingType]->settingType = $settingType;
-        $this->candleSettings[$settingType]->rangeType = $rangeType;
-        $this->candleSettings[$settingType]->avgPeriod = $avgPeriod;
-        $this->candleSettings[$settingType]->factor = $factor;
+        $this->candleSettings[$settingType]->rangeType   = $rangeType;
+        $this->candleSettings[$settingType]->avgPeriod   = $avgPeriod;
+        $this->candleSettings[$settingType]->factor      = $factor;
+
         return RetCode::Success;
     }
 
+    /** @var CandleSetting[] */
     protected $TA_CandleDefaultSettings;
+
     final protected function TA_CandleDefaultSettings()
     {
         return [
@@ -61,132 +65,119 @@ class Core
             new CandleSetting(CandleSettingType::Equal, RangeType::HighLow, 5, 0.05),
         ];
     }
-//
-//    public RetCode RestoreCandleDefaultSettings(
-//            CandleSettingType settingType) {
-//        int i;
-//        if (settingType.ordinal() > CandleSettingType.AllCandleSettings
-//                .ordinal())
-//            return RetCode.BadParam;
-//        if (settingType == CandleSettingType.AllCandleSettings) {
-//            for (i = 0; i < CandleSettingType.AllCandleSettings.ordinal(); ++i) {
-//                candleSettings[i].CopyFrom(TA_CandleDefaultSettings[i]);
-//            }
-//        } else {
-//            candleSettings[settingType.ordinal()]
-//                    .CopyFrom(TA_CandleDefaultSettings[settingType.ordinal()]);
-//        }
-//        return RetCode.Success;
-//    }
-//
-//    public RetCode SetUnstablePeriod(FuncUnstId id, int period) {
-//        if (id.ordinal() >= FuncUnstId.All
-//                .ordinal())
-//            return RetCode.BadParam;
-//        unstablePeriod[id.ordinal()] = period;
-//        return RetCode.Success;
-//    }
-//
-//    public int GetUnstablePeriod(FuncUnstId id) {
-//        return unstablePeriod[id.ordinal()];
-//    }
-//
-//    public void SetCompatibility(Compatibility compatibility) {
-//        this.compatibility = compatibility;
-//    }
-//
-//    public Compatibility getCompatibility() {
-//        return compatibility;
-//    }
-//
-//    /****
-//     * START GENCODE SECTION 1 - DO NOT DELETE THIS LINE
-//     ****/
-//    public int acosLookback() {
-//        return 0;
-//    }
-//
-//    public RetCode acos(int startIdx,
-//                        int endIdx,
-//                        double inReal[],
-//                        MInteger outBegIdx,
-//                        MInteger outNBElement,
-//                        double outReal[]) {
-//        int outIdx;
-//        int i;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        for (i = startIdx, outIdx = 0; i <= endIdx; i++, outIdx++) {
-//            outReal[outIdx] = Math.acos(inReal[i]);
-//        }
-//        outNBElement.value = outIdx;
-//        outBegIdx.value = startIdx;
-//        return RetCode.Success;
-//    }
-//
-//    public RetCode acos(int startIdx,
-//                        int endIdx,
-//                        float inReal[],
-//                        MInteger outBegIdx,
-//                        MInteger outNBElement,
-//                        double outReal[]) {
-//        int outIdx;
-//        int i;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        for (i = startIdx, outIdx = 0; i <= endIdx; i++, outIdx++) {
-//            outReal[outIdx] = Math.acos(inReal[i]);
-//        }
-//        outNBElement.value = outIdx;
-//        outBegIdx.value = startIdx;
-//        return RetCode.Success;
-//    }
-//
-//    /* Generated */
-//    public int adLookback() {
-//        return 0;
-//    }
-//
-//    public RetCode ad(int startIdx,
-//                      int endIdx,
-//                      double inHigh[],
-//                      double inLow[],
-//                      double inClose[],
-//                      double inVolume[],
-//                      MInteger outBegIdx,
-//                      MInteger outNBElement,
-//                      double outReal[]) {
-//        int nbBar, currentBar, outIdx;
-//        double high, low, close, tmp;
-//        double ad;
-//        if (startIdx < 0)
-//            return RetCode.OutOfRangeStartIndex;
-//        if ((endIdx < 0) || (endIdx < startIdx))
-//            return RetCode.OutOfRangeEndIndex;
-//        nbBar = endIdx - startIdx + 1;
-//        outNBElement.value = nbBar;
-//        outBegIdx.value = startIdx;
-//        currentBar = startIdx;
-//        outIdx = 0;
-//        ad = 0.0;
-//        while (nbBar != 0) {
-//            high = inHigh[currentBar];
-//            low = inLow[currentBar];
-//            tmp = high - low;
-//            close = inClose[currentBar];
-//            if (tmp > 0.0)
-//                ad += (((close - low) - (high - close)) / tmp) * ((double) inVolume[currentBar]);
-//            outReal[outIdx++] = ad;
-//            currentBar++;
-//            nbBar--;
-//        }
-//        return RetCode.Success;
-//    }
-//
+
+    public function RestoreCandleDefaultSettings(int $settingType): int
+    {
+        $i = 0;
+        if ($settingType > CandleSettingType::AllCandleSettings) {
+            return RetCode::BadParam;
+        }
+        if ($settingType === CandleSettingType::AllCandleSettings) {
+            for ($i = 0; $i < CandleSettingType::AllCandleSettings; ++$i) {
+                $this->candleSettings[$i]->CopyFrom($this->TA_CandleDefaultSettings[$i]);
+            }
+        } else {
+            $this->candleSettings[$settingType]->CopyFrom($this->TA_CandleDefaultSettings[$settingType]);
+        }
+
+        return RetCode::Success;
+    }
+
+    public function SetUnstablePeriod(int $id, int $period): int
+    {
+        if ($id >= FuncUnstId::ALL) {
+            return RetCode::BadParam;
+        }
+        $this->unstablePeriod[$id] = $period;
+
+        return RetCode::Success;
+    }
+
+    public function GetUnstablePeriod(int $id): int {
+        return $this->unstablePeriod[$id];
+    }
+
+    public function SetCompatibility(int $compatibility) {
+        $this->compatibility = $compatibility;
+    }
+
+    public function getCompatibility(): int {
+        return $this->compatibility;
+    }
+
+    public function acosLookback(): int {
+        return 0;
+    }
+
+    /**
+     * @param int                                $startIdx
+     * @param int                                $endIdx
+     * @param double[]                           $inReal
+     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
+     * @param double[]                           $outReal
+     *
+     * @return int
+     */
+    public function acos(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
+    {
+        if ($startIdx < 0) {
+            return RetCode::OutOfRangeStartIndex;
+        }
+        if (($endIdx < 0) || ($endIdx < $startIdx)) {
+            return RetCode::OutOfRangeEndIndex;
+        }
+        for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
+            $outReal[$outIdx] = acos($inReal[$i]);
+        }
+        $outNBElement->value = $outIdx;
+        $outBegIdx->value    = $startIdx;
+
+        return RetCode::Success;
+    }
+
+    public function adLookback():int {
+        return 0;
+    }
+
+    /**
+     * @param int                                $startIdx
+     * @param int                                $endIdx
+     * @param double[]                           $inHigh
+     * @param double[]                           $inLow
+     * @param double[]                           $inClose
+     * @param double[]                           $inVolume
+     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
+     * @param double[]                           $outReal
+     *
+     * @return int
+     */
+    public function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int {
+        if ($startIdx < 0)
+            return RetCode::OutOfRangeStartIndex;
+        if (($endIdx < 0) || ($endIdx < $startIdx))
+            return RetCode::OutOfRangeEndIndex;
+        $nbBar = $endIdx - $startIdx + 1;
+        $outNBElement->value = $nbBar;
+        $outBegIdx->value = $startIdx;
+        $currentBar = $startIdx;
+        $outIdx = 0;
+        $ad = 0.0;
+        while ($nbBar != 0) {
+            $high = $inHigh[$currentBar];
+            $low = $inLow[$currentBar];
+            $tmp = $high - $low;
+            $close = $inClose[$currentBar];
+            if ($tmp > 0.0)
+                $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double) $inVolume[$currentBar]);
+            $outReal[$outIdx++] = $ad;
+            $currentBar++;
+            $nbBar--;
+        }
+        return RetCode::Success;
+    }
+
 //    public RetCode ad(int startIdx,
 //                      int endIdx,
 //                      float inHigh[],
