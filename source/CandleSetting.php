@@ -34,7 +34,7 @@ class CandleSetting
         $this->factor      = $factor;
     }
 
-    public function copyFrom(CandleSetting $source)
+    public function CopyFrom(CandleSetting $source)
     {
         $this->settingType = $source->settingType;
         $this->rangeType   = $source->rangeType;
@@ -42,7 +42,7 @@ class CandleSetting
         $this->factor      = $source->factor;
     }
 
-    public function candleSetting(CandleSetting $that)
+    public function CandleSetting(CandleSetting $that)
     {
         $this->settingType = $that->settingType;
         $this->rangeType   = $that->rangeType;
