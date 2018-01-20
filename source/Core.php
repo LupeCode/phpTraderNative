@@ -68,7 +68,6 @@ class Core
 
     public function RestoreCandleDefaultSettings(int $settingType): int
     {
-        $i = 0;
         if ($settingType > CandleSettingType::AllCandleSettings) {
             return RetCode::BadParam;
         }
@@ -280,7 +279,7 @@ class Core
         } else {
             $slowestPeriod = $optInFastPeriod;
         }
-        $lookbackTotal = emaLookback($slowestPeriod);
+        $lookbackTotal = $this->emaLookback($slowestPeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -391,7 +390,6 @@ class Core
 
             return RetCode::Success;
         }
-        $outIdx           = 0;
         $outBegIdx->value = $today = $startIdx;
         $prevMinusDM      = 0.0;
         $prevPlusDM       = 0.0;
@@ -561,7 +559,7 @@ class Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + adxLookback($optInTimePeriod) - 1;
+            return $optInTimePeriod + $this->adxLookback($optInTimePeriod) - 1;
         } else {
             return 3;
         }
