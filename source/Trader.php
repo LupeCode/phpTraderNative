@@ -44,13 +44,7 @@
 
 namespace LupeCode\phpTraderNative;
 
-require_once __DIR__ . '/TraderCommon.php';
-require_once __DIR__ . '/TraderOriginal.php';
-require_once __DIR__ . '/TraderTrait.php';
-
 class Trader
 {
-
-    use TraderTrait;
 
 }
