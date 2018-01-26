@@ -1,6 +1,6 @@
 <?php
 
-namespace LupeCode\phpTraderNative;
+namespace LupeCode\phpTraderNative\ConvertedJava;
 
 class Compatibility
 {
