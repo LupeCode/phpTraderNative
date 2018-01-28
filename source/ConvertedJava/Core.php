@@ -327,7 +327,7 @@ class Core
             $fastEMA = ($fastK * $ad) + ($one_minus_fastK * $fastEMA);
             $slowEMA = ($slowK * $ad) + ($one_minus_slowK * $slowEMA);
         }
-        $outIdx = $outBegIdx->value;
+        $outIdx = 0;
         while ($today <= $endIdx) {
             {
                 $high  = $inHigh[$today];
@@ -510,8 +510,8 @@ class Core
                 }
             }
         }
-        $outReal[$outBegIdx->value++] = $prevADX;
-        $outIdx     = $outBegIdx->value;
+        $outReal[0] = $prevADX;
+        $outIdx     = 1;
         while ($today < $endIdx) {
             $today++;
             $tempReal    = $inHigh[$today];
@@ -611,9 +611,9 @@ class Core
         if ($retCode != RetCode::Success) {
             return $retCode;
         }
-        $i         = $optInTimePeriod + $outBegIdx->value - 2;
-        $j         = $outBegIdx->value - 1;
-        $outIdx    = $startIdx;
+        $i         = $optInTimePeriod - 1;
+        $j         = 0;
+        $outIdx    = 0;
         $nbElement = $endIdx - $startIdx + 2;
         while (--$nbElement != 0) {
             $outReal[$outIdx++] = (($adx[$i++] + $adx[$j++]) / 2.0);
@@ -7045,7 +7045,7 @@ class Core
             return $retCode;
         }
         $firstEMAIdx = $secondEMABegIdx->value;
-        $outIdx      = 0;
+        $outIdx = 0;
         while ($outIdx < $secondEMANbElement->value) {
             $outReal[$outIdx] = (2.0 * $firstEMA[$firstEMAIdx++]) - $secondEMA[$outIdx];
             $outIdx++;
@@ -7356,8 +7356,8 @@ class Core
         while ($today <= $startIdx) {
             $prevMA = (($inReal[$today++] - $prevMA) * $optInK_1) + $prevMA;
         }
-        $outReal[$today - 1] = $prevMA;
-        $outIdx     = $today;
+        $outReal[0] = $prevMA;
+        $outIdx     = 1;
         while ($today <= $endIdx) {
             $prevMA             = (($inReal[$today++] - $prevMA) * $optInK_1) + $prevMA;
             $outReal[$outIdx++] = $prevMA;
@@ -13892,7 +13892,7 @@ class Core
                 $periodTotal += $inReal[$i++];
             }
         }
-        $outIdx = $lookbackTotal;
+        $outIdx = 0;
         do {
             $periodTotal        += $inReal[$i++];
             $tempReal           = $periodTotal;
@@ -15929,11 +15929,11 @@ class Core
             return RetCode::Success;
         }
         $divider     = ($optInTimePeriod * ($optInTimePeriod + 1)) >> 1;
+        $outIdx      = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
         $periodSum   = $periodSub = (double)0.0;
         $inIdx       = $trailingIdx;
         $i           = 1;
-        $outIdx      = $startIdx;
         while ($inIdx < $startIdx) {
             $tempReal  = $inReal[$inIdx++];
             $periodSub += $tempReal;
