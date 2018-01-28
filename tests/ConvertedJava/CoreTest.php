@@ -208,46 +208,6 @@ class CoreTest extends TestCase
         return $newOutReal;
     }
 
-    public function test__construct()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSetCandleSettings()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testRestoreCandleDefaultSettings()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSetUnstablePeriod()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testGetUnstablePeriod()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSetCompatibility()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testGetCompatibility()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testAcosLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testAcos()
     {
         $acosArray    = [.1, .2, .3, .4, .5, .6, .7, .8, .9,];
@@ -262,11 +222,6 @@ class CoreTest extends TestCase
             \trader_acos($acosArray),
             $this->adjustForPECL($outReal, $outBegIdx)
         );
-    }
-
-    public function testAdLookback()
-    {
-        $this->assertEquals(1, 1);
     }
 
     public function testAd()
@@ -284,11 +239,6 @@ class CoreTest extends TestCase
         );
     }
 
-    public function testAddLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testAdd()
     {
         $Core         = new Core();
@@ -302,11 +252,6 @@ class CoreTest extends TestCase
             \trader_add($this->High, $this->Low),
             $this->adjustForPECL($outReal, $outBegIdx)
         );
-    }
-
-    public function testAdOscLookback()
-    {
-        $this->assertEquals(1, 1);
     }
 
     public function testAdOsc()
@@ -335,11 +280,6 @@ class CoreTest extends TestCase
         );
     }
 
-    public function testAdxLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testAdx()
     {
         $Core            = new Core();
@@ -362,11 +302,6 @@ class CoreTest extends TestCase
             \trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod),
             $this->adjustForPECL($outReal, $outBegIdx)
         );
-    }
-
-    public function testAdxrLookback()
-    {
-        $this->assertEquals(1, 1);
     }
 
     public function testAdxr()
@@ -392,11 +327,6 @@ class CoreTest extends TestCase
             $this->adjustForPECL($outReal, $outBegIdx)
         );
 
-    }
-
-    public function testApoLookback()
-    {
-        $this->assertEquals(1, 1);
     }
 
     public function testApo()
@@ -486,17 +416,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testAroonLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testAroon()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testAroonOscLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -506,17 +426,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testAsinLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testAsin()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testAtanLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -526,17 +436,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testAtrLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testAtr()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testAvgPriceLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -546,17 +446,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testBbandsLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testBbands()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testBetaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -566,17 +456,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testBopLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testBop()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCciLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -586,17 +466,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdl2CrowsLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdl2Crows()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdl3BlackCrowsLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -606,17 +476,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdl3InsideLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdl3Inside()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdl3LineStrikeLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -626,17 +486,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdl3OutsideLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdl3Outside()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdl3StarsInSouthLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -646,17 +496,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdl3WhiteSoldiersLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdl3WhiteSoldiers()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlAbandonedBabyLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -666,17 +506,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlAdvanceBlockLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlAdvanceBlock()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlBeltHoldLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -686,17 +516,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlBreakawayLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlBreakaway()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlClosingMarubozuLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -706,17 +526,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlConcealBabysWallLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlConcealBabysWall()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlCounterAttackLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -726,17 +536,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlDarkCloudCoverLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlDarkCloudCover()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlDojiLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -746,17 +546,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlDojiStarLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlDojiStar()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlDragonflyDojiLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -766,17 +556,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlEngulfingLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlEngulfing()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlEveningDojiStarLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -786,17 +566,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlEveningStarLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlEveningStar()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlGapSideSideWhiteLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -806,17 +576,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlGravestoneDojiLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlGravestoneDoji()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlHammerLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -826,17 +586,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlHangingManLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlHangingMan()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlHaramiLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -846,17 +596,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlHaramiCrossLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlHaramiCross()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlHighWaveLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -866,17 +606,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlHikkakeLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlHikkake()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlHikkakeModLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -886,17 +616,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlHomingPigeonLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlHomingPigeon()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlIdentical3CrowsLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -906,17 +626,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlInNeckLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlInNeck()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlInvertedHammerLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -926,17 +636,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlKickingLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlKicking()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlKickingByLengthLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -946,17 +646,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlLadderBottomLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlLadderBottom()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlLongLeggedDojiLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -966,17 +656,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlLongLineLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlLongLine()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlMarubozuLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -986,17 +666,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlMatchingLowLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlMatchingLow()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlMatHoldLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1006,17 +676,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlMorningDojiStarLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlMorningDojiStar()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlMorningStarLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1026,17 +686,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlOnNeckLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlOnNeck()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlPiercingLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1046,17 +696,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlRickshawManLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlRickshawMan()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlRiseFall3MethodsLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1066,17 +706,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCalSeparatingLinesLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCalSeparatingLines()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlShootingStarLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1086,17 +716,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlShortLineLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlShortLine()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlSpinningTopLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1106,17 +726,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlStalledPatternLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlStalledPattern()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCalStickSandwichLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1126,17 +736,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlTakuriLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlTakuri()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlTasukiGapLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1146,17 +746,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlThrustingLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlThrusting()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlTristarLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1166,17 +756,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlUnique3RiverLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlUnique3River()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCdlUpsideGap2CrowsLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1186,17 +766,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCdlXSideGap3MethodsLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCdlXSideGap3Methods()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCeilLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1206,17 +776,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCmoLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCmo()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testCorrelLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1226,27 +786,12 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testCosLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCos()
     {
         $this->assertEquals(1, 1);
     }
 
-    public function testCoshLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testCosh()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testDemaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1261,15 +806,7 @@ class CoreTest extends TestCase
         $optInTimePeriod = 3;
         $outReal         = array();
         $RetCode         = $Core->dema($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_dema($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
-    }
-
-    public function testDivLookback()
-    {
-        $this->assertEquals(1, 1);
+        $this->assertEquals(\trader_dema($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testDiv()
@@ -1277,17 +814,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testDxLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testDx()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testEmaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1304,18 +831,10 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->ema($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_ema($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
+        $this->assertEquals(\trader_ema($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTA_INT_EMA()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testExpLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1325,17 +844,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testFloorLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testFloor()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testHtDcPeriodLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1345,17 +854,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testHtDcPhaseLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testHtDcPhase()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testHtPhasorLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1365,17 +864,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testHtSineLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testHtSine()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testHtTrendlineLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1385,17 +874,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testHtTrendModeLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testHtTrendMode()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testKamaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1410,23 +889,10 @@ class CoreTest extends TestCase
         $optInTimePeriod = 3;
         $outReal         = array();
         $RetCode         = $Core->kama($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_kama($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
-    }
-
-    public function testLinearRegLookback()
-    {
-        $this->assertEquals(1, 1);
+        $this->assertEquals(\trader_kama($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testLinearReg()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testLinearRegAngleLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1436,17 +902,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testLinearRegInterceptLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testLinearRegIntercept()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testLinearRegSlopeLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1456,17 +912,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testLnLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testLn()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testLog10Lookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1476,17 +922,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMovingAverageLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMovingAverage()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMacdLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1501,27 +937,12 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMacdExtLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMacdExt()
     {
         $this->assertEquals(1, 1);
     }
 
-    public function testMacdFixLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMacdFix()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMamaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1539,27 +960,11 @@ class CoreTest extends TestCase
         $outFAMA        = array();
         $RetCode        = $Core->mama($startIdx, $endIdx, $this->High, $optInFastLimit, $optInSlowLimit, $outBegIdx, $outNBElement, $outMAMA, $outFAMA);
         list($traderMAMA, $traderFAMA) = \trader_mama($this->High, $optInFastLimit, $optInSlowLimit);
-        $this->assertEquals(
-            $traderMAMA,
-            $this->adjustForPECL($outMAMA, $outBegIdx)
-        );
-        $this->assertEquals(
-            $traderFAMA,
-            $this->adjustForPECL($outFAMA, $outBegIdx)
-        );
-    }
-
-    public function testMovingAverageVariablePeriodLookback()
-    {
-        $this->assertEquals(1, 1);
+        $this->assertEquals($traderMAMA, $this->adjustForPECL($outMAMA, $outBegIdx));
+        $this->assertEquals($traderFAMA, $this->adjustForPECL($outFAMA, $outBegIdx));
     }
 
     public function testMovingAverageVariablePeriod()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMaxLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1569,17 +974,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMaxIndexLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMaxIndex()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMedPriceLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1589,17 +984,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMfiLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMfi()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMidPointLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1609,17 +994,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMidPriceLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMidPrice()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMinLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1629,17 +1004,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMinIndexLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMinIndex()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMinMaxLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1649,17 +1014,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMinMaxIndexLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMinMaxIndex()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMinusDILookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1669,17 +1024,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMinusDMLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMinusDM()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testMomLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1689,17 +1034,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testMultLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testMult()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testNatrLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1709,17 +1044,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testObvLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testObv()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testPlusDILookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1729,17 +1054,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testPlusDMLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testPlusDM()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testPpoLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1749,17 +1064,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testRocLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testRoc()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testRocPLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1769,17 +1074,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testRocRLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testRocR()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testRocR100Lookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1789,17 +1084,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testRsiLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testRsi()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSarLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1809,17 +1094,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testSarExtLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testSarExt()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSinLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1829,17 +1104,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testSinhLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testSinh()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSmaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1854,10 +1119,7 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->sma($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_sma($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
+        $this->assertEquals(\trader_sma($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTA_INT_SMA()
@@ -1865,17 +1127,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testSqrtLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testSqrt()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testStdDevLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1890,17 +1142,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testStochLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testStoch()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testStochFLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1910,17 +1152,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testStochRsiLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testStochRsi()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testSubLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1930,17 +1162,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testSumLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testSum()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testT3Lookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1956,15 +1178,7 @@ class CoreTest extends TestCase
         $optInVFactor    = 0.7;
         $outReal         = array();
         $RetCode         = $Core->t3($startIdx, $endIdx, $this->High, $optInTimePeriod, $optInVFactor, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_t3($this->High, $optInTimePeriod, $optInVFactor),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
-    }
-
-    public function testTanLookback()
-    {
-        $this->assertEquals(1, 1);
+        $this->assertEquals(\trader_t3($this->High, $optInTimePeriod, $optInVFactor), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTan()
@@ -1972,17 +1186,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testTanhLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testTanh()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testTemaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -1997,15 +1201,7 @@ class CoreTest extends TestCase
         $optInTimePeriod = 3;
         $outReal         = array();
         $RetCode         = $Core->tema($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_tema($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
-    }
-
-    public function testTrueRangeLookback()
-    {
-        $this->assertEquals(1, 1);
+        $this->assertEquals(\trader_tema($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTrueRange()
@@ -2023,18 +1219,10 @@ class CoreTest extends TestCase
         $optInTimePeriod = 3;
         $outReal         = array();
         $RetCode         = $Core->trima($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_trima($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
+        $this->assertEquals(\trader_trima($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTrima()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testTrixLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -2044,17 +1232,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testTsfLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testTsf()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testTypPriceLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -2064,17 +1242,7 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testUltOscLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testUltOsc()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testVarianceLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -2089,27 +1257,12 @@ class CoreTest extends TestCase
         $this->assertEquals(1, 1);
     }
 
-    public function testWclPriceLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testWclPrice()
     {
         $this->assertEquals(1, 1);
     }
 
-    public function testWillRLookback()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testWillR()
-    {
-        $this->assertEquals(1, 1);
-    }
-
-    public function testWmaLookback()
     {
         $this->assertEquals(1, 1);
     }
@@ -2124,9 +1277,6 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->wma($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        $this->assertEquals(
-            \trader_wma($this->High, $optInTimePeriod),
-            $this->adjustForPECL($outReal, $outBegIdx)
-        );
+        $this->assertEquals(\trader_wma($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 }
