@@ -197,12 +197,12 @@ class CoreTest extends TestCase
 
     //</editor-fold>
 
-    protected function adjustForPECL(array $outReal, MInteger $outBegIdx)
+    protected function adjustForPECL(array $outReal, MInteger $outBegIdx, int $precision = 3, int $mode = \PHP_ROUND_HALF_DOWN)
     {
         $newOutReal = [];
         $outReal    = \array_values($outReal);
         foreach ($outReal as $index => $inDouble) {
-            $newOutReal[$index + $outBegIdx->value] = round($inDouble, 3);
+            $newOutReal[$index + $outBegIdx->value] = round($inDouble, $precision, $mode);
         }
 
         return $newOutReal;
