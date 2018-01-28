@@ -7,6 +7,19 @@ use LupeCode\phpTraderNative\ConvertedJava\MAType;
 use LupeCode\phpTraderNative\ConvertedJava\MInteger;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class CoreTest
+ *
+ * Special note about these tests.
+ * The PECL Trader package has some features built in that the C and Java packages do not.
+ *  - All of the floating point numbers are rounded to a precision of 3
+ *  - All of the return values have their return array index adjusted to not start at 0.
+ *    The adjusted value is function dependant and relies on the unstable period.
+ *    In the C and Java versions, the return array index beings at 0, and outBegIdx holds the adjustment value.
+ * These tests have to make those adjustments to verify that the tests are returning the same thing.
+ *
+ * @package ConvertedJava
+ */
 class CoreTest extends TestCase
 {
 
@@ -184,6 +197,17 @@ class CoreTest extends TestCase
 
     //</editor-fold>
 
+    protected function adjustForPECL(array $outReal, MInteger $outBegIdx)
+    {
+        $newOutReal = [];
+        $outReal = \array_values($outReal);
+        foreach ($outReal as $index => $inDouble) {
+            $newOutReal[$index + $outBegIdx->value] = round($inDouble, 3);
+        }
+
+        return $newOutReal;
+    }
+
     public function test__construct()
     {
         $this->assertEquals(1, 1);
@@ -235,16 +259,8 @@ class CoreTest extends TestCase
         $outReal      = array();
         $RetCode      = $Core->acos($startIdx, $endIdx, $acosArray, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_acos($acosArray)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_acos($acosArray),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
     }
 
@@ -263,16 +279,8 @@ class CoreTest extends TestCase
         $outReal      = array();
         $RetCode      = $Core->ad($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $this->Volume, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, trader_ad($this->High, $this->Low, $this->Close, $this->Volume)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_ad($this->High, $this->Low, $this->Close, $this->Volume),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
     }
 
@@ -291,16 +299,8 @@ class CoreTest extends TestCase
         $outReal      = array();
         $RetCode      = $Core->add($startIdx, $endIdx, $this->High, $this->Low, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, trader_add($this->High, $this->Low)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_add($this->High, $this->Low),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
     }
 
@@ -321,16 +321,8 @@ class CoreTest extends TestCase
         $outReal         = array();
         $RetCode         = $Core->adOsc($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $this->Volume, $optInFastPeriod, $optInSlowPeriod, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_adosc($this->High, $this->Low, $this->Close, $this->Volume, $optInFastPeriod, $optInSlowPeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_adosc($this->High, $this->Low, $this->Close, $this->Volume, $optInFastPeriod, $optInSlowPeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
 
         $optInFastPeriod = 5;
@@ -338,16 +330,8 @@ class CoreTest extends TestCase
         $outReal         = array();
         $RetCode         = $Core->adOsc($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $this->Volume, $optInFastPeriod, $optInSlowPeriod, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_adosc($this->High, $this->Low, $this->Close, $this->Volume, $optInFastPeriod, $optInSlowPeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_adosc($this->High, $this->Low, $this->Close, $this->Volume, $optInFastPeriod, $optInSlowPeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
     }
 
@@ -366,37 +350,17 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->adx($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        //var_export($outBegIdx);
-        //var_export($outNBElement);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
 
         $optInTimePeriod = 20;
         $outReal         = array();
         $RetCode         = $Core->adx($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        //var_export($outBegIdx);
-        //var_export($outNBElement);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
     }
 
@@ -415,37 +379,17 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->adxr($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        //var_export($outBegIdx);
-        //var_export($outNBElement);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
 
         $optInTimePeriod = 20;
         $outReal         = array();
         $RetCode         = $Core->adxr($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-        //var_export($outBegIdx);
-        //var_export($outNBElement);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
 
     }
@@ -464,24 +408,13 @@ class CoreTest extends TestCase
         $outNBElement    = new MInteger();
         $optInFastPeriod = 5;
         $optInSlowPeriod = 12;
-        $optInMAType     = MAType::DEMA;
+        $optInMAType     = MAType::SMA;
         $outReal         = array();
-        //$RetCode = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
-        //var_export($outBegIdx);
-        //var_export($outNBElement);
-        //$this->assertEquals(
-        //    array_map(
-        //        function ($num) {
-        //            return round($num, 3);
-        //        }, \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)
-        //    ),
-        //    array_map(
-        //        function ($num) {
-        //            return round($num, 3);
-        //        }, $outReal
-        //    )
-        //);
-        $this->assertEquals(1, 1);
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
     }
 
     public function testTA_INT_PO()
@@ -1257,6 +1190,19 @@ class CoreTest extends TestCase
     public function testDema()
     {
         $this->assertEquals(1, 1);
+
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $optInTimePeriod = 3;
+        $outReal         = array();
+        $RetCode         = $Core->dema($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_dema($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
     }
 
     public function testDivLookback()
@@ -1296,20 +1242,10 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->ema($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_ema($this->High, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_ema($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
-
     }
 
     public function testTA_INT_EMA()
@@ -1821,28 +1757,18 @@ class CoreTest extends TestCase
     {
         $this->assertEquals(1, 1);
 
-        $Core         = new Core();
-        $startIdx     = 0;
-        $endIdx       = count($this->High) - 1;
-        $outBegIdx    = new MInteger();
-        $outNBElement = new MInteger();
-        $optInTimePeriod=10;
-        $outReal      = array();
-        $RetCode = $Core->sma($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $optInTimePeriod = 10;
+        $outReal         = array();
+        $RetCode         = $Core->sma($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_sma($this->High, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_sma($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
-
     }
 
     public function testTA_INT_SMA()
@@ -2067,8 +1993,6 @@ class CoreTest extends TestCase
 
     public function testWma()
     {
-        $this->assertEquals(1, 1);
-
         $Core            = new Core();
         $startIdx        = 0;
         $endIdx          = count($this->High) - 1;
@@ -2077,19 +2001,9 @@ class CoreTest extends TestCase
         $optInTimePeriod = 10;
         $outReal         = array();
         $RetCode         = $Core->wma($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
-
         $this->assertEquals(
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, \trader_wma($this->High, $optInTimePeriod)
-            ),
-            array_map(
-                function ($num) {
-                    return round($num, 3);
-                }, $outReal
-            )
+            \trader_wma($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
         );
-
     }
 }
