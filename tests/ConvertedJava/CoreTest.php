@@ -406,9 +406,73 @@ class CoreTest extends TestCase
         $endIdx          = count($this->High) - 1;
         $outBegIdx       = new MInteger();
         $outNBElement    = new MInteger();
+        $optInMAType     = MAType::SMA;
         $optInFastPeriod = 5;
         $optInSlowPeriod = 12;
-        $optInMAType     = MAType::SMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInFastPeriod = 7;
+        $optInSlowPeriod = 20;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::EMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::WMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::DEMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::TEMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::TRIMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::KAMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::MAMA;
+        $outReal         = array();
+        $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
+        $optInMAType = MAType::T3;
         $outReal         = array();
         $RetCode         = $Core->apo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
         $this->assertEquals(
