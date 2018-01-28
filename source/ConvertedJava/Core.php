@@ -14,11 +14,11 @@ class Core
     public function __construct()
     {
         $this->TA_CandleDefaultSettings = $this->TA_CandleDefaultSettings();
-        $this->unstablePeriod           = [FuncUnstId::ALL];
+        $this->unstablePeriod           = \array_pad([], FuncUnstId::ALL, 0);
         $this->compatibility            = Compatibility::Default;
         $this->candleSettings           = \array_fill(0, CandleSettingType::AllCandleSettings, null);
         for ($i = 0; $i < count($this->candleSettings); $i++) {
-            $this->candleSettings[$i] = new CandleSetting($this->TA_CandleDefaultSettings[$i]);
+            $this->candleSettings[$i] = $this->TA_CandleDefaultSettings[$i];
         }
     }
 
@@ -118,12 +118,12 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -150,15 +150,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param double[]                           $inVolume
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param double[]                                         $inVolume
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -198,13 +198,13 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal0
-     * @param double[]                           $inReal1
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal0
+     * @param double[]                                         $inReal1
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -247,17 +247,17 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param double[]                           $inVolume
-     * @param int                                $optInFastPeriod
-     * @param int                                $optInSlowPeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param double[]                                         $inVolume
+     * @param int                                              $optInFastPeriod
+     * @param int                                              $optInSlowPeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -327,7 +327,7 @@ class Core
             $fastEMA = ($fastK * $ad) + ($one_minus_fastK * $fastEMA);
             $slowEMA = ($slowK * $ad) + ($one_minus_slowK * $slowEMA);
         }
-        $outIdx = 0;
+        $outIdx = $outBegIdx->value;
         while ($today <= $endIdx) {
             {
                 $high  = $inHigh[$today];
@@ -360,15 +360,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -510,8 +510,8 @@ class Core
                 }
             }
         }
-        $outReal[0] = $prevADX;
-        $outIdx     = 1;
+        $outReal[$outBegIdx->value++] = $prevADX;
+        $outIdx     = $outBegIdx->value;
         while ($today < $endIdx) {
             $today++;
             $tempReal    = $inHigh[$today];
@@ -571,15 +571,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -611,9 +611,9 @@ class Core
         if ($retCode != RetCode::Success) {
             return $retCode;
         }
-        $i         = $optInTimePeriod - 1;
-        $j         = 0;
-        $outIdx    = 0;
+        $i         = $optInTimePeriod + $outBegIdx->value - 2;
+        $j         = $outBegIdx->value - 1;
+        $outIdx    = $startIdx;
         $nbElement = $endIdx - $startIdx + 2;
         while (--$nbElement != 0) {
             $outReal[$outIdx++] = (($adx[$i++] + $adx[$j++]) / 2.0);
@@ -624,7 +624,7 @@ class Core
         return RetCode::Success;
     }
 
-    public function apoLookback(int $optInFastPeriod, int $optInSlowPeriod, MAType $optInMAType): int
+    public function apoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
     {
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -641,19 +641,19 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal
-     * @param int                                $optInFastPeriod
-     * @param int                                $optInSlowPeriod
-     * @param \LupeCode\phpTraderNative\MAType   $optInMAType
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal
+     * @param int                                              $optInFastPeriod
+     * @param int                                              $optInSlowPeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MAType   $optInMAType
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
-    public function apo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, MAType $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
+    public function apo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -672,13 +672,12 @@ class Core
             return RetCode::BadParam;
         }
         $tempBuffer = $this->double($endIdx - $startIdx + 1);
-        $zero = 0;
-        $retCode    = $this->TA_INT_PO($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal, $tempBuffer, $zero);
+        $retCode    = $this->TA_INT_PO($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal, $tempBuffer, false);
 
         return $retCode;
     }
 
-    public function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, MAType $optInMethod_2, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal, array &$tempBuffer, int &$doPercentageOutput): int
+    public function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMethod_2, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal, array &$tempBuffer, bool $doPercentageOutput): int
     {
         $outBegIdx1    = new MInteger();
         $outNbElement1 = new MInteger();
@@ -732,15 +731,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outAroonDown
-     * @param double[]                           $outAroonUp
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outAroonDown
+     * @param double[]                                         $outAroonUp
      *
      * @return int
      */
@@ -831,14 +830,14 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -923,12 +922,12 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -955,12 +954,12 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -993,15 +992,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -1072,15 +1071,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -1102,7 +1101,7 @@ class Core
         return RetCode::Success;
     }
 
-    public function bbandsLookback(int $optInTimePeriod, double $optInNbDevUp, double $optInNbDevDn, MAType $optInMAType): int
+    public function bbandsLookback(int $optInTimePeriod, double $optInNbDevUp, double $optInNbDevDn, int $optInMAType): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -1124,22 +1123,22 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal
-     * @param int                                $optInTimePeriod
-     * @param float                              $optInNbDevUp
-     * @param float                              $optInNbDevDn
-     * @param \LupeCode\phpTraderNative\MAType   $optInMAType
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outRealUpperBand
-     * @param double[]                           $outRealMiddleBand
-     * @param double[]                           $outRealLowerBand
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal
+     * @param int                                              $optInTimePeriod
+     * @param float                                            $optInNbDevUp
+     * @param float                                            $optInNbDevDn
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MAType   $optInMAType
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outRealUpperBand
+     * @param double[]                                         $outRealMiddleBand
+     * @param double[]                                         $outRealLowerBand
      *
      * @return int
      */
-    public function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, double $optInNbDevUp, double $optInNbDevDn, MAType $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
+    public function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, double $optInNbDevUp, double $optInNbDevDn, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -1251,14 +1250,14 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inReal0
-     * @param double[]                           $inReal1
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inReal0
+     * @param double[]                                         $inReal1
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -1289,7 +1288,7 @@ class Core
         $last_price_x = $trailing_last_price_x = $inReal0[$trailingIdx];
         $last_price_y = $trailing_last_price_y = $inReal1[$trailingIdx];
         $i            = ++$trailingIdx;
-        $S_xx = $S_xy = $S_x = $S_y = 0;
+        $S_xx         = $S_xy = $S_x = $S_y = 0;
         while ($i < $startIdx) {
             $tmp_real = $inReal0[$i];
             if (!(((-0.00000001) < $last_price_x) && ($last_price_x < 0.00000001))) {
@@ -1368,15 +1367,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -1415,15 +1414,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param int                                $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param double[]                           $outReal
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param int                                              $optInTimePeriod
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param double[]                                         $outReal
      *
      * @return int
      */
@@ -1510,15 +1509,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -1578,15 +1577,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -1658,15 +1657,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -1736,15 +1735,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -1823,15 +1822,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -1884,15 +1883,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -1995,15 +1994,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2123,16 +2122,16 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param float                              $optInPenetration
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param float                                            $optInPenetration
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2226,15 +2225,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2380,15 +2379,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2460,15 +2459,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2541,15 +2540,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2621,15 +2620,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2702,15 +2701,15 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2789,16 +2788,16 @@ class Core
     }
 
     /**
-     * @param int                                $startIdx
-     * @param int                                $endIdx
-     * @param double[]                           $inOpen
-     * @param double[]                           $inHigh
-     * @param double[]                           $inLow
-     * @param double[]                           $inClose
-     * @param float                              $optInPenetration
-     * @param \LupeCode\phpTraderNative\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\MInteger $outNBElement
-     * @param int[]                              $outInteger
+     * @param int                                              $startIdx
+     * @param int                                              $endIdx
+     * @param double[]                                         $inOpen
+     * @param double[]                                         $inHigh
+     * @param double[]                                         $inLow
+     * @param double[]                                         $inClose
+     * @param float                                            $optInPenetration
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
+     * @param int[]                                            $outInteger
      *
      * @return int
      */
@@ -2910,6 +2909,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -2983,6 +2983,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3055,6 +3056,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3112,6 +3114,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3210,6 +3213,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3261,19 +3265,19 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
-        $BodyShortPeriodTotal = 0;
+        $BodyLongPeriodTotal   = 0;
+        $BodyShortPeriodTotal  = 0;
         $BodyShortPeriodTotal2 = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyShortTrailingIdx = $startIdx - 1 - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $BodyLongTrailingIdx   = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyShortTrailingIdx  = $startIdx - 1 - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $i                     = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
         $i = $BodyShortTrailingIdx;
         while ($i < $startIdx - 1) {
-            $BodyShortPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
+            $BodyShortPeriodTotal  += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $BodyShortPeriodTotal2 += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i + 1] - $inOpen[$i + 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i + 1] - $inLow[$i + 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i + 1] - ($inClose[$i + 1] >= $inOpen[$i + 1] ? $inClose[$i + 1] : $inOpen[$i + 1])) + (($inClose[$i + 1] >= $inOpen[$i + 1] ? $inOpen[$i + 1] : $inClose[$i + 1]) - $inLow[$i + 1]) : 0)));
             $i++;
         }
@@ -3292,8 +3296,8 @@ class Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyShortPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal   += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyShortPeriodTotal  += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $BodyShortPeriodTotal2 += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx + 1] - $inOpen[$BodyShortTrailingIdx + 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx + 1] - $inLow[$BodyShortTrailingIdx + 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx + 1] - ($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inClose[$BodyShortTrailingIdx + 1] : $inOpen[$BodyShortTrailingIdx + 1])) + (($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inOpen[$BodyShortTrailingIdx + 1] : $inClose[$BodyShortTrailingIdx + 1]) - $inLow[$BodyShortTrailingIdx + 1]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
@@ -3301,6 +3305,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3382,6 +3387,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3454,6 +3460,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3494,8 +3501,8 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyPeriodTotal             = 0;
-        $BodyTrailingIdx             = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyPeriodTotal            = 0;
+        $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowLongPeriodTotal      = 0;
         $ShadowLongTrailingIdx      = $startIdx - ($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
@@ -3534,7 +3541,7 @@ class Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal             += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+            $BodyPeriodTotal            += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowLongPeriodTotal      += (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
@@ -3550,6 +3557,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3590,8 +3598,8 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyPeriodTotal             = 0;
-        $BodyTrailingIdx             = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyPeriodTotal            = 0;
+        $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowLongPeriodTotal      = 0;
         $ShadowLongTrailingIdx      = $startIdx - ($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
@@ -3630,7 +3638,7 @@ class Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal             += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+            $BodyPeriodTotal            += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowLongPeriodTotal      += (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
@@ -3646,6 +3654,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3719,6 +3728,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3792,6 +3802,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3835,7 +3846,7 @@ class Core
         $BodyTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowPeriodTotal = 0;
         $ShadowTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod);
-        $i                = $BodyTrailingIdx;
+        $i                 = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3862,6 +3873,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3902,7 +3914,7 @@ class Core
         }
         $patternIdx    = 0;
         $patternResult = 0;
-        $i            = $startIdx - 3;
+        $i             = $startIdx - 3;
         while ($i < $startIdx) {
             if ($inHigh[$i - 1] < $inHigh[$i - 2] && $inLow[$i - 1] > $inLow[$i - 2] &&
                 (($inHigh[$i] < $inHigh[$i - 1] && $inLow[$i] < $inLow[$i - 1])
@@ -3931,8 +3943,8 @@ class Core
                  ($inHigh[$i] > $inHigh[$i - 1] && $inLow[$i] > $inLow[$i - 1])
                 )
             ) {
-                $patternResult          = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
-                $patternIdx             = $i;
+                $patternResult         = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
+                $patternIdx            = $i;
                 $outInteger[$outIdx++] = $patternResult;
             } elseif ($i <= $patternIdx + 3 &&
                       (($patternResult > 0 && $inClose[$i] > $inHigh[$patternIdx - 1])
@@ -3941,7 +3953,7 @@ class Core
                       )
             ) {
                 $outInteger[$outIdx++] = $patternResult + 100 * ($patternResult > 0 ? 1 : -1);
-                $patternIdx             = 0;
+                $patternIdx            = 0;
             } else {
                 $outInteger[$outIdx++] = 0;
             }
@@ -3949,6 +3961,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -3997,7 +4010,7 @@ class Core
         }
         $patternIdx    = 0;
         $patternResult = 0;
-        $i            = $startIdx - 3;
+        $i             = $startIdx - 3;
         while ($i < $startIdx) {
             if ($inHigh[$i - 2] < $inHigh[$i - 3] && $inLow[$i - 2] > $inLow[$i - 3] &&
                 $inHigh[$i - 1] < $inHigh[$i - 2] && $inLow[$i - 1] > $inLow[$i - 2] &&
@@ -4038,8 +4051,8 @@ class Core
                  )
                 )
             ) {
-                $patternResult          = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
-                $patternIdx             = $i;
+                $patternResult         = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
+                $patternIdx            = $i;
                 $outInteger[$outIdx++] = $patternResult;
             } elseif ($i <= $patternIdx + 3 &&
                       (($patternResult > 0 && $inClose[$i] > $inHigh[$patternIdx - 1])
@@ -4048,7 +4061,7 @@ class Core
                       )
             ) {
                 $outInteger[$outIdx++] = $patternResult + 100 * ($patternResult > 0 ? 1 : -1);
-                $patternIdx             = 0;
+                $patternIdx            = 0;
             } else {
                 $outInteger[$outIdx++] = 0;
             }
@@ -4058,6 +4071,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4133,6 +4147,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4156,7 +4171,7 @@ class Core
     )
     {
         $ShadowVeryShortPeriodTotal = $this->double(3);
-        $EqualPeriodTotal = $this->double(3);
+        $EqualPeriodTotal           = $this->double(3);
         //int $i, $outIdx, $totIdx, $ShadowVeryShortTrailingIdx, $EqualTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -4229,6 +4244,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4306,6 +4322,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4346,8 +4363,8 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyPeriodTotal             = 0;
-        $BodyTrailingIdx             = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyPeriodTotal            = 0;
+        $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowLongPeriodTotal      = 0;
         $ShadowLongTrailingIdx      = $startIdx - ($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
@@ -4377,7 +4394,7 @@ class Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal             += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+            $BodyPeriodTotal            += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowLongPeriodTotal      += (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
@@ -4390,6 +4407,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4481,6 +4499,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4572,6 +4591,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4642,6 +4662,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4715,6 +4736,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4758,7 +4780,7 @@ class Core
         $BodyTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $ShadowPeriodTotal = 0;
         $ShadowTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod);
-        $i                = $BodyTrailingIdx;
+        $i                 = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -4785,6 +4807,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4856,6 +4879,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4920,6 +4944,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -4971,11 +4996,11 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyPeriodTotal[4]    = 0;
-        $BodyPeriodTotal[3]    = 0;
-        $BodyPeriodTotal[2]    = 0;
-        $BodyPeriodTotal[1]    = 0;
-        $BodyPeriodTotal[0]    = 0;
+        $BodyPeriodTotal[4]   = 0;
+        $BodyPeriodTotal[3]   = 0;
+        $BodyPeriodTotal[2]   = 0;
+        $BodyPeriodTotal[1]   = 0;
+        $BodyPeriodTotal[0]   = 0;
         $BodyShortTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $BodyLongTrailingIdx  = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $i                    = $BodyShortTrailingIdx;
@@ -5018,7 +5043,7 @@ class Core
             $BodyPeriodTotal[4] += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 4] - $inOpen[$i - 4])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 4] - $inLow[$i - 4]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 4] - ($inClose[$i - 4] >= $inOpen[$i - 4] ? $inClose[$i - 4] : $inOpen[$i - 4])) + (($inClose[$i - 4] >= $inOpen[$i - 4] ? $inOpen[$i - 4] : $inClose[$i - 4]) - $inLow[$i - 4]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 4] - $inOpen[$BodyLongTrailingIdx - 4])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 4] - $inLow[$BodyLongTrailingIdx - 4]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 4] - ($inClose[$BodyLongTrailingIdx - 4] >= $inOpen[$BodyLongTrailingIdx - 4] ? $inClose[$BodyLongTrailingIdx - 4] : $inOpen[$BodyLongTrailingIdx - 4])) + (($inClose[$BodyLongTrailingIdx - 4] >= $inOpen[$BodyLongTrailingIdx - 4] ? $inOpen[$BodyLongTrailingIdx - 4] : $inClose[$BodyLongTrailingIdx - 4]) - $inLow[$BodyLongTrailingIdx - 4]) : 0)));
             for ($totIdx = 3; $totIdx >= 1; --$totIdx) {
                 $BodyPeriodTotal[$totIdx] += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                            - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx - $totIdx] - $inOpen[$BodyShortTrailingIdx - $totIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - $inLow[$BodyShortTrailingIdx - $totIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - ($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inClose[$BodyShortTrailingIdx - $totIdx] : $inOpen[$BodyShortTrailingIdx - $totIdx])) + (($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inOpen[$BodyShortTrailingIdx - $totIdx] : $inClose[$BodyShortTrailingIdx - $totIdx]) - $inLow[$BodyShortTrailingIdx - $totIdx]) : 0)));
+                                             - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx - $totIdx] - $inOpen[$BodyShortTrailingIdx - $totIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - $inLow[$BodyShortTrailingIdx - $totIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - ($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inClose[$BodyShortTrailingIdx - $totIdx] : $inOpen[$BodyShortTrailingIdx - $totIdx])) + (($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inOpen[$BodyShortTrailingIdx - $totIdx] : $inClose[$BodyShortTrailingIdx - $totIdx]) - $inLow[$BodyShortTrailingIdx - $totIdx]) : 0)));
             }
             $i++;
             $BodyShortTrailingIdx++;
@@ -5026,6 +5051,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5124,6 +5150,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5175,19 +5202,19 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
-        $BodyShortPeriodTotal = 0;
+        $BodyLongPeriodTotal   = 0;
+        $BodyShortPeriodTotal  = 0;
         $BodyShortPeriodTotal2 = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyShortTrailingIdx = $startIdx - 1 - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $BodyLongTrailingIdx   = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyShortTrailingIdx  = $startIdx - 1 - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $i                     = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
         $i = $BodyShortTrailingIdx;
         while ($i < $startIdx - 1) {
-            $BodyShortPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
+            $BodyShortPeriodTotal  += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $BodyShortPeriodTotal2 += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i + 1] - $inOpen[$i + 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i + 1] - $inLow[$i + 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i + 1] - ($inClose[$i + 1] >= $inOpen[$i + 1] ? $inClose[$i + 1] : $inOpen[$i + 1])) + (($inClose[$i + 1] >= $inOpen[$i + 1] ? $inOpen[$i + 1] : $inClose[$i + 1]) - $inLow[$i + 1]) : 0)));
             $i++;
         }
@@ -5206,8 +5233,8 @@ class Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyShortPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal   += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyShortPeriodTotal  += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $BodyShortPeriodTotal2 += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx + 1] - $inOpen[$BodyShortTrailingIdx + 1])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx + 1] - $inLow[$BodyShortTrailingIdx + 1]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx + 1] - ($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inClose[$BodyShortTrailingIdx + 1] : $inOpen[$BodyShortTrailingIdx + 1])) + (($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inOpen[$BodyShortTrailingIdx + 1] : $inClose[$BodyShortTrailingIdx + 1]) - $inLow[$BodyShortTrailingIdx + 1]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
@@ -5215,6 +5242,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5292,6 +5320,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5364,6 +5393,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5451,6 +5481,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5490,11 +5521,11 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyPeriodTotal[4]    = 0;
-        $BodyPeriodTotal[3]    = 0;
-        $BodyPeriodTotal[2]    = 0;
-        $BodyPeriodTotal[1]    = 0;
-        $BodyPeriodTotal[0]    = 0;
+        $BodyPeriodTotal[4]   = 0;
+        $BodyPeriodTotal[3]   = 0;
+        $BodyPeriodTotal[2]   = 0;
+        $BodyPeriodTotal[1]   = 0;
+        $BodyPeriodTotal[0]   = 0;
         $BodyShortTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $BodyLongTrailingIdx  = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $i                    = $BodyShortTrailingIdx;
@@ -5538,7 +5569,7 @@ class Core
             $BodyPeriodTotal[4] += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 4] - $inOpen[$i - 4])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 4] - $inLow[$i - 4]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 4] - ($inClose[$i - 4] >= $inOpen[$i - 4] ? $inClose[$i - 4] : $inOpen[$i - 4])) + (($inClose[$i - 4] >= $inOpen[$i - 4] ? $inOpen[$i - 4] : $inClose[$i - 4]) - $inLow[$i - 4]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 4] - $inOpen[$BodyLongTrailingIdx - 4])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 4] - $inLow[$BodyLongTrailingIdx - 4]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 4] - ($inClose[$BodyLongTrailingIdx - 4] >= $inOpen[$BodyLongTrailingIdx - 4] ? $inClose[$BodyLongTrailingIdx - 4] : $inOpen[$BodyLongTrailingIdx - 4])) + (($inClose[$BodyLongTrailingIdx - 4] >= $inOpen[$BodyLongTrailingIdx - 4] ? $inOpen[$BodyLongTrailingIdx - 4] : $inClose[$BodyLongTrailingIdx - 4]) - $inLow[$BodyLongTrailingIdx - 4]) : 0)));
             for ($totIdx = 3; $totIdx >= 1; --$totIdx) {
                 $BodyPeriodTotal[$totIdx] += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                            - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx - $totIdx] - $inOpen[$BodyShortTrailingIdx - $totIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - $inLow[$BodyShortTrailingIdx - $totIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - ($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inClose[$BodyShortTrailingIdx - $totIdx] : $inOpen[$BodyShortTrailingIdx - $totIdx])) + (($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inOpen[$BodyShortTrailingIdx - $totIdx] : $inClose[$BodyShortTrailingIdx - $totIdx]) - $inLow[$BodyShortTrailingIdx - $totIdx]) : 0)));
+                                             - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx - $totIdx] - $inOpen[$BodyShortTrailingIdx - $totIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - $inLow[$BodyShortTrailingIdx - $totIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx - $totIdx] - ($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inClose[$BodyShortTrailingIdx - $totIdx] : $inOpen[$BodyShortTrailingIdx - $totIdx])) + (($inClose[$BodyShortTrailingIdx - $totIdx] >= $inOpen[$BodyShortTrailingIdx - $totIdx] ? $inOpen[$BodyShortTrailingIdx - $totIdx] : $inClose[$BodyShortTrailingIdx - $totIdx]) - $inLow[$BodyShortTrailingIdx - $totIdx]) : 0)));
             }
             $BodyPeriodTotal[0] += (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $i++;
@@ -5547,6 +5578,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5640,6 +5672,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5680,8 +5713,8 @@ class Core
 
             return RetCode::Success;
         }
-        $BodyPeriodTotal             = 0;
-        $BodyTrailingIdx             = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyPeriodTotal            = 0;
+        $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowLongPeriodTotal      = 0;
         $ShadowLongTrailingIdx      = $startIdx - ($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
@@ -5711,7 +5744,7 @@ class Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal             += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+            $BodyPeriodTotal            += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowLongPeriodTotal      += (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
@@ -5724,6 +5757,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5767,7 +5801,7 @@ class Core
         $BodyTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowPeriodTotal = 0;
         $ShadowTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod);
-        $i                = $BodyTrailingIdx;
+        $i                 = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -5794,6 +5828,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5835,7 +5870,7 @@ class Core
         }
         $BodyPeriodTotal = 0;
         $BodyTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i              = $BodyTrailingIdx;
+        $i               = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -5856,6 +5891,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -5968,6 +6004,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6034,6 +6071,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6077,8 +6115,8 @@ class Core
         $BodyDojiTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $ShadowVeryLongPeriodTotal   = 0;
-        $ShadowVeryLongTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod);
+        $ShadowVeryLongPeriodTotal  = 0;
+        $ShadowVeryLongTrailingIdx  = $startIdx - ($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod);
         $i                          = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
@@ -6107,7 +6145,7 @@ class Core
             $BodyDojiPeriodTotal        += (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += (($this->candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
-            $ShadowVeryLongPeriodTotal   += (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+            $ShadowVeryLongPeriodTotal  += (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryLongTrailingIdx] - $inOpen[$ShadowVeryLongTrailingIdx])) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryLongTrailingIdx] - $inLow[$ShadowVeryLongTrailingIdx]) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryLongTrailingIdx] - ($inClose[$ShadowVeryLongTrailingIdx] >= $inOpen[$ShadowVeryLongTrailingIdx] ? $inClose[$ShadowVeryLongTrailingIdx] : $inOpen[$ShadowVeryLongTrailingIdx])) + (($inClose[$ShadowVeryLongTrailingIdx] >= $inOpen[$ShadowVeryLongTrailingIdx] ? $inOpen[$ShadowVeryLongTrailingIdx] : $inClose[$ShadowVeryLongTrailingIdx]) - $inLow[$ShadowVeryLongTrailingIdx]) : 0)));
             $i++;
             $BodyDojiTrailingIdx++;
@@ -6116,6 +6154,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6195,6 +6234,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6272,6 +6312,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6313,7 +6354,7 @@ class Core
         }
         $BodyPeriodTotal = 0;
         $BodyTrailingIdx = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
-        $i              = $BodyTrailingIdx;
+        $i               = $BodyTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyPeriodTotal += (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : (($this->candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -6347,6 +6388,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6424,6 +6466,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6501,6 +6544,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6566,6 +6610,7 @@ class Core
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6597,6 +6642,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6613,6 +6659,7 @@ class Core
         if (($this->compatibility) == Compatibility::Metastock) {
             $retValue--;
         }
+
         return $retValue;
     }
 
@@ -6655,10 +6702,11 @@ class Core
             $outBegIdx->value    = $startIdx;
             $i                   = ($endIdx - $startIdx) + 1;
             $outNBElement->value = $i;
-            $outReal = \array_slice($inReal, 0, $i);
+            $outReal             = \array_slice($inReal, 0, $i);
+
             return RetCode::Success;
         }
-        $today         = $startIdx - $lookbackTotal;
+        $today          = $startIdx - $lookbackTotal;
         $prevValue      = $inReal[$today];
         $unstablePeriod = ($this->unstablePeriod[FuncUnstId::CMO]);
         if (($unstablePeriod == 0) &&
@@ -6691,7 +6739,7 @@ class Core
 
                 return RetCode::Success;
             }
-            $today    -= $optInTimePeriod;
+            $today     -= $optInTimePeriod;
             $prevValue = $savePrevValue;
         }
         $prevGain = 0.0;
@@ -6755,6 +6803,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -6807,19 +6856,19 @@ class Core
         }
         $outBegIdx->value = $startIdx;
         $trailingIdx      = $startIdx - $lookbackTotal;
-        $sumXY             = $sumX = $sumY = $sumX2 = $sumY2 = 0.0;
+        $sumXY            = $sumX = $sumY = $sumX2 = $sumY2 = 0.0;
         for ($today = $trailingIdx; $today <= $startIdx; $today++) {
-            $x    = $inReal0[$today];
+            $x     = $inReal0[$today];
             $sumX  += $x;
             $sumX2 += $x * $x;
-            $y    = $inReal1[$today];
+            $y     = $inReal1[$today];
             $sumXY += $x * $y;
             $sumY  += $y;
             $sumY2 += $y * $y;
         }
         $trailingX = $inReal0[$trailingIdx];
         $trailingY = $inReal1[$trailingIdx++];
-        $tempReal = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
+        $tempReal  = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
         if (!($tempReal < 0.00000001)) {
             $outReal[0] = ($sumXY - (($sumX * $sumY) / $optInTimePeriod)) / sqrt($tempReal);
         } else {
@@ -6832,16 +6881,16 @@ class Core
             $sumXY     -= $trailingX * $trailingY;
             $sumY      -= $trailingY;
             $sumY2     -= $trailingY * $trailingY;
-            $x        = $inReal0[$today];
+            $x         = $inReal0[$today];
             $sumX      += $x;
             $sumX2     += $x * $x;
-            $y        = $inReal1[$today++];
+            $y         = $inReal1[$today++];
             $sumXY     += $x * $y;
             $sumY      += $y;
             $sumY2     += $y * $y;
             $trailingX = $inReal0[$trailingIdx];
             $trailingY = $inReal1[$trailingIdx++];
-            $tempReal = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
+            $tempReal  = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
             if (!($tempReal < 0.00000001)) {
                 $outReal[$outIdx++] = ($sumXY - (($sumX * $sumY) / $optInTimePeriod)) / sqrt($tempReal);
             } else {
@@ -6849,6 +6898,7 @@ class Core
             }
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -6880,6 +6930,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6911,6 +6962,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -6939,10 +6991,10 @@ class Core
         //double[] $firstEMA;
         //double[] $secondEMA;
         //double $k;
-         $firstEMABegIdx = new MInteger();
-         $firstEMANbElement = new MInteger();
-         $secondEMABegIdx = new MInteger();
-         $secondEMANbElement = new MInteger();
+        $firstEMABegIdx     = new MInteger();
+        $firstEMANbElement  = new MInteger();
+        $secondEMABegIdx    = new MInteger();
+        $secondEMANbElement = new MInteger();
         //int $tempInt, $outIdx, $firstEMAIdx, $lookbackTotal, $lookbackEMA;
         //RetCode $retCode;
         if ($startIdx < 0) {
@@ -6958,7 +7010,7 @@ class Core
         }
         $outNBElement->value = 0;
         $outBegIdx->value    = 0;
-        $lookbackEMA          = $this->emaLookback($optInTimePeriod);
+        $lookbackEMA         = $this->emaLookback($optInTimePeriod);
         $lookbackTotal       = $lookbackEMA * 2;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -6972,7 +7024,7 @@ class Core
             $tempInt  = $lookbackTotal + ($endIdx - $startIdx) + 1;
             $firstEMA = $this->double($tempInt);
         }
-        $k        = ((double)2.0 / ((double)($optInTimePeriod + 1)));
+        $k       = ((double)2.0 / ((double)($optInTimePeriod + 1)));
         $retCode = $this->TA_INT_EMA(
             $startIdx - $lookbackEMA, $endIdx, $inReal,
             $optInTimePeriod, $k,
@@ -6980,24 +7032,27 @@ class Core
             $firstEMA
         );
         if (($retCode != RetCode::Success) || ($firstEMANbElement->value == 0)) {
-        return $retCode;
-    }
+            return $retCode;
+        }
         $secondEMA = $this->double($firstEMANbElement->value);
-        $retCode = $this->TA_INT_EMA(0, $firstEMANbElement->value - 1, $firstEMA,
-                $optInTimePeriod, $k,
-                $secondEMABegIdx, $secondEMANbElement,
-                $secondEMA);
+        $retCode   = $this->TA_INT_EMA(
+            0, $firstEMANbElement->value - 1, $firstEMA,
+            $optInTimePeriod, $k,
+            $secondEMABegIdx, $secondEMANbElement,
+            $secondEMA
+        );
         if (($retCode != RetCode::Success) || ($secondEMANbElement->value == 0)) {
-        return $retCode;
-    }
+            return $retCode;
+        }
         $firstEMAIdx = $secondEMABegIdx->value;
-        $outIdx = 0;
+        $outIdx      = 0;
         while ($outIdx < $secondEMANbElement->value) {
-        $outReal[$outIdx] = (2.0 * $firstEMA[$firstEMAIdx++]) - $secondEMA[$outIdx];
-        $outIdx++;
-    }
-        $outBegIdx->value = $firstEMABegIdx->value + $secondEMABegIdx->value;
+            $outReal[$outIdx] = (2.0 * $firstEMA[$firstEMAIdx++]) - $secondEMA[$outIdx];
+            $outIdx++;
+        }
+        $outBegIdx->value    = $firstEMABegIdx->value + $secondEMABegIdx->value;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -7030,6 +7085,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -7093,22 +7149,22 @@ class Core
         }
         $outIdx           = 0;
         $outBegIdx->value = $today = $startIdx;
-        $prevMinusDM       = 0.0;
-        $prevPlusDM        = 0.0;
-        $prevTR            = 0.0;
+        $prevMinusDM      = 0.0;
+        $prevPlusDM       = 0.0;
+        $prevTR           = 0.0;
         $today            = $startIdx - $lookbackTotal;
-        $prevHigh          = $inHigh[$today];
-        $prevLow           = $inLow[$today];
-        $prevClose         = $inClose[$today];
+        $prevHigh         = $inHigh[$today];
+        $prevLow          = $inLow[$today];
+        $prevClose        = $inClose[$today];
         $i                = $optInTimePeriod - 1;
         while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM += $diffM;
             } elseif (($diffP > 0) && ($diffP > $diffM)) {
@@ -7131,10 +7187,10 @@ class Core
         $i = ($this->unstablePeriod[FuncUnstId::DX]) + 1;
         while ($i-- != 0) {
             $today++;
-            $tempReal   = $inHigh[$today];
+            $tempReal    = $inHigh[$today];
             $diffP       = $tempReal - $prevHigh;
             $prevHigh    = $tempReal;
-            $tempReal   = $inLow[$today];
+            $tempReal    = $inLow[$today];
             $diffM       = $prevLow - $tempReal;
             $prevLow     = $tempReal;
             $prevMinusDM -= $prevMinusDM / $optInTimePeriod;
@@ -7159,8 +7215,8 @@ class Core
             $prevClose = $inClose[$today];
         }
         if (!(((-0.00000001) < $prevTR) && ($prevTR < 0.00000001))) {
-            $minusDI   = (100.0 * ($prevMinusDM / $prevTR));
-            $plusDI    = (100.0 * ($prevPlusDM / $prevTR));
+            $minusDI  = (100.0 * ($prevMinusDM / $prevTR));
+            $plusDI   = (100.0 * ($prevPlusDM / $prevTR));
             $tempReal = $minusDI + $plusDI;
             if (!(((-0.00000001) < $tempReal) && ($tempReal < 0.00000001))) {
                 $outReal[0] = (100.0 * (abs($minusDI - $plusDI) / $tempReal));
@@ -7173,10 +7229,10 @@ class Core
         $outIdx = 1;
         while ($today < $endIdx) {
             $today++;
-            $tempReal   = $inHigh[$today];
+            $tempReal    = $inHigh[$today];
             $diffP       = $tempReal - $prevHigh;
             $prevHigh    = $tempReal;
-            $tempReal   = $inLow[$today];
+            $tempReal    = $inLow[$today];
             $diffM       = $prevLow - $tempReal;
             $prevLow     = $tempReal;
             $prevMinusDM -= $prevMinusDM / $optInTimePeriod;
@@ -7200,8 +7256,8 @@ class Core
             $prevTR    = $prevTR - ($prevTR / $optInTimePeriod) + $tempReal;
             $prevClose = $inClose[$today];
             if (!(((-0.00000001) < $prevTR) && ($prevTR < 0.00000001))) {
-                $minusDI   = (100.0 * ($prevMinusDM / $prevTR));
-                $plusDI    = (100.0 * ($prevPlusDM / $prevTR));
+                $minusDI  = (100.0 * ($prevMinusDM / $prevTR));
+                $plusDI   = (100.0 * ($prevPlusDM / $prevTR));
                 $tempReal = $minusDI + $plusDI;
                 if (!(((-0.00000001) < $tempReal) && ($tempReal < 0.00000001))) {
                     $outReal[$outIdx] = (100.0 * (abs($minusDI - $plusDI) / $tempReal));
@@ -7214,6 +7270,7 @@ class Core
             $outIdx++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -7285,27 +7342,28 @@ class Core
         }
         $outBegIdx->value = $startIdx;
         if (($this->compatibility) == Compatibility::Default) {
-        $today    = $startIdx - $lookbackTotal;
-        $i        = $optInTimePeriod;
-        $tempReal = 0.0;
-        while ($i-- > 0) {
-            $tempReal += $inReal[$today++];
+            $today    = $startIdx - $lookbackTotal;
+            $i        = $optInTimePeriod;
+            $tempReal = 0.0;
+            while ($i-- > 0) {
+                $tempReal += $inReal[$today++];
+            }
+            $prevMA = $tempReal / $optInTimePeriod;
+        } else {
+            $prevMA = $inReal[0];
+            $today  = 1;
         }
-        $prevMA = $tempReal / $optInTimePeriod;
-    } else {
-        $prevMA = $inReal[0];
-        $today = 1;
-    }
         while ($today <= $startIdx) {
             $prevMA = (($inReal[$today++] - $prevMA) * $optInK_1) + $prevMA;
         }
-        $outReal[0] = $prevMA;
-        $outIdx     = 1;
+        $outReal[$today - 1] = $prevMA;
+        $outIdx     = $today;
         while ($today <= $endIdx) {
-            $prevMA              = (($inReal[$today++] - $prevMA) * $optInK_1) + $prevMA;
+            $prevMA             = (($inReal[$today++] - $prevMA) * $optInK_1) + $prevMA;
             $outReal[$outIdx++] = $prevMA;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -7337,6 +7395,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -7368,6 +7427,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -7397,28 +7457,28 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
         //double $prev_jI_Even;
         //double $prev_jI_input_Odd;
         //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
+        $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
         //double $jQ;
         //double $prev_jQ_Odd;
@@ -7436,7 +7496,7 @@ class Core
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
             return RetCode::OutOfRangeEndIndex;
         }
-        $rad2Deg        = 180.0 / (4.0 * atan(1));
+        $rad2Deg       = 180.0 / (4.0 * atan(1));
         $lookbackTotal = 32 + ($this->unstablePeriod[FuncUnstId::HtDcPeriod]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -7448,18 +7508,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 9;
         do {
             $tempReal = $inReal[$today++];
@@ -7485,8 +7545,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -7499,8 +7558,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -7513,8 +7571,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -7527,10 +7584,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
@@ -7549,48 +7605,48 @@ class Core
             };
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -7601,58 +7657,58 @@ class Core
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -7678,6 +7734,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -7707,28 +7764,28 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
         //double $prev_jI_Even;
         //double $prev_jI_input_Odd;
         //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
+        $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
         //double $jQ;
         //double $prev_jQ_Odd;
@@ -7754,12 +7811,11 @@ class Core
         }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
-        }
-        ;
-        $tempReal         = atan(1);
+        };
+        $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal    = 63 + ($this->unstablePeriod[FuncUnstId::HtDcPhase]);
+        $lookbackTotal     = 63 + ($this->unstablePeriod[FuncUnstId::HtDcPhase]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -7770,18 +7826,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 34;
         do {
             $tempReal = $inReal[$today++];
@@ -7807,8 +7863,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -7821,8 +7876,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -7835,8 +7889,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -7849,10 +7902,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
@@ -7876,48 +7928,48 @@ class Core
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -7928,58 +7980,58 @@ class Core
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -7997,18 +8049,18 @@ class Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period       = (0.2 * $period) + (0.8 * $tempReal);
-            $smoothPeriod = (0.33 * $period) + (0.67 * $smoothPeriod);
-            $DCPeriod     = $smoothPeriod + 0.5;
-            $DCPeriodInt  = (int)$DCPeriod;
-            $realPart     = 0.0;
-            $imagPart     = 0.0;
-            $idxothPricePrice          = $smoothPrice_Idx;
+            $period           = (0.2 * $period) + (0.8 * $tempReal);
+            $smoothPeriod     = (0.33 * $period) + (0.67 * $smoothPeriod);
+            $DCPeriod         = $smoothPeriod + 0.5;
+            $DCPeriodInt      = (int)$DCPeriod;
+            $realPart         = 0.0;
+            $imagPart         = 0.0;
+            $idxothPricePrice = $smoothPrice_Idx;
             for ($i = 0; $i < $DCPeriodInt; $i++) {
                 $tempReal  = ((double)$i * $constDeg2RadBy360) / (double)$DCPeriodInt;
                 $tempReal2 = $smoothPrice[$idxothPricePrice];
-                $realPart   += sin($tempReal) * $tempReal2;
-                $imagPart   += cos($tempReal) * $tempReal2;
+                $realPart  += sin($tempReal) * $tempReal2;
+                $imagPart  += cos($tempReal) * $tempReal2;
                 if ($idxothPricePrice == 0) {
                     $idxothPricePrice = 50 - 1;
                 } else {
@@ -8045,6 +8097,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -8075,21 +8128,21 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
@@ -8114,7 +8167,7 @@ class Core
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
             return RetCode::OutOfRangeEndIndex;
         }
-        $rad2Deg        = 180.0 / (4.0 * atan(1));
+        $rad2Deg       = 180.0 / (4.0 * atan(1));
         $lookbackTotal = 32 + ($this->unstablePeriod[FuncUnstId::HtPhasor]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -8126,18 +8179,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 9;
         do {
             $tempReal = $inReal[$today++];
@@ -8163,8 +8216,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -8177,8 +8229,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -8191,8 +8242,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -8205,10 +8255,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
@@ -8226,52 +8275,52 @@ class Core
             };
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 if ($today >= $startIdx) {
                     $outQuadrature[$outIdx] = $Q1;
                     $outInPhase[$outIdx++]  = $I1ForEvenPrev3;
                 }
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -8282,62 +8331,62 @@ class Core
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 if ($today >= $startIdx) {
                     $outQuadrature[$outIdx] = $Q1;
                     $outInPhase[$outIdx++]  = $I1ForOddPrev3;
                 }
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -8359,6 +8408,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -8389,28 +8439,28 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
         //double $prev_jI_Even;
         //double $prev_jI_input_Odd;
         //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
+        $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
         //double $jQ;
         //double $prev_jQ_Odd;
@@ -8436,13 +8486,12 @@ class Core
         }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
-        }
-        ;
-        $tempReal         = atan(1);
+        };
+        $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
         $deg2Rad           = 1.0 / $rad2Deg;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal    = 63 + ($this->unstablePeriod[FuncUnstId::HtSine]);
+        $lookbackTotal     = 63 + ($this->unstablePeriod[FuncUnstId::HtSine]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -8453,18 +8502,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 34;
         do {
             $tempReal = $inReal[$today++];
@@ -8490,8 +8539,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -8504,8 +8552,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -8518,8 +8565,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -8532,10 +8578,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
@@ -8559,48 +8604,48 @@ class Core
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -8611,58 +8656,58 @@ class Core
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -8680,18 +8725,18 @@ class Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period       = (0.2 * $period) + (0.8 * $tempReal);
-            $smoothPeriod = (0.33 * $period) + (0.67 * $smoothPeriod);
-            $DCPeriod     = $smoothPeriod + 0.5;
-            $DCPeriodInt  = (int)$DCPeriod;
-            $realPart     = 0.0;
-            $imagPart     = 0.0;
-            $idxothPricePrice          = $smoothPrice_Idx;
+            $period           = (0.2 * $period) + (0.8 * $tempReal);
+            $smoothPeriod     = (0.33 * $period) + (0.67 * $smoothPeriod);
+            $DCPeriod         = $smoothPeriod + 0.5;
+            $DCPeriodInt      = (int)$DCPeriod;
+            $realPart         = 0.0;
+            $imagPart         = 0.0;
+            $idxothPricePrice = $smoothPrice_Idx;
             for ($i = 0; $i < $DCPeriodInt; $i++) {
                 $tempReal  = ((double)$i * $constDeg2RadBy360) / (double)$DCPeriodInt;
                 $tempReal2 = $smoothPrice[$idxothPricePrice];
-                $realPart   += sin($tempReal) * $tempReal2;
-                $imagPart   += cos($tempReal) * $tempReal2;
+                $realPart  += sin($tempReal) * $tempReal2;
+                $imagPart  += cos($tempReal) * $tempReal2;
                 if ($idxothPricePrice == 0) {
                     $idxothPricePrice = 50 - 1;
                 } else {
@@ -8729,6 +8774,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -8759,28 +8805,28 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
         //double $prev_jI_Even;
         //double $prev_jI_input_Odd;
         //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
+        $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
         //double $jQ;
         //double $prev_jQ_Odd;
@@ -8806,11 +8852,10 @@ class Core
         }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
-        }
-        ;
-        $iTrend1        = $iTrend2 = $iTrend3 = 0.0;
+        };
+        $iTrend1       = $iTrend2 = $iTrend3 = 0.0;
         $tempReal      = atan(1);
-        $rad2Deg        = 45.0 / $tempReal;
+        $rad2Deg       = 45.0 / $tempReal;
         $lookbackTotal = 63 + ($this->unstablePeriod[FuncUnstId::HtTrendline]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -8822,18 +8867,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 34;
         do {
             $tempReal = $inReal[$today++];
@@ -8859,8 +8904,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -8873,8 +8917,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -8887,8 +8930,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -8901,10 +8943,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
@@ -8927,48 +8968,48 @@ class Core
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -8979,58 +9020,58 @@ class Core
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -9048,12 +9089,12 @@ class Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period       = (0.2 * $period) + (0.8 * $tempReal);
-            $smoothPeriod = (0.33 * $period) + (0.67 * $smoothPeriod);
-            $DCPeriod     = $smoothPeriod + 0.5;
-            $DCPeriodInt  = (int)$DCPeriod;
-            $idxothPricePrice          = $today;
-            $tempReal    = 0.0;
+            $period           = (0.2 * $period) + (0.8 * $tempReal);
+            $smoothPeriod     = (0.33 * $period) + (0.67 * $smoothPeriod);
+            $DCPeriod         = $smoothPeriod + 0.5;
+            $DCPeriodInt      = (int)$DCPeriod;
+            $idxothPricePrice = $today;
+            $tempReal         = 0.0;
             for ($i = 0; $i < $DCPeriodInt; $i++) {
                 $tempReal += $inReal[$idxothPricePrice--];
             }
@@ -9061,9 +9102,9 @@ class Core
                 $tempReal = $tempReal / (double)$DCPeriodInt;
             }
             $tempReal2 = (4.0 * $tempReal + 3.0 * $iTrend1 + 2.0 * $iTrend2 + $iTrend3) / 10.0;
-            $iTrend3    = $iTrend2;
-            $iTrend2    = $iTrend1;
-            $iTrend1    = $tempReal;
+            $iTrend3   = $iTrend2;
+            $iTrend2   = $iTrend1;
+            $iTrend1   = $tempReal;
             if ($today >= $startIdx) {
                 $outReal[$outIdx++] = $tempReal2;
             }
@@ -9076,6 +9117,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9106,28 +9148,28 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
         //double $prev_jI_Even;
         //double $prev_jI_input_Odd;
         //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
+        $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
         //double $jQ;
         //double $prev_jQ_Odd;
@@ -9156,18 +9198,17 @@ class Core
         }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
-        }
-        ;
+        };
         $iTrend1           = $iTrend2 = $iTrend3 = 0.0;
         $daysInTrend       = 0;
         $prevDCPhase       = $DCPhase = 0.0;
         $prevSine          = $sine = 0.0;
         $prevLeadSine      = $leadSine = 0.0;
-        $tempReal         = atan(1);
+        $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
         $deg2Rad           = 1.0 / $rad2Deg;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal    = 63 + ($this->unstablePeriod[FuncUnstId::HtTrendMode]);
+        $lookbackTotal     = 63 + ($this->unstablePeriod[FuncUnstId::HtTrendMode]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -9178,18 +9219,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 34;
         do {
             $tempReal = $inReal[$today++];
@@ -9215,8 +9256,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -9229,8 +9269,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -9243,8 +9282,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -9257,10 +9295,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
@@ -9284,48 +9321,48 @@ class Core
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -9336,58 +9373,58 @@ class Core
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -9405,19 +9442,19 @@ class Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period       = (0.2 * $period) + (0.8 * $tempReal);
-            $smoothPeriod = (0.33 * $period) + (0.67 * $smoothPeriod);
-            $prevDCPhase  = $DCPhase;
-            $DCPeriod     = $smoothPeriod + 0.5;
-            $DCPeriodInt  = (int)$DCPeriod;
-            $realPart     = 0.0;
-            $imagPart     = 0.0;
-            $idxothPricePrice          = $smoothPrice_Idx;
+            $period           = (0.2 * $period) + (0.8 * $tempReal);
+            $smoothPeriod     = (0.33 * $period) + (0.67 * $smoothPeriod);
+            $prevDCPhase      = $DCPhase;
+            $DCPeriod         = $smoothPeriod + 0.5;
+            $DCPeriodInt      = (int)$DCPeriod;
+            $realPart         = 0.0;
+            $imagPart         = 0.0;
+            $idxothPricePrice = $smoothPrice_Idx;
             for ($i = 0; $i < $DCPeriodInt; $i++) {
                 $tempReal  = ((double)$i * $constDeg2RadBy360) / (double)$DCPeriodInt;
                 $tempReal2 = $smoothPrice[$idxothPricePrice];
-                $realPart   += sin($tempReal) * $tempReal2;
-                $imagPart   += cos($tempReal) * $tempReal2;
+                $realPart  += sin($tempReal) * $tempReal2;
+                $imagPart  += cos($tempReal) * $tempReal2;
                 if ($idxothPricePrice == 0) {
                     $idxothPricePrice = 50 - 1;
                 } else {
@@ -9442,14 +9479,14 @@ class Core
             if ($DCPhase > 315.0) {
                 $DCPhase -= 360.0;
             }
-            $prevSine     = $sine;
-            $prevLeadSine = $leadSine;
-            $sine         = sin($DCPhase * $deg2Rad);
-            $leadSine     = sin(($DCPhase + 45) * $deg2Rad);
-            $DCPeriod     = $smoothPeriod + 0.5;
-            $DCPeriodInt  = (int)$DCPeriod;
-            $idxothPricePrice          = $today;
-            $tempReal    = 0.0;
+            $prevSine         = $sine;
+            $prevLeadSine     = $leadSine;
+            $sine             = sin($DCPhase * $deg2Rad);
+            $leadSine         = sin(($DCPhase + 45) * $deg2Rad);
+            $DCPeriod         = $smoothPeriod + 0.5;
+            $DCPeriodInt      = (int)$DCPeriod;
+            $idxothPricePrice = $today;
+            $tempReal         = 0.0;
             for ($i = 0; $i < $DCPeriodInt; $i++) {
                 $tempReal += $inReal[$idxothPricePrice--];
             }
@@ -9491,6 +9528,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9516,7 +9554,7 @@ class Core
         array &$outReal
     )
     {
-        $constMax = 2.0 / (30.0 + 1.0);
+        $constMax  = 2.0 / (30.0 + 1.0);
         $constDiff = 2.0 / (2.0 + 1.0) - $constMax;
         //double $tempReal, $tempReal2;
         //double $sumROC1, $periodROC, $prevKAMA;
@@ -9546,18 +9584,18 @@ class Core
 
             return RetCode::Success;
         }
-        $sumROC1      = 0.0;
+        $sumROC1     = 0.0;
         $today       = $startIdx - $lookbackTotal;
         $trailingIdx = $today;
         $i           = $optInTimePeriod;
         while ($i-- > 0) {
             $tempReal = $inReal[$today++];
             $tempReal -= $inReal[$today];
-            $sumROC1   += abs($tempReal);
+            $sumROC1  += abs($tempReal);
         }
         $prevKAMA      = $inReal[$today - 1];
-        $tempReal     = $inReal[$today];
-        $tempReal2    = $inReal[$trailingIdx++];
+        $tempReal      = $inReal[$today];
+        $tempReal2     = $inReal[$trailingIdx++];
         $periodROC     = $tempReal - $tempReal2;
         $trailingValue = $tempReal2;
         if (($sumROC1 <= $periodROC) || (((-0.00000001) < $sumROC1) && ($sumROC1 < 0.00000001))) {
@@ -9567,10 +9605,10 @@ class Core
         }
         $tempReal = ($tempReal * $constDiff) + $constMax;
         $tempReal *= $tempReal;
-        $prevKAMA  = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
+        $prevKAMA = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
         while ($today <= $startIdx) {
-            $tempReal     = $inReal[$today];
-            $tempReal2    = $inReal[$trailingIdx++];
+            $tempReal      = $inReal[$today];
+            $tempReal2     = $inReal[$trailingIdx++];
             $periodROC     = $tempReal - $tempReal2;
             $sumROC1       -= abs($trailingValue - $tempReal2);
             $sumROC1       += abs($tempReal - $inReal[$today - 1]);
@@ -9582,14 +9620,14 @@ class Core
             }
             $tempReal = ($tempReal * $constDiff) + $constMax;
             $tempReal *= $tempReal;
-            $prevKAMA  = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
+            $prevKAMA = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
         }
         $outReal[0]       = $prevKAMA;
         $outIdx           = 1;
         $outBegIdx->value = $today - 1;
         while ($today <= $endIdx) {
-            $tempReal     = $inReal[$today];
-            $tempReal2    = $inReal[$trailingIdx++];
+            $tempReal      = $inReal[$today];
+            $tempReal2     = $inReal[$trailingIdx++];
             $periodROC     = $tempReal - $tempReal2;
             $sumROC1       -= abs($trailingValue - $tempReal2);
             $sumROC1       += abs($tempReal - $inReal[$today - 1]);
@@ -9601,10 +9639,11 @@ class Core
             }
             $tempReal           = ($tempReal * $constDiff) + $constMax;
             $tempReal           *= $tempReal;
-            $prevKAMA            = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
+            $prevKAMA           = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
             $outReal[$outIdx++] = $prevKAMA;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9657,8 +9696,8 @@ class Core
 
             return RetCode::Success;
         }
-        $outIdx = 0;
-        $today  = $startIdx;
+        $outIdx  = 0;
+        $today   = $startIdx;
         $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
@@ -9669,13 +9708,14 @@ class Core
                 $SumY  += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                   = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
-            $b                   = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
+            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $b                  = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
             $outReal[$outIdx++] = $b + $m * (double)($optInTimePeriod - 1);
             $today++;
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9728,8 +9768,8 @@ class Core
 
             return RetCode::Success;
         }
-        $outIdx = 0;
-        $today  = $startIdx;
+        $outIdx  = 0;
+        $today   = $startIdx;
         $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
@@ -9740,12 +9780,13 @@ class Core
                 $SumY  += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                   = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
             $outReal[$outIdx++] = atan($m) * (180.0 / 3.14159265358979323846);
             $today++;
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9798,8 +9839,8 @@ class Core
 
             return RetCode::Success;
         }
-        $outIdx = 0;
-        $today  = $startIdx;
+        $outIdx  = 0;
+        $today   = $startIdx;
         $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
@@ -9810,12 +9851,13 @@ class Core
                 $SumY  += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                   = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
             $outReal[$outIdx++] = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
             $today++;
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9867,8 +9909,8 @@ class Core
 
             return RetCode::Success;
         }
-        $outIdx = 0;
-        $today  = $startIdx;
+        $outIdx  = 0;
+        $today   = $startIdx;
         $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
@@ -9884,6 +9926,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -9915,6 +9958,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -9946,13 +9990,14 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
     /* Generated */
     public function movingAverageLookback(
         int $optInTimePeriod,
-        MAType $optInMAType
+        int $optInMAType
     )
     {
         //int $retValue;
@@ -9995,6 +10040,7 @@ class Core
             default:
                 $retValue = 0;
         }
+
         return $retValue;
     }
 
@@ -10003,7 +10049,7 @@ class Core
         int $endIdx,
         array $inReal,
         int $optInTimePeriod,
-        MAType $optInMAType,
+        int $optInMAType,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -10027,10 +10073,9 @@ class Core
         if ($optInTimePeriod == 1) {
             $nbElement           = $endIdx - $startIdx + 1;
             $outNBElement->value = $nbElement;
-            for ($todayIdx = $startIdx, $outIdx = 0; $outIdx < $nbElement; $outIdx++, $todayIdx++)
-                {
-                    $outReal[$outIdx] = $inReal[$todayIdx];
-                }
+            for ($todayIdx = $startIdx, $outIdx = 0; $outIdx < $nbElement; $outIdx++, $todayIdx++) {
+                $outReal[$outIdx] = $inReal[$todayIdx];
+            }
             $outBegIdx->value = $startIdx;
 
             return RetCode::Success;
@@ -10080,7 +10125,7 @@ class Core
                 break;
             case MAType::MAMA:
                 $dummyBuffer = $this->double(($endIdx - $startIdx + 1));
-                $retCode    = $this->mama(
+                $retCode     = $this->mama(
                     $startIdx, $endIdx, $inReal, 0.5, 0.05,
                     $outBegIdx, $outNBElement,
                     $outReal, $dummyBuffer
@@ -10097,6 +10142,7 @@ class Core
                 $retCode = RetCode::BadParam;
                 break;
         }
+
         return $retCode;
     }
 
@@ -10128,6 +10174,7 @@ class Core
             $optInSlowPeriod = $optInFastPeriod;
             $optInFastPeriod = $tempInteger;
         }
+
         return $this->emaLookback($optInSlowPeriod)
                + $this->emaLookback($optInSignalPeriod);
     }
@@ -10200,9 +10247,9 @@ class Core
         //double $k1, $k2;
         //RetCode $retCode;
         //int $tempInteger;
-        $outBegIdx1 = new MInteger();
+        $outBegIdx1    = new MInteger();
         $outNbElement1 = new MInteger();
-        $outBegIdx2 = new MInteger();
+        $outBegIdx2    = new MInteger();
         $outNbElement2 = new MInteger();
         //int $lookbackTotal, $lookbackSignal;
         //int $i;
@@ -10215,17 +10262,17 @@ class Core
             $k1 = ((double)2.0 / ((double)($optInSlowPeriod + 1)));
         } else {
             $optInSlowPeriod = 26;
-            $k1               = (double)0.075;
+            $k1              = (double)0.075;
         }
         if ($optInFastPeriod != 0) {
             $k2 = ((double)2.0 / ((double)($optInFastPeriod + 1)));
         } else {
             $optInFastPeriod = 12;
-            $k2               = (double)0.15;
+            $k2              = (double)0.15;
         }
         $lookbackSignal = $this->emaLookback($optInSignalPeriod_2);
-        $lookbackTotal = $lookbackSignal;
-        $lookbackTotal += $this->emaLookback($optInSlowPeriod);
+        $lookbackTotal  = $lookbackSignal;
+        $lookbackTotal  += $this->emaLookback($optInSlowPeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -10235,11 +10282,11 @@ class Core
 
             return RetCode::Success;
         }
-        $tempInteger  = ($endIdx - $startIdx) + 1 + $lookbackSignal;
+        $tempInteger   = ($endIdx - $startIdx) + 1 + $lookbackSignal;
         $fastEMABuffer = $this->double($tempInteger);
         $slowEMABuffer = $this->double($tempInteger);
-        $tempInteger  = $startIdx - $lookbackSignal;
-        $retCode      = $this->TA_INT_EMA(
+        $tempInteger   = $startIdx - $lookbackSignal;
+        $retCode       = $this->TA_INT_EMA(
             $tempInteger, $endIdx,
             $inReal, $optInSlowPeriod, $k1,
             $outBegIdx1, $outNbElement1, $slowEMABuffer
@@ -10291,6 +10338,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outNbElement2->value;
+
         return RetCode::Success;
     }
 
@@ -10321,10 +10369,11 @@ class Core
             return -1;
         }
         $lookbackLargest = $this->movingAverageLookback($optInFastPeriod, $optInFastMAType);
-        $tempInteger    = $this->movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
+        $tempInteger     = $this->movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
         if ($tempInteger > $lookbackLargest) {
             $lookbackLargest = $tempInteger;
         }
+
         return $lookbackLargest + $this->movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
     }
 
@@ -10349,9 +10398,9 @@ class Core
         //double[] $fastMABuffer;
         //RetCode $retCode;
         //int $tempInteger;
-        $outBegIdx1 = new MInteger();
+        $outBegIdx1    = new MInteger();
         $outNbElement1 = new MInteger();
-        $outBegIdx2 = new MInteger();
+        $outBegIdx2    = new MInteger();
         $outNbElement2 = new MInteger();
         //int $lookbackTotal, $lookbackSignal, $lookbackLargest;
         //int $i;
@@ -10381,17 +10430,17 @@ class Core
             $tempInteger     = $optInSlowPeriod;
             $optInSlowPeriod = $optInFastPeriod;
             $optInFastPeriod = $tempInteger;
-            $tempMAType       = $optInSlowMAType;
-            $optInSlowMAType  = $optInFastMAType;
-            $optInFastMAType  = $tempMAType;
+            $tempMAType      = $optInSlowMAType;
+            $optInSlowMAType = $optInFastMAType;
+            $optInFastMAType = $tempMAType;
         }
         $lookbackLargest = $this->movingAverageLookback($optInFastPeriod, $optInFastMAType);
-        $tempInteger    = $this->movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
+        $tempInteger     = $this->movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
         if ($tempInteger > $lookbackLargest) {
             $lookbackLargest = $tempInteger;
         }
         $lookbackSignal = $this->movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
-        $lookbackTotal = $lookbackSignal + $lookbackLargest;
+        $lookbackTotal  = $lookbackSignal + $lookbackLargest;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -10401,11 +10450,11 @@ class Core
 
             return RetCode::Success;
         }
-        $tempInteger = ($endIdx - $startIdx) + 1 + $lookbackSignal;
+        $tempInteger  = ($endIdx - $startIdx) + 1 + $lookbackSignal;
         $fastMABuffer = $this->double($tempInteger);
         $slowMABuffer = $this->double($tempInteger);
-        $tempInteger = $startIdx - $lookbackSignal;
-        $retCode     = $this->movingAverage(
+        $tempInteger  = $startIdx - $lookbackSignal;
+        $retCode      = $this->movingAverage(
             $tempInteger, $endIdx,
             $inReal, $optInSlowPeriod, $optInSlowMAType,
             $outBegIdx1, $outNbElement1,
@@ -10459,6 +10508,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outNbElement2->value;
+
         return RetCode::Success;
     }
 
@@ -10555,28 +10605,28 @@ class Core
         $b = 0.5769;
         //double $hilbertTempReal;
         //int $hilbertIdx;
-        $detrender_Odd = $this->double(3);
+        $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
         //double $detrender;
         //double $prev_detrender_Odd;
         //double $prev_detrender_Even;
         //double $prev_detrender_input_Odd;
         //double $prev_detrender_input_Even;
-        $Q1_Odd = $this->double(3);
+        $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
         //double $Q1;
         //double $prev_Q1_Odd;
         //double $prev_Q1_Even;
         //double $prev_Q1_input_Odd;
         //double $prev_Q1_input_Even;
-        $jI_Odd = $this->double(3);
+        $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
         //double $jI;
         //double $prev_jI_Odd;
         //double $prev_jI_Even;
         //double $prev_jI_input_Odd;
         //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
+        $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
         //double $jQ;
         //double $prev_jQ_Odd;
@@ -10604,7 +10654,7 @@ class Core
         } elseif (($optInSlowLimit < 1.000000e-2) || ($optInSlowLimit > 9.900000e-1)) {
             return RetCode::BadParam;
         }
-        $rad2Deg        = 180.0 / (4.0 * atan(1));
+        $rad2Deg       = 180.0 / (4.0 * atan(1));
         $lookbackTotal = 32 + ($this->unstablePeriod[FuncUnstId::MAMA]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -10616,18 +10666,18 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $trailingWMAIdx    = $startIdx - $lookbackTotal;
+        $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      = $tempReal;
-        $periodWMASum      = $tempReal;
+        $periodWMASub     = $tempReal;
+        $periodWMASum     = $tempReal;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 2.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 2.0;
         $tempReal         = $inReal[$today++];
-        $periodWMASub      += $tempReal;
-        $periodWMASum      += $tempReal * 3.0;
-        $trailingWMAValue  = 0.0;
+        $periodWMASub     += $tempReal;
+        $periodWMASum     += $tempReal * 3.0;
+        $trailingWMAValue = 0.0;
         $i                = 9;
         do {
             $tempReal = $inReal[$today++];
@@ -10653,8 +10703,7 @@ class Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -10667,8 +10716,7 @@ class Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -10681,8 +10729,7 @@ class Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        }
-        ;
+        };
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -10695,10 +10742,9 @@ class Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        }
-        ;
+        };
         $period        = 0.0;
-        $outIdx       = 0;
+        $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
         $Re            = $Im = 0.0;
         $mama          = $fama = 0.0;
@@ -10718,48 +10764,48 @@ class Core
             };
             if (($today % 2) == 0) {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal             = $a * $smoothedValue;
+                    $detrender                   = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Even;
-                    $prev_detrender_Even        = $b * $prev_detrender_input_Even;
-                    $detrender                  += $prev_detrender_Even;
-                    $prev_detrender_input_Even  = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender                   += $hilbertTempReal;
+                    $detrender                   -= $prev_detrender_Even;
+                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
+                    $detrender                   += $prev_detrender_Even;
+                    $prev_detrender_input_Even   = $smoothedValue;
+                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $detrender;
+                    $Q1                   = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Even;
-                    $prev_Q1_Even        = $b * $prev_Q1_input_Even;
-                    $Q1                  += $prev_Q1_Even;
-                    $prev_Q1_input_Even  = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1                   += $hilbertTempReal;
+                    $Q1                   -= $prev_Q1_Even;
+                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
+                    $Q1                   += $prev_Q1_Even;
+                    $prev_Q1_input_Even   = $detrender;
+                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $I1ForEvenPrev3;
-                    $jI                  = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
+                    $jI                   = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Even;
-                    $prev_jI_Even        = $b * $prev_jI_input_Even;
-                    $jI                  += $prev_jI_Even;
-                    $prev_jI_input_Even  = $I1ForEvenPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI                   += $hilbertTempReal;
+                    $jI                   -= $prev_jI_Even;
+                    $prev_jI_Even         = $b * $prev_jI_input_Even;
+                    $jI                   += $prev_jI_Even;
+                    $prev_jI_input_Even   = $I1ForEvenPrev3;
+                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal      = $a * $Q1;
+                    $jQ                   = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Even;
-                    $prev_jQ_Even        = $b * $prev_jQ_input_Even;
-                    $jQ                  += $prev_jQ_Even;
-                    $prev_jQ_input_Even  = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ                   += $hilbertTempReal;
+                    $jQ                   -= $prev_jQ_Even;
+                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
+                    $jQ                   += $prev_jQ_Even;
+                    $prev_jQ_input_Even   = $Q1;
+                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -10775,48 +10821,48 @@ class Core
                 }
             } else {
                 {
-                    $hilbertTempReal           = $a * $smoothedValue;
-                    $detrender                 = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal            = $a * $smoothedValue;
+                    $detrender                  = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                 += $hilbertTempReal;
-                    $detrender                 -= $prev_detrender_Odd;
-                    $prev_detrender_Odd        = $b * $prev_detrender_input_Odd;
-                    $detrender                 += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd  = $smoothedValue;
-                    $detrender                 *= $adjustedPrevPeriod;
+                    $detrender                  += $hilbertTempReal;
+                    $detrender                  -= $prev_detrender_Odd;
+                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
+                    $detrender                  += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd   = $smoothedValue;
+                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $detrender;
-                    $Q1                 = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $detrender;
+                    $Q1                  = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                 += $hilbertTempReal;
-                    $Q1                 -= $prev_Q1_Odd;
-                    $prev_Q1_Odd        = $b * $prev_Q1_input_Odd;
-                    $Q1                 += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd  = $detrender;
-                    $Q1                 *= $adjustedPrevPeriod;
+                    $Q1                  += $hilbertTempReal;
+                    $Q1                  -= $prev_Q1_Odd;
+                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
+                    $Q1                  += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd   = $detrender;
+                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $I1ForOddPrev3;
-                    $jI                 = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $I1ForOddPrev3;
+                    $jI                  = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                 += $hilbertTempReal;
-                    $jI                 -= $prev_jI_Odd;
-                    $prev_jI_Odd        = $b * $prev_jI_input_Odd;
-                    $jI                 += $prev_jI_Odd;
-                    $prev_jI_input_Odd  = $I1ForOddPrev3;
-                    $jI                 *= $adjustedPrevPeriod;
+                    $jI                  += $hilbertTempReal;
+                    $jI                  -= $prev_jI_Odd;
+                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
+                    $jI                  += $prev_jI_Odd;
+                    $prev_jI_input_Odd   = $I1ForOddPrev3;
+                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
-                    $hilbertTempReal    = $a * $Q1;
-                    $jQ                 = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal     = $a * $Q1;
+                    $jQ                  = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                 += $hilbertTempReal;
-                    $jQ                 -= $prev_jQ_Odd;
-                    $prev_jQ_Odd        = $b * $prev_jQ_input_Odd;
-                    $jQ                 += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd  = $Q1;
-                    $jQ                 *= $adjustedPrevPeriod;
+                    $jQ                  += $hilbertTempReal;
+                    $jQ                  -= $prev_jQ_Odd;
+                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
+                    $jQ                  += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd   = $Q1;
+                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
@@ -10828,7 +10874,7 @@ class Core
                     $tempReal2 = 0.0;
                 }
             }
-            $tempReal = $prevPhase - $tempReal2;
+            $tempReal  = $prevPhase - $tempReal2;
             $prevPhase = $tempReal2;
             if ($tempReal < 1.0) {
                 $tempReal = 1.0;
@@ -10841,17 +10887,17 @@ class Core
             } else {
                 $tempReal = $optInFastLimit;
             }
-            $mama      = ($tempReal * $todayValue) + ((1 - $tempReal) * $mama);
+            $mama     = ($tempReal * $todayValue) + ((1 - $tempReal) * $mama);
             $tempReal *= 0.5;
-            $fama      = ($tempReal * $mama) + ((1 - $tempReal) * $fama);
+            $fama     = ($tempReal * $mama) + ((1 - $tempReal) * $fama);
             if ($today >= $startIdx) {
                 $outMAMA[$outIdx]   = $mama;
                 $outFAMA[$outIdx++] = $fama;
             }
-            $Re        = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im        = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
-            $prevQ2    = $Q2;
-            $prevI2    = $I2;
+            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
+            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $prevQ2   = $Q2;
+            $prevI2   = $I2;
             $tempReal = $period;
             if (($Im != 0.0) && ($Re != 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -10873,6 +10919,7 @@ class Core
             $today++;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -10880,7 +10927,7 @@ class Core
     public function movingAverageVariablePeriodLookback(
         int $optInMinPeriod,
         int $optInMaxPeriod,
-        MAType $optInMAType
+        int $optInMAType
     )
     {
         if ((int)$optInMinPeriod == (PHP_INT_MIN)) {
@@ -10904,7 +10951,7 @@ class Core
         array &$inPeriods,
         int $optInMinPeriod,
         int $optInMaxPeriod,
-        MAType $optInMAType,
+        int $optInMAType,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -10913,7 +10960,7 @@ class Core
         //int $i, $j, $lookbackTotal, $outputSize, $tempInt, $curPeriod;
         //int[] $localPeriodArray;
         //double[] $localOutputArray;
-        $localBegIdx = new MInteger();
+        $localBegIdx    = new MInteger();
         $localNbElement = new MInteger();
         //RetCode $retCode;
         if ($startIdx < 0) {
@@ -10983,13 +11030,14 @@ class Core
                 for ($j = $i + 1; $j < $outputSize; $j++) {
                     if ($localPeriodArray[$j] == $curPeriod) {
                         $localPeriodArray[$j] = 0;
-                        $outReal[$j]         = $localOutputArray[$j];
+                        $outReal[$j]          = $localOutputArray[$j];
                     }
                 }
             }
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outputSize;
+
         return RetCode::Success;
     }
 
@@ -11067,6 +11115,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11144,6 +11193,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11176,6 +11226,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -11230,8 +11281,7 @@ class Core
                 $mflow[$_mflow_index] = new MoneyFlow();
             }
             $maxIdx_mflow = ($optInTimePeriod - 1);
-        }
-        ;
+        };
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
         $lookbackTotal       = $optInTimePeriod + ($this->unstablePeriod[FuncUnstId::MFI]);
@@ -11241,8 +11291,8 @@ class Core
         if ($startIdx > $endIdx) {
             return RetCode::Success;
         }
-        $outIdx   = 0;
-        $today    = $startIdx - $lookbackTotal;
+        $outIdx    = 0;
+        $today     = $startIdx - $lookbackTotal;
         $prevValue = ($inHigh[$today] + $inLow[$today] + $inClose[$today]) / 3.0;
         $posSumMF  = 0.0;
         $negSumMF  = 0.0;
@@ -11253,16 +11303,16 @@ class Core
             $prevValue  = $tempValue1;
             $tempValue1 *= $inVolume[$today++];
             if ($tempValue2 < 0) {
-                ($mflow[$mflow_Idx])::negative = $tempValue1;
+                ($mflow[$mflow_Idx])->negative = $tempValue1;
                 $negSumMF                      += $tempValue1;
-                ($mflow[$mflow_Idx])::positive = 0.0;
+                ($mflow[$mflow_Idx])->positive = 0.0;
             } elseif ($tempValue2 > 0) {
-                ($mflow[$mflow_Idx])::positive = $tempValue1;
+                ($mflow[$mflow_Idx])->positive = $tempValue1;
                 $posSumMF                      += $tempValue1;
-                ($mflow[$mflow_Idx])::negative = 0.0;
+                ($mflow[$mflow_Idx])->negative = 0.0;
             } else {
-                ($mflow[$mflow_Idx])::positive = 0.0;
-                ($mflow[$mflow_Idx])::negative = 0.0;
+                ($mflow[$mflow_Idx])->positive = 0.0;
+                ($mflow[$mflow_Idx])->negative = 0.0;
             }
             {
                 $mflow_Idx++;
@@ -11280,23 +11330,23 @@ class Core
             }
         } else {
             while ($today < $startIdx) {
-                $posSumMF   -= ($mflow[$mflow_Idx])::positive;
-                $negSumMF   -= ($mflow[$mflow_Idx])::negative;
+                $posSumMF   -= ($mflow[$mflow_Idx])->positive;
+                $negSumMF   -= ($mflow[$mflow_Idx])->negative;
                 $tempValue1 = ($inHigh[$today] + $inLow[$today] + $inClose[$today]) / 3.0;
                 $tempValue2 = $tempValue1 - $prevValue;
                 $prevValue  = $tempValue1;
                 $tempValue1 *= $inVolume[$today++];
                 if ($tempValue2 < 0) {
-                    ($mflow[$mflow_Idx])::negative = $tempValue1;
+                    ($mflow[$mflow_Idx])->negative = $tempValue1;
                     $negSumMF                      += $tempValue1;
-                    ($mflow[$mflow_Idx])::positive = 0.0;
+                    ($mflow[$mflow_Idx])->positive = 0.0;
                 } elseif ($tempValue2 > 0) {
-                    ($mflow[$mflow_Idx])::positive = $tempValue1;
+                    ($mflow[$mflow_Idx])->positive = $tempValue1;
                     $posSumMF                      += $tempValue1;
-                    ($mflow[$mflow_Idx])::negative = 0.0;
+                    ($mflow[$mflow_Idx])->negative = 0.0;
                 } else {
-                    ($mflow[$mflow_Idx])::positive = 0.0;
-                    ($mflow[$mflow_Idx])::negative = 0.0;
+                    ($mflow[$mflow_Idx])->positive = 0.0;
+                    ($mflow[$mflow_Idx])->negative = 0.0;
                 }
                 {
                     $mflow_Idx++;
@@ -11307,23 +11357,23 @@ class Core
             }
         }
         while ($today <= $endIdx) {
-            $posSumMF   -= ($mflow[$mflow_Idx])::positive;
-            $negSumMF   -= ($mflow[$mflow_Idx])::negative;
+            $posSumMF   -= ($mflow[$mflow_Idx])->positive;
+            $negSumMF   -= ($mflow[$mflow_Idx])->negative;
             $tempValue1 = ($inHigh[$today] + $inLow[$today] + $inClose[$today]) / 3.0;
             $tempValue2 = $tempValue1 - $prevValue;
             $prevValue  = $tempValue1;
             $tempValue1 *= $inVolume[$today++];
             if ($tempValue2 < 0) {
-                ($mflow[$mflow_Idx])::negative = $tempValue1;
+                ($mflow[$mflow_Idx])->negative = $tempValue1;
                 $negSumMF                      += $tempValue1;
-                ($mflow[$mflow_Idx])::positive = 0.0;
+                ($mflow[$mflow_Idx])->positive = 0.0;
             } elseif ($tempValue2 > 0) {
-                ($mflow[$mflow_Idx])::positive = $tempValue1;
+                ($mflow[$mflow_Idx])->positive = $tempValue1;
                 $posSumMF                      += $tempValue1;
-                ($mflow[$mflow_Idx])::negative = 0.0;
+                ($mflow[$mflow_Idx])->negative = 0.0;
             } else {
-                ($mflow[$mflow_Idx])::positive = 0.0;
-                ($mflow[$mflow_Idx])::negative = 0.0;
+                ($mflow[$mflow_Idx])->positive = 0.0;
+                ($mflow[$mflow_Idx])->negative = 0.0;
             }
             $tempValue1 = $posSumMF + $negSumMF;
             if ($tempValue1 < 1.0) {
@@ -11340,6 +11390,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11408,6 +11459,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11480,6 +11532,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11557,6 +11610,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11634,6 +11688,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11731,6 +11786,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11828,6 +11884,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -11892,17 +11949,17 @@ class Core
         if ($optInTimePeriod <= 1) {
             $outBegIdx->value = $startIdx;
             $today            = $startIdx - 1;
-            $prevHigh          = $inHigh[$today];
-            $prevLow           = $inLow[$today];
-            $prevClose         = $inClose[$today];
+            $prevHigh         = $inHigh[$today];
+            $prevLow          = $inLow[$today];
+            $prevClose        = $inClose[$today];
             while ($today < $endIdx) {
                 $today++;
                 $tempReal = $inHigh[$today];
-                $diffP     = $tempReal - $prevHigh;
-                $prevHigh  = $tempReal;
+                $diffP    = $tempReal - $prevHigh;
+                $prevHigh = $tempReal;
                 $tempReal = $inLow[$today];
-                $diffM     = $prevLow - $tempReal;
-                $prevLow   = $tempReal;
+                $diffM    = $prevLow - $tempReal;
+                $prevLow  = $tempReal;
                 if (($diffM > 0) && ($diffP < $diffM)) {
                     {
                         $tempReal  = $prevHigh - $prevLow;
@@ -11930,21 +11987,21 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $today = $startIdx;
-        $prevMinusDM       = 0.0;
-        $prevTR            = 0.0;
+        $prevMinusDM      = 0.0;
+        $prevTR           = 0.0;
         $today            = $startIdx - $lookbackTotal;
-        $prevHigh          = $inHigh[$today];
-        $prevLow           = $inLow[$today];
-        $prevClose         = $inClose[$today];
+        $prevHigh         = $inHigh[$today];
+        $prevLow          = $inLow[$today];
+        $prevClose        = $inClose[$today];
         $i                = $optInTimePeriod - 1;
         while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM += $diffM;
             }
@@ -11966,11 +12023,11 @@ class Core
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM = $prevMinusDM - ($prevMinusDM / $optInTimePeriod) + $diffM;
             } else {
@@ -11999,11 +12056,11 @@ class Core
         while ($today < $endIdx) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM = $prevMinusDM - ($prevMinusDM / $optInTimePeriod) + $diffM;
             } else {
@@ -12029,6 +12086,7 @@ class Core
             }
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -12092,16 +12150,16 @@ class Core
         if ($optInTimePeriod <= 1) {
             $outBegIdx->value = $startIdx;
             $today            = $startIdx - 1;
-            $prevHigh          = $inHigh[$today];
-            $prevLow           = $inLow[$today];
+            $prevHigh         = $inHigh[$today];
+            $prevLow          = $inLow[$today];
             while ($today < $endIdx) {
                 $today++;
                 $tempReal = $inHigh[$today];
-                $diffP     = $tempReal - $prevHigh;
-                $prevHigh  = $tempReal;
+                $diffP    = $tempReal - $prevHigh;
+                $prevHigh = $tempReal;
                 $tempReal = $inLow[$today];
-                $diffM     = $prevLow - $tempReal;
-                $prevLow   = $tempReal;
+                $diffM    = $prevLow - $tempReal;
+                $prevLow  = $tempReal;
                 if (($diffM > 0) && ($diffP < $diffM)) {
                     $outReal[$outIdx++] = $diffM;
                 } else {
@@ -12113,19 +12171,19 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $prevMinusDM       = 0.0;
+        $prevMinusDM      = 0.0;
         $today            = $startIdx - $lookbackTotal;
-        $prevHigh          = $inHigh[$today];
-        $prevLow           = $inLow[$today];
+        $prevHigh         = $inHigh[$today];
+        $prevLow          = $inLow[$today];
         $i                = $optInTimePeriod - 1;
         while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM += $diffM;
             }
@@ -12134,11 +12192,11 @@ class Core
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM = $prevMinusDM - ($prevMinusDM / $optInTimePeriod) + $diffM;
             } else {
@@ -12150,11 +12208,11 @@ class Core
         while ($today < $endIdx) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffM > 0) && ($diffP < $diffM)) {
                 $prevMinusDM = $prevMinusDM - ($prevMinusDM / $optInTimePeriod) + $diffM;
             } else {
@@ -12163,6 +12221,7 @@ class Core
             $outReal[$outIdx++] = $prevMinusDM;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -12210,13 +12269,14 @@ class Core
             return RetCode::Success;
         }
         $outIdx      = 0;
-        $inIdx        = $startIdx;
+        $inIdx       = $startIdx;
         $trailingIdx = $startIdx - $optInTimePeriod;
         while ($inIdx <= $endIdx) {
             $outReal[$outIdx++] = $inReal[$inIdx++] - $inReal[$trailingIdx++];
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -12249,6 +12309,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -12279,7 +12340,7 @@ class Core
         //RetCode $retCode;
         //int $outIdx, $today, $lookbackTotal;
         //int $nbATR;
-        $outBegIdx1 = new MInteger();
+        $outBegIdx1    = new MInteger();
         $outNbElement1 = new MInteger();
         //double $prevATR, $tempValue;
         //$tempBuffer;
@@ -12340,7 +12401,7 @@ class Core
             $prevATR /= $optInTimePeriod;
             $outIdx--;
         }
-        $outIdx   = 1;
+        $outIdx    = 1;
         $tempValue = $inClose[$today];
         if (!(((-0.00000001) < $tempValue) && ($tempValue < 0.00000001))) {
             $outReal[0] = ($prevATR / $tempValue) * 100.0;
@@ -12349,9 +12410,9 @@ class Core
         }
         $nbATR = ($endIdx - $startIdx) + 1;
         while (--$nbATR != 0) {
-            $prevATR  *= $optInTimePeriod - 1;
-            $prevATR  += $tempBuffer[$today++];
-            $prevATR  /= $optInTimePeriod;
+            $prevATR   *= $optInTimePeriod - 1;
+            $prevATR   += $tempBuffer[$today++];
+            $prevATR   /= $optInTimePeriod;
             $tempValue = $inClose[$today];
             if (!(((-0.00000001) < $tempValue) && ($tempValue < 0.00000001))) {
                 $outReal[$outIdx] = ($prevATR / $tempValue) * 100.0;
@@ -12362,6 +12423,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return $retCode;
     }
 
@@ -12392,7 +12454,7 @@ class Core
         }
         $prevOBV  = $inVolume[$startIdx];
         $prevReal = $inReal[$startIdx];
-        $outIdx  = 0;
+        $outIdx   = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {
             $tempReal = $inReal[$i];
             if ($tempReal > $prevReal) {
@@ -12401,10 +12463,11 @@ class Core
                 $prevOBV -= $inVolume[$i];
             }
             $outReal[$outIdx++] = $prevOBV;
-            $prevReal            = $tempReal;
+            $prevReal           = $tempReal;
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -12469,17 +12532,17 @@ class Core
         if ($optInTimePeriod <= 1) {
             $outBegIdx->value = $startIdx;
             $today            = $startIdx - 1;
-            $prevHigh          = $inHigh[$today];
-            $prevLow           = $inLow[$today];
-            $prevClose         = $inClose[$today];
+            $prevHigh         = $inHigh[$today];
+            $prevLow          = $inLow[$today];
+            $prevClose        = $inClose[$today];
             while ($today < $endIdx) {
                 $today++;
                 $tempReal = $inHigh[$today];
-                $diffP     = $tempReal - $prevHigh;
-                $prevHigh  = $tempReal;
+                $diffP    = $tempReal - $prevHigh;
+                $prevHigh = $tempReal;
                 $tempReal = $inLow[$today];
-                $diffM     = $prevLow - $tempReal;
-                $prevLow   = $tempReal;
+                $diffM    = $prevLow - $tempReal;
+                $prevLow  = $tempReal;
                 if (($diffP > 0) && ($diffP > $diffM)) {
                     {
                         $tempReal  = $prevHigh - $prevLow;
@@ -12507,21 +12570,21 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $today = $startIdx;
-        $prevPlusDM        = 0.0;
-        $prevTR            = 0.0;
+        $prevPlusDM       = 0.0;
+        $prevTR           = 0.0;
         $today            = $startIdx - $lookbackTotal;
-        $prevHigh          = $inHigh[$today];
-        $prevLow           = $inLow[$today];
-        $prevClose         = $inClose[$today];
+        $prevHigh         = $inHigh[$today];
+        $prevLow          = $inLow[$today];
+        $prevClose        = $inClose[$today];
         $i                = $optInTimePeriod - 1;
         while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffP > 0) && ($diffP > $diffM)) {
                 $prevPlusDM += $diffP;
             }
@@ -12543,11 +12606,11 @@ class Core
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffP > 0) && ($diffP > $diffM)) {
                 $prevPlusDM = $prevPlusDM - ($prevPlusDM / $optInTimePeriod) + $diffP;
             } else {
@@ -12576,11 +12639,11 @@ class Core
         while ($today < $endIdx) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffP > 0) && ($diffP > $diffM)) {
                 $prevPlusDM = $prevPlusDM - ($prevPlusDM / $optInTimePeriod) + $diffP;
             } else {
@@ -12606,6 +12669,7 @@ class Core
             }
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -12669,16 +12733,16 @@ class Core
         if ($optInTimePeriod <= 1) {
             $outBegIdx->value = $startIdx;
             $today            = $startIdx - 1;
-            $prevHigh          = $inHigh[$today];
-            $prevLow           = $inLow[$today];
+            $prevHigh         = $inHigh[$today];
+            $prevLow          = $inLow[$today];
             while ($today < $endIdx) {
                 $today++;
                 $tempReal = $inHigh[$today];
-                $diffP     = $tempReal - $prevHigh;
-                $prevHigh  = $tempReal;
+                $diffP    = $tempReal - $prevHigh;
+                $prevHigh = $tempReal;
                 $tempReal = $inLow[$today];
-                $diffM     = $prevLow - $tempReal;
-                $prevLow   = $tempReal;
+                $diffM    = $prevLow - $tempReal;
+                $prevLow  = $tempReal;
                 if (($diffP > 0) && ($diffP > $diffM)) {
                     $outReal[$outIdx++] = $diffP;
                 } else {
@@ -12690,19 +12754,19 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $prevPlusDM        = 0.0;
+        $prevPlusDM       = 0.0;
         $today            = $startIdx - $lookbackTotal;
-        $prevHigh          = $inHigh[$today];
-        $prevLow           = $inLow[$today];
+        $prevHigh         = $inHigh[$today];
+        $prevLow          = $inLow[$today];
         $i                = $optInTimePeriod - 1;
         while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffP > 0) && ($diffP > $diffM)) {
                 $prevPlusDM += $diffP;
             }
@@ -12711,11 +12775,11 @@ class Core
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffP > 0) && ($diffP > $diffM)) {
                 $prevPlusDM = $prevPlusDM - ($prevPlusDM / $optInTimePeriod) + $diffP;
             } else {
@@ -12727,11 +12791,11 @@ class Core
         while ($today < $endIdx) {
             $today++;
             $tempReal = $inHigh[$today];
-            $diffP     = $tempReal - $prevHigh;
-            $prevHigh  = $tempReal;
+            $diffP    = $tempReal - $prevHigh;
+            $prevHigh = $tempReal;
             $tempReal = $inLow[$today];
-            $diffM     = $prevLow - $tempReal;
-            $prevLow   = $tempReal;
+            $diffM    = $prevLow - $tempReal;
+            $prevLow  = $tempReal;
             if (($diffP > 0) && ($diffP > $diffM)) {
                 $prevPlusDM = $prevPlusDM - ($prevPlusDM / $optInTimePeriod) + $diffP;
             } else {
@@ -12740,6 +12804,7 @@ class Core
             $outReal[$outIdx++] = $prevPlusDM;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -12747,7 +12812,7 @@ class Core
     public function ppoLookback(
         int $optInFastPeriod,
         int $optInSlowPeriod,
-        MAType $optInMAType
+        int $optInMAType
     )
     {
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -12770,7 +12835,7 @@ class Core
         array $inReal,
         int $optInFastPeriod,
         int $optInSlowPeriod,
-        MAType $optInMAType,
+        int $optInMAType,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -12795,7 +12860,7 @@ class Core
             return RetCode::BadParam;
         }
         $tempBuffer = $this->double($endIdx - $startIdx + 1);
-        $one = 1;
+        $one        = 1;
         $retCode    = $this->TA_INT_PO(
             $startIdx, $endIdx, $inReal,
             $optInFastPeriod,
@@ -12807,6 +12872,7 @@ class Core
             $tempBuffer,
             $one
         );
+
         return $retCode;
     }
 
@@ -12855,7 +12921,7 @@ class Core
             return RetCode::Success;
         }
         $outIdx      = 0;
-        $inIdx        = $startIdx;
+        $inIdx       = $startIdx;
         $trailingIdx = $startIdx - $optInTimePeriod;
         while ($inIdx <= $endIdx) {
             $tempReal = $inReal[$trailingIdx++];
@@ -12868,6 +12934,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -12916,7 +12983,7 @@ class Core
             return RetCode::Success;
         }
         $outIdx      = 0;
-        $inIdx        = $startIdx;
+        $inIdx       = $startIdx;
         $trailingIdx = $startIdx - $optInTimePeriod;
         while ($inIdx <= $endIdx) {
             $tempReal = $inReal[$trailingIdx++];
@@ -12929,6 +12996,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -12977,7 +13045,7 @@ class Core
             return RetCode::Success;
         }
         $outIdx      = 0;
-        $inIdx        = $startIdx;
+        $inIdx       = $startIdx;
         $trailingIdx = $startIdx - $optInTimePeriod;
         while ($inIdx <= $endIdx) {
             $tempReal = $inReal[$trailingIdx++];
@@ -12990,6 +13058,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -13038,7 +13107,7 @@ class Core
             return RetCode::Success;
         }
         $outIdx      = 0;
-        $inIdx        = $startIdx;
+        $inIdx       = $startIdx;
         $trailingIdx = $startIdx - $optInTimePeriod;
         while ($inIdx <= $endIdx) {
             $tempReal = $inReal[$trailingIdx++];
@@ -13051,6 +13120,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -13067,6 +13137,7 @@ class Core
         if (($this->compatibility) == Compatibility::Metastock) {
             $retValue--;
         }
+
         return $retValue;
     }
 
@@ -13111,9 +13182,10 @@ class Core
             $outNBElement->value = $i;
             //System::arraycopy($inReal, $startIdx, $outReal, 0, $i);
             $outReal = \array_slice($inReal, $startIdx, $i);
+
             return RetCode::Success;
         }
-        $today         = $startIdx - $lookbackTotal;
+        $today          = $startIdx - $lookbackTotal;
         $prevValue      = $inReal[$today];
         $unstablePeriod = ($this->unstablePeriod[FuncUnstId::RSI]);
         if (($unstablePeriod == 0) &&
@@ -13145,7 +13217,7 @@ class Core
 
                 return RetCode::Success;
             }
-            $today    -= $optInTimePeriod;
+            $today     -= $optInTimePeriod;
             $prevValue = $savePrevValue;
         }
         $prevGain = 0.0;
@@ -13209,6 +13281,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -13298,9 +13371,9 @@ class Core
         }
         $outBegIdx->value = $startIdx;
         $outIdx           = 0;
-        $todayIdx          = $startIdx;
-        $newHigh           = $inHigh[$todayIdx - 1];
-        $newLow            = $inLow[$todayIdx - 1];
+        $todayIdx         = $startIdx;
+        $newHigh          = $inHigh[$todayIdx - 1];
+        $newLow           = $inLow[$todayIdx - 1];
         if ($isLong == 1) {
             $ep  = $inHigh[$todayIdx];
             $sar = $newLow;
@@ -13327,9 +13400,9 @@ class Core
                         $sar = $newHigh;
                     }
                     $outReal[$outIdx++] = $sar;
-                    $af                  = $optInAcceleration;
-                    $ep                  = $newLow;
-                    $sar                 = $sar + $af * ($ep - $sar);
+                    $af                 = $optInAcceleration;
+                    $ep                 = $newLow;
+                    $sar                = $sar + $af * ($ep - $sar);
                     if ($sar < $prevHigh) {
                         $sar = $prevHigh;
                     }
@@ -13364,9 +13437,9 @@ class Core
                         $sar = $newLow;
                     }
                     $outReal[$outIdx++] = $sar;
-                    $af                  = $optInAcceleration;
-                    $ep                  = $newHigh;
-                    $sar                 = $sar + $af * ($ep - $sar);
+                    $af                 = $optInAcceleration;
+                    $ep                 = $newHigh;
+                    $sar                = $sar + $af * ($ep - $sar);
                     if ($sar > $prevLow) {
                         $sar = $prevLow;
                     }
@@ -13393,6 +13466,7 @@ class Core
             }
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -13570,9 +13644,9 @@ class Core
         }
         $outBegIdx->value = $startIdx;
         $outIdx           = 0;
-        $todayIdx          = $startIdx;
-        $newHigh           = $inHigh[$todayIdx - 1];
-        $newLow            = $inLow[$todayIdx - 1];
+        $todayIdx         = $startIdx;
+        $newHigh          = $inHigh[$todayIdx - 1];
+        $newLow           = $inLow[$todayIdx - 1];
         if ($optInStartValue == 0) {
             if ($isLong == 1) {
                 $ep  = $inHigh[$todayIdx];
@@ -13610,9 +13684,9 @@ class Core
                         $sar += $sar * $optInOffsetOnReverse;
                     }
                     $outReal[$outIdx++] = -$sar;
-                    $afShort             = $optInAccelerationInitShort;
-                    $ep                  = $newLow;
-                    $sar                 = $sar + $afShort * ($ep - $sar);
+                    $afShort            = $optInAccelerationInitShort;
+                    $ep                 = $newLow;
+                    $sar                = $sar + $afShort * ($ep - $sar);
                     if ($sar < $prevHigh) {
                         $sar = $prevHigh;
                     }
@@ -13650,9 +13724,9 @@ class Core
                         $sar -= $sar * $optInOffsetOnReverse;
                     }
                     $outReal[$outIdx++] = $sar;
-                    $afLong              = $optInAccelerationInitLong;
-                    $ep                  = $newHigh;
-                    $sar                 = $sar + $afLong * ($ep - $sar);
+                    $afLong             = $optInAccelerationInitLong;
+                    $ep                 = $newHigh;
+                    $sar                = $sar + $afLong * ($ep - $sar);
                     if ($sar > $prevLow) {
                         $sar = $prevLow;
                     }
@@ -13679,6 +13753,7 @@ class Core
             }
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -13710,6 +13785,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -13741,6 +13817,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -13807,7 +13884,7 @@ class Core
 
             return RetCode::Success;
         }
-        $periodTotal  = 0;
+        $periodTotal = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
         $i           = $trailingIdx;
         if ($optInTimePeriod > 1) {
@@ -13815,15 +13892,16 @@ class Core
                 $periodTotal += $inReal[$i++];
             }
         }
-        $outIdx = 0;
+        $outIdx = $lookbackTotal;
         do {
-            $periodTotal         += $inReal[$i++];
+            $periodTotal        += $inReal[$i++];
             $tempReal           = $periodTotal;
-            $periodTotal         -= $inReal[$trailingIdx++];
+            $periodTotal        -= $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $tempReal / $optInTimePeriod;
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -13855,6 +13933,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -13935,6 +14014,7 @@ class Core
                 }
             }
         }
+
         return RetCode::Success;
     }
 
@@ -13954,20 +14034,20 @@ class Core
         $endSum       = $inMovAvgBegIdx;
         $periodTotal2 = 0;
         for ($outIdx = $startSum; $outIdx < $endSum; $outIdx++) {
-            $tempReal    = $inReal[$outIdx];
-            $tempReal    *= $tempReal;
+            $tempReal     = $inReal[$outIdx];
+            $tempReal     *= $tempReal;
             $periodTotal2 += $tempReal;
         }
         for ($outIdx = 0; $outIdx < $inMovAvgNbElement; $outIdx++, $startSum++, $endSum++) {
-            $tempReal    = $inReal[$endSum];
-            $tempReal    *= $tempReal;
+            $tempReal     = $inReal[$endSum];
+            $tempReal     *= $tempReal;
             $periodTotal2 += $tempReal;
             $meanValue2   = $periodTotal2 / $timePeriod;
-            $tempReal    = $inReal[$startSum];
-            $tempReal    *= $tempReal;
+            $tempReal     = $inReal[$startSum];
+            $tempReal     *= $tempReal;
             $periodTotal2 -= $tempReal;
-            $tempReal    = $inMovAvg[$outIdx];
-            $tempReal    *= $tempReal;
+            $tempReal     = $inMovAvg[$outIdx];
+            $tempReal     *= $tempReal;
             $meanValue2   -= $tempReal;
             if (!($meanValue2 < 0.00000001)) {
                 $output[$outIdx] = sqrt($meanValue2);
@@ -14005,6 +14085,7 @@ class Core
         $retValue = ($optInFastK_Period - 1);
         $retValue += $this->movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
         $retValue += $this->movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
+
         return $retValue;
     }
 
@@ -14052,9 +14133,9 @@ class Core
         } elseif (((int)$optInSlowD_Period < 1) || ((int)$optInSlowD_Period > 100000)) {
             return RetCode::BadParam;
         }
-        $lookbackK      = $optInFastK_Period - 1;
-        $lookbackKSlow  = $this->movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
-        $lookbackDSlow  = $this->movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
+        $lookbackK     = $optInFastK_Period - 1;
+        $lookbackKSlow = $this->movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
+        $lookbackDSlow = $this->movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
         $lookbackTotal = $lookbackK + $lookbackDSlow + $lookbackKSlow;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -14069,7 +14150,7 @@ class Core
         $trailingIdx = $startIdx - $lookbackTotal;
         $today       = $trailingIdx + $lookbackK;
         $lowestIdx   = $highestIdx = -1;
-        $diff         = $highest = $lowest = 0.0;
+        $diff        = $highest = $lowest = 0.0;
         if (($outSlowK == $inHigh) ||
             ($outSlowK == $inLow) ||
             ($outSlowK == $inClose)) {
@@ -14098,7 +14179,7 @@ class Core
             } elseif ($tmp <= $lowest) {
                 $lowestIdx = $today;
                 $lowest    = $tmp;
-                $diff       = ($highest - $lowest) / 100.0;
+                $diff      = ($highest - $lowest) / 100.0;
             }
             $tmp = $inHigh[$today];
             if ($highestIdx < $trailingIdx) {
@@ -14116,7 +14197,7 @@ class Core
             } elseif ($tmp >= $highest) {
                 $highestIdx = $today;
                 $highest    = $tmp;
-                $diff        = ($highest - $lowest) / 100.0;
+                $diff       = ($highest - $lowest) / 100.0;
             }
             if ($diff != 0.0) {
                 $tempBuffer[$outIdx++] = ($inClose[$today] - $lowest) / $diff;
@@ -14153,6 +14234,7 @@ class Core
             return $retCode;
         }
         $outBegIdx->value = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14176,6 +14258,7 @@ class Core
         }
         $retValue = ($optInFastK_Period - 1);
         $retValue += $this->movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
+
         return $retValue;
     }
 
@@ -14216,8 +14299,8 @@ class Core
         } elseif (((int)$optInFastD_Period < 1) || ((int)$optInFastD_Period > 100000)) {
             return RetCode::BadParam;
         }
-        $lookbackK      = $optInFastK_Period - 1;
-        $lookbackFastD  = $this->movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
+        $lookbackK     = $optInFastK_Period - 1;
+        $lookbackFastD = $this->movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
         $lookbackTotal = $lookbackK + $lookbackFastD;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -14232,7 +14315,7 @@ class Core
         $trailingIdx = $startIdx - $lookbackTotal;
         $today       = $trailingIdx + $lookbackK;
         $lowestIdx   = $highestIdx = -1;
-        $diff         = $highest = $lowest = 0.0;
+        $diff        = $highest = $lowest = 0.0;
         if (($outFastK == $inHigh) ||
             ($outFastK == $inLow) ||
             ($outFastK == $inClose)) {
@@ -14261,7 +14344,7 @@ class Core
             } elseif ($tmp <= $lowest) {
                 $lowestIdx = $today;
                 $lowest    = $tmp;
-                $diff       = ($highest - $lowest) / 100.0;
+                $diff      = ($highest - $lowest) / 100.0;
             }
             $tmp = $inHigh[$today];
             if ($highestIdx < $trailingIdx) {
@@ -14279,7 +14362,7 @@ class Core
             } elseif ($tmp >= $highest) {
                 $highestIdx = $today;
                 $highest    = $tmp;
-                $diff        = ($highest - $lowest) / 100.0;
+                $diff       = ($highest - $lowest) / 100.0;
             }
             if ($diff != 0.0) {
                 $tempBuffer[$outIdx++] = ($inClose[$today] - $lowest) / $diff;
@@ -14310,6 +14393,7 @@ class Core
             return $retCode;
         }
         $outBegIdx->value = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14338,6 +14422,7 @@ class Core
             return -1;
         }
         $retValue = $this->rsiLookback($optInTimePeriod) + $this->stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+
         return $retValue;
     }
 
@@ -14358,8 +14443,8 @@ class Core
         //double[] $tempRSIBuffer;
         //RetCode $retCode;
         //int $lookbackTotal, $lookbackSTOCHF, $tempArraySize;
-        $outBegIdx1 = new MInteger();
-        $outBegIdx2 = new MInteger();
+        $outBegIdx1    = new MInteger();
+        $outBegIdx2    = new MInteger();
         $outNbElement1 = new MInteger();
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -14384,7 +14469,7 @@ class Core
         }
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $lookbackSTOCHF       = $this->stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        $lookbackSTOCHF      = $this->stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
         $lookbackTotal       = $this->rsiLookback($optInTimePeriod) + $lookbackSTOCHF;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -14396,8 +14481,8 @@ class Core
             return RetCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        $tempArraySize     = ($endIdx - $startIdx) + 1 + $lookbackSTOCHF;
-        $tempRSIBuffer     = $this->double($tempArraySize);
+        $tempArraySize    = ($endIdx - $startIdx) + 1 + $lookbackSTOCHF;
+        $tempRSIBuffer    = $this->double($tempArraySize);
         $retCode          = $this->rsi(
             $startIdx - $lookbackSTOCHF,
             $endIdx,
@@ -14433,6 +14518,7 @@ class Core
 
             return $retCode;
         }
+
         return RetCode::Success;
     }
 
@@ -14465,6 +14551,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14513,7 +14600,7 @@ class Core
 
             return RetCode::Success;
         }
-        $periodTotal  = 0;
+        $periodTotal = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
         $i           = $trailingIdx;
         if ($optInTimePeriod > 1) {
@@ -14523,13 +14610,14 @@ class Core
         }
         $outIdx = 0;
         do {
-            $periodTotal         += $inReal[$i++];
+            $periodTotal        += $inReal[$i++];
             $tempReal           = $periodTotal;
-            $periodTotal         -= $inReal[$trailingIdx++];
+            $periodTotal        -= $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $tempReal;
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14598,50 +14686,50 @@ class Core
         }
         $outBegIdx->value = $startIdx;
         $today            = $startIdx - $lookbackTotal;
-        $k                 = 2.0 / ($optInTimePeriod + 1.0);
-        $one_minus_k       = 1.0 - $k;
+        $k                = 2.0 / ($optInTimePeriod + 1.0);
+        $one_minus_k      = 1.0 - $k;
         $tempReal         = $inReal[$today++];
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
             $tempReal += $inReal[$today++];
         }
-        $e1        = $tempReal / $optInTimePeriod;
+        $e1       = $tempReal / $optInTimePeriod;
         $tempReal = $e1;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1        = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
             $tempReal += $e1;
         }
-        $e2        = $tempReal / $optInTimePeriod;
+        $e2       = $tempReal / $optInTimePeriod;
         $tempReal = $e2;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1        = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2        = ($k * $e1) + ($one_minus_k * $e2);
+            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e2       = ($k * $e1) + ($one_minus_k * $e2);
             $tempReal += $e2;
         }
-        $e3        = $tempReal / $optInTimePeriod;
+        $e3       = $tempReal / $optInTimePeriod;
         $tempReal = $e3;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1        = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2        = ($k * $e1) + ($one_minus_k * $e2);
-            $e3        = ($k * $e2) + ($one_minus_k * $e3);
+            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e2       = ($k * $e1) + ($one_minus_k * $e2);
+            $e3       = ($k * $e2) + ($one_minus_k * $e3);
             $tempReal += $e3;
         }
-        $e4        = $tempReal / $optInTimePeriod;
+        $e4       = $tempReal / $optInTimePeriod;
         $tempReal = $e4;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1        = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2        = ($k * $e1) + ($one_minus_k * $e2);
-            $e3        = ($k * $e2) + ($one_minus_k * $e3);
-            $e4        = ($k * $e3) + ($one_minus_k * $e4);
+            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e2       = ($k * $e1) + ($one_minus_k * $e2);
+            $e3       = ($k * $e2) + ($one_minus_k * $e3);
+            $e4       = ($k * $e3) + ($one_minus_k * $e4);
             $tempReal += $e4;
         }
-        $e5        = $tempReal / $optInTimePeriod;
+        $e5       = $tempReal / $optInTimePeriod;
         $tempReal = $e5;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1        = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2        = ($k * $e1) + ($one_minus_k * $e2);
-            $e3        = ($k * $e2) + ($one_minus_k * $e3);
-            $e4        = ($k * $e3) + ($one_minus_k * $e4);
-            $e5        = ($k * $e4) + ($one_minus_k * $e5);
+            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e2       = ($k * $e1) + ($one_minus_k * $e2);
+            $e3       = ($k * $e2) + ($one_minus_k * $e3);
+            $e4       = ($k * $e3) + ($one_minus_k * $e4);
+            $e5       = ($k * $e4) + ($one_minus_k * $e5);
             $tempReal += $e5;
         }
         $e6 = $tempReal / $optInTimePeriod;
@@ -14654,22 +14742,23 @@ class Core
             $e6 = ($k * $e5) + ($one_minus_k * $e6);
         }
         $tempReal           = $optInVFactor * $optInVFactor;
-        $c1                  = -($tempReal * $optInVFactor);
-        $c2                  = 3.0 * ($tempReal - $c1);
-        $c3                  = -6.0 * $tempReal - 3.0 * ($optInVFactor - $c1);
-        $c4                  = 1.0 + 3.0 * $optInVFactor - $c1 + 3.0 * $tempReal;
+        $c1                 = -($tempReal * $optInVFactor);
+        $c2                 = 3.0 * ($tempReal - $c1);
+        $c3                 = -6.0 * $tempReal - 3.0 * ($optInVFactor - $c1);
+        $c4                 = 1.0 + 3.0 * $optInVFactor - $c1 + 3.0 * $tempReal;
         $outIdx             = 0;
         $outReal[$outIdx++] = $c1 * $e6 + $c2 * $e5 + $c3 * $e4 + $c4 * $e3;
         while ($today <= $endIdx) {
-            $e1                  = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2                  = ($k * $e1) + ($one_minus_k * $e2);
-            $e3                  = ($k * $e2) + ($one_minus_k * $e3);
-            $e4                  = ($k * $e3) + ($one_minus_k * $e4);
-            $e5                  = ($k * $e4) + ($one_minus_k * $e5);
-            $e6                  = ($k * $e5) + ($one_minus_k * $e6);
+            $e1                 = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e2                 = ($k * $e1) + ($one_minus_k * $e2);
+            $e3                 = ($k * $e2) + ($one_minus_k * $e3);
+            $e4                 = ($k * $e3) + ($one_minus_k * $e4);
+            $e5                 = ($k * $e4) + ($one_minus_k * $e5);
+            $e6                 = ($k * $e5) + ($one_minus_k * $e6);
             $outReal[$outIdx++] = $c1 * $e6 + $c2 * $e5 + $c3 * $e4 + $c4 * $e3;
         }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -14701,6 +14790,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14732,6 +14822,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14745,6 +14836,7 @@ class Core
             return -1;
         }
         $retValue = $this->emaLookback($optInTimePeriod);
+
         return $retValue * 3;
     }
 
@@ -14761,12 +14853,12 @@ class Core
         //double[] $firstEMA;
         //double[] $secondEMA;
         //double $k;
-        $firstEMABegIdx = new MInteger();
-        $firstEMANbElement = new MInteger();
-        $secondEMABegIdx = new MInteger();
+        $firstEMABegIdx     = new MInteger();
+        $firstEMANbElement  = new MInteger();
+        $secondEMABegIdx    = new MInteger();
         $secondEMANbElement = new MInteger();
-        $thirdEMABegIdx = new MInteger();
-        $thirdEMANbElement = new MInteger();
+        $thirdEMABegIdx     = new MInteger();
+        $thirdEMANbElement  = new MInteger();
         //int $tempInt, $outIdx, $lookbackTotal, $lookbackEMA;
         //int $firstEMAIdx, $secondEMAIdx;
         //RetCode $retCode;
@@ -14783,7 +14875,7 @@ class Core
         }
         $outNBElement->value = 0;
         $outBegIdx->value    = 0;
-        $lookbackEMA          = $this->emaLookback($optInTimePeriod);
+        $lookbackEMA         = $this->emaLookback($optInTimePeriod);
         $lookbackTotal       = $lookbackEMA * 3;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -14794,39 +14886,44 @@ class Core
         $tempInt  = $lookbackTotal + ($endIdx - $startIdx) + 1;
         $firstEMA = $this->double($tempInt);
         $k        = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $retCode = $this->TA_INT_EMA(
+        $retCode  = $this->TA_INT_EMA(
             $startIdx - ($lookbackEMA * 2), $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
             $firstEMA
         );
         if (($retCode != RetCode::Success) || ($firstEMANbElement->value == 0)) {
-        return $retCode;
-    }
+            return $retCode;
+        }
         $secondEMA = $this->double($firstEMANbElement->value);
-        $retCode = $this->TA_INT_EMA(0, $firstEMANbElement->value - 1, $firstEMA,
-                $optInTimePeriod, $k,
-                $secondEMABegIdx, $secondEMANbElement,
-                $secondEMA);
+        $retCode   = $this->TA_INT_EMA(
+            0, $firstEMANbElement->value - 1, $firstEMA,
+            $optInTimePeriod, $k,
+            $secondEMABegIdx, $secondEMANbElement,
+            $secondEMA
+        );
         if (($retCode != RetCode::Success) || ($secondEMANbElement->value == 0)) {
-        return $retCode;
-    }
-        $retCode = $this->TA_INT_EMA(0, $secondEMANbElement->value - 1, $secondEMA,
-                $optInTimePeriod, $k,
-                $thirdEMABegIdx, $thirdEMANbElement,
-                $outReal);
+            return $retCode;
+        }
+        $retCode = $this->TA_INT_EMA(
+            0, $secondEMANbElement->value - 1, $secondEMA,
+            $optInTimePeriod, $k,
+            $thirdEMABegIdx, $thirdEMANbElement,
+            $outReal
+        );
         if (($retCode != RetCode::Success) || ($thirdEMANbElement->value == 0)) {
-        return $retCode;
-    }
-        $firstEMAIdx = $thirdEMABegIdx->value + $secondEMABegIdx->value;
-        $secondEMAIdx = $thirdEMABegIdx->value;
+            return $retCode;
+        }
+        $firstEMAIdx      = $thirdEMABegIdx->value + $secondEMABegIdx->value;
+        $secondEMAIdx     = $thirdEMABegIdx->value;
         $outBegIdx->value = $firstEMAIdx + $firstEMABegIdx->value;
-        $outIdx = 0;
+        $outIdx           = 0;
         while ($outIdx < $thirdEMANbElement->value) {
-        $outReal[$outIdx] += (3.0 * $firstEMA[$firstEMAIdx++]) - (3.0 * $secondEMA[$secondEMAIdx++]);
-        $outIdx++;
-    }
+            $outReal[$outIdx] += (3.0 * $firstEMA[$firstEMAIdx++]) - (3.0 * $secondEMA[$secondEMAIdx++]);
+            $outIdx++;
+        }
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -14885,6 +14982,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -14939,23 +15037,23 @@ class Core
         }
         $outIdx = 0;
         if (($optInTimePeriod % 2) == 1) {
-            $i           = ($optInTimePeriod >> 1);
-            $factor      = ($i + 1) * ($i + 1);
-            $factor      = 1.0 / $factor;
-            $trailingIdx = $startIdx - $lookbackTotal;
+            $i            = ($optInTimePeriod >> 1);
+            $factor       = ($i + 1) * ($i + 1);
+            $factor       = 1.0 / $factor;
+            $trailingIdx  = $startIdx - $lookbackTotal;
             $middleIdx    = $trailingIdx + $i;
             $todayIdx     = $middleIdx + $i;
             $numerator    = 0.0;
             $numeratorSub = 0.0;
             for ($i = $middleIdx; $i >= $trailingIdx; $i--) {
-                $tempReal    = $inReal[$i];
+                $tempReal     = $inReal[$i];
                 $numeratorSub += $tempReal;
                 $numerator    += $numeratorSub;
             }
             $numeratorAdd = 0.0;
             $middleIdx++;
             for ($i = $middleIdx; $i <= $todayIdx; $i++) {
-                $tempReal    = $inReal[$i];
+                $tempReal     = $inReal[$i];
                 $numeratorAdd += $tempReal;
                 $numerator    += $numeratorAdd;
             }
@@ -14964,36 +15062,36 @@ class Core
             $outReal[$outIdx++] = $numerator * $factor;
             $todayIdx++;
             while ($todayIdx <= $endIdx) {
-                $numerator           -= $numeratorSub;
-                $numeratorSub        -= $tempReal;
+                $numerator          -= $numeratorSub;
+                $numeratorSub       -= $tempReal;
                 $tempReal           = $inReal[$middleIdx++];
-                $numeratorSub        += $tempReal;
-                $numerator           += $numeratorAdd;
-                $numeratorAdd        -= $tempReal;
+                $numeratorSub       += $tempReal;
+                $numerator          += $numeratorAdd;
+                $numeratorAdd       -= $tempReal;
                 $tempReal           = $inReal[$todayIdx++];
-                $numeratorAdd        += $tempReal;
-                $numerator           += $tempReal;
+                $numeratorAdd       += $tempReal;
+                $numerator          += $tempReal;
                 $tempReal           = $inReal[$trailingIdx++];
                 $outReal[$outIdx++] = $numerator * $factor;
             }
         } else {
-            $i           = ($optInTimePeriod >> 1);
-            $factor      = $i * ($i + 1);
-            $factor      = 1.0 / $factor;
-            $trailingIdx = $startIdx - $lookbackTotal;
+            $i            = ($optInTimePeriod >> 1);
+            $factor       = $i * ($i + 1);
+            $factor       = 1.0 / $factor;
+            $trailingIdx  = $startIdx - $lookbackTotal;
             $middleIdx    = $trailingIdx + $i - 1;
             $todayIdx     = $middleIdx + $i;
             $numerator    = 0.0;
             $numeratorSub = 0.0;
             for ($i = $middleIdx; $i >= $trailingIdx; $i--) {
-                $tempReal    = $inReal[$i];
+                $tempReal     = $inReal[$i];
                 $numeratorSub += $tempReal;
                 $numerator    += $numeratorSub;
             }
             $numeratorAdd = 0.0;
             $middleIdx++;
             for ($i = $middleIdx; $i <= $todayIdx; $i++) {
-                $tempReal    = $inReal[$i];
+                $tempReal     = $inReal[$i];
                 $numeratorAdd += $tempReal;
                 $numerator    += $numeratorAdd;
             }
@@ -15002,21 +15100,22 @@ class Core
             $outReal[$outIdx++] = $numerator * $factor;
             $todayIdx++;
             while ($todayIdx <= $endIdx) {
-                $numerator           -= $numeratorSub;
-                $numeratorSub        -= $tempReal;
+                $numerator          -= $numeratorSub;
+                $numeratorSub       -= $tempReal;
                 $tempReal           = $inReal[$middleIdx++];
-                $numeratorSub        += $tempReal;
-                $numeratorAdd        -= $tempReal;
-                $numerator           += $numeratorAdd;
+                $numeratorSub       += $tempReal;
+                $numeratorAdd       -= $tempReal;
+                $numerator          += $numeratorAdd;
                 $tempReal           = $inReal[$todayIdx++];
-                $numeratorAdd        += $tempReal;
-                $numerator           += $tempReal;
+                $numeratorAdd       += $tempReal;
+                $numerator          += $tempReal;
                 $tempReal           = $inReal[$trailingIdx++];
                 $outReal[$outIdx++] = $numerator * $factor;
             }
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -15030,6 +15129,7 @@ class Core
             return -1;
         }
         $emaLookback = $this->emaLookback($optInTimePeriod);
+
         return ($emaLookback * 3) + $this->rocRLookback(1);
     }
 
@@ -15046,7 +15146,7 @@ class Core
         //double $k;
         //$tempBuffer;
         $nbElement = new MInteger();
-        $begIdx = new MInteger();
+        $begIdx    = new MInteger();
         //int $totalLookback;
         //int $emaLookback, $rocLookback;
         //RetCode $retCode;
@@ -15074,15 +15174,15 @@ class Core
 
             return RetCode::Success;
         }
-        $outBegIdx->value = $startIdx;
+        $outBegIdx->value  = $startIdx;
         $nbElementToOutput = ($endIdx - $startIdx) + 1 + $totalLookback;
-        $tempBuffer       = $this->double($nbElementToOutput);
+        $tempBuffer        = $this->double($nbElementToOutput);
         $k                 = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $retCode          = $this->TA_INT_EMA(
+        $retCode           = $this->TA_INT_EMA(
             ($startIdx - $totalLookback), $endIdx, $inReal,
-                                         $optInTimePeriod, $k,
-                                         $begIdx, $nbElement,
-                                         $tempBuffer
+                                          $optInTimePeriod, $k,
+                                          $begIdx, $nbElement,
+                                          $tempBuffer
         );
         if (($retCode != RetCode::Success) || ($nbElement->value == 0)) {
             $outNBElement->value = 0;
@@ -15092,7 +15192,7 @@ class Core
         }
         $nbElementToOutput--;
         $nbElementToOutput -= $emaLookback;
-        $retCode          = $this->TA_INT_EMA(
+        $retCode           = $this->TA_INT_EMA(
             0, $nbElementToOutput, $tempBuffer,
             $optInTimePeriod, $k,
             $begIdx, $nbElement,
@@ -15105,7 +15205,7 @@ class Core
             return $retCode;
         }
         $nbElementToOutput -= $emaLookback;
-        $retCode          = $this->TA_INT_EMA(
+        $retCode           = $this->TA_INT_EMA(
             0, $nbElementToOutput, $tempBuffer,
             $optInTimePeriod, $k,
             $begIdx, $nbElement,
@@ -15118,7 +15218,7 @@ class Core
             return $retCode;
         }
         $nbElementToOutput -= $emaLookback;
-        $retCode          = $this->roc(
+        $retCode           = $this->roc(
             0, $nbElementToOutput,
             $tempBuffer,
             1, $begIdx, $outNBElement,
@@ -15130,6 +15230,7 @@ class Core
 
             return $retCode;
         }
+
         return RetCode::Success;
     }
 
@@ -15182,8 +15283,8 @@ class Core
 
             return RetCode::Success;
         }
-        $outIdx = 0;
-        $today  = $startIdx;
+        $outIdx  = 0;
+        $today   = $startIdx;
         $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
@@ -15194,13 +15295,14 @@ class Core
                 $SumY  += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                   = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
-            $b                   = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
+            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $b                  = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
             $outReal[$outIdx++] = $b + $m * (double)$optInTimePeriod;
             $today++;
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -15236,6 +15338,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -15263,6 +15366,7 @@ class Core
             return -1;
         }
         $maxPeriod = (((((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) > ($optInTimePeriod3)) ? (((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) : ($optInTimePeriod3));
+
         return $this->smaLookback($maxPeriod) + 1;
     }
 
@@ -15288,8 +15392,8 @@ class Core
         //int $longestPeriod, $longestIndex;
         //int $i, $j, $today, $outIdx;
         //int $trailingIdx1, $trailingIdx2, $trailingIdx3;
-        $usedFlag = \array_pad([], 3, 0);
-        $periods = \array_pad([], 3, 0);
+        $usedFlag      = \array_pad([], 3, 0);
+        $periods       = \array_pad([], 3, 0);
         $sortedPeriods = \array_pad([], 3, 0);
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -15314,12 +15418,12 @@ class Core
         }
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $periods[0]           = $optInTimePeriod1;
-        $periods[1]           = $optInTimePeriod2;
-        $periods[2]           = $optInTimePeriod3;
-        $usedFlag[0]          = 0;
-        $usedFlag[1]          = 0;
-        $usedFlag[2]          = 0;
+        $periods[0]          = $optInTimePeriod1;
+        $periods[1]          = $optInTimePeriod2;
+        $periods[2]          = $optInTimePeriod3;
+        $usedFlag[0]         = 0;
+        $usedFlag[1]         = 0;
+        $usedFlag[2]         = 0;
         for ($i = 0; $i < 3; ++$i) {
             $longestPeriod = 0;
             $longestIndex  = 0;
@@ -15330,12 +15434,12 @@ class Core
                 }
             }
             $usedFlag[$longestIndex] = 1;
-            $sortedPeriods[$i]      = $longestPeriod;
+            $sortedPeriods[$i]       = $longestPeriod;
         }
         $optInTimePeriod1 = $sortedPeriods[2];
         $optInTimePeriod2 = $sortedPeriods[1];
         $optInTimePeriod3 = $sortedPeriods[0];
-        $lookbackTotal   = $this->ultOscLookback($optInTimePeriod1, $optInTimePeriod2, $optInTimePeriod3);
+        $lookbackTotal    = $this->ultOscLookback($optInTimePeriod1, $optInTimePeriod2, $optInTimePeriod3);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -15365,8 +15469,7 @@ class Core
                 $a1Total += $closeMinusTrueLow;
                 $b1Total += $trueRange;
             }
-        }
-        ;
+        };
         {
             $a2Total = 0;
             $b2Total = 0;
@@ -15390,8 +15493,7 @@ class Core
                 $a2Total += $closeMinusTrueLow;
                 $b2Total += $trueRange;
             }
-        }
-        ;
+        };
         {
             $a3Total = 0;
             $b3Total = 0;
@@ -15415,10 +15517,9 @@ class Core
                 $a3Total += $closeMinusTrueLow;
                 $b3Total += $trueRange;
             }
-        }
-        ;
-        $today       = $startIdx;
-        $outIdx      = 0;
+        };
+        $today        = $startIdx;
+        $outIdx       = 0;
         $trailingIdx1 = $today - $optInTimePeriod1 + 1;
         $trailingIdx2 = $today - $optInTimePeriod2 + 1;
         $trailingIdx3 = $today - $optInTimePeriod3 + 1;
@@ -15507,8 +15608,8 @@ class Core
                     $trueRange = $tempDouble;
                 }
             };
-            $a3Total           -= $closeMinusTrueLow;
-            $b3Total           -= $trueRange;
+            $a3Total          -= $closeMinusTrueLow;
+            $b3Total          -= $trueRange;
             $outReal[$outIdx] = 100.0 * ($output / 7.0);
             $outIdx++;
             $today++;
@@ -15518,6 +15619,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -15600,32 +15702,33 @@ class Core
         }
         $periodTotal1 = 0;
         $periodTotal2 = 0;
-        $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $i           = $trailingIdx;
+        $trailingIdx  = $startIdx - $nbInitialElementNeeded;
+        $i            = $trailingIdx;
         if ($optInTimePeriod > 1) {
             while ($i < $startIdx) {
-                $tempReal    = $inReal[$i++];
+                $tempReal     = $inReal[$i++];
                 $periodTotal1 += $tempReal;
-                $tempReal    *= $tempReal;
+                $tempReal     *= $tempReal;
                 $periodTotal2 += $tempReal;
             }
         }
         $outIdx = 0;
         do {
             $tempReal           = $inReal[$i++];
-            $periodTotal1        += $tempReal;
+            $periodTotal1       += $tempReal;
             $tempReal           *= $tempReal;
-            $periodTotal2        += $tempReal;
-            $meanValue1          = $periodTotal1 / $optInTimePeriod;
-            $meanValue2          = $periodTotal2 / $optInTimePeriod;
+            $periodTotal2       += $tempReal;
+            $meanValue1         = $periodTotal1 / $optInTimePeriod;
+            $meanValue2         = $periodTotal2 / $optInTimePeriod;
             $tempReal           = $inReal[$trailingIdx++];
-            $periodTotal1        -= $tempReal;
+            $periodTotal1       -= $tempReal;
             $tempReal           *= $tempReal;
-            $periodTotal2        -= $tempReal;
+            $periodTotal2       -= $tempReal;
             $outReal[$outIdx++] = $meanValue2 - $meanValue1 * $meanValue1;
         } while ($i <= $endIdx);
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -15661,6 +15764,7 @@ class Core
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
@@ -15713,12 +15817,12 @@ class Core
 
             return RetCode::Success;
         }
-        $diff         = 0.0;
+        $diff        = 0.0;
         $outIdx      = 0;
         $today       = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
         $lowestIdx   = $highestIdx = -1;
-        $diff         = $highest = $lowest = 0.0;
+        $diff        = $highest = $lowest = 0.0;
         while ($today <= $endIdx) {
             $tmp = $inLow[$today];
             if ($lowestIdx < $trailingIdx) {
@@ -15736,7 +15840,7 @@ class Core
             } elseif ($tmp <= $lowest) {
                 $lowestIdx = $today;
                 $lowest    = $tmp;
-                $diff       = ($highest - $lowest) / (-100.0);
+                $diff      = ($highest - $lowest) / (-100.0);
             }
             $tmp = $inHigh[$today];
             if ($highestIdx < $trailingIdx) {
@@ -15754,7 +15858,7 @@ class Core
             } elseif ($tmp >= $highest) {
                 $highestIdx = $today;
                 $highest    = $tmp;
-                $diff        = ($highest - $lowest) / (-100.0);
+                $diff       = ($highest - $lowest) / (-100.0);
             }
             if ($diff != 0.0) {
                 $outReal[$outIdx++] = ($highest - $inClose[$today]) / $diff;
@@ -15766,6 +15870,7 @@ class Core
         }
         $outBegIdx->value    = $startIdx;
         $outNBElement->value = $outIdx;
+
         return RetCode::Success;
     }
 
@@ -15823,14 +15928,14 @@ class Core
 
             return RetCode::Success;
         }
-        $divider      = ($optInTimePeriod * ($optInTimePeriod + 1)) >> 1;
-        $outIdx      = 0;
+        $divider     = ($optInTimePeriod * ($optInTimePeriod + 1)) >> 1;
         $trailingIdx = $startIdx - $lookbackTotal;
-        $periodSum    = $periodSub = (double)0.0;
-        $inIdx        = $trailingIdx;
+        $periodSum   = $periodSub = (double)0.0;
+        $inIdx       = $trailingIdx;
         $i           = 1;
+        $outIdx      = $startIdx;
         while ($inIdx < $startIdx) {
-            $tempReal = $inReal[$inIdx++];
+            $tempReal  = $inReal[$inIdx++];
             $periodSub += $tempReal;
             $periodSum += $tempReal * $i;
             $i++;
@@ -15838,15 +15943,16 @@ class Core
         $trailingValue = 0.0;
         while ($inIdx <= $endIdx) {
             $tempReal           = $inReal[$inIdx++];
-            $periodSub           += $tempReal;
-            $periodSub           -= $trailingValue;
-            $periodSum           += $tempReal * $optInTimePeriod;
-            $trailingValue       = $inReal[$trailingIdx++];
+            $periodSub          += $tempReal;
+            $periodSub          -= $trailingValue;
+            $periodSum          += $tempReal * $optInTimePeriod;
+            $trailingValue      = $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $periodSum / $divider;
-            $periodSum           -= $periodSub;
+            $periodSum          -= $periodSub;
         }
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
+
         return RetCode::Success;
     }
 
