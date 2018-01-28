@@ -931,7 +931,7 @@ class Core
      *
      * @return int
      */
-    public function asin(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array $outReal): int
+    public function asin(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -963,7 +963,7 @@ class Core
      *
      * @return int
      */
-    public function atan(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array $outReal): int
+    public function atan(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
