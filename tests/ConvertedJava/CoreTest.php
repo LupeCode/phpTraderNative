@@ -200,7 +200,7 @@ class CoreTest extends TestCase
     protected function adjustForPECL(array $outReal, MInteger $outBegIdx)
     {
         $newOutReal = [];
-        $outReal = \array_values($outReal);
+        $outReal    = \array_values($outReal);
         foreach ($outReal as $index => $inDouble) {
             $newOutReal[$index + $outBegIdx->value] = round($inDouble, 3);
         }
@@ -1189,8 +1189,6 @@ class CoreTest extends TestCase
 
     public function testDema()
     {
-        $this->assertEquals(1, 1);
-
         $Core            = new Core();
         $startIdx        = 0;
         $endIdx          = count($this->High) - 1;
@@ -1340,7 +1338,18 @@ class CoreTest extends TestCase
 
     public function testKama()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $optInTimePeriod = 3;
+        $outReal         = array();
+        $RetCode         = $Core->kama($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_kama($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
     }
 
     public function testLinearRegLookback()
@@ -1455,7 +1464,25 @@ class CoreTest extends TestCase
 
     public function testMama()
     {
-        $this->assertEquals(1, 1);
+        $Core           = new Core();
+        $startIdx       = 0;
+        $endIdx         = count($this->High) - 1;
+        $outBegIdx      = new MInteger();
+        $outNBElement   = new MInteger();
+        $optInFastLimit = 0.5;
+        $optInSlowLimit = 0.05;
+        $outMAMA        = array();
+        $outFAMA        = array();
+        $RetCode        = $Core->mama($startIdx, $endIdx, $this->High, $optInFastLimit, $optInSlowLimit, $outBegIdx, $outNBElement, $outMAMA, $outFAMA);
+        list($traderMAMA, $traderFAMA) = \trader_mama($this->High, $optInFastLimit, $optInSlowLimit);
+        $this->assertEquals(
+            $traderMAMA,
+            $this->adjustForPECL($outMAMA, $outBegIdx)
+        );
+        $this->assertEquals(
+            $traderFAMA,
+            $this->adjustForPECL($outFAMA, $outBegIdx)
+        );
     }
 
     public function testMovingAverageVariablePeriodLookback()
@@ -1755,8 +1782,6 @@ class CoreTest extends TestCase
 
     public function testSma()
     {
-        $this->assertEquals(1, 1);
-
         $Core            = new Core();
         $startIdx        = 0;
         $endIdx          = count($this->High) - 1;
@@ -1858,7 +1883,19 @@ class CoreTest extends TestCase
 
     public function testT3()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $optInTimePeriod = 10;
+        $optInVFactor    = 0.7;
+        $outReal         = array();
+        $RetCode         = $Core->t3($startIdx, $endIdx, $this->High, $optInTimePeriod, $optInVFactor, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_t3($this->High, $optInTimePeriod, $optInVFactor),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
     }
 
     public function testTanLookback()
@@ -1888,7 +1925,18 @@ class CoreTest extends TestCase
 
     public function testTema()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $optInTimePeriod = 3;
+        $outReal         = array();
+        $RetCode         = $Core->tema($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_tema($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
     }
 
     public function testTrueRangeLookback()
@@ -1903,7 +1951,18 @@ class CoreTest extends TestCase
 
     public function testTrimaLookback()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $optInTimePeriod = 3;
+        $outReal         = array();
+        $RetCode         = $Core->trima($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(
+            \trader_trima($this->High, $optInTimePeriod),
+            $this->adjustForPECL($outReal, $outBegIdx)
+        );
     }
 
     public function testTrima()
