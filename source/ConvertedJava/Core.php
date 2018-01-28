@@ -1101,7 +1101,7 @@ class Core
         return RetCode::Success;
     }
 
-    public function bbandsLookback(int $optInTimePeriod, double $optInNbDevUp, double $optInNbDevDn, int $optInMAType): int
+    public function bbandsLookback(int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -1138,7 +1138,7 @@ class Core
      *
      * @return int
      */
-    public function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, double $optInNbDevUp, double $optInNbDevDn, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
+    public function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -2135,7 +2135,7 @@ class Core
      *
      * @return int
      */
-    public function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, double $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -2776,7 +2776,7 @@ class Core
         return RetCode::Success;
     }
 
-    public function cdlDarkCloudCoverLookback(double $optInPenetration): int
+    public function cdlDarkCloudCoverLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 5.000000e-1;
@@ -2801,7 +2801,7 @@ class Core
      *
      * @return int
      */
-    public function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, double $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -3119,7 +3119,7 @@ class Core
     }
 
     /* Generated */
-    public function cdlEveningDojiStarLookback(double $optInPenetration)
+    public function cdlEveningDojiStarLookback(float $optInPenetration)
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -3138,7 +3138,7 @@ class Core
         array $inHigh,
         array $inLow,
         array $inClose,
-        double $optInPenetration,
+        float $optInPenetration,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outInteger
@@ -3218,7 +3218,7 @@ class Core
     }
 
     /* Generated */
-    public function cdlEveningStarLookback(double $optInPenetration)
+    public function cdlEveningStarLookback(float $optInPenetration)
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -3236,7 +3236,7 @@ class Core
         array $inHigh,
         array $inLow,
         array $inClose,
-        double $optInPenetration,
+        float $optInPenetration,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outInteger
@@ -4949,7 +4949,7 @@ class Core
     }
 
     /* Generated */
-    public function cdlMatHoldLookback(double $optInPenetration)
+    public function cdlMatHoldLookback(float $optInPenetration)
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 5.000000e-1;
@@ -4967,7 +4967,7 @@ class Core
         array $inHigh,
         array $inLow,
         array $inClose,
-        double $optInPenetration,
+        float $optInPenetration,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outInteger
@@ -5056,7 +5056,7 @@ class Core
     }
 
     /* Generated */
-    public function cdlMorningDojiStarLookback(double $optInPenetration)
+    public function cdlMorningDojiStarLookback(float $optInPenetration)
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -5075,7 +5075,7 @@ class Core
         array $inHigh,
         array $inLow,
         array $inClose,
-        double $optInPenetration,
+        float $optInPenetration,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outInteger
@@ -5155,7 +5155,7 @@ class Core
     }
 
     /* Generated */
-    public function cdlMorningStarLookback(double $optInPenetration)
+    public function cdlMorningStarLookback(float $optInPenetration)
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -5173,7 +5173,7 @@ class Core
         array $inHigh,
         array $inLow,
         array $inClose,
-        double $optInPenetration,
+        float $optInPenetration,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outInteger
@@ -10564,8 +10564,8 @@ class Core
 
     /* Generated */
     public function mamaLookback(
-        double $optInFastLimit,
-        double $optInSlowLimit
+        float $optInFastLimit,
+        float $optInSlowLimit
     )
     {
         if ($optInFastLimit == (-4e+37)) {
@@ -10586,8 +10586,8 @@ class Core
         int $startIdx,
         int $endIdx,
         array $inReal,
-        double $optInFastLimit,
-        double $optInSlowLimit,
+        float $optInFastLimit,
+        float $optInSlowLimit,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outMAMA,
@@ -13287,8 +13287,8 @@ class Core
 
     /* Generated */
     public function sarLookback(
-        double $optInAcceleration,
-        double $optInMaximum
+        float $optInAcceleration,
+        float $optInMaximum
     )
     {
         if ($optInAcceleration == (-4e+37)) {
@@ -13310,8 +13310,8 @@ class Core
         int $endIdx,
         array $inHigh,
         array $inLow,
-        double $optInAcceleration,
-        double $optInMaximum,
+        float $optInAcceleration,
+        float $optInMaximum,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -13472,14 +13472,14 @@ class Core
 
     /* Generated */
     public function sarExtLookback(
-        double $optInStartValue,
-        double $optInOffsetOnReverse,
-        double $optInAccelerationInitLong,
-        double $optInAccelerationLong,
-        double $optInAccelerationMaxLong,
-        double $optInAccelerationInitShort,
-        double $optInAccelerationShort,
-        double $optInAccelerationMaxShort
+        float $optInStartValue,
+        float $optInOffsetOnReverse,
+        float $optInAccelerationInitLong,
+        float $optInAccelerationLong,
+        float $optInAccelerationMaxLong,
+        float $optInAccelerationInitShort,
+        float $optInAccelerationShort,
+        float $optInAccelerationMaxShort
     )
     {
         if ($optInStartValue == (-4e+37)) {
@@ -13531,14 +13531,14 @@ class Core
         int $endIdx,
         array $inHigh,
         array $inLow,
-        double $optInStartValue,
-        double $optInOffsetOnReverse,
-        double $optInAccelerationInitLong,
-        double $optInAccelerationLong,
-        double $optInAccelerationMaxLong,
-        double $optInAccelerationInitShort,
-        double $optInAccelerationShort,
-        double $optInAccelerationMaxShort,
+        float $optInStartValue,
+        float $optInOffsetOnReverse,
+        float $optInAccelerationInitLong,
+        float $optInAccelerationLong,
+        float $optInAccelerationMaxLong,
+        float $optInAccelerationInitShort,
+        float $optInAccelerationShort,
+        float $optInAccelerationMaxShort,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -13940,7 +13940,7 @@ class Core
     /* Generated */
     public function stdDevLookback(
         int $optInTimePeriod,
-        double $optInNbDev
+        float $optInNbDev
     )
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -13962,7 +13962,7 @@ class Core
         int $endIdx,
         array $inReal,
         int $optInTimePeriod,
-        double $optInNbDev,
+        float $optInNbDev,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -14624,7 +14624,7 @@ class Core
     /* Generated */
     public function t3Lookback(
         int $optInTimePeriod,
-        double $optInVFactor
+        float $optInVFactor
     )
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -14646,7 +14646,7 @@ class Core
         int $endIdx,
         array $inReal,
         int $optInTimePeriod,
-        double $optInVFactor,
+        float $optInVFactor,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
@@ -15626,7 +15626,7 @@ class Core
     /* Generated */
     public function varianceLookback(
         int $optInTimePeriod,
-        double $optInNbDev
+        float $optInNbDev
     )
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -15648,7 +15648,7 @@ class Core
         int $endIdx,
         array $inReal,
         int $optInTimePeriod,
-        double $optInNbDev,
+        float $optInNbDev,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outReal
