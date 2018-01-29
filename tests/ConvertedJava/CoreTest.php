@@ -1807,8 +1807,8 @@ class CoreTest extends TestCase
         $endIdx          = count($this->High) - 1;
         $outBegIdx       = new MInteger();
         $outNBElement    = new MInteger();
-        $outMin = array();
-        $outMax = array();
+        $outMin          = array();
+        $outMax          = array();
         $optInTimePeriod = 10;
         $RetCode         = $Core->minMaxIndex($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outMin, $outMax);
         list($traderMin, $traderMax) = \trader_minmaxindex($this->High, $optInTimePeriod);
@@ -1844,82 +1844,217 @@ class CoreTest extends TestCase
 
     public function testMom()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->mom($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_mom($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testMult()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->mult($startIdx, $endIdx, $this->Low, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_mult($this->Low, $this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testNatr()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->natr($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_natr($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testObv()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->obv($startIdx, $endIdx, $this->High, $this->Volume, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_obv($this->High, $this->Volume), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testPlusDI()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->plusDI($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_plus_di($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testPlusDM()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->plusDM($startIdx, $endIdx, $this->High, $this->Low, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_plus_dm($this->High, $this->Low, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testPpo()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInFastPeriod = 10;
+        $optInSlowPeriod = 10;
+        $optInMAType     = MAType::SMA;
+        $RetCode         = $Core->ppo($startIdx, $endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_ppo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testRoc()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->roc($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_roc($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testRocP()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->rocP($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_rocp($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testRocR()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->rocR($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_rocr($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testRocR100()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->rocR100($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_rocr100($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testRsi()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->rsi($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_rsi($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testSar()
     {
-        $this->assertEquals(1, 1);
+        $Core              = new Core();
+        $startIdx          = 0;
+        $endIdx            = count($this->High) - 1;
+        $outBegIdx         = new MInteger();
+        $outNBElement      = new MInteger();
+        $outReal           = array();
+        $optInAcceleration = 10;
+        $optInMaximum      = 20;
+        $RetCode           = $Core->sar($startIdx, $endIdx, $this->High, $this->Low, $optInAcceleration, $optInMaximum, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_sar($this->High, $this->Low, $optInAcceleration, $optInMaximum), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testSarExt()
     {
-        $this->assertEquals(1, 1);
+        $Core                       = new Core();
+        $startIdx                   = 0;
+        $endIdx                     = count($this->High) - 1;
+        $outBegIdx                  = new MInteger();
+        $outNBElement               = new MInteger();
+        $outReal                    = array();
+        $optInStartValue            = 0.0;
+        $optInOffsetOnReverse       = 0.0;
+        $optInAccelerationInitLong  = 2.0;
+        $optInAccelerationLong      = 2.0;
+        $optInAccelerationMaxLong   = 2.0;
+        $optInAccelerationInitShort = 2.0;
+        $optInAccelerationShort     = 2.0;
+        $optInAccelerationMaxShort  = 2.0;
+        $optInAccelerationMaxShort  = 2.0;
+        $RetCode                    = $Core->sarExt($startIdx, $endIdx, $this->High, $this->Low, $optInStartValue, $optInOffsetOnReverse, $optInAccelerationInitLong, $optInAccelerationLong, $optInAccelerationMaxLong, $optInAccelerationInitShort, $optInAccelerationShort, $optInAccelerationMaxShort, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_sarext($this->High, $this->Low, $optInStartValue, $optInOffsetOnReverse, $optInAccelerationInitLong, $optInAccelerationLong, $optInAccelerationMaxLong, $optInAccelerationInitShort, $optInAccelerationShort, $optInAccelerationMaxShort), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testSin()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->sin($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_sin($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testSinh()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->sinh($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_sinh($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testSma()
@@ -1937,12 +2072,28 @@ class CoreTest extends TestCase
 
     public function testSqrt()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->sqrt($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_sqrt($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testStdDev()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $optInNbDev      = 1;
+        $RetCode         = $Core->stdDev($startIdx, $endIdx, $this->High, $optInTimePeriod, $optInNbDev, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_stddev($this->High, $optInTimePeriod, $optInNbDev), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testStoch()
@@ -1986,12 +2137,26 @@ class CoreTest extends TestCase
 
     public function testTan()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->tan($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_tan($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTanh()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->tanh($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_tanh($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testTema()
