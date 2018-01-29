@@ -14097,9 +14097,9 @@ class Core
         array $inClose,
         int $optInFastK_Period,
         int $optInSlowK_Period,
-        MAType $optInSlowK_MAType,
+        int $optInSlowK_MAType,
         int $optInSlowD_Period,
-        MAType $optInSlowD_MAType,
+        int $optInSlowD_MAType,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outSlowK,
@@ -14242,7 +14242,7 @@ class Core
     protected function stochFLookback(
         int $optInFastK_Period,
         int $optInFastD_Period,
-        MAType $optInFastD_MAType
+        int $optInFastD_MAType
     )
     {
         //int $retValue;
@@ -14270,7 +14270,7 @@ class Core
         array $inClose,
         int $optInFastK_Period,
         int $optInFastD_Period,
-        MAType $optInFastD_MAType,
+        int $optInFastD_MAType,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outFastK,
@@ -14433,7 +14433,7 @@ class Core
         int $optInTimePeriod,
         int $optInFastK_Period,
         int $optInFastD_Period,
-        MAType $optInFastD_MAType,
+        int $optInFastD_MAType,
         MInteger &$outBegIdx,
         MInteger &$outNBElement,
         array &$outFastK,
