@@ -756,227 +756,584 @@ class CoreTest extends TestCase
 
     public function testCdlGapSideSideWhite()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlGapSideSideWhite($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlgapsidesidewhite($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlGravestoneDoji()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlGravestoneDoji($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlgravestonedoji($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHammer()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHammer($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlhammer($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHangingMan()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHangingMan($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlhangingman($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHarami()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHarami($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlharami($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHaramiCross()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHaramiCross($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlharamicross($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
-    public function testCalHighWave()
+    public function testCdlHighWave()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHighWave($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlhighwave($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHikkake()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHikkake($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlhikkake($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHikkakeMod()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHikkakeMod($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlhikkakemod($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlHomingPigeon()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlHomingPigeon($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlhomingpigeon($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlIdentical3Crows()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlIdentical3Crows($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlidentical3crows($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlInNeck()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlInNeck($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlinneck($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlInvertedHammer()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlInvertedHammer($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlinvertedhammer($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlKicking()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlKicking($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlkicking($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlKickingByLength()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlKickingByLength($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlkickingbylength($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlLadderBottom()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlLadderBottom($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlladderbottom($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlLongLeggedDoji()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlLongLeggedDoji($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdllongleggeddoji($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlLongLine()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlLongLine($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdllongline($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlMarubozu()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlMarubozu($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlmarubozu($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlMatchingLow()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlMatchingLow($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlmatchinglow($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlMatHold()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlMatHold($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $optInPenetration, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlmathold($this->Open, $this->High, $this->Low, $this->Close, $optInPenetration), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlMorningDojiStar()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlMorningDojiStar($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $optInPenetration, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlmorningdojistar($this->Open, $this->High, $this->Low, $this->Close, $optInPenetration), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlMorningStar()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlMorningStar($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $optInPenetration, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlmorningstar($this->Open, $this->High, $this->Low, $this->Close, $optInPenetration), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlOnNeck()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlOnNeck($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlonneck($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlPiercing()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlPiercing($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlpiercing($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlRickshawMan()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlRickshawMan($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlrickshawman($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlRiseFall3Methods()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlRiseFall3Methods($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlrisefall3methods($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
-    public function testCalSeparatingLines()
+    public function testCdlSeparatingLines()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlSeparatingLines($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlseparatinglines($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlShootingStar()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlShootingStar($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlshootingstar($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlShortLine()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlShortLine($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlshortline($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlSpinningTop()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlSpinningTop($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlspinningtop($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlStalledPattern()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlStalledPattern($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlstalledpattern($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
-    public function testCalStickSandwich()
+    public function testCdlStickSandwich()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlStickSandwich($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlsticksandwich($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlTakuri()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlTakuri($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdltakuri($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlTasukiGap()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlTasukiGap($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdltasukigap($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlThrusting()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlThrusting($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlthrusting($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlTristar()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlTristar($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdltristar($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlUnique3River()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlUnique3River($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlunique3river($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlUpsideGap2Crows()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlUpsideGap2Crows($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlupsidegap2crows($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCdlXSideGap3Methods()
     {
-        $this->assertEquals(1, 1);
+        $Core             = new Core();
+        $startIdx         = 0;
+        $endIdx           = count($this->High) - 1;
+        $outBegIdx        = new MInteger();
+        $outNBElement     = new MInteger();
+        $outInteger       = array();
+        $optInPenetration = 1.0;
+        $RetCode          = $Core->cdlXSideGap3Methods($startIdx, $endIdx, $this->Open, $this->High, $this->Low, $this->Close, $outBegIdx, $outNBElement, $outInteger);
+        $this->assertEquals(\trader_cdlxsidegap3methods($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, $outBegIdx));
     }
 
     public function testCeil()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->ceil($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_ceil($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testCmo()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->cmo($startIdx, $endIdx, $this->High, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_cmo($this->High, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testCorrel()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->correl($startIdx, $endIdx, $this->High, $this->Low, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_correl($this->High, $this->Low, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testCos()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->cos($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_cos($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testCosh()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->cosh($startIdx, $endIdx, $this->High, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_cosh($this->High), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testDema()
@@ -994,18 +1351,31 @@ class CoreTest extends TestCase
 
     public function testDiv()
     {
-        $this->assertEquals(1, 1);
+        $Core         = new Core();
+        $startIdx     = 0;
+        $endIdx       = count($this->High) - 1;
+        $outBegIdx    = new MInteger();
+        $outNBElement = new MInteger();
+        $outReal      = array();
+        $RetCode      = $Core->div($startIdx, $endIdx, $this->High, $this->Low, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_div($this->High, $this->Low), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testDx()
     {
-        $this->assertEquals(1, 1);
+        $Core            = new Core();
+        $startIdx        = 0;
+        $endIdx          = count($this->High) - 1;
+        $outBegIdx       = new MInteger();
+        $outNBElement    = new MInteger();
+        $outReal         = array();
+        $optInTimePeriod = 10;
+        $RetCode         = $Core->dx($startIdx, $endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, $outBegIdx, $outNBElement, $outReal);
+        $this->assertEquals(\trader_dx($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($outReal, $outBegIdx));
     }
 
     public function testEma()
     {
-        $this->assertEquals(1, 1);
-
         $Core            = new Core();
         $startIdx        = 0;
         $endIdx          = count($this->High) - 1;
