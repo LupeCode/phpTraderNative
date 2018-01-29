@@ -677,7 +677,7 @@ class Core
         return $retCode;
     }
 
-    public function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMethod_2, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal, array &$tempBuffer, bool $doPercentageOutput): int
+    protected function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMethod_2, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal, array &$tempBuffer, bool $doPercentageOutput): int
     {
         $outBegIdx1    = new MInteger();
         $outNbElement1 = new MInteger();
@@ -7317,7 +7317,7 @@ class Core
         );
     }
 
-    public function TA_INT_EMA(
+    protected function TA_INT_EMA(
         int $startIdx,
         int $endIdx,
         $inReal,
@@ -9802,7 +9802,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegIntercept(
+    protected function linearRegIntercept(
         int $startIdx,
         int $endIdx,
         array $inReal,
@@ -10228,7 +10228,7 @@ class Core
         );
     }
 
-    public function TA_INT_MACD(
+    protected function TA_INT_MACD(
         int $startIdx,
         int $endIdx,
         array $inReal,
@@ -13862,7 +13862,7 @@ class Core
         );
     }
 
-    public function TA_INT_SMA(
+    protected function TA_INT_SMA(
         int $startIdx,
         int $endIdx,
         array $inReal,
@@ -14018,7 +14018,7 @@ class Core
         return RetCode::Success;
     }
 
-    public function TA_INT_stddev_using_precalc_ma(
+    protected function TA_INT_stddev_using_precalc_ma(
         array $inReal,
         array &$inMovAvg,
         int $inMovAvgBegIdx,
@@ -15678,7 +15678,7 @@ class Core
         );
     }
 
-    public function TA_INT_VAR(
+    protected function TA_INT_VAR(
         int $startIdx,
         int $endIdx,
         array $inReal,
