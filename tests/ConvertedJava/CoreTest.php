@@ -1469,7 +1469,7 @@ class CoreTest extends TestCase
     {
         $optInTimePeriod = 10;
         $RetCode         = self::$Core->tsf(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
-        $this->assertEquals(\trader_trix($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
+        $this->assertEquals(\trader_tsf($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testTypPrice()
