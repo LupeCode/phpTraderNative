@@ -22,13 +22,18 @@ use PHPUnit\Framework\TestCase;
  */
 class CoreTest extends TestCase
 {
-
+    /** @var Core */
     protected static $Core;
+    /** @var int */
     protected static $startIdx;
+    /** @var int */
     protected static $endIdx;
+    /** @var MInteger */
     protected static $outBegIdx;
+    /** @var MInteger */
     protected static $outNBElement;
-    protected        $outReal;
+    /** @var array */
+    protected $outReal;
 
     //<editor-fold defaultstate="collapsed" desc="Testing Data">
     protected $Open   =
@@ -270,7 +275,7 @@ class CoreTest extends TestCase
         $this->assertEquals(\trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
 
         $optInTimePeriod = 20;
-        $this->outReal         = array();
+        $this->outReal   = array();
         $RetCode         = self::$Core->adx(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_adx($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
@@ -282,7 +287,7 @@ class CoreTest extends TestCase
         $this->assertEquals(\trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
 
         $optInTimePeriod = 20;
-        $this->outReal         = array();
+        $this->outReal   = array();
         $RetCode         = self::$Core->adxr(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
 
@@ -297,40 +302,40 @@ class CoreTest extends TestCase
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
         $optInFastPeriod = 7;
         $optInSlowPeriod = 20;
-        $this->outReal         = array();
+        $this->outReal   = array();
         $RetCode         = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::EMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::EMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::WMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::WMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::DEMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::DEMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::TEMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::TEMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::TRIMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::TRIMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::KAMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::KAMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::MAMA;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::MAMA;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
-        $optInMAType = MAType::T3;
-        $this->outReal     = array();
-        $RetCode     = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $optInMAType   = MAType::T3;
+        $this->outReal = array();
+        $RetCode       = self::$Core->apo(self::$startIdx, self::$endIdx, $this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -354,17 +359,17 @@ class CoreTest extends TestCase
 
     public function testAsin()
     {
-        $acosArray    = [.1, .2, .3, .4, .5, .6, .7, .8, .9,];
-        $endIdx       = 8;
-        $RetCode      = self::$Core->asin(self::$startIdx, $endIdx, $acosArray, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $acosArray = [.1, .2, .3, .4, .5, .6, .7, .8, .9,];
+        $endIdx    = 8;
+        $RetCode   = self::$Core->asin(self::$startIdx, $endIdx, $acosArray, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_asin($acosArray), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testAtan()
     {
-        $acosArray    = [.1, .2, .3, .4, .5, .6, .7, .8, .9,];
-        $endIdx       = 8;
-        $RetCode      = self::$Core->atan(self::$startIdx, $endIdx, $acosArray, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $acosArray = [.1, .2, .3, .4, .5, .6, .7, .8, .9,];
+        $endIdx    = 8;
+        $RetCode   = self::$Core->atan(self::$startIdx, $endIdx, $acosArray, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_atan($acosArray), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -377,7 +382,7 @@ class CoreTest extends TestCase
 
     public function testAvgPrice()
     {
-        $RetCode      = self::$Core->avgPrice(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->avgPrice(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_avgprice($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -406,7 +411,7 @@ class CoreTest extends TestCase
 
     public function testBop()
     {
-        $RetCode      = self::$Core->bop(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->bop(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_bop($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -419,50 +424,50 @@ class CoreTest extends TestCase
 
     public function testCdl2Crows()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl2Crows(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl2Crows(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl2crows($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdl3BlackCrows()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl3BlackCrows(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl3BlackCrows(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl3blackcrows($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdl3Inside()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl3Inside(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl3Inside(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl3inside($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdl3LineStrike()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl3LineStrike(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl3LineStrike(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl3linestrike($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdl3Outside()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl3Outside(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl3Outside(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl3outside($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdl3StarsInSouth()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl3StarsInSouth(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl3StarsInSouth(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl3starsinsouth($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdl3WhiteSoldiers()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdl3WhiteSoldiers(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdl3WhiteSoldiers(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdl3whitesoldiers($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
@@ -476,43 +481,43 @@ class CoreTest extends TestCase
 
     public function testCdlAdvanceBlock()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlAdvanceBlock(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlAdvanceBlock(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdladvanceblock($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlBeltHold()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlBeltHold(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlBeltHold(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdlbelthold($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlBreakaway()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlBreakaway(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlBreakaway(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdlbreakaway($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlClosingMarubozu()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlClosingMarubozu(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlClosingMarubozu(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdlclosingmarubozu($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlConcealBabysWall()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlConcealBabysWall(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlConcealBabysWall(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdlconcealbabyswall($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlCounterAttack()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlCounterAttack(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlCounterAttack(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdlcounterattack($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
@@ -526,29 +531,29 @@ class CoreTest extends TestCase
 
     public function testCdlDoji()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlDoji(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlDoji(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdldoji($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlDojiStar()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlDojiStar(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlDojiStar(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdldojistar($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlDragonflyDoji()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlDragonflyDoji(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlDragonflyDoji(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdldragonflydoji($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
     public function testCdlEngulfing()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->cdlEngulfing(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->cdlEngulfing(self::$startIdx, self::$endIdx, $this->Open, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_cdlengulfing($this->Open, $this->High, $this->Low, $this->Close), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
@@ -890,7 +895,7 @@ class CoreTest extends TestCase
 
     public function testCeil()
     {
-        $RetCode      = self::$Core->ceil(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->ceil(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_ceil($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -910,13 +915,13 @@ class CoreTest extends TestCase
 
     public function testCos()
     {
-        $RetCode      = self::$Core->cos(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->cos(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_cos($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testCosh()
     {
-        $RetCode      = self::$Core->cosh(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->cosh(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_cosh($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -929,7 +934,7 @@ class CoreTest extends TestCase
 
     public function testDiv()
     {
-        $RetCode      = self::$Core->div(self::$startIdx, self::$endIdx, $this->High, $this->Low, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->div(self::$startIdx, self::$endIdx, $this->High, $this->Low, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_div($this->High, $this->Low), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -949,25 +954,25 @@ class CoreTest extends TestCase
 
     public function testExp()
     {
-        $RetCode      = self::$Core->exp(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->exp(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_exp($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testFloor()
     {
-        $RetCode      = self::$Core->floor(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->floor(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_floor($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testHtDcPeriod()
     {
-        $RetCode      = self::$Core->htDcPeriod(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->htDcPeriod(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_ht_dcperiod($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testHtDcPhase()
     {
-        $RetCode      = self::$Core->htDcPhase(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->htDcPhase(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_ht_dcphase($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -983,9 +988,9 @@ class CoreTest extends TestCase
 
     public function testHtSine()
     {
-        $outSine      = array();
-        $outLeadSine  = array();
-        $RetCode      = self::$Core->htSine(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine);
+        $outSine     = array();
+        $outLeadSine = array();
+        $RetCode     = self::$Core->htSine(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine);
         list($traderSine, $traderLeadSine) = \trader_ht_sine($this->High, array());
         $this->assertEquals($traderSine, $this->adjustForPECL($outSine, self::$outBegIdx));
         $this->assertEquals($traderLeadSine, $this->adjustForPECL($outLeadSine, self::$outBegIdx));
@@ -993,14 +998,14 @@ class CoreTest extends TestCase
 
     public function testHtTrendline()
     {
-        $RetCode      = self::$Core->htTrendline(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->htTrendline(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_ht_trendline($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testHtTrendMode()
     {
-        $outInteger   = array();
-        $RetCode      = self::$Core->htTrendMode(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $outInteger);
+        $outInteger = array();
+        $RetCode    = self::$Core->htTrendMode(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $outInteger);
         $this->assertEquals(\trader_ht_trendmode($this->High), $this->adjustForPECL($outInteger, self::$outBegIdx));
     }
 
@@ -1041,13 +1046,13 @@ class CoreTest extends TestCase
 
     public function testLn()
     {
-        $RetCode      = self::$Core->ln(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->ln(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_ln($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testLog10()
     {
-        $RetCode      = self::$Core->log10(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->log10(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_log10($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1143,7 +1148,7 @@ class CoreTest extends TestCase
 
     public function testMedPrice()
     {
-        $RetCode      = self::$Core->medPrice(self::$startIdx, self::$endIdx, $this->High, $this->Low, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->medPrice(self::$startIdx, self::$endIdx, $this->High, $this->Low, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_medprice($this->High, $this->Low), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1227,7 +1232,7 @@ class CoreTest extends TestCase
 
     public function testMult()
     {
-        $RetCode      = self::$Core->mult(self::$startIdx, self::$endIdx, $this->Low, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->mult(self::$startIdx, self::$endIdx, $this->Low, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_mult($this->Low, $this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1240,7 +1245,7 @@ class CoreTest extends TestCase
 
     public function testObv()
     {
-        $RetCode      = self::$Core->obv(self::$startIdx, self::$endIdx, $this->High, $this->Volume, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->obv(self::$startIdx, self::$endIdx, $this->High, $this->Volume, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_obv($this->High, $this->Volume), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1327,13 +1332,13 @@ class CoreTest extends TestCase
 
     public function testSin()
     {
-        $RetCode      = self::$Core->sin(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->sin(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_sin($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testSinh()
     {
-        $RetCode      = self::$Core->sinh(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->sinh(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_sinh($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1346,7 +1351,7 @@ class CoreTest extends TestCase
 
     public function testSqrt()
     {
-        $RetCode      = self::$Core->sqrt(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->sqrt(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_sqrt($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1360,27 +1365,57 @@ class CoreTest extends TestCase
 
     public function testStoch()
     {
-        $this->assertEquals(1, 1);
+        $optInFastK_Period = 2;
+        $optInSlowK_Period = 10;
+        $optInSlowK_MAType = MAType::SMA;
+        $optInSlowD_Period = 20;
+        $optInSlowD_MAType = MAType::SMA;
+        $outSlowK          = array();
+        $outSlowD          = array();
+        $RetCode           = self::$Core->stoch(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType, self::$outBegIdx, self::$outNBElement, $outSlowK, $outSlowD);
+        list($traderSlowK, $traderSlowD) = \trader_stoch($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
+        $this->assertEquals($traderSlowK, $this->adjustForPECL($outSlowK, self::$outBegIdx));
+        $this->assertEquals($traderSlowD, $this->adjustForPECL($outSlowD, self::$outBegIdx));
     }
 
     public function testStochF()
     {
-        $this->assertEquals(1, 1);
+        $optInFastK_Period = 2;
+        $optInFastD_Period = 10;
+        $optInFastD_MAType = MAType::SMA;
+        $outFastK          = array();
+        $outFastD          = array();
+        $RetCode           = self::$Core->stochF(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
+        list($traderFastK, $traderFastD) = \trader_stochf($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        $this->assertEquals($traderFastK, $this->adjustForPECL($outFastK, self::$outBegIdx));
+        $this->assertEquals($traderFastD, $this->adjustForPECL($outFastD, self::$outBegIdx));
     }
 
     public function testStochRsi()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod   = 10;
+        $optInFastK_Period = 2;
+        $optInFastD_Period = 10;
+        $optInFastD_MAType = MAType::SMA;
+        $outFastK          = array();
+        $outFastD          = array();
+        $RetCode           = self::$Core->stochRsi(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
+        list($traderFastK, $traderFastD) = \trader_stochrsi($this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        $this->assertEquals($traderFastK, $this->adjustForPECL($outFastK, self::$outBegIdx));
+        $this->assertEquals($traderFastD, $this->adjustForPECL($outFastD, self::$outBegIdx));
     }
 
     public function testSub()
     {
-        $this->assertEquals(1, 1);
+        $RetCode = self::$Core->sub(self::$startIdx, self::$endIdx, $this->High, $this->Low, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_sub($this->High, $this->Low), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testSum()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod = 10;
+        $RetCode         = self::$Core->sum(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_sum($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testT3()
@@ -1393,13 +1428,13 @@ class CoreTest extends TestCase
 
     public function testTan()
     {
-        $RetCode      = self::$Core->tan(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->tan(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_tan($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testTanh()
     {
-        $RetCode      = self::$Core->tanh(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $RetCode = self::$Core->tanh(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_tanh($this->High), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
@@ -1412,54 +1447,65 @@ class CoreTest extends TestCase
 
     public function testTrueRange()
     {
-        $this->assertEquals(1, 1);
+        $RetCode = self::$Core->trueRange(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_trange($this->High, $this->Low, $this->Close), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
-    public function testTrimaLookback()
+    public function testTrima()
     {
         $optInTimePeriod = 3;
         $RetCode         = self::$Core->trima(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_trima($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
-    public function testTrima()
-    {
-        $this->assertEquals(1, 1);
-    }
-
     public function testTrix()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod = 10;
+        $RetCode         = self::$Core->trix(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_trix($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testTsf()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod = 10;
+        $RetCode         = self::$Core->tsf(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_trix($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testTypPrice()
     {
-        $this->assertEquals(1, 1);
+        $RetCode = self::$Core->typPrice(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_typprice($this->High, $this->Low, $this->Close), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testUltOsc()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod1 = 10;
+        $optInTimePeriod2 = 11;
+        $optInTimePeriod3 = 12;
+        $RetCode          = self::$Core->ultOsc(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod1, $optInTimePeriod2, $optInTimePeriod3, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_ultosc($this->High, $this->Low, $this->Close, $optInTimePeriod1, $optInTimePeriod2, $optInTimePeriod3), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testVariance()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod = 10;
+        $optInNbDev      = 1.0;
+        $RetCode         = self::$Core->variance(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, $optInNbDev, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_var($this->High, $optInTimePeriod, $optInNbDev), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testWclPrice()
     {
-        $this->assertEquals(1, 1);
+        $RetCode = self::$Core->wclPrice(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_wclprice($this->High, $this->Low, $this->Close), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testWillR()
     {
-        $this->assertEquals(1, 1);
+        $optInTimePeriod = 10;
+        $RetCode         = self::$Core->willR(self::$startIdx, self::$endIdx, $this->High, $this->Low, $this->Close, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
+        $this->assertEquals(\trader_willr($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
 
     public function testWma()
