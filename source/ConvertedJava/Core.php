@@ -9802,7 +9802,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    protected function linearRegIntercept(
+    public function linearRegIntercept(
         int $startIdx,
         int $endIdx,
         array $inReal,
