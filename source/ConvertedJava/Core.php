@@ -10345,11 +10345,11 @@ class Core
     /* Generated */
     protected function macdExtLookback(
         int $optInFastPeriod,
-        MAType $optInFastMAType,
+        int $optInFastMAType,
         int $optInSlowPeriod,
-        MAType $optInSlowMAType,
+        int $optInSlowMAType,
         int $optInSignalPeriod,
-        MAType $optInSignalMAType
+        int $optInSignalMAType
     )
     {
         //int $tempInteger, $lookbackLargest;
@@ -14061,9 +14061,9 @@ class Core
     protected function stochLookback(
         int $optInFastK_Period,
         int $optInSlowK_Period,
-        MAType $optInSlowK_MAType,
+        int $optInSlowK_MAType,
         int $optInSlowD_Period,
-        MAType $optInSlowD_MAType
+        int $optInSlowD_MAType
     )
     {
         //int $retValue;
@@ -14226,7 +14226,7 @@ class Core
             $outBegIdx, $outNBElement, $outSlowD
         );
         //System::arraycopy($tempBuffer, $lookbackDSlow, $outSlowK, 0, (int)$outNBElement->value);
-        $outReal = \array_slice($tempBuffer, $lookbackDSlow, (int)$outNBElement->value);
+        $outSlowK = \array_slice($tempBuffer, $lookbackDSlow, (int)$outNBElement->value);
         if ($retCode != RetCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
@@ -14385,7 +14385,7 @@ class Core
             return $retCode;
         }
         //System::arraycopy($tempBuffer, $lookbackFastD, $outFastK, 0, (int)$outNBElement->value);
-        $outReal = \array_slice($tempBuffer, $lookbackFastD, (int)$outNBElement->value);
+        $outFastK = \array_slice($tempBuffer, $lookbackFastD, (int)$outNBElement->value);
         if ($retCode != RetCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
@@ -14402,7 +14402,7 @@ class Core
         int $optInTimePeriod,
         int $optInFastK_Period,
         int $optInFastD_Period,
-        MAType $optInFastD_MAType
+        int $optInFastD_MAType
     )
     {
         //int $retValue;
