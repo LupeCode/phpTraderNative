@@ -3,7 +3,7 @@
   "description": "An native version of the PHP Trader extension.",
   "version": "0.2.3",
   "type": "library",
-  "license": "GNU GPLv3",
+  "license": "GPL-3.0-or-later",
   "authors":[
     {
       "name": "Joshua Lopez",
