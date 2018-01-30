@@ -199,7 +199,7 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
+    public static function adOsc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
     {
         $fastPeriod = $fastPeriod ?? 3;
         $slowPeriod = $slowPeriod ?? 10;
@@ -287,7 +287,7 @@ class Trader
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
-        $RetCode    = self::getCore()->apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mATypeMAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        $RetCode    = self::getCore()->apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
         static::checkForError($RetCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
@@ -323,16 +323,23 @@ class Trader
      *
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function aroonosc(array $high, array $low, int $timePeriod = null): array
+    public static function aroonOsc(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_aroonosc($high, $low, $timePeriod);
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->aroonOsc(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -346,8 +353,13 @@ class Trader
      */
     public static function asin(array $real): array
     {
-        $return = trader_asin($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->asin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -361,8 +373,13 @@ class Trader
      */
     public static function atan(array $real): array
     {
-        $return = trader_atan($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->atan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -371,7 +388,7 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
@@ -379,47 +396,76 @@ class Trader
     public static function atr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_atr($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->atr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Average Price
      *
-     * @param array $open  Opening
-     *                     price, array of real values.
+     * @param array $open  Opening price, array of real values.
      * @param array $high  High price, array of real values.
      * @param array $low   Low price, array of real values.
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
-    public static function avgprice(array $open, array $high, array $low, array $close): array
+    public static function avgPrice(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_avgprice($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open    = \array_values($open);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->avgPrice(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Bollinger Bands
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5] Number of period. Valid range from 2 to 100000.
-     * @param float $nbDevUp    [OPTIONAL] [DEFAULT 2.0] Deviation multiplier for upper band. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
-     * @param float $nbDevDn    [OPTIONAL] [DEFAULT 2.0] Deviation multiplier for lower band. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
+     * @param float $nbDevUp    [OPTIONAL] [DEFAULT 2.0, SUGGESTED -2.0-2.0 INCREMENT 0.2] Deviation multiplier for upper band. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
+     * @param float $nbDevDn    [OPTIONAL] [DEFAULT 2.0, SUGGESTED -2.0-2.0 INCREMENT 0.2] Deviation multiplier for lower band. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
      * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns a 2D array with calculated data or false on failure. [UpperBand => [...], MiddleBand => [...], LowerBand => [...]]
      * @throws \Exception
      */
     public static function bbands(array $real, int $timePeriod = null, float $nbDevUp = null, float $nbDevDn = null, int $mAType = null): array
     {
-        $timePeriod = $timePeriod ?? 5;
-        $nbDevUp    = $nbDevUp ?? 2.0;
-        $nbDevDn    = $nbDevDn ?? 2.0;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
-        $return     = trader_bbands($real, $timePeriod, $nbDevUp, $nbDevDn, $mAType);
+        $timePeriod        = $timePeriod ?? 5;
+        $nbDevUp           = $nbDevUp ?? 2.0;
+        $nbDevDn           = $nbDevDn ?? 2.0;
+        $mAType            = $mAType ?? MAType::SMA;
+        $real              = \array_values($real);
+        $endIdx            = count($real) - 1;
+        $outRealUpperBand  = [];
+        $outRealMiddleBand = [];
+        $outRealLowerBand  = [];
+        $RetCode           = self::getCore()->bbands(0, $endIdx, $real, $timePeriod, $nbDevUp, $nbDevDn, $mAType, self::$outBegIdx, self::$outNBElement, $outRealUpperBand, $outRealMiddleBand, $outRealLowerBand);
+        static::checkForError($RetCode);
 
+        return
+            [
+                'UpperBand'  => self::adjustIndexes($outRealUpperBand, self::$outBegIdx),
+                'MiddleBand' => self::adjustIndexes($outRealMiddleBand, self::$outBegIdx),
+                'LowerBand'  => self::adjustIndexes($outRealLowerBand, self::$outBegIdx),
+            ];
     }
 
     /**
@@ -427,7 +473,7 @@ class Trader
      *
      * @param array $real0      Array of real values.
      * @param array $real1      Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
@@ -435,8 +481,15 @@ class Trader
     public static function beta(array $real0, array $real1, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 5;
-        $return     = trader_beta($real0, $real1, $timePeriod);
+        self::verifyArrayCounts([$real0, $real1]);
+        $real0   = \array_values($real0);
+        $real1   = \array_values($real1);
+        $endIdx  = count($real0) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->beta(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -452,8 +505,17 @@ class Trader
      */
     public static function bop(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_bop($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open    = \array_values($open);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($open) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->bop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -462,7 +524,7 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
@@ -470,8 +532,16 @@ class Trader
     public static function cci(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_cci($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high = \array_values($high);
+        $low = \array_values($low);
+        $close = \array_values($close);
+        $endIdx = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->cci(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
