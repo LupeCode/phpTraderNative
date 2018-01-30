@@ -10,6 +10,7 @@ The extension and the source for it can be downloaded there.
 
 Below is the copyright information for TA-LIB found in the source code.
 
+## License
 ```
 TA-LIB Copyright (c) 1999-2007, Mario Fortier
 All rights reserved.
@@ -41,8 +42,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
-## License
-Copyright (C) 2016 Lupe Code, LLC.; Joshua Saige
+Copyright (C) Lupe Code, LLC.; Joshua Lopez
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
