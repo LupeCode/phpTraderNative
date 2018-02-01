@@ -1,5 +1,3 @@
-vendor/
-
 # OS generated files #
 ######################
 ehthumbs.db
@@ -39,3 +37,5 @@ nbproject
 !/.gitignore
 /ta-lib/
 logs/
+metrics/
+vendor/
