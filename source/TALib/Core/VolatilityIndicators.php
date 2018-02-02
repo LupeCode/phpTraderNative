@@ -1,6 +1,6 @@
 <?php
 
-namespace TALib;
+namespace LupeCode\phpTraderNative\TALib\Core;
 
 class VolatilityIndicators
 {
