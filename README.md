@@ -1,16 +1,21 @@
 # PHP Trader Native
 
-This is a PHP port of the Trader extension for PHP, which is a port of the TA-LIB C code.
+This is a PHP port of the Trader extension for PHP, which is a port of the TA-LIB C/Java code.
 
 This port is written in PHP and without any other requirements.
+
 The goal is that this library can be used by those whom cannot install the PHP Trader extension.
 
-The PHP Trader Extension is available from <http://pecl.php.net/package/trader>.
-The extension and the source for it can be downloaded there.
+## Requirements
+
+* PHP >= 7.0.0
+
+That's the only thing you need!  As stated, you do not need to install any extensions for this library.
+
+## License
 
 Below is the copyright information for TA-LIB found in the source code.
 
-## License
 ```
 TA-LIB Copyright (c) 1999-2007, Mario Fortier
 All rights reserved.
