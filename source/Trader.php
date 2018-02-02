@@ -199,7 +199,7 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function adOsc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
+    public static function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
     {
         $fastPeriod = $fastPeriod ?? 3;
         $slowPeriod = $slowPeriod ?? 10;
@@ -328,7 +328,7 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function aroonOsc(array $high, array $low, int $timePeriod = null): array
+    public static function aroonosc(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low]);
@@ -419,7 +419,7 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function avgPrice(array $open, array $high, array $low, array $close): array
+    public static function avgprice(array $open, array $high, array $low, array $close): array
     {
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open    = \array_values($open);
@@ -533,10 +533,10 @@ class Trader
     {
         $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
-        $high = \array_values($high);
-        $low = \array_values($low);
-        $close = \array_values($close);
-        $endIdx = count($high) - 1;
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
         $outReal = [];
         $RetCode = self::getCore()->cci(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
         static::checkForError($RetCode);
@@ -557,8 +557,17 @@ class Trader
      */
     public static function cdl2crows(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl2crows($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -574,8 +583,17 @@ class Trader
      */
     public static function cdl3blackcrows(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl3blackcrows($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl3BlackCrows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -591,8 +609,17 @@ class Trader
      */
     public static function cdl3inside(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl3inside($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl3Inside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -608,8 +635,17 @@ class Trader
      */
     public static function cdl3linestrike(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl3linestrike($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl3LineStrike(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -625,8 +661,17 @@ class Trader
      */
     public static function cdl3outside(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl3outside($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl3Outside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -642,8 +687,17 @@ class Trader
      */
     public static function cdl3starsinsouth(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl3starsinsouth($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl3StarsInSouth(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -659,8 +713,17 @@ class Trader
      */
     public static function cdl3whitesoldiers(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdl3whitesoldiers($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdl3WhiteSoldiers(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -678,8 +741,17 @@ class Trader
     public static function cdlabandonedbaby(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
-        $return      = trader_cdlabandonedbaby($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlAbandonedBaby(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -695,8 +767,17 @@ class Trader
      */
     public static function cdladvanceblock(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdladvanceblock($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlAdvanceBlock(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -712,8 +793,17 @@ class Trader
      */
     public static function cdlbelthold(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlbelthold($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlBeltHold(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -729,8 +819,17 @@ class Trader
      */
     public static function cdlbreakaway(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlbreakaway($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlBreakaway(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -746,8 +845,17 @@ class Trader
      */
     public static function cdlclosingmarubozu(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlclosingmarubozu($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlClosingMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -763,8 +871,17 @@ class Trader
      */
     public static function cdlconcealbabyswall(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlconcealbabyswall($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlConcealBabysWall(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -780,8 +897,17 @@ class Trader
      */
     public static function cdlcounterattack(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlcounterattack($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlCounterAttack(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -799,8 +925,17 @@ class Trader
     public static function cdldarkcloudcover(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.5;
-        $return      = trader_cdldarkcloudcover($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlDarkCloudCover(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -816,8 +951,17 @@ class Trader
      */
     public static function cdldoji(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdldoji($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -833,8 +977,17 @@ class Trader
      */
     public static function cdldojistar(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdldojistar($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdldojistar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -850,8 +1003,17 @@ class Trader
      */
     public static function cdldragonflydoji(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdldragonflydoji($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlDragonflyDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -867,8 +1029,17 @@ class Trader
      */
     public static function cdlengulfing(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlengulfing($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlEngulfing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -886,8 +1057,17 @@ class Trader
     public static function cdleveningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
-        $return      = trader_cdleveningdojistar($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlEveningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -905,8 +1085,17 @@ class Trader
     public static function cdleveningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
-        $return      = trader_cdleveningstar($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlEveningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -922,8 +1111,17 @@ class Trader
      */
     public static function cdlgapsidesidewhite(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlgapsidesidewhite($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlGapSideSideWhite(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -936,11 +1134,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlgravestonedoji(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlgravestonedoji($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlGravestoneDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -956,8 +1164,17 @@ class Trader
      */
     public static function cdlhammer(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlhammer($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -973,8 +1190,17 @@ class Trader
      */
     public static function cdlhangingman(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlhangingman($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHangingMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -990,8 +1216,17 @@ class Trader
      */
     public static function cdlharami(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlharami($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHarami(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1003,11 +1238,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlharamicross(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlharamicross($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHaramiCross(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1019,11 +1264,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlhighwave(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlhighwave($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHighWave(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1035,11 +1290,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlhikkake(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlhikkake($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHikkake(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1051,11 +1316,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlhikkakemod(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlhikkakemod($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHikkakeMod(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1067,11 +1342,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlhomingpigeon(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlhomingpigeon($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlHomingPigeon(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1083,11 +1368,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlidentical3crows(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlidentical3crows($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlIdentical3Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1099,11 +1394,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlinneck(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlinneck($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlInNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1115,11 +1420,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlinvertedhammer(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlinvertedhammer($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlInvertedHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1131,11 +1446,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlkicking(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlkicking($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlKicking(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1147,11 +1472,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlkickingbylength(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlkickingbylength($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlKickingByLength(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1163,11 +1498,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlladderbottom(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlladderbottom($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlLadderBottom(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1179,11 +1524,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdllongleggeddoji(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdllongleggeddoji($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlLongLeggedDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1195,11 +1550,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdllongline(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdllongline($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlLongLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1211,11 +1576,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlmarubozu(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlmarubozu($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1227,11 +1602,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlmatchinglow(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlmatchinglow($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlMatchingLow(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1244,12 +1629,22 @@ class Trader
      * @param float $penetration [OPTIONAL] [DEFAULT 0.5] Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlmathold(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.5;
-        $return      = trader_cdlmathold($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlMatHold(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1262,12 +1657,22 @@ class Trader
      * @param float $penetration [OPTIONAL] [DEFAULT 0.3] Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlmorningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
-        $return      = trader_cdlmorningdojistar($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlMorningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1280,12 +1685,22 @@ class Trader
      * @param float $penetration [OPTIONAL] [DEFAULT 0.3] Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlmorningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
         $penetration = $penetration ?? 0.3;
-        $return      = trader_cdlmorningstar($open, $high, $low, $close, $penetration);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlMorningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1297,11 +1712,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlonneck(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlonneck($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlOnNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1313,11 +1738,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlpiercing(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlpiercing($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlPiercing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1329,11 +1764,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlrickshawman(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlrickshawman($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlRickshawMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1345,11 +1790,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlrisefall3methods(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlrisefall3methods($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlRiseFall3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1361,11 +1816,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlseparatinglines(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlseparatinglines($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlSeparatingLines(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1377,11 +1842,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlshootingstar(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlshootingstar($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlShootingStar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1393,11 +1868,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlshortline(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlshortline($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlShortLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1409,11 +1894,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlspinningtop(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlspinningtop($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlSpinningTop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1425,11 +1920,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlstalledpattern(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlstalledpattern($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlStalledPattern(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1441,11 +1946,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlsticksandwich(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlsticksandwich($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlStickSandwich(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1457,11 +1972,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdltakuri(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdltakuri($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlTakuri(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1473,11 +1998,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdltasukigap(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdltasukigap($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlTasukiGap(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1489,11 +2024,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlthrusting(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlthrusting($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlThrusting(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1505,11 +2050,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdltristar(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdltristar($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlTristar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1521,11 +2076,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlunique3river(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlunique3river($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlUnique3River(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1537,11 +2102,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlupsidegap2crows(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlupsidegap2crows($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlUpsideGap2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1553,11 +2128,21 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cdlxsidegap3methods(array $open, array $high, array $low, array $close): array
     {
-        $return = trader_cdlxsidegap3methods($open, $high, $low, $close);
+        self::verifyArrayCounts([$open, $high, $low, $close]);
+        $open       = \array_values($open);
+        $high       = \array_values($high);
+        $low        = \array_values($low);
+        $close      = \array_values($close);
+        $endIdx     = count($high) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->cdlXSideGap3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1567,26 +2152,37 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ceil(array $real): array
     {
-        $return = trader_ceil($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->ceil(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Chande Momentum Oscillator
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cmo(array $real, int $timePeriod = null): array
     {
-        $timePeriod = $timePeriod ?? 14;
-        $return     = trader_cmo($real, $timePeriod);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->cmo(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1594,15 +2190,23 @@ class Trader
      *
      * @param array $real0      Array of real values.
      * @param array $real1      Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function correl(array $real0, array $real1, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_correl($real0, $real1, $timePeriod);
+        self::verifyArrayCounts([$real0, $real1]);
+        $real0   = \array_values($real0);
+        $real1   = \array_values($real1);
+        $endIdx  = count($real0) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->correl(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1612,11 +2216,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cos(array $real): array
     {
-        $return = trader_cos($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->cos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1626,26 +2236,38 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function cosh(array $real): array
     {
-        $return = trader_cosh($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->cosh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Double Exponential Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 3.] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 3, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function dema(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_dema($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->dema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1656,11 +2278,19 @@ class Trader
      * @param array $real1 Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function div(array $real0, array $real1): array
     {
-        $return = trader_div($real0, $real1);
+        self::verifyArrayCounts([$real0, $real1]);
+        $real0   = \array_values($real0);
+        $real1   = \array_values($real1);
+        $endIdx  = count($real0) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->div(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1672,12 +2302,21 @@ class Trader
      * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
      *
      * @return array  Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function dx(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_dx($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->dx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1930,7 +2569,7 @@ class Trader
     public static function ma(array $real, int $timePeriod = null, int $mAType = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType     = $mAType ?? MAType::SMA;
         $return     = trader_ma($real, $timePeriod, $mAType);
 
     }
@@ -1969,9 +2608,9 @@ class Trader
     public static function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null): array
     {
         $fastPeriod   = $fastPeriod ?? 12;
-        $fastMAType   = $fastMAType ?? static::$TRADER_MA_TYPE_SMA;
+        $fastMAType   = $fastMAType ?? MAType::SMA;
         $slowPeriod   = $slowPeriod ?? 26;
-        $slowMAType   = $slowMAType ?? static::$TRADER_MA_TYPE_SMA;
+        $slowMAType   = $slowMAType ?? MAType::SMA;
         $signalPeriod = $signalPeriod ?? 9;
         $return       = trader_macdext($real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod);
 
@@ -2024,7 +2663,7 @@ class Trader
     {
         $minPeriod = $minPeriod ?? 2;
         $maxPeriod = $maxPeriod ?? 30;
-        $mAType    = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType    = $mAType ?? MAType::SMA;
         $return    = trader_mavp($real, $periods, $minPeriod, $maxPeriod, $mAType);
 
     }
@@ -2323,7 +2962,7 @@ class Trader
     {
         $fastPeriod = $fastPeriod ?? 12;
         $slowPeriod = $slowPeriod ?? 26;
-        $mAType     = $mAType ?? static::$TRADER_MA_TYPE_SMA;
+        $mAType     = $mAType ?? MAType::SMA;
         $return     = trader_ppo($real, $fastPeriod, $slowPeriod, $mAType);
 
     }
@@ -2543,9 +3182,9 @@ class Trader
     {
         $fastK_Period = $fastK_Period ?? 5;
         $slowK_Period = $slowK_Period ?? 3;
-        $slowK_MAType = $slowK_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $slowK_MAType = $slowK_MAType ?? MAType::SMA;
         $slowD_Period = $slowD_Period ?? 3;
-        $slowD_MAType = $slowD_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $slowD_MAType = $slowD_MAType ?? MAType::SMA;
         $return       = trader_stoch($high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
 
     }
@@ -2566,7 +3205,7 @@ class Trader
     {
         $fastK_Period = $fastK_Period ?? 5;
         $fastD_Period = $fastD_Period ?? 3;
-        $fastD_MAType = $fastD_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $fastD_MAType = $fastD_MAType ?? MAType::SMA;
         $return       = trader_stochf($high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType);
 
     }
@@ -2587,7 +3226,7 @@ class Trader
         $timePeriod   = $timePeriod ?? 14;
         $fastK_Period = $fastK_Period ?? 5;
         $fastD_Period = $fastD_Period ?? 3;
-        $fastD_MAType = $fastD_MAType ?? static::$TRADER_MA_TYPE_SMA;
+        $fastD_MAType = $fastD_MAType ?? MAType::SMA;
         $return       = trader_stochrsi($real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType);
 
     }
