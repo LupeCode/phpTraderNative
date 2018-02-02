@@ -209,29 +209,6 @@ class CoreTest extends TestCase
 
     //</editor-fold>
 
-    public function testSpeed()
-    {
-        $limit           = 1000;
-        $optInTimePeriod = 10;
-        $start           = microtime(true);
-        for ($i = 0; $i < $limit; $i++) {
-            $result = \trader_wma($this->High, $optInTimePeriod);
-        }
-        $stop    = microtime(true);
-        $elapsed = $stop - $start;
-        echo "Time for PECL trader: " . $elapsed . PHP_EOL;
-        $outInteger = array();
-        $start      = microtime(true);
-        for ($i = 0; $i < $limit; $i++) {
-            $RetCode = self::$Core->wma(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
-        }
-        $stop    = microtime(true);
-        $elapsed = $stop - $start;
-        echo "Time for native trader: " . $elapsed . PHP_EOL;
-
-        $this->assertEquals(1, 1);
-    }
-
     protected function adjustForPECL(array $outReal, MInteger $outBegIdx, int $precision = 3, int $mode = \PHP_ROUND_HALF_DOWN)
     {
         $newOutReal = [];
