@@ -363,6 +363,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleTwoCrows(array $open, array $high, array $low, array $close): array
     {
@@ -378,6 +379,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThreeBlackCrows(array $open, array $high, array $low, array $close): array
     {
@@ -393,6 +395,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThreeInsideUpDown(array $open, array $high, array $low, array $close): array
     {
@@ -408,6 +411,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThreeLineStrike(array $open, array $high, array $low, array $close): array
     {
@@ -423,6 +427,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThreeOutsideUpDown(array $open, array $high, array $low, array $close): array
     {
@@ -438,6 +443,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThreeStarsInTheSouth(array $open, array $high, array $low, array $close): array
     {
@@ -453,6 +459,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThreeWhiteSoldiers(array $open, array $high, array $low, array $close): array
     {
@@ -469,6 +476,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleAbandonedBaby(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -484,6 +492,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleAdvanceBlock(array $open, array $high, array $low, array $close): array
     {
@@ -499,6 +508,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleBeltHold(array $open, array $high, array $low, array $close): array
     {
@@ -514,6 +524,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleBreakaway(array $open, array $high, array $low, array $close): array
     {
@@ -529,6 +540,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleClosingMarubozu(array $open, array $high, array $low, array $close): array
     {
@@ -544,6 +556,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleConcealingBabySwallow(array $open, array $high, array $low, array $close): array
     {
@@ -559,6 +572,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleCounterattack(array $open, array $high, array $low, array $close): array
     {
@@ -575,6 +589,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleDarkCloudCover(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -590,6 +605,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleDoji(array $open, array $high, array $low, array $close): array
     {
@@ -605,6 +621,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleDojiStar(array $open, array $high, array $low, array $close): array
     {
@@ -620,6 +637,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleDragonflyDoji(array $open, array $high, array $low, array $close): array
     {
@@ -635,6 +653,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleEngulfingPattern(array $open, array $high, array $low, array $close): array
     {
@@ -651,6 +670,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleEveningDojiStar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -667,6 +687,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleEveningStar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -682,6 +703,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleUpDownGapsSideBySideWhiteLines(array $open, array $high, array $low, array $close): array
     {
@@ -697,6 +719,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleGravestoneDoji(array $open, array $high, array $low, array $close): array
     {
@@ -712,6 +735,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHammer(array $open, array $high, array $low, array $close): array
     {
@@ -727,6 +751,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHangingMan(array $open, array $high, array $low, array $close): array
     {
@@ -742,6 +767,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHarami(array $open, array $high, array $low, array $close): array
     {
@@ -757,6 +783,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHaramiCross(array $open, array $high, array $low, array $close): array
     {
@@ -772,6 +799,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHighWave(array $open, array $high, array $low, array $close): array
     {
@@ -787,6 +815,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHikkake(array $open, array $high, array $low, array $close): array
     {
@@ -802,6 +831,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleModifiedHikkake(array $open, array $high, array $low, array $close): array
     {
@@ -817,6 +847,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleHomingPigeon(array $open, array $high, array $low, array $close): array
     {
@@ -832,6 +863,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleIdenticalThreeCrows(array $open, array $high, array $low, array $close): array
     {
@@ -847,6 +879,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleInNeck(array $open, array $high, array $low, array $close): array
     {
@@ -862,6 +895,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleInvertedHammer(array $open, array $high, array $low, array $close): array
     {
@@ -877,6 +911,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleKicking(array $open, array $high, array $low, array $close): array
     {
@@ -892,6 +927,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleKickingByLength(array $open, array $high, array $low, array $close): array
     {
@@ -907,6 +943,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleLadderBottom(array $open, array $high, array $low, array $close): array
     {
@@ -922,6 +959,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleLongLeggedDoji(array $open, array $high, array $low, array $close): array
     {
@@ -937,6 +975,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleLongLine(array $open, array $high, array $low, array $close): array
     {
@@ -952,6 +991,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleMarubozu(array $open, array $high, array $low, array $close): array
     {
@@ -967,6 +1007,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleMatchingLow(array $open, array $high, array $low, array $close): array
     {
@@ -983,6 +1024,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleMatHold(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -999,6 +1041,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleMorningDojiStar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -1015,6 +1058,7 @@ class TraderFriendly
      * @param float $penetration Percentage of penetration of a candle within another candle.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleMorningStar(array $open, array $high, array $low, array $close, float $penetration = null): array
     {
@@ -1030,6 +1074,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleOnNeck(array $open, array $high, array $low, array $close): array
     {
@@ -1045,6 +1090,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candlePiercing(array $open, array $high, array $low, array $close): array
     {
@@ -1060,6 +1106,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleRickshawMan(array $open, array $high, array $low, array $close): array
     {
@@ -1075,6 +1122,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleRisingFallingThreeMethods(array $open, array $high, array $low, array $close): array
     {
@@ -1090,6 +1138,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleSeparatingLines(array $open, array $high, array $low, array $close): array
     {
@@ -1105,6 +1154,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleShootingStar(array $open, array $high, array $low, array $close): array
     {
@@ -1120,6 +1170,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleShortLine(array $open, array $high, array $low, array $close): array
     {
@@ -1135,6 +1186,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleSpinningTop(array $open, array $high, array $low, array $close): array
     {
@@ -1150,6 +1202,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleStalled(array $open, array $high, array $low, array $close): array
     {
@@ -1165,6 +1218,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleStickSandwich(array $open, array $high, array $low, array $close): array
     {
@@ -1180,6 +1234,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleTakuri(array $open, array $high, array $low, array $close): array
     {
@@ -1195,6 +1250,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleTasukiGap(array $open, array $high, array $low, array $close): array
     {
@@ -1210,6 +1266,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleThrusting(array $open, array $high, array $low, array $close): array
     {
@@ -1225,6 +1282,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleTristar(array $open, array $high, array $low, array $close): array
     {
@@ -1240,6 +1298,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleUniqueThreeRiver(array $open, array $high, array $low, array $close): array
     {
@@ -1255,6 +1314,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleUpsideGapTwoCrows(array $open, array $high, array $low, array $close): array
     {
@@ -1270,6 +1330,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function candleUpsideDownsideGapThreeMethods(array $open, array $high, array $low, array $close): array
     {
@@ -1284,6 +1345,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathCeiling(array $real): array
     {
@@ -1301,6 +1363,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function chandeMomentumOscillator(array $real, int $timePeriod): array
     {
@@ -1317,6 +1380,7 @@ class TraderFriendly
      * @param int|null $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function pearsonCorrelationCoefficient(array $real0, array $real1, int $timePeriod = null): array
     {
@@ -1331,6 +1395,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathCosine(array $real): array
     {
@@ -1345,6 +1410,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathHyperbolicCosine(array $real): array
     {
@@ -1361,6 +1427,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function doubleExponentialMovingAverage(array $real, int $timePeriod): array
     {
@@ -1376,6 +1443,7 @@ class TraderFriendly
      * @param array $real1 Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathDivision(array $real0, array $real1): array
     {
@@ -1394,6 +1462,7 @@ class TraderFriendly
      * @param int|null $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array  Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function directionalMovementIndex(array $high, array $low, array $close, int $timePeriod = null): array
     {
@@ -1411,22 +1480,11 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function exponentialMovingAverage(array $real, int $timePeriod): array
     {
         return Trader::ema($real, $timePeriod);
-    }
-
-    /**
-     * Get error code
-     *
-     * Get error code of the last operation.
-     *
-     * @return int Returns the error code identified by one of the TRADER_ERR_* constants.
-     */
-    public static function errorNumber(): integer
-    {
-        return Trader::errno();
     }
 
     /**
@@ -1437,6 +1495,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathExponent(array $real): array
     {
@@ -1451,6 +1510,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathFloor(array $real): array
     {
@@ -1463,6 +1523,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function hilbertTransformDominantCyclePeriod(array $real): array
     {
@@ -1475,6 +1536,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function hilbertTransformDominantCyclePhase(array $real): array
     {
@@ -1488,6 +1550,7 @@ class TraderFriendly
      * @param array $inPhase Empty array, will be filled with in phase data.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function hilbertTransformPhasorComponents(array $real, array &$inPhase): array
     {
@@ -1501,6 +1564,7 @@ class TraderFriendly
      * @param array $sine Empty array, will be filled with sine data.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function hilbertTransformSineWave(array $real, array &$sine): array
     {
@@ -1513,6 +1577,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function hilbertTransformInstantaneousTrendLine(array $real): array
     {
@@ -1525,6 +1590,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function hilbertTransformTrendVsCycleMode(array $real): array
     {
@@ -1543,6 +1609,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function kaufmanAdaptiveMovingAverage(array $real, int $timePeriod = null): array
     {
@@ -1556,6 +1623,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearRegressionAngle(array $real, int $timePeriod = null): array
     {
@@ -1569,6 +1637,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearRegressionIntercept(array $real, int $timePeriod = null): array
     {
@@ -1582,6 +1651,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearRegressionSlope(array $real, int $timePeriod = null): array
     {
@@ -1595,6 +1665,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearRegression(array $real, int $timePeriod = null): array
     {
@@ -1609,6 +1680,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathLogarithmNatural(array $real): array
     {
@@ -1623,6 +1695,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathLogarithmBase10(array $real): array
     {
@@ -1637,6 +1710,7 @@ class TraderFriendly
      * @param int      $mAType     Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function movingAverage(array $real, int $timePeriod = null, int $mAType = null): array
     {
@@ -1652,6 +1726,7 @@ class TraderFriendly
      * @param int|null $signalPeriod Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function movingAverageConvergenceDivergence(array $real, int $fastPeriod = null, int $slowPeriod = null, int $signalPeriod = null): array
     {
@@ -1669,6 +1744,7 @@ class TraderFriendly
      * @param int|null $signalPeriod Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function movingAverageConvergenceDivergenceExtended(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null): array
     {
@@ -1682,6 +1758,7 @@ class TraderFriendly
      * @param int|null $signalPeriod Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function movingAverageConvergenceDivergenceFixed(array $real, int $signalPeriod = null): array
     {
@@ -1696,6 +1773,7 @@ class TraderFriendly
      * @param float|null $slowLimit Lower limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mesaAdaptiveMovingAverage(array $real, float $fastLimit = null, float $slowLimit = null): array
     {
@@ -1712,6 +1790,7 @@ class TraderFriendly
      * @param int|null $mAType    Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function movingAverageVariablePeriod(array $real, array $periods, int $minPeriod = null, int $maxPeriod = null, int $mAType = null): array
     {
@@ -1725,6 +1804,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMax(array $real, int $timePeriod = null): array
     {
@@ -1738,6 +1818,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMaxIndex(array $real, int $timePeriod = null): array
     {
@@ -1751,6 +1832,7 @@ class TraderFriendly
      * @param array $low  Low price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMedianPrice(array $high, array $low): array
     {
@@ -1767,6 +1849,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function moneyFlowIndex(array $high, array $low, array $close, array $volume, int $timePeriod = null): array
     {
@@ -1780,6 +1863,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function middlePoint(array $real, int $timePeriod = null): array
     {
@@ -1794,6 +1878,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function middlePointPrice(array $high, array $low, int $timePeriod = null)
     {
@@ -1807,6 +1892,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMin(array $real, int $timePeriod = null): array
     {
@@ -1820,6 +1906,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMinIndex(array $real, int $timePeriod = null): array
     {
@@ -1833,6 +1920,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMinMax(array $real, int $timePeriod = null): array
     {
@@ -1846,6 +1934,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMinMaxIndex(array $real, int $timePeriod = null): array
     {
@@ -1861,6 +1950,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minusDirectionalIndicator(array $high, array $low, array $close, int $timePeriod = null): array
     {
@@ -1875,6 +1965,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minusDirectionalMovement(array $high, array $low, int $timePeriod = null): array
     {
@@ -1888,6 +1979,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function momentum(array $real, int $timePeriod = null): array
     {
@@ -1902,6 +1994,7 @@ class TraderFriendly
      * @param array $real1 Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathMultiply(array $real0, array $real1): array
     {
@@ -1917,6 +2010,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function normalizedAverageTrueRange(array $high, array $low, array $close, int $timePeriod = null): array
     {
@@ -1930,6 +2024,7 @@ class TraderFriendly
      * @param array $volume Volume traded, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function onBalanceVolume(array $real, array $volume): array
     {
@@ -1945,6 +2040,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function plusDirectionalIndicator(array $high, array $low, array $close, int $timePeriod = null): array
     {
@@ -1959,6 +2055,7 @@ class TraderFriendly
      * @param int   $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function plusDirectionalMovement(array $high, array $low, int $timePeriod = null): array
     {
@@ -1974,6 +2071,7 @@ class TraderFriendly
      * @param int|null $mAType     Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function percentagePriceOscillator(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
     {
@@ -1987,6 +2085,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rateOfChange(array $real, int $timePeriod = null): array
     {
@@ -2000,6 +2099,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rateOfChangePercentage(array $real, int $timePeriod = null): array
     {
@@ -2013,6 +2113,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rateOfChangeRatio100(array $real, int $timePeriod = null): array
     {
@@ -2026,6 +2127,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rateOfChangeRatio(array $real, int $timePeriod = null): array
     {
@@ -2039,6 +2141,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function relativeStrengthIndex(array $real, int $timePeriod = null): array
     {
@@ -2054,6 +2157,7 @@ class TraderFriendly
      * @param float|null $maximum      Acceleration Factor Maximum value. Valid range from 0 to TRADER_REAL_MAX.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function parabolicSAR(array $high, array $low, float $acceleration = null, float $maximum = null): array
     {
@@ -2075,6 +2179,7 @@ class TraderFriendly
      * @param float|null $accelerationMaxShort  Acceleration Factor maximum value for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function parabolicSARExtended(array $high, array $low, float $startValue = null, float $offsetOnReverse = null, float $accelerationInitLong = null, float $accelerationLong = null, float $accelerationMaxLong = null, float $accelerationInitShort = null, float $accelerationShort = null, float $accelerationMaxShort = null): array
     {
@@ -2088,6 +2193,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathSine(array $real): array
     {
@@ -2101,6 +2207,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathHyperbolicSine(array $real): array
     {
@@ -2114,6 +2221,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function simpleMovingAverage(array $real, int $timePeriod = null): array
     {
@@ -2127,6 +2235,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathSquareRoot(array $real): array
     {
@@ -2141,6 +2250,7 @@ class TraderFriendly
      * @param float    $nbDev
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function standardDeviation(array $real, int $timePeriod = null, float $nbDev = null): array
     {
@@ -2160,6 +2270,7 @@ class TraderFriendly
      * @param int|null $slowD_MAType Type of Moving Average for Slow-D. TRADER_MA_TYPE_* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stochastic(array $high, array $low, array $close, int $fastK_Period = null, int $slowK_Period = null, int $slowK_MAType = null, int $slowD_Period = null, int $slowD_MAType = null): array
     {
@@ -2177,6 +2288,7 @@ class TraderFriendly
      * @param int|null $fastD_MAType Type of Moving Average for Fast-D. TRADER_MA_TYPE_* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stochasticFast(array $high, array $low, array $close, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
     {
@@ -2193,6 +2305,7 @@ class TraderFriendly
      * @param int|null $fastD_MAType Type of Moving Average for Fast-D. TRADER_MA_TYPE_* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stochasticRelativeStrengthIndex(array $real, int $timePeriod = null, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
     {
@@ -2207,6 +2320,7 @@ class TraderFriendly
      * @param array $real1 Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathSubtraction(array $real0, array $real1): array
     {
@@ -2220,6 +2334,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathSummation(array $real, int $timePeriod = null): array
     {
@@ -2234,6 +2349,7 @@ class TraderFriendly
      * @param float    $vFactor    Volume Factor. Valid range from 1 to 0.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tripleExponentialMovingAverageT3(array $real, int $timePeriod = null, float $vFactor = null): array
     {
@@ -2247,6 +2363,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathTangent(array $real): array
     {
@@ -2260,6 +2377,7 @@ class TraderFriendly
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mathHyperbolicTangent(array $real): array
     {
@@ -2273,6 +2391,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tripleExponentialMovingAverage(array $real, int $timePeriod = null): array
     {
@@ -2287,6 +2406,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function trueRange(array $high, array $low, array $close): array
     {
@@ -2300,6 +2420,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function triangularMovingAverage(array $real, int $timePeriod = null): array
     {
@@ -2313,6 +2434,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tripleExponentialAverage(array $real, int $timePeriod = null): array
     {
@@ -2326,6 +2448,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function timeSeriesForecast(array $real, int $timePeriod = null): array
     {
@@ -2340,6 +2463,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function typicalPrice(array $high, array $low, array $close): array
     {
@@ -2357,6 +2481,7 @@ class TraderFriendly
      * @param int|null $timePeriod3 Number of bars for 3rd period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ultimateOscillator(array $high, array $low, array $close, int $timePeriod1 = null, int $timePeriod2 = null, int $timePeriod3 = null): array
     {
@@ -2371,6 +2496,7 @@ class TraderFriendly
      * @param float    $nbDev
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function variance(array $real, int $timePeriod = null, float $nbDev = null): array
     {
@@ -2385,6 +2511,7 @@ class TraderFriendly
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function weightedClosePrice(array $high, array $low, array $close): array
     {
@@ -2400,6 +2527,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function williamsR(array $high, array $low, array $close, int $timePeriod = null): array
     {
@@ -2413,6 +2541,7 @@ class TraderFriendly
      * @param null|int $timePeriod Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function weightedMovingAverage(array $real, int $timePeriod = null): array
     {
