@@ -19,7 +19,7 @@ class TraderTest extends TestCase
 
     public function testAcos()
     {
-        $in=[.1,.2,.3,.4,.5,.6,.7,.8,.9,];
+        $in = [.1, .2, .3, .4, .5, .6, .7, .8, .9,];
         $this->assertEquals(\trader_acos($in), $this->adjustForPECL(Trader::acos($in)));
     }
 }
