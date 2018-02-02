@@ -274,7 +274,7 @@ class Trader
      * @param array $real       Array of real values.
      * @param int   $fastPeriod [OPTIONAL] [DEFAULT 12, SUGGESTED 4-200] Number of period for the fast MA. Valid range from 2 to 100000.
      * @param int   $slowPeriod [OPTIONAL] [DEFAULT 26, SUGGESTED 4-200] Number of period for the slow MA. Valid range from 2 to 100000.
-     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
@@ -441,7 +441,7 @@ class Trader
      * @param int   $timePeriod [OPTIONAL] [DEFAULT 5, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      * @param float $nbDevUp    [OPTIONAL] [DEFAULT 2.0, SUGGESTED -2.0-2.0 INCREMENT 0.2] Deviation multiplier for upper band. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
      * @param float $nbDevDn    [OPTIONAL] [DEFAULT 2.0, SUGGESTED -2.0-2.0 INCREMENT 0.2] Deviation multiplier for lower band. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
-     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. MAType::* series of constants should be used.
      *
      * @return array Returns a 2D array with calculated data or false on failure. [UpperBand => [...], MiddleBand => [...], LowerBand => [...]]
      * @throws \Exception
@@ -2299,7 +2299,7 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array  Returns an array with calculated data or false on failure.
      * @throws \Exception
@@ -2323,27 +2323,21 @@ class Trader
      * Exponential Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ema(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_ema($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->ema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
-    }
-
-    /**
-     * Get error code
-     * Get error code of the last operation.
-     *
-     * @return int Returns the error code identified by one of the TRADER_ERR_* constants.
-     */
-    public static function errno(): integer
-    {
-        $return = trader_errno();
-
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2353,11 +2347,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function exp(array $real): array
     {
-        $return = trader_exp($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->exp(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2367,11 +2367,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function floor(array $real): array
     {
-        $return = trader_floor($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->floor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2380,11 +2386,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ht_dcperiod(array $real): array
     {
-        $return = trader_ht_dcperiod($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->htDcPeriod(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2393,11 +2405,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ht_dcphase(array $real): array
     {
-        $return = trader_ht_dcphase($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->htDcPhase(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2407,11 +2425,17 @@ class Trader
      * @param array $inPhase Empty array, will be filled with in phase data.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ht_phasor(array $real, array &$inPhase): array
     {
-        $return = trader_ht_phasor($real, $inPhase);
+        $real          = \array_values($real);
+        $endIdx        = count($real) - 1;
+        $outQuadrature = [];
+        $RetCode       = self::getCore()->htPhasor(0, $endIdx, $real, $outBegIdx, $outNBElement, $inPhase, $outQuadrature);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outQuadrature, self::$outBegIdx);
     }
 
     /**
@@ -2421,11 +2445,17 @@ class Trader
      * @param array $sine Empty array, will be filled with sine data.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ht_sine(array $real, array &$sine): array
     {
-        $return = trader_ht_sine($real, $sine);
+        $real        = \array_values($real);
+        $endIdx      = count($real) - 1;
+        $outLeadSine = [];
+        $RetCode     = self::getCore()->htSine(0, $endIdx, $real, $outBegIdx, $outNBElement, $sine, $outLeadSine);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outLeadSine, self::$outBegIdx);
     }
 
     /**
@@ -2434,11 +2464,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ht_trendline(array $real): array
     {
-        $return = trader_ht_trendline($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->htTrendline(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2447,86 +2483,122 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ht_trendmode(array $real): array
     {
-        $return = trader_ht_trendmode($real);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outInteger = [];
+        $RetCode    = self::getCore()->htTrendMode(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInteger);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
      * Kaufman Adaptive Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function kama(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_kama($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->kama(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Linear Regression Angle
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearreg_angle(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_linearreg_angle($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->linearRegAngle(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Linear Regression Angle
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearreg_intercept(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_linearreg_intercept($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->linearRegIntercept(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Linear Regression Slope
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearreg_slope(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_linearreg_slope($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->linearRegSlope(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Linear Regression
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function linearreg(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_linearreg($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->linearReg(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2536,11 +2608,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ln(array $real): array
     {
-        $return = trader_ln($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->ln(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2550,102 +2628,166 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function log10(array $real): array
     {
-        $return = trader_log10($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->log10(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Moving average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
-     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
+     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ma(array $real, int $timePeriod = null, int $mAType = null): array
     {
         $timePeriod = $timePeriod ?? 30;
         $mAType     = $mAType ?? MAType::SMA;
-        $return     = trader_ma($real, $timePeriod, $mAType);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->movingAverage(0, $endIdx, $real, $timePeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Moving Average Convergence/Divergence
      *
      * @param array $real         Array of real values.
-     * @param int   $fastPeriod   [OPTIONAL] [DEFAULT 12] Number of period for the fast MA. Valid range from 2 to 100000.
-     * @param int   $slowPeriod   [OPTIONAL] [DEFAULT 26] Number of period for the slow MA. Valid range from 2 to 100000.
-     * @param int   $signalPeriod [OPTIONAL] [DEFAULT 9] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
+     * @param int   $fastPeriod   [OPTIONAL] [DEFAULT 12, SUGGESTED 4-200] Number of period for the fast MA. Valid range from 2 to 100000.
+     * @param int   $slowPeriod   [OPTIONAL] [DEFAULT 26, SUGGESTED 4-200] Number of period for the slow MA. Valid range from 2 to 100000.
+     * @param int   $signalPeriod [OPTIONAL] [DEFAULT 9, SUGGESTED 1-200] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [MACD => [...], MACDSignal => [...], MACDHist => [...]]
+     * @throws \Exception
      */
     public static function macd(array $real, int $fastPeriod = null, int $slowPeriod = null, int $signalPeriod = null): array
     {
-        $fastPeriod   = $fastPeriod ?? 12;
-        $slowPeriod   = $slowPeriod ?? 26;
-        $signalPeriod = $signalPeriod ?? 9;
-        $return       = trader_macd($real, $fastPeriod, $slowPeriod, $signalPeriod);
+        $fastPeriod    = $fastPeriod ?? 12;
+        $slowPeriod    = $slowPeriod ?? 26;
+        $signalPeriod  = $signalPeriod ?? 9;
+        $real          = \array_values($real);
+        $endIdx        = count($real) - 1;
+        $outMACD       = [];
+        $outMACDSignal = [];
+        $outMACDHist   = [];
+        $RetCode       = self::getCore()->macd(0, $endIdx, $real, $fastPeriod, $slowPeriod, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
+        static::checkForError($RetCode);
 
+        return
+            [
+                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
+            ];
     }
 
     /**
      * Moving Average Convergence/Divergence with controllable Moving Average type
      *
-     * @param array $real         Array of real values.
-     * @param int   $fastPeriod   [OPTIONAL] [DEFAULT 12] Number of period for the fast MA. Valid range from 2 to 100000.
-     * @param int   $fastMAType   [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. TRADER_MA_TYPE_* series of constants should be used.
-     * @param int   $slowPeriod   [OPTIONAL] [DEFAULT 26] Number of period for the slow MA. Valid range from 2 to 100000.
-     * @param int   $slowMAType   [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. TRADER_MA_TYPE_* series of constants should be used.
-     * @param int   $signalPeriod [OPTIONAL] [DEFAULT 9] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
+     * @param array    $real         Array of real values.
+     * @param int      $fastPeriod   [OPTIONAL] [DEFAULT 12, SUGGESTED 4-200] Number of period for the fast MA. Valid range from 2 to 100000.
+     * @param int      $fastMAType   [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MAType::* series of constants should be used.
+     * @param int      $slowPeriod   [OPTIONAL] [DEFAULT 26, SUGGESTED 4-200] Number of period for the slow MA. Valid range from 2 to 100000.
+     * @param int      $slowMAType   [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MAType::* series of constants should be used.
+     * @param int      $signalPeriod [OPTIONAL] [DEFAULT 9, SUGGESTED 1-200] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
+     * @param int|null $signalMAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
-    public static function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null): array
+    public static function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null, int $signalMAType = null): array
     {
-        $fastPeriod   = $fastPeriod ?? 12;
-        $fastMAType   = $fastMAType ?? MAType::SMA;
-        $slowPeriod   = $slowPeriod ?? 26;
-        $slowMAType   = $slowMAType ?? MAType::SMA;
-        $signalPeriod = $signalPeriod ?? 9;
-        $return       = trader_macdext($real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod);
+        $fastPeriod    = $fastPeriod ?? 12;
+        $fastMAType    = $fastMAType ?? MAType::SMA;
+        $slowPeriod    = $slowPeriod ?? 26;
+        $slowMAType    = $slowMAType ?? MAType::SMA;
+        $signalPeriod  = $signalPeriod ?? 9;
+        $signalMAType  = $signalMAType ?? MAType::SMA;
+        $real          = \array_values($real);
+        $endIdx        = count($real) - 1;
+        $outMACD       = [];
+        $outMACDSignal = [];
+        $outMACDHist   = [];
+        $RetCode       = self::getCore()->macdExt(0, $endIdx, $real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
+        static::checkForError($RetCode);
 
+        return
+            [
+                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
+            ];
     }
 
     /**
      * Moving Average Convergence/Divergence Fix 12/26
      *
      * @param array $real         Array of real values.
-     * @param int   $signalPeriod [OPTIONAL] [DEFAULT 9] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
+     * @param int   $signalPeriod [OPTIONAL] [DEFAULT 9, SUGGESTED 1-200] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function macdfix(array $real, int $signalPeriod = null): array
     {
-        $signalPeriod = $signalPeriod ?? 9;
-        $return       = trader_macdfix($real, $signalPeriod);
+        $signalPeriod  = $signalPeriod ?? 9;
+        $real          = \array_values($real);
+        $endIdx        = count($real) - 1;
+        $outMACD       = [];
+        $outMACDSignal = [];
+        $outMACDHist   = [];
+        $RetCode       = self::getCore()->macdFix(0, $endIdx, $real, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
+        static::checkForError($RetCode);
 
+        return
+            [
+                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
+            ];
     }
 
     /**
      * MESA Adaptive Moving Average
      *
      * @param array $real      Array of real values.
-     * @param float $fastLimit [OPTIONAL] [DEFAULT 0.5] Upper limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
-     * @param float $slowLimit [OPTIONAL] [DEFAULT 0.05] Lower limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
+     * @param float $fastLimit [OPTIONAL] [DEFAULT 0.5, SUGGESTED 0.21-0.80] Upper limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
+     * @param float $slowLimit [OPTIONAL] [DEFAULT 0.05, SUGGESTED 0.01-0.60] Lower limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mama(array $real, float $fastLimit = null, float $slowLimit = null): array
     {
         $fastLimit = $fastLimit ?? 0.5;
         $slowLimit = $slowLimit ?? 0.05;
-        $return    = trader_mama($real, $fastLimit, $slowLimit);
+        $real      = \array_values($real);
+        $endIdx    = count($real) - 1;
+        $outMAMA   = [];
+        $outFAMA   = [];
+        $RetCode   = self::getCore()->mama(0, $endIdx, $real, $fastLimit, $slowLimit, $outBegIdx, $outNBElement, $outMAMA, $outFAMA);
+        static::checkForError($RetCode);
 
+        return
+            [
+                'MAMA' => self::adjustIndexes($outMAMA, self::$outBegIdx),
+                'FAMA' => self::adjustIndexes($outFAMA, self::$outBegIdx),
+            ];
     }
 
     /**
@@ -2653,49 +2795,67 @@ class Trader
      *
      * @param array $real      Array of real values.
      * @param array $periods   Array of real values.
-     * @param int   $minPeriod [OPTIONAL] [DEFAULT 2] Value less than minimum will be changed to Minimum period. Valid range from 2 to 100000
-     * @param int   $maxPeriod [OPTIONAL] [DEFAULT 30] Value higher than maximum will be changed to Maximum period. Valid range from 2 to 100000
-     * @param int   $mAType    [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $minPeriod [OPTIONAL] [DEFAULT 2, SUGGESTED 4-200] Value less than minimum will be changed to Minimum period. Valid range from 2 to 100000
+     * @param int   $maxPeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Value higher than maximum will be changed to Maximum period. Valid range from 2 to 100000
+     * @param int   $mAType    [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mavp(array $real, array $periods, int $minPeriod = null, int $maxPeriod = null, int $mAType = null): array
     {
         $minPeriod = $minPeriod ?? 2;
         $maxPeriod = $maxPeriod ?? 30;
         $mAType    = $mAType ?? MAType::SMA;
-        $return    = trader_mavp($real, $periods, $minPeriod, $maxPeriod, $mAType);
+        $real      = \array_values($real);
+        $endIdx    = count($real) - 1;
+        $outReal   = [];
+        $RetCode   = self::getCore()->movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Highest value over a specified period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function max(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_max($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->max(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Index of highest value over a specified period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function maxindex(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_maxindex($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->maxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2705,11 +2865,19 @@ class Trader
      * @param array $low  Low price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function medprice(array $high, array $low): array
     {
-        $return = trader_medprice($high, $low);
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->medPrice(0, $endIdx, $high, $low, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2719,30 +2887,46 @@ class Trader
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
      * @param array $volume     Volume traded, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mfi(array $high, array $low, array $close, array $volume, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_mfi($high, $low, $close, $volume, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close, $volume]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $volume  = \array_values($volume);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->mfi(0, $endIdx, $high, $low, $close, $volume, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * MidPoint over period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function midpoint(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_midpoint($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->midPoint(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2750,75 +2934,116 @@ class Trader
      *
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function midprice(array $high, array $low, int $timePeriod = null)
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_midprice($high, $low, $timePeriod);
+        $timePeriod = $timePeriod ?? 14;
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->midPrice(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Lowest value over a specified period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function min(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_min($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->min(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Index of lowest value over a specified period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minindex(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_minindex($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->minIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Lowest and highest values over a specified period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minmax(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_minmax($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outMin     = [];
+        $outMax     = [];
+        $RetCode    = self::getCore()->minMax(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax);
+        static::checkForError($RetCode);
 
+        return [
+            'Min' => self::adjustIndexes($outMin, self::$outBegIdx),
+            'Max' => self::adjustIndexes($outMax, self::$outBegIdx),
+        ];
     }
 
     /**
      * Indexes of lowest and highest values over a specified period
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minmaxindex(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_minmaxindex($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outMin     = [];
+        $outMax     = [];
+        $RetCode    = self::getCore()->minMaxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax);
+        static::checkForError($RetCode);
 
+        return [
+            'Min' => self::adjustIndexes($outMin, self::$outBegIdx),
+            'Max' => self::adjustIndexes($outMax, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -2827,15 +3052,24 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minus_di(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_minus_di($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->minusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2843,30 +3077,44 @@ class Trader
      *
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function minus_dm(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_minus_dm($high, $low, $timePeriod);
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->minusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Momentum
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mom(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
-        $return     = trader_mom($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->mom(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2877,11 +3125,19 @@ class Trader
      * @param array $real1 Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function mult(array $real0, array $real1): array
     {
-        $return = trader_mult($real0, $real1);
+        self::verifyArrayCounts([$real0, $real1]);
+        $real0   = \array_values($real0);
+        $real1   = \array_values($real1);
+        $endIdx  = count($real0) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->mult(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2890,15 +3146,24 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function natr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_natr($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->natr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2908,11 +3173,19 @@ class Trader
      * @param array $volume Volume traded, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function obv(array $real, array $volume): array
     {
-        $return = trader_obv($real, $volume);
+        self::verifyArrayCounts([$real, $volume]);
+        $real    = \array_values($real);
+        $volume  = \array_values($volume);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->obv(0, $endIdx, $real, $volume, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2921,15 +3194,24 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function plus_di(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_plus_di($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->plusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2937,109 +3219,153 @@ class Trader
      *
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function plus_dm(array $high, array $low, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_plus_dm($high, $low, $timePeriod);
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->plusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Percentage Price Oscillator
      *
      * @param array $real       Array of real values.
-     * @param int   $fastPeriod [OPTIONAL] [DEFAULT 12] Number of period for the fast MA. Valid range from 2 to 100000.
-     * @param int   $slowPeriod [OPTIONAL] [DEFAULT 26] Number of period for the slow MA. Valid range from 2 to 100000.
-     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $fastPeriod [OPTIONAL] [DEFAULT 12, SUGGESTED 4-200] Number of period for the fast MA. Valid range from 2 to 100000.
+     * @param int   $slowPeriod [OPTIONAL] [DEFAULT 26, SUGGESTED 4-200] Number of period for the slow MA. Valid range from 2 to 100000.
+     * @param int   $mAType     [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ppo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
     {
         $fastPeriod = $fastPeriod ?? 12;
         $slowPeriod = $slowPeriod ?? 26;
         $mAType     = $mAType ?? MAType::SMA;
-        $return     = trader_ppo($real, $fastPeriod, $slowPeriod, $mAType);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Rate of change : ((price/prevPrice)-1)*100
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function roc(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
-        $return     = trader_roc($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->roc(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Rate of change Percentage: (price-prevPrice)/prevPrice
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rocp(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
-        $return     = trader_rocp($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->rocp(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Rate of change ratio 100 scale: (price/prevPrice)*100
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rocr100(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
-        $return     = trader_rocr100($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->rocr100(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Rate of change ratio: (price/prevPrice)
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 10, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rocr(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 10;
-        $return     = trader_rocr($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->rocr(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Relative Strength Index
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function rsi(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_rsi($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->rsi(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3047,17 +3373,25 @@ class Trader
      *
      * @param array $high         High price, array of real values.
      * @param array $low          Low price, array of real values.
-     * @param float $acceleration [OPTIONAL] [DEFAULT 0.02] Acceleration Factor used up to the Maximum value. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $maximum      [OPTIONAL] [DEFAULT 0.2] Acceleration Factor Maximum value. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $acceleration [OPTIONAL] [DEFAULT 0.02, SUGGESTED 0.01-0.20] Acceleration Factor used up to the Maximum value. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $maximum      [OPTIONAL] [DEFAULT 0.2, SUGGESTED 0.20-0.40] Acceleration Factor Maximum value. Valid range from 0 to TRADER_REAL_MAX.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sar(array $high, array $low, float $acceleration = null, float $maximum = null): array
     {
         $acceleration = $acceleration ?? 0.02;
         $maximum      = $maximum ?? 0.2;
-        $return       = trader_sar($high, $low, $acceleration, $maximum);
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sar(0, $endIdx, $high, $low, $acceleration, $maximum, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3066,15 +3400,16 @@ class Trader
      * @param array $high                  High price, array of real values.
      * @param array $low                   Low price, array of real values.
      * @param float $startValue            [OPTIONAL] [DEFAULT 0.0] Start value and direction. 0 for Auto, >0 for Long, <0 for Short. Valid range from TRADER_REAL_MIN to TRADER_REAL_MAX.
-     * @param float $offsetOnReverse       [OPTIONAL] [DEFAULT 0.0] Percent offset added/removed to initial stop on short/long reversal. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $accelerationInitLong  [OPTIONAL] [DEFAULT 0.02] Acceleration Factor initial value for the Long direction. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $accelerationLong      [OPTIONAL] [DEFAULT 0.02] Acceleration Factor for the Long direction. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $accelerationMaxLong   [OPTIONAL] [DEFAULT 0.2] Acceleration Factor maximum value for the Long direction. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $accelerationInitShort [OPTIONAL] [DEFAULT 0.02] Acceleration Factor initial value for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $accelerationShort     [OPTIONAL] [DEFAULT 0.02] Acceleration Factor for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
-     * @param float $accelerationMaxShort  [OPTIONAL] [DEFAULT 0.2] Acceleration Factor maximum value for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $offsetOnReverse       [OPTIONAL] [DEFAULT 0.0, SUGGESTED 0.01-0.15] Percent offset added/removed to initial stop on short/long reversal. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $accelerationInitLong  [OPTIONAL] [DEFAULT 0.02, SUGGESTED 0.01-0.19] Acceleration Factor initial value for the Long direction. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $accelerationLong      [OPTIONAL] [DEFAULT 0.02, SUGGESTED 0.01-0.20] Acceleration Factor for the Long direction. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $accelerationMaxLong   [OPTIONAL] [DEFAULT 0.2, SUGGESTED 0.20-0.40] Acceleration Factor maximum value for the Long direction. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $accelerationInitShort [OPTIONAL] [DEFAULT 0.02, SUGGESTED 0.01-0.19] Acceleration Factor initial value for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $accelerationShort     [OPTIONAL] [DEFAULT 0.02, SUGGESTED 0.01-0.20] Acceleration Factor for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
+     * @param float $accelerationMaxShort  [OPTIONAL] [DEFAULT 0.2, SUGGESTED 0.20-0.40] Acceleration Factor maximum value for the Short direction. Valid range from 0 to TRADER_REAL_MAX.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sarext(array $high, array $low, float $startValue = null, float $offsetOnReverse = null, float $accelerationInitLong = null, float $accelerationLong = null, float $accelerationMaxLong = null, float $accelerationInitShort = null, float $accelerationShort = null, float $accelerationMaxShort = null): array
     {
@@ -3086,8 +3421,15 @@ class Trader
         $accelerationInitShort = $accelerationInitShort ?? 0.02;
         $accelerationShort     = $accelerationShort ?? 0.02;
         $accelerationMaxShort  = $accelerationMaxShort ?? 0.2;
-        $return                = trader_sarext($high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort);
+        self::verifyArrayCounts([$high, $low]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sarExt(0, $endIdx, $high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3097,11 +3439,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sin(array $real): array
     {
-        $return = trader_sin($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3111,26 +3459,38 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sinh(array $real): array
     {
-        $return = trader_sinh($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sinh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Simple Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sma(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_sma($real, $timePeriod);
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->sma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3140,28 +3500,41 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sqrt(array $real): array
     {
-        $return = trader_sqrt($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sqrt(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Standard Deviation
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5] Number of period. Valid range from 2 to 100000.
-     * @param float $nbDev      [OPTIONAL] [DEFAULT 1.0] Number of deviations
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
+     * @param float $nbDev      [OPTIONAL] [DEFAULT 1.0, SUGGESTED -2-2] Number of deviations
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stddev(array $real, int $timePeriod = null, float $nbDev = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $nbDev      = $nbDev ?? 1.0;
-        $return     = trader_stddev($real, $timePeriod, $nbDev);
+        $timePeriod = $timePeriod ?? 30;
+        $real       = \array_values($real);
+        $endIdx     = count($real) - 1;
+        $outReal    = [];
+        $RetCode    = self::getCore()->stddev(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3170,13 +3543,14 @@ class Trader
      * @param array $high         High price, array of real values.
      * @param array $low          Low price, array of real values.
      * @param array $close        Time period for building the Fast-K line. Valid range from 1 to 100000.
-     * @param int   $fastK_Period [OPTIONAL] [DEFAULT 5] Time period for building the Fast-K line. Valid range from 1 to 100000.
-     * @param int   $slowK_Period [OPTIONAL] [DEFAULT 3] Smoothing for making the Slow-K line. Valid range from 1 to 100000, usually set to 3.
-     * @param int   $slowK_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Slow-K. TRADER_MA_TYPE_* series of constants should be used.
-     * @param int   $slowD_Period [OPTIONAL] [DEFAULT 3] Smoothing for making the Slow-D line. Valid range from 1 to 100000.
-     * @param int   $slowD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Slow-D. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $fastK_Period [OPTIONAL] [DEFAULT 5, SUGGESTED 1-200] Time period for building the Fast-K line. Valid range from 1 to 100000.
+     * @param int   $slowK_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Slow-K line. Valid range from 1 to 100000, usually set to 3.
+     * @param int   $slowK_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Slow-K. MAType::* series of constants should be used.
+     * @param int   $slowD_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Slow-D line. Valid range from 1 to 100000.
+     * @param int   $slowD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Slow-D. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stoch(array $high, array $low, array $close, int $fastK_Period = null, int $slowK_Period = null, int $slowK_MAType = null, int $slowD_Period = null, int $slowD_MAType = null): array
     {
@@ -3185,8 +3559,20 @@ class Trader
         $slowK_MAType = $slowK_MAType ?? MAType::SMA;
         $slowD_Period = $slowD_Period ?? 3;
         $slowD_MAType = $slowD_MAType ?? MAType::SMA;
-        $return       = trader_stoch($high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high     = \array_values($high);
+        $low      = \array_values($low);
+        $close    = \array_values($close);
+        $endIdx   = count($high) - 1;
+        $outSlowK = [];
+        $outSlowD = [];
+        $RetCode  = self::getCore()->stoch(0, $endIdx, $high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType, self::$outBegIdx, self::$outNBElement, $outSlowK, $outSlowD);
+        static::checkForError($RetCode);
 
+        return [
+            'SlowK' => self::adjustIndexes($outSlowK, self::$outBegIdx),
+            'SlowD' => self::adjustIndexes($outSlowD, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -3195,31 +3581,45 @@ class Trader
      * @param array $high         High price, array of real values.
      * @param array $low          Low price, array of real values.
      * @param array $close        Time period for building the Fast-K line. Valid range from 1 to 100000.
-     * @param int   $fastK_Period [OPTIONAL] [DEFAULT 5] Time period for building the Fast-K line. Valid range from 1 to 100000.
-     * @param int   $fastD_Period [OPTIONAL] [DEFAULT 3] Smoothing for making the Fast-D line. Valid range from 1 to 100000, usually set to 3.
-     * @param int   $fastD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Fast-D. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $fastK_Period [OPTIONAL] [DEFAULT 5, SUGGESTED 1-200] Time period for building the Fast-K line. Valid range from 1 to 100000.
+     * @param int   $fastD_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Fast-D line. Valid range from 1 to 100000, usually set to 3.
+     * @param int   $fastD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Fast-D. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stochf(array $high, array $low, array $close, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
     {
         $fastK_Period = $fastK_Period ?? 5;
         $fastD_Period = $fastD_Period ?? 3;
         $fastD_MAType = $fastD_MAType ?? MAType::SMA;
-        $return       = trader_stochf($high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high     = \array_values($high);
+        $low      = \array_values($low);
+        $close    = \array_values($close);
+        $endIdx   = count($high) - 1;
+        $outFastK = [];
+        $outFastD = [];
+        $RetCode  = self::getCore()->stochF(0, $endIdx, $high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
+        static::checkForError($RetCode);
 
+        return [
+            'SlowK' => self::adjustIndexes($outFastK, self::$outBegIdx),
+            'SlowD' => self::adjustIndexes($outFastD, self::$outBegIdx),
+        ];
     }
 
     /**
      * Stochastic Relative Strength Index
      *
      * @param array $real         Array of real values.
-     * @param int   $timePeriod   [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
-     * @param int   $fastK_Period [OPTIONAL] [DEFAULT 5] Time period for building the Fast-K line. Valid range from 1 to 100000.
-     * @param int   $fastD_Period [OPTIONAL] [DEFAULT 3] Smoothing for making the Fast-D line. Valid range from 1 to 100000, usually set to 3.
-     * @param int   $fastD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Fast-D. TRADER_MA_TYPE_* series of constants should be used.
+     * @param int   $timePeriod   [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
+     * @param int   $fastK_Period [OPTIONAL] [DEFAULT 5, SUGGESTED 1-200] Time period for building the Fast-K line. Valid range from 1 to 100000.
+     * @param int   $fastD_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Fast-D line. Valid range from 1 to 100000, usually set to 3.
+     * @param int   $fastD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Fast-D. MAType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function stochrsi(array $real, int $timePeriod = null, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
     {
@@ -3227,8 +3627,17 @@ class Trader
         $fastK_Period = $fastK_Period ?? 5;
         $fastD_Period = $fastD_Period ?? 3;
         $fastD_MAType = $fastD_MAType ?? MAType::SMA;
-        $return       = trader_stochrsi($real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType);
+        $real    = \array_values($real);
+        $endIdx   = count($real) - 1;
+        $outFastK = [];
+        $outFastD = [];
+        $RetCode  = self::getCore()->stochRsi(0, $endIdx, $real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
+        static::checkForError($RetCode);
 
+        return [
+            'SlowK' => self::adjustIndexes($outFastK, self::$outBegIdx),
+            'SlowD' => self::adjustIndexes($outFastD, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -3239,43 +3648,63 @@ class Trader
      * @param array $real1 Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sub(array $real0, array $real1): array
     {
-        $return = trader_sub($real0, $real1);
+        self::verifyArrayCounts([$real0, $real1]);
+        $real0    = \array_values($real0);
+        $real1     = \array_values($real1);
+        $endIdx  = count($real0) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sub(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Summation
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function sum(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_sum($real, $timePeriod);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->sum(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Triple Exponential Moving Average (T3)
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5] Number of period. Valid range from 2 to 100000.
-     * @param float $vFactor    [OPTIONAL] [DEFAULT 0.7] Volume Factor. Valid range from 1 to 0.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
+     * @param float $vFactor    [OPTIONAL] [DEFAULT 0.7, SUGGESTED 0.01-1.00] Volume Factor. Valid range from 1 to 0.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function t3(array $real, int $timePeriod = null, float $vFactor = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $vFactor    = $vFactor ?? 0.7;
-        $return     = trader_t3($real, $timePeriod, $vFactor);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->t3(0, $endIdx, $real, $timePeriod, $vFactor, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3285,11 +3714,17 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tan(array $real): array
     {
-        $return = trader_tan($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->tan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3299,26 +3734,38 @@ class Trader
      * @param array $real Array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tanh(array $real): array
     {
-        $return = trader_tanh($real);
+        $real    = \array_values($real);
+        $endIdx  = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->tanh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Triple Exponential Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tema(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_tema($real, $timePeriod);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->tema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3329,56 +3776,83 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function trange(array $high, array $low, array $close): array
     {
-        $return = trader_trange($high, $low, $close);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high   = \array_values($high);
+        $low   = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->trueRange(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Triangular Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function trima(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_trima($real, $timePeriod);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->trima(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * 1-day Rate-Of-Change (ROC) of a Triple Smooth EMA
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 1-200] Number of period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function trix(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_trix($real, $timePeriod);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->trix(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Time Series Forecast
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function tsf(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_tsf($real, $timePeriod);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->tsf(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3389,11 +3863,20 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function typprice(array $high, array $low, array $close): array
     {
-        $return = trader_typprice($high, $low, $close);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->typPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3402,36 +3885,51 @@ class Trader
      * @param array $high        High price, array of real values.
      * @param array $low         Low price, array of real values.
      * @param array $close       Closing price, array of real values.
-     * @param int   $timePeriod1 [OPTIONAL] [DEFAULT 7] Number of bars for 1st period. Valid range from 1 to 100000.
-     * @param int   $timePeriod2 [OPTIONAL] [DEFAULT 14] Number of bars for 2nd period. Valid range from 1 to 100000.
-     * @param int   $timePeriod3 [OPTIONAL] [DEFAULT 28] Number of bars for 3rd period. Valid range from 1 to 100000.
+     * @param int   $timePeriod1 [OPTIONAL] [DEFAULT 7, SUGGESTED 1-200] Number of bars for 1st period. Valid range from 1 to 100000.
+     * @param int   $timePeriod2 [OPTIONAL] [DEFAULT 14, SUGGESTED 1-200] Number of bars for 2nd period. Valid range from 1 to 100000.
+     * @param int   $timePeriod3 [OPTIONAL] [DEFAULT 28, SUGGESTED 1-200] Number of bars for 3rd period. Valid range from 1 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function ultosc(array $high, array $low, array $close, int $timePeriod1 = null, int $timePeriod2 = null, int $timePeriod3 = null): array
     {
         $timePeriod1 = $timePeriod1 ?? 7;
         $timePeriod2 = $timePeriod2 ?? 14;
         $timePeriod3 = $timePeriod3 ?? 28;
-        $return      = trader_ultosc($high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->ultOsc(0, $endIdx, $high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Variance
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5] Number of period. Valid range from 2 to 100000.
-     * @param float $nbDev      [OPTIONAL] [DEFAULT 1.0] Number of deviations
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 5, SUGGESTED 1-200] Number of period. Valid range from 2 to 100000.
+     * @param float $nbDev      [OPTIONAL] [DEFAULT 1.0, SUGGESTED -2-2] Number of deviations
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function var(array $real, int $timePeriod = null, float $nbDev = null): array
     {
         $timePeriod = $timePeriod ?? 5;
         $nbDev      = $nbDev ?? 1.0;
-        $return     = trader_var($real, $timePeriod, $nbDev);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->variance(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3442,11 +3940,20 @@ class Trader
      * @param array $close Closing price, array of real values.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function wclprice(array $high, array $low, array $close): array
     {
-        $return = trader_wclprice($high, $low, $close);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->wclPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3455,30 +3962,45 @@ class Trader
      * @param array $high       High price, array of real values.
      * @param array $low        Low price, array of real values.
      * @param array $close      Closing price, array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 14, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function willr(array $high, array $low, array $close, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 14;
-        $return     = trader_willr($high, $low, $close, $timePeriod);
+        self::verifyArrayCounts([$high, $low, $close]);
+        $high    = \array_values($high);
+        $low     = \array_values($low);
+        $close   = \array_values($close);
+        $endIdx  = count($high) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->willR(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
      * Weighted Moving Average
      *
      * @param array $real       Array of real values.
-     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30] Number of period. Valid range from 2 to 100000.
+     * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
      * @return array Returns an array with calculated data or false on failure.
+     * @throws \Exception
      */
     public static function wma(array $real, int $timePeriod = null): array
     {
         $timePeriod = $timePeriod ?? 30;
-        $return     = trader_wma($real, $timePeriod);
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+        $RetCode = self::getCore()->wma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        static::checkForError($RetCode);
 
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
 }
