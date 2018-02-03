@@ -2,10 +2,13 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\ConvertedJava\CandleSettingType;
-use LupeCode\phpTraderNative\ConvertedJava\MInteger;
-use LupeCode\phpTraderNative\ConvertedJava\RangeType;
-use LupeCode\phpTraderNative\ConvertedJava\RetCode;
+use LupeCode\phpTraderNative\TALib\Classes\CandleSetting;
+use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
+use LupeCode\phpTraderNative\TALib\Enum\CandleSettingType;
+use LupeCode\phpTraderNative\TALib\Enum\Compatibility;
+use LupeCode\phpTraderNative\TALib\Enum\RangeType;
+use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
+use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
 class PatternRecognition extends Core
 {
@@ -17,21 +20,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl2CrowsLookback();
+        $lookbackTotal = (new Lookback())->cdl2CrowsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -39,7 +42,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -70,7 +73,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -80,21 +83,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl3BlackCrows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl3BlackCrows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl3BlackCrowsLookback();
+        $lookbackTotal = (new Lookback())->cdl3BlackCrowsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -102,7 +105,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
@@ -145,7 +148,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -155,21 +158,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl3Inside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl3Inside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl3InsideLookback();
+        $lookbackTotal = (new Lookback())->cdl3InsideLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -177,7 +180,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyShortPeriodTotal = 0;
@@ -218,7 +221,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -228,21 +231,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl3LineStrike(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl3LineStrike(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl3LineStrikeLookback();
+        $lookbackTotal = (new Lookback())->cdl3LineStrikeLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -250,7 +253,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $NearPeriodTotal[3] = 0;
         $NearPeriodTotal[2] = 0;
@@ -300,7 +303,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -310,21 +313,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl3Outside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl3Outside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl3OutsideLookback();
+        $lookbackTotal = (new Lookback())->cdl3OutsideLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -332,7 +335,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $i      = $startIdx;
         $outIdx = 0;
@@ -356,7 +359,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -366,22 +369,22 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl3StarsInSouth(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl3StarsInSouth(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowVeryShortPeriodTotal = $this->double(2);
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl3StarsInSouthLookback();
+        $lookbackTotal = (new Lookback())->cdl3StarsInSouthLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -389,7 +392,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal           = 0;
         $BodyLongTrailingIdx           = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -462,7 +465,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -472,24 +475,24 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdl3WhiteSoldiers(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdl3WhiteSoldiers(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowVeryShortPeriodTotal = $this->double(3);
         $NearPeriodTotal            = $this->double(3);
         $FarPeriodTotal             = $this->double(3);
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdl3WhiteSoldiersLookback();
+        $lookbackTotal = (new Lookback())->cdl3WhiteSoldiersLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -497,7 +500,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
@@ -579,7 +582,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -590,26 +593,26 @@ class PatternRecognition extends Core
      * @param float[]  $inLow
      * @param float[]  $inClose
      * @param float    $optInPenetration
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlAbandonedBabyLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlAbandonedBabyLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -617,7 +620,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyDojiPeriodTotal  = 0;
@@ -677,7 +680,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -687,25 +690,25 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlAdvanceBlock(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlAdvanceBlock(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowShortPeriodTotal = $this->double(3);
         $ShadowLongPeriodTotal  = $this->double(2);
         $NearPeriodTotal        = $this->double(3);
         $FarPeriodTotal         = $this->double(3);
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlAdvanceBlockLookback();
+        $lookbackTotal = (new Lookback())->cdlAdvanceBlockLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -713,7 +716,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowShortPeriodTotal[2] = 0;
         $ShadowShortPeriodTotal[1] = 0;
@@ -826,7 +829,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -836,21 +839,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlBeltHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlBeltHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlBeltHoldLookback();
+        $lookbackTotal = (new Lookback())->cdlBeltHoldLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -858,7 +861,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal        = 0;
         $BodyLongTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -901,7 +904,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -911,21 +914,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlBreakaway(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlBreakaway(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlBreakawayLookback();
+        $lookbackTotal = (new Lookback())->cdlBreakawayLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -933,7 +936,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -977,7 +980,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -987,21 +990,21 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlClosingMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlClosingMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlClosingMarubozuLookback();
+        $lookbackTotal = (new Lookback())->cdlClosingMarubozuLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1009,7 +1012,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal        = 0;
         $BodyLongTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -1052,7 +1055,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -1062,22 +1065,22 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlConcealBabysWall(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlConcealBabysWall(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowVeryShortPeriodTotal = $this->double(4);
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlConcealBabysWallLookback();
+        $lookbackTotal = (new Lookback())->cdlConcealBabysWallLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1085,7 +1088,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[3] = 0;
         $ShadowVeryShortPeriodTotal[2] = 0;
@@ -1128,7 +1131,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -1138,22 +1141,22 @@ class PatternRecognition extends Core
      * @param float[]  $inHigh
      * @param float[]  $inLow
      * @param float[]  $inClose
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlCounterAttack(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlCounterAttack(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $BodyLongPeriodTotal = $this->double(2);
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlCounterAttackLookback();
+        $lookbackTotal = (new Lookback())->cdlCounterAttackLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1161,7 +1164,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $EqualPeriodTotal       = 0;
         $EqualTrailingIdx       = $startIdx - ($this->candleSettings[CandleSettingType::Equal]->avgPeriod);
@@ -1204,7 +1207,7 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
     /**
@@ -1215,26 +1218,26 @@ class PatternRecognition extends Core
      * @param float[]  $inLow
      * @param float[]  $inClose
      * @param float    $optInPenetration
-     * @param MInteger $outBegIdx
-     * @param MInteger $outNBElement
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
      * @param int[]    $outInteger
      *
      * @return int
      */
-    public function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger): int
+    public function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 5.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlDarkCloudCoverLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlDarkCloudCoverLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1242,7 +1245,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -1272,28 +1275,31 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlDojiLookback();
+        $lookbackTotal = (new Lookback())->cdlDojiLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1301,7 +1307,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal = 0;
         $BodyDojiTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -1324,30 +1330,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlDojiStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlDojiStarLookback();
+        $lookbackTotal = (new Lookback())->cdlDojiStarLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1355,7 +1364,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyDojiPeriodTotal = 0;
@@ -1392,30 +1401,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlDragonflyDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlDragonflyDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlDragonflyDojiLookback();
+        $lookbackTotal = (new Lookback())->cdlDragonflyDojiLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1423,7 +1435,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal        = 0;
         $BodyDojiTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -1459,29 +1471,32 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlEngulfing(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlEngulfing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //int $i, $outIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlEngulfingLookback();
+        $lookbackTotal = (new Lookback())->cdlEngulfingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1489,7 +1504,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $i      = $startIdx;
         $outIdx = 0;
@@ -1511,36 +1526,39 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlEveningDojiStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param float     $optInPenetration
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlEveningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $BodyShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlEveningDojiStarLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlEveningDojiStarLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1548,7 +1566,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyDojiPeriodTotal  = 0;
@@ -1597,36 +1615,39 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlEveningStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param float     $optInPenetration
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlEveningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal2;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlEveningStarLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlEveningStarLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1634,7 +1655,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal   = 0;
         $BodyShortPeriodTotal  = 0;
@@ -1677,30 +1698,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlGapSideSideWhite(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlGapSideSideWhite(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $NearPeriodTotal, $EqualPeriodTotal;
         //int $i, $outIdx, $NearTrailingIdx, $EqualTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlGapSideSideWhiteLookback();
+        $lookbackTotal = (new Lookback())->cdlGapSideSideWhiteLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1708,7 +1732,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $NearPeriodTotal  = 0;
         $EqualPeriodTotal = 0;
@@ -1753,30 +1777,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlGravestoneDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlGravestoneDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlGravestoneDojiLookback();
+        $lookbackTotal = (new Lookback())->cdlGravestoneDojiLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1784,7 +1811,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal        = 0;
         $BodyDojiTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -1820,30 +1847,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHammer(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal, $NearPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $NearTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHammerLookback();
+        $lookbackTotal = (new Lookback())->cdlHammerLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1851,7 +1881,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal            = 0;
         $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -1910,30 +1940,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHangingMan(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHangingMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal, $NearPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $NearTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHangingManLookback();
+        $lookbackTotal = (new Lookback())->cdlHangingManLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1941,7 +1974,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal            = 0;
         $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -2000,30 +2033,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHarami(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHarami(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHaramiLookback();
+        $lookbackTotal = (new Lookback())->cdlHaramiLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2031,7 +2067,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyShortPeriodTotal = 0;
@@ -2068,30 +2104,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHaramiCross(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHaramiCross(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHaramiCrossLookback();
+        $lookbackTotal = (new Lookback())->cdlHaramiCrossLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2099,7 +2138,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyDojiPeriodTotal = 0;
@@ -2136,30 +2175,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHighWave(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHighWave(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHighWaveLookback();
+        $lookbackTotal = (new Lookback())->cdlHighWaveLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2167,7 +2209,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal   = 0;
         $BodyTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -2201,29 +2243,32 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHikkake(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHikkake(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //int $i, $outIdx, $lookbackTotal, $patternIdx, $patternResult;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHikkakeLookback();
+        $lookbackTotal = (new Lookback())->cdlHikkakeLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2231,7 +2276,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $patternIdx    = 0;
         $patternResult = 0;
@@ -2283,30 +2328,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHikkakeMod(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHikkakeMod(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $NearPeriodTotal;
         //int $i, $outIdx, $NearTrailingIdx, $lookbackTotal, $patternIdx, $patternResult;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHikkakeModLookback();
+        $lookbackTotal = (new Lookback())->cdlHikkakeModLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2314,7 +2362,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $NearPeriodTotal = 0;
         $NearTrailingIdx = $startIdx - 3 - ($this->candleSettings[CandleSettingType::Near]->avgPeriod);
@@ -2387,30 +2435,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlHomingPigeon(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlHomingPigeon(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlHomingPigeonLookback();
+        $lookbackTotal = (new Lookback())->cdlHomingPigeonLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2418,7 +2469,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyShortPeriodTotal = 0;
@@ -2457,31 +2508,34 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlIdentical3Crows(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlIdentical3Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowVeryShortPeriodTotal = $this->double(3);
         $EqualPeriodTotal           = $this->double(3);
         //int $i, $outIdx, $totIdx, $ShadowVeryShortTrailingIdx, $EqualTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlIdentical3CrowsLookback();
+        $lookbackTotal = (new Lookback())->cdlIdentical3CrowsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2489,7 +2543,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
@@ -2547,30 +2601,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlInNeck(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlInNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $EqualPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlInNeckLookback();
+        $lookbackTotal = (new Lookback())->cdlInNeckLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2578,7 +2635,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $EqualPeriodTotal    = 0;
         $EqualTrailingIdx    = $startIdx - ($this->candleSettings[CandleSettingType::Equal]->avgPeriod);
@@ -2618,30 +2675,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlInvertedHammer(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlInvertedHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlInvertedHammerLookback();
+        $lookbackTotal = (new Lookback())->cdlInvertedHammerLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2649,7 +2709,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal            = 0;
         $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -2696,31 +2756,34 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlKicking(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlKicking(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowVeryShortPeriodTotal = $this->double(2);
         $BodyLongPeriodTotal        = $this->double(2);
         //int $i, $outIdx, $totIdx, $ShadowVeryShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlKickingLookback();
+        $lookbackTotal = (new Lookback())->cdlKickingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2728,7 +2791,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
@@ -2781,31 +2844,34 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlKickingByLength(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlKickingByLength(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $ShadowVeryShortPeriodTotal = $this->double(2);
         $BodyLongPeriodTotal        = $this->double(2);
         //int $i, $outIdx, $totIdx, $ShadowVeryShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlKickingByLengthLookback();
+        $lookbackTotal = (new Lookback())->cdlKickingByLengthLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2813,7 +2879,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
@@ -2866,30 +2932,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlLadderBottom(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlLadderBottom(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlLadderBottomLookback();
+        $lookbackTotal = (new Lookback())->cdlLadderBottomLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2897,7 +2966,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
@@ -2931,30 +3000,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlLongLeggedDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlLongLeggedDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $ShadowLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlLongLeggedDojiLookback();
+        $lookbackTotal = (new Lookback())->cdlLongLeggedDojiLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2962,7 +3034,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal   = 0;
         $BodyDojiTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -2999,30 +3071,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlLongLine(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlLongLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlLongLineLookback();
+        $lookbackTotal = (new Lookback())->cdlLongLineLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3030,7 +3105,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal   = 0;
         $BodyTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -3064,30 +3139,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlMarubozu(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyLongPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyLongTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlMarubozuLookback();
+        $lookbackTotal = (new Lookback())->cdlMarubozuLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3095,7 +3173,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal        = 0;
         $BodyLongTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod);
@@ -3130,30 +3208,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlMatchingLow(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlMatchingLow(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $EqualPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlMatchingLowLookback();
+        $lookbackTotal = (new Lookback())->cdlMatchingLowLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3161,7 +3242,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $EqualPeriodTotal = 0;
         $EqualTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::Equal]->avgPeriod);
@@ -3189,36 +3270,39 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlMatHold(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param float     $optInPenetration
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlMatHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $BodyPeriodTotal = $this->double(5);
         //int $i, $outIdx, $totIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 5.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlMatHoldLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlMatHoldLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3226,7 +3310,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal[4]   = 0;
         $BodyPeriodTotal[3]   = 0;
@@ -3284,36 +3368,39 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlMorningDojiStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param float     $optInPenetration
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlMorningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $BodyShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlMorningDojiStarLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlMorningDojiStarLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3321,7 +3408,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyDojiPeriodTotal  = 0;
@@ -3370,36 +3457,39 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlMorningStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param float     $optInPenetration
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlMorningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal2;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
-            return RetCode::BadParam;
+            return ReturnCode::BadParam;
         }
-        $lookbackTotal = $this->cdlMorningStarLookback($optInPenetration);
+        $lookbackTotal = (new Lookback())->cdlMorningStarLookback($optInPenetration);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3407,7 +3497,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal   = 0;
         $BodyShortPeriodTotal  = 0;
@@ -3450,30 +3540,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlOnNeck(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlOnNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $EqualPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlOnNeckLookback();
+        $lookbackTotal = (new Lookback())->cdlOnNeckLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3481,7 +3574,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $EqualPeriodTotal    = 0;
         $EqualTrailingIdx    = $startIdx - ($this->candleSettings[CandleSettingType::Equal]->avgPeriod);
@@ -3521,30 +3614,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlPiercing(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlPiercing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $BodyLongPeriodTotal = $this->double(2);
         //int $i, $outIdx, $totIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlPiercingLookback();
+        $lookbackTotal = (new Lookback())->cdlPiercingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3552,7 +3648,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal[1] = 0;
         $BodyLongPeriodTotal[0] = 0;
@@ -3588,30 +3684,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlRickshawMan(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlRickshawMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $ShadowLongPeriodTotal, $NearPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowLongTrailingIdx, $NearTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlRickshawManLookback();
+        $lookbackTotal = (new Lookback())->cdlRickshawManLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3619,7 +3718,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal   = 0;
         $BodyDojiTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -3670,30 +3769,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlRiseFall3Methods(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlRiseFall3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $BodyPeriodTotal = $this->double(5);
         //int $i, $outIdx, $totIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlRiseFall3MethodsLookback();
+        $lookbackTotal = (new Lookback())->cdlRiseFall3MethodsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3701,7 +3803,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal[4]   = 0;
         $BodyPeriodTotal[3]   = 0;
@@ -3761,30 +3863,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlSeparatingLines(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlSeparatingLines(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $ShadowVeryShortPeriodTotal, $BodyLongPeriodTotal, $EqualPeriodTotal;
         //int $i, $outIdx, $ShadowVeryShortTrailingIdx, $BodyLongTrailingIdx, $EqualTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlSeparatingLinesLookback();
+        $lookbackTotal = (new Lookback())->cdlSeparatingLinesLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3792,7 +3897,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
@@ -3848,30 +3953,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlShootingStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlShootingStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlShootingStarLookback();
+        $lookbackTotal = (new Lookback())->cdlShootingStarLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3879,7 +3987,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal            = 0;
         $BodyTrailingIdx            = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -3926,30 +4034,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlShortLine(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlShortLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal, $ShadowPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlShortLineLookback();
+        $lookbackTotal = (new Lookback())->cdlShortLineLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3957,7 +4068,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal   = 0;
         $BodyTrailingIdx   = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -3991,30 +4102,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlSpinningTop(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlSpinningTop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlSpinningTopLookback();
+        $lookbackTotal = (new Lookback())->cdlSpinningTopLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4022,7 +4136,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal = 0;
         $BodyTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
@@ -4048,32 +4162,35 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlStalledPattern(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlStalledPattern(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         $BodyLongPeriodTotal = $this->double(3);
         $NearPeriodTotal     = $this->double(3);
         //double $BodyShortPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $totIdx, $BodyLongTrailingIdx, $BodyShortTrailingIdx, $ShadowVeryShortTrailingIdx, $NearTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlStalledPatternLookback();
+        $lookbackTotal = (new Lookback())->cdlStalledPatternLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4081,7 +4198,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal[2]     = 0;
         $BodyLongPeriodTotal[1]     = 0;
@@ -4154,30 +4271,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlStickSandwich(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlStickSandwich(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $EqualPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlStickSandwichLookback();
+        $lookbackTotal = (new Lookback())->cdlStickSandwichLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4185,7 +4305,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $EqualPeriodTotal = 0;
         $EqualTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::Equal]->avgPeriod);
@@ -4215,30 +4335,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlTakuri(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlTakuri(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyDojiPeriodTotal, $ShadowVeryShortPeriodTotal, $ShadowVeryLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowVeryShortTrailingIdx, $ShadowVeryLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlTakuriLookback();
+        $lookbackTotal = (new Lookback())->cdlTakuriLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4246,7 +4369,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal        = 0;
         $BodyDojiTrailingIdx        = $startIdx - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -4292,30 +4415,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlTasukiGap(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlTasukiGap(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $NearPeriodTotal;
         //int $i, $outIdx, $NearTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlTasukiGapLookback();
+        $lookbackTotal = (new Lookback())->cdlTasukiGapLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4323,7 +4449,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $NearPeriodTotal = 0;
         $NearTrailingIdx = $startIdx - ($this->candleSettings[CandleSettingType::Near]->avgPeriod);
@@ -4366,30 +4492,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlThrusting(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlThrusting(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $EqualPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlThrustingLookback();
+        $lookbackTotal = (new Lookback())->cdlThrustingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4397,7 +4526,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $EqualPeriodTotal    = 0;
         $EqualTrailingIdx    = $startIdx - ($this->candleSettings[CandleSettingType::Equal]->avgPeriod);
@@ -4437,30 +4566,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlTristar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlTristar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlTristarLookback();
+        $lookbackTotal = (new Lookback())->cdlTristarLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4468,7 +4600,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyPeriodTotal = 0;
         $BodyTrailingIdx = $startIdx - 2 - ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
@@ -4507,30 +4639,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlUnique3River(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlUnique3River(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlUnique3RiverLookback();
+        $lookbackTotal = (new Lookback())->cdlUnique3RiverLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4538,7 +4673,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyShortPeriodTotal = 0;
@@ -4579,30 +4714,33 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlUpsideGap2Crows(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlUpsideGap2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlUpsideGap2CrowsLookback();
+        $lookbackTotal = (new Lookback())->cdlUpsideGap2CrowsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4610,7 +4748,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $BodyLongPeriodTotal  = 0;
         $BodyShortPeriodTotal = 0;
@@ -4651,29 +4789,32 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 
-    public function cdlXSideGap3Methods(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    /**
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inOpen
+     * @param array     $inHigh
+     * @param array     $inLow
+     * @param array     $inClose
+     * @param MyInteger $outBegIdx
+     * @param MyInteger $outNBElement
+     * @param array     $outInteger
+     *
+     * @return int
+     */
+    public function cdlXSideGap3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
         //int $i, $outIdx, $lookbackTotal;
         if ($startIdx < 0) {
-            return RetCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return RetCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex;
         }
-        $lookbackTotal = $this->cdlXSideGap3MethodsLookback();
+        $lookbackTotal = (new Lookback())->cdlXSideGap3MethodsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -4681,7 +4822,7 @@ class PatternRecognition extends Core
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
-            return RetCode::Success;
+            return ReturnCode::Success;
         }
         $i      = $startIdx;
         $outIdx = 0;
@@ -4711,6 +4852,6 @@ class PatternRecognition extends Core
         $outNBElement->value = $outIdx;
         $outBegIdx->value    = $startIdx;
 
-        return RetCode::Success;
+        return ReturnCode::Success;
     }
 }

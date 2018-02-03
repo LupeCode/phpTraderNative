@@ -2,7 +2,7 @@
 
 namespace LupeCode\phpTraderNative\TALib\Classes;
 
-class Number
+class MyInteger
 {
     /** @var int */
     public $value;
