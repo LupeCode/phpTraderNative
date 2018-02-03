@@ -6780,16 +6780,7 @@ class Core
         );
     }
 
-    protected function TA_INT_EMA(
-        int $startIdx,
-        int $endIdx,
-        $inReal,
-        int $optInTimePeriod,
-        float $optInK_1,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    protected function TA_INT_EMA(        int $startIdx,        int $endIdx,        $inReal,        int $optInTimePeriod,        float $optInK_1,        MInteger &$outBegIdx,        MInteger &$outNBElement,        array &$outReal    )
     {
         //double $tempReal, $prevMA;
         //int $i, $today, $outIdx, $lookbackTotal;
