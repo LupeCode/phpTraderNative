@@ -7,7 +7,7 @@ use LupeCode\phpTraderNative\ConvertedJava\MInteger;
 use LupeCode\phpTraderNative\ConvertedJava\RangeType;
 use LupeCode\phpTraderNative\ConvertedJava\RetCode;
 
-class PatternRecognition
+class PatternRecognition extends Core
 {
 
     /**
