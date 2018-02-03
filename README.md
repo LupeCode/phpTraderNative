@@ -12,11 +12,17 @@ The goal is that this library can be used by those whom cannot install the PHP T
 
 That's the only thing you need!  As stated, you do not need to install any extensions for this library.
 
+## Metrics & Coverage
+### PHP Metrics Report
+To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/Projects/phpTraderNative/metrics/)
+### PHP Unit Coverage
+To see the current report of coverage by PHP Unit, visit [Coverage](https://projects.lupecode.com/Projects/phpTraderNative/logs/report/)
+
 ## License
 
 Below is the copyright information for TA-LIB found in the source code.
 
-```
+~~~
 TA-LIB Copyright (c) 1999-2007, Mario Fortier
 All rights reserved.
 
@@ -45,7 +51,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-```
+~~~
 Below is the license for my porting of the code to PHP; GNU GPL v3 or newer.
 ~~~
 Copyright (C) Lupe Code, LLC.; Joshua Lopez
