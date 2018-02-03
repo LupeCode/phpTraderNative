@@ -118,12 +118,12 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inReal
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -150,15 +150,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param double[]                                         $inVolume
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param float[]  $inVolume
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -198,13 +198,13 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal0
-     * @param double[]                                         $inReal1
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inReal0
+     * @param float[]  $inReal1
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -247,17 +247,17 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param double[]                                         $inVolume
-     * @param int                                              $optInFastPeriod
-     * @param int                                              $optInSlowPeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param float[]  $inVolume
+     * @param int      $optInFastPeriod
+     * @param int      $optInSlowPeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -360,15 +360,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -571,15 +571,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -641,15 +641,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal
-     * @param int                                              $optInFastPeriod
-     * @param int                                              $optInSlowPeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MAType   $optInMAType
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inReal
+     * @param int      $optInFastPeriod
+     * @param int      $optInSlowPeriod
+     * @param int      $optInMAType
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -731,15 +731,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outAroonDown
-     * @param double[]                                         $outAroonUp
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outAroonDown
+     * @param float[]  $outAroonUp
      *
      * @return int
      */
@@ -830,14 +830,14 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -922,12 +922,12 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inReal
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -954,12 +954,12 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inReal
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -992,15 +992,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -1071,15 +1071,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -1123,18 +1123,18 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal
-     * @param int                                              $optInTimePeriod
-     * @param float                                            $optInNbDevUp
-     * @param float                                            $optInNbDevDn
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MAType   $optInMAType
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outRealUpperBand
-     * @param double[]                                         $outRealMiddleBand
-     * @param double[]                                         $outRealLowerBand
+     * @param int                                            $startIdx
+     * @param int                                            $endIdx
+     * @param float[]                                        $inReal
+     * @param int                                            $optInTimePeriod
+     * @param float                                          $optInNbDevUp
+     * @param float                                          $optInNbDevDn
+     * @param \LupeCode\phpTraderNative\ConvertedJava\MAType $optInMAType
+     * @param MInteger                                       $outBegIdx
+     * @param MInteger                                       $outNBElement
+     * @param float[]                                        $outRealUpperBand
+     * @param float[]                                        $outRealMiddleBand
+     * @param float[]                                        $outRealLowerBand
      *
      * @return int
      */
@@ -1250,14 +1250,14 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inReal0
-     * @param double[]                                         $inReal1
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inReal0
+     * @param float[]  $inReal1
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -1367,15 +1367,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -1414,15 +1414,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param int                                              $optInTimePeriod
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param double[]                                         $outReal
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param int      $optInTimePeriod
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param float[]  $outReal
      *
      * @return int
      */
@@ -1509,15 +1509,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -1577,15 +1577,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -1657,15 +1657,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -1735,15 +1735,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -1822,15 +1822,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -1883,15 +1883,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -1994,15 +1994,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2122,16 +2122,16 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param float                                            $optInPenetration
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param float    $optInPenetration
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2225,15 +2225,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2379,15 +2379,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2459,15 +2459,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2540,15 +2540,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2620,15 +2620,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2701,15 +2701,15 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2788,16 +2788,16 @@ class Core
     }
 
     /**
-     * @param int                                              $startIdx
-     * @param int                                              $endIdx
-     * @param double[]                                         $inOpen
-     * @param double[]                                         $inHigh
-     * @param double[]                                         $inLow
-     * @param double[]                                         $inClose
-     * @param float                                            $optInPenetration
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outBegIdx
-     * @param \LupeCode\phpTraderNative\ConvertedJava\MInteger $outNBElement
-     * @param int[]                                            $outInteger
+     * @param int      $startIdx
+     * @param int      $endIdx
+     * @param float[]  $inOpen
+     * @param float[]  $inHigh
+     * @param float[]  $inLow
+     * @param float[]  $inClose
+     * @param float    $optInPenetration
+     * @param MInteger $outBegIdx
+     * @param MInteger $outNBElement
+     * @param int[]    $outInteger
      *
      * @return int
      */
@@ -2861,17 +2861,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
     }
 
-    public function cdlDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -2919,17 +2909,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlDojiStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -2993,17 +2973,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlDragonflyDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlDragonflyDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
@@ -3066,17 +3036,7 @@ class Core
         return 2;
     }
 
-    public function cdlEngulfing(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlEngulfing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //int $i, $outIdx, $lookbackTotal;
         if ($startIdx < 0) {
@@ -3131,18 +3091,7 @@ class Core
                2;
     }
 
-    public function cdlEveningDojiStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlEveningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $BodyShortTrailingIdx, $lookbackTotal;
@@ -3229,18 +3178,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlEveningStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlEveningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal2;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -3315,17 +3253,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::Near]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Near]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
     }
 
-    public function cdlGapSideSideWhite(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlGapSideSideWhite(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $NearPeriodTotal, $EqualPeriodTotal;
         //int $i, $outIdx, $NearTrailingIdx, $EqualTrailingIdx, $lookbackTotal;
@@ -3397,17 +3325,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlGravestoneDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlGravestoneDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
@@ -3471,17 +3389,7 @@ class Core
                1;
     }
 
-    public function cdlHammer(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal, $NearPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $NearTrailingIdx, $lookbackTotal;
@@ -3568,17 +3476,7 @@ class Core
                1;
     }
 
-    public function cdlHangingMan(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHangingMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal, $NearPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $NearTrailingIdx, $lookbackTotal;
@@ -3664,17 +3562,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlHarami(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHarami(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -3738,17 +3626,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlHaramiCross(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHaramiCross(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -3812,17 +3690,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
     }
 
-    public function cdlHighWave(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHighWave(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowTrailingIdx, $lookbackTotal;
@@ -3883,17 +3751,7 @@ class Core
         return 5;
     }
 
-    public function cdlHikkake(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHikkake(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //int $i, $outIdx, $lookbackTotal, $patternIdx, $patternResult;
         if ($startIdx < 0) {
@@ -3971,17 +3829,7 @@ class Core
         return (((1) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (1) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) + 5;
     }
 
-    public function cdlHikkakeMod(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHikkakeMod(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $NearPeriodTotal;
         //int $i, $outIdx, $NearTrailingIdx, $lookbackTotal, $patternIdx, $patternResult;
@@ -4081,17 +3929,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlHomingPigeon(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlHomingPigeon(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -4158,17 +3996,7 @@ class Core
                2;
     }
 
-    public function cdlIdentical3Crows(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlIdentical3Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $ShadowVeryShortPeriodTotal = $this->double(3);
         $EqualPeriodTotal           = $this->double(3);
@@ -4255,17 +4083,7 @@ class Core
                1;
     }
 
-    public function cdlInNeck(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlInNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $EqualPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -4333,17 +4151,7 @@ class Core
                1;
     }
 
-    public function cdlInvertedHammer(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlInvertedHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
@@ -4418,17 +4226,7 @@ class Core
                1;
     }
 
-    public function cdlKicking(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlKicking(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $ShadowVeryShortPeriodTotal = $this->double(2);
         $BodyLongPeriodTotal        = $this->double(2);
@@ -4510,17 +4308,7 @@ class Core
                1;
     }
 
-    public function cdlKickingByLength(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlKickingByLength(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $ShadowVeryShortPeriodTotal = $this->double(2);
         $BodyLongPeriodTotal        = $this->double(2);
@@ -4601,17 +4389,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 4;
     }
 
-    public function cdlLadderBottom(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlLadderBottom(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
@@ -4672,17 +4450,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)));
     }
 
-    public function cdlLongLeggedDoji(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlLongLeggedDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $ShadowLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowLongTrailingIdx, $lookbackTotal;
@@ -4746,17 +4514,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
     }
 
-    public function cdlLongLine(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlLongLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowTrailingIdx, $lookbackTotal;
@@ -4817,17 +4575,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlMarubozu(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyLongPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyLongTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
@@ -4889,17 +4637,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::Equal]->avgPeriod) + 1;
     }
 
-    public function cdlMatchingLow(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlMatchingLow(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $EqualPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $lookbackTotal;
@@ -4960,18 +4698,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
     }
 
-    public function cdlMatHold(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlMatHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $BodyPeriodTotal = $this->double(5);
         //int $i, $outIdx, $totIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -5068,18 +4795,7 @@ class Core
                2;
     }
 
-    public function cdlMorningDojiStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlMorningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $BodyLongTrailingIdx, $BodyShortTrailingIdx, $lookbackTotal;
@@ -5166,18 +4882,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlMorningStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        float $optInPenetration,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlMorningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal, $BodyShortPeriodTotal2;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -5253,17 +4958,7 @@ class Core
                1;
     }
 
-    public function cdlOnNeck(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlOnNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $EqualPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -5330,17 +5025,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
     }
 
-    public function cdlPiercing(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlPiercing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $BodyLongPeriodTotal = $this->double(2);
         //int $i, $outIdx, $totIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -5403,17 +5088,7 @@ class Core
         return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod)));
     }
 
-    public function cdlRickshawMan(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlRickshawMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $ShadowLongPeriodTotal, $NearPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowLongTrailingIdx, $NearTrailingIdx, $lookbackTotal;
@@ -5491,17 +5166,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
     }
 
-    public function cdlRiseFall3Methods(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlRiseFall3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $BodyPeriodTotal = $this->double(5);
         //int $i, $outIdx, $totIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -5589,17 +5254,7 @@ class Core
                1;
     }
 
-    public function cdlSeparatingLines(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlSeparatingLines(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $ShadowVeryShortPeriodTotal, $BodyLongPeriodTotal, $EqualPeriodTotal;
         //int $i, $outIdx, $ShadowVeryShortTrailingIdx, $BodyLongTrailingIdx, $EqualTrailingIdx, $lookbackTotal;
@@ -5683,17 +5338,7 @@ class Core
                1;
     }
 
-    public function cdlShootingStar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlShootingStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowLongPeriodTotal, $ShadowVeryShortPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowLongTrailingIdx, $ShadowVeryShortTrailingIdx, $lookbackTotal;
@@ -5767,17 +5412,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
     }
 
-    public function cdlShortLine(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlShortLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal, $ShadowPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $ShadowTrailingIdx, $lookbackTotal;
@@ -5838,17 +5473,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
     }
 
-    public function cdlSpinningTop(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlSpinningTop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $lookbackTotal;
@@ -5902,17 +5527,7 @@ class Core
                2;
     }
 
-    public function cdlStalledPattern(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlStalledPattern(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         $BodyLongPeriodTotal = $this->double(3);
         $NearPeriodTotal     = $this->double(3);
@@ -6014,17 +5629,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::Equal]->avgPeriod) + 2;
     }
 
-    public function cdlStickSandwich(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlStickSandwich(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $EqualPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $lookbackTotal;
@@ -6081,17 +5686,7 @@ class Core
         return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
     }
 
-    public function cdlTakuri(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlTakuri(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyDojiPeriodTotal, $ShadowVeryShortPeriodTotal, $ShadowVeryLongPeriodTotal;
         //int $i, $outIdx, $BodyDojiTrailingIdx, $ShadowVeryShortTrailingIdx, $ShadowVeryLongTrailingIdx, $lookbackTotal;
@@ -6164,17 +5759,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::Near]->avgPeriod) + 2;
     }
 
-    public function cdlTasukiGap(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlTasukiGap(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $NearPeriodTotal;
         //int $i, $outIdx, $NearTrailingIdx, $lookbackTotal;
@@ -6245,17 +5830,7 @@ class Core
                1;
     }
 
-    public function cdlThrusting(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlThrusting(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $EqualPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $EqualTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -6322,17 +5897,7 @@ class Core
         return ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod) + 2;
     }
 
-    public function cdlTristar(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlTristar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyPeriodTotal;
         //int $i, $outIdx, $BodyTrailingIdx, $lookbackTotal;
@@ -6398,17 +5963,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlUnique3River(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlUnique3River(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -6476,17 +6031,7 @@ class Core
         return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlUpsideGap2Crows(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlUpsideGap2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $BodyShortPeriodTotal, $BodyLongPeriodTotal;
         //int $i, $outIdx, $BodyShortTrailingIdx, $BodyLongTrailingIdx, $lookbackTotal;
@@ -6554,17 +6099,7 @@ class Core
         return 2;
     }
 
-    public function cdlXSideGap3Methods(
-        int $startIdx,
-        int $endIdx,
-        array $inOpen,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function cdlXSideGap3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //int $i, $outIdx, $lookbackTotal;
         if ($startIdx < 0) {
@@ -6620,14 +6155,7 @@ class Core
         return 0;
     }
 
-    public function ceil(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function ceil(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -6663,15 +6191,7 @@ class Core
         return $retValue;
     }
 
-    public function cmo(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function cmo(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal, $unstablePeriod, $i;
@@ -6819,16 +6339,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function correl(
-        int $startIdx,
-        int $endIdx,
-        array $inReal0,
-        array $inReal1,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function correl(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $sumXY, $sumX, $sumY, $sumX2, $sumY2, $x, $y, $trailingX, $trailingY;
         //double $tempReal;
@@ -6908,14 +6419,7 @@ class Core
         return 0;
     }
 
-    public function cos(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function cos(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -6940,14 +6444,7 @@ class Core
         return 0;
     }
 
-    public function cosh(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function cosh(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -6978,15 +6475,7 @@ class Core
         return $this->emaLookback($optInTimePeriod) * 2;
     }
 
-    public function dema(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function dema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double[] $firstEMA;
         //double[] $secondEMA;
@@ -7045,7 +6534,7 @@ class Core
             return $retCode;
         }
         $firstEMAIdx = $secondEMABegIdx->value;
-        $outIdx = 0;
+        $outIdx      = 0;
         while ($outIdx < $secondEMANbElement->value) {
             $outReal[$outIdx] = (2.0 * $firstEMA[$firstEMAIdx++]) - $secondEMA[$outIdx];
             $outIdx++;
@@ -7062,15 +6551,7 @@ class Core
         return 0;
     }
 
-    public function div(
-        int $startIdx,
-        int $endIdx,
-        array $inReal0,
-        array $inReal1,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -7104,17 +6585,7 @@ class Core
         }
     }
 
-    public function dx(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function dx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $today, $lookbackTotal, $outIdx;
         //double $prevHigh, $prevLow, $prevClose;
@@ -7287,15 +6758,7 @@ class Core
         return $optInTimePeriod - 1 + ($this->unstablePeriod[FuncUnstId::EMA]);
     }
 
-    public function ema(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function ema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -7373,14 +6836,7 @@ class Core
         return 0;
     }
 
-    public function exp(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function exp(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -7405,14 +6861,7 @@ class Core
         return 0;
     }
 
-    public function floor(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function floor(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -7437,14 +6886,7 @@ class Core
         return 32 + ($this->unstablePeriod[FuncUnstId::HtDcPeriod]);
     }
 
-    public function htDcPeriod(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function htDcPeriod(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -7744,14 +7186,7 @@ class Core
         return 63 + ($this->unstablePeriod[FuncUnstId::HtDcPhase]);
     }
 
-    public function htDcPhase(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function htDcPhase(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -8107,15 +7542,7 @@ class Core
         return 32 + ($this->unstablePeriod[FuncUnstId::HtPhasor]);
     }
 
-    public function htPhasor(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInPhase,
-        array &$outQuadrature
-    )
+    public function htPhasor(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInPhase, array &$outQuadrature)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -8418,15 +7845,7 @@ class Core
         return 63 + ($this->unstablePeriod[FuncUnstId::HtSine]);
     }
 
-    public function htSine(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outSine,
-        array &$outLeadSine
-    )
+    public function htSine(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outSine, array &$outLeadSine)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -8784,14 +8203,7 @@ class Core
         return 63 + ($this->unstablePeriod[FuncUnstId::HtTrendline]);
     }
 
-    public function htTrendline(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function htTrendline(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -9127,14 +8539,7 @@ class Core
         return 63 + ($this->unstablePeriod[FuncUnstId::HtTrendMode]);
     }
 
-    public function htTrendMode(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function htTrendMode(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -9544,15 +8949,7 @@ class Core
         return $optInTimePeriod + ($this->unstablePeriod[FuncUnstId::KAMA]);
     }
 
-    public function kama(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function kama(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         $constMax  = 2.0 / (30.0 + 1.0);
         $constDiff = 2.0 / (2.0 + 1.0) - $constMax;
@@ -9659,15 +9056,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearReg(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function linearReg(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal;
@@ -9731,15 +9120,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegAngle(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function linearRegAngle(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal;
@@ -9802,15 +9183,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegIntercept(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function linearRegIntercept(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal;
@@ -9873,15 +9246,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegSlope(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function linearRegSlope(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal;
@@ -9936,14 +9301,7 @@ class Core
         return 0;
     }
 
-    public function ln(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function ln(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -9968,14 +9326,7 @@ class Core
         return 0;
     }
 
-    public function log10(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function log10(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -9995,10 +9346,7 @@ class Core
     }
 
     /* Generated */
-    protected function movingAverageLookback(
-        int $optInTimePeriod,
-        int $optInMAType
-    )
+    protected function movingAverageLookback(int $optInTimePeriod, int $optInMAType)
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -10044,16 +9392,7 @@ class Core
         return $retValue;
     }
 
-    public function movingAverage(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        int $optInMAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function movingAverage(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double[] $dummyBuffer;
         //RetCode $retCode;
@@ -10147,11 +9486,7 @@ class Core
     }
 
     /* Generated */
-    protected function macdLookback(
-        int $optInFastPeriod,
-        int $optInSlowPeriod,
-        int $optInSignalPeriod
-    )
+    protected function macdLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod)
     {
         //int $tempInteger;
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -10179,19 +9514,7 @@ class Core
                + $this->emaLookback($optInSignalPeriod);
     }
 
-    public function macd(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInFastPeriod,
-        int $optInSlowPeriod,
-        int $optInSignalPeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMACD,
-        array &$outMACDSignal,
-        array &$outMACDHist
-    )
+    public function macd(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist)
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -10228,19 +9551,7 @@ class Core
         );
     }
 
-    protected function TA_INT_MACD(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInFastPeriod,
-        int $optInSlowPeriod,
-        int $optInSignalPeriod_2,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMACD,
-        array &$outMACDSignal,
-        array &$outMACDHist
-    )
+    protected function TA_INT_MACD(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod_2, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist)
     {
         //double[] $slowEMABuffer;
         //double[] $fastEMABuffer;
@@ -10343,14 +9654,7 @@ class Core
     }
 
     /* Generated */
-    protected function macdExtLookback(
-        int $optInFastPeriod,
-        int $optInFastMAType,
-        int $optInSlowPeriod,
-        int $optInSlowMAType,
-        int $optInSignalPeriod,
-        int $optInSignalMAType
-    )
+    protected function macdExtLookback(int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType)
     {
         //int $tempInteger, $lookbackLargest;
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -10377,22 +9681,7 @@ class Core
         return $lookbackLargest + $this->movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
     }
 
-    public function macdExt(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInFastPeriod,
-        int $optInFastMAType,
-        int $optInSlowPeriod,
-        int $optInSlowMAType,
-        int $optInSignalPeriod,
-        int $optInSignalMAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMACD,
-        array &$outMACDSignal,
-        array &$outMACDHist
-    )
+    public function macdExt(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist)
     {
         //double[] $slowMABuffer;
         //double[] $fastMABuffer;
@@ -10525,17 +9814,7 @@ class Core
                + $this->emaLookback($optInSignalPeriod);
     }
 
-    public function macdFix(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInSignalPeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMACD,
-        array &$outMACDSignal,
-        array &$outMACDHist
-    )
+    public function macdFix(int $startIdx, int $endIdx, array $inReal, int $optInSignalPeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist)
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -10563,10 +9842,7 @@ class Core
     }
 
     /* Generated */
-    protected function mamaLookback(
-        float $optInFastLimit,
-        float $optInSlowLimit
-    )
+    protected function mamaLookback(float $optInFastLimit, float $optInSlowLimit)
     {
         if ($optInFastLimit == (-4e+37)) {
             $optInFastLimit = 5.000000e-1;
@@ -10582,17 +9858,7 @@ class Core
         return 32 + ($this->unstablePeriod[FuncUnstId::MAMA]);
     }
 
-    public function mama(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        float $optInFastLimit,
-        float $optInSlowLimit,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMAMA,
-        array &$outFAMA
-    )
+    public function mama(int $startIdx, int $endIdx, array $inReal, float $optInFastLimit, float $optInSlowLimit, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMAMA, array &$outFAMA)
     {
         //int $outIdx, $i;
         //int $lookbackTotal, $today;
@@ -10924,11 +10190,7 @@ class Core
     }
 
     /* Generated */
-    protected function movingAverageVariablePeriodLookback(
-        int $optInMinPeriod,
-        int $optInMaxPeriod,
-        int $optInMAType
-    )
+    protected function movingAverageVariablePeriodLookback(int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType)
     {
         if ((int)$optInMinPeriod == (PHP_INT_MIN)) {
             $optInMinPeriod = 2;
@@ -10944,18 +10206,7 @@ class Core
         return $this->movingAverageLookback($optInMaxPeriod, $optInMAType);
     }
 
-    public function movingAverageVariablePeriod(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        array &$inPeriods,
-        int $optInMinPeriod,
-        int $optInMaxPeriod,
-        int $optInMAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function movingAverageVariablePeriod(int $startIdx, int $endIdx, array $inReal, array &$inPeriods, int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $i, $j, $lookbackTotal, $outputSize, $tempInt, $curPeriod;
         //int[] $localPeriodArray;
@@ -11053,15 +10304,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function max(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $highest, $tmp;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11131,15 +10374,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function maxIndex(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $highest, $tmp;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11203,15 +10438,7 @@ class Core
         return 0;
     }
 
-    public function medPrice(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $i;
         if ($startIdx < 0) {
@@ -11242,18 +10469,7 @@ class Core
         return $optInTimePeriod + ($this->unstablePeriod[FuncUnstId::MFI]);
     }
 
-    public function mfi(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        array &$inVolume,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function mfi(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array &$inVolume, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $posSumMF, $negSumMF, $prevValue;
         //double $tempValue1, $tempValue2;
@@ -11406,15 +10622,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function midPoint(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function midPoint(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $lowest, $highest, $tmp;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11475,16 +10683,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function midPrice(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function midPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $lowest, $highest, $tmp;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11548,15 +10747,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function min(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $lowest, $tmp;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11626,15 +10817,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minIndex(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outInteger
-    )
+    public function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outInteger)
     {
         //double $lowest, $tmp;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11704,16 +10887,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minMax(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMin,
-        array &$outMax
-    )
+    public function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMin, array &$outMax)
     {
         //double $highest, $lowest, $tmpHigh, $tmpLow;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11802,16 +10976,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minMaxIndex(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outMinIdx,
-        array &$outMaxIdx
-    )
+    public function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outMinIdx, array &$outMaxIdx)
     {
         //double $highest, $lowest, $tmpHigh, $tmpLow;
         //int $outIdx, $nbInitialElementNeeded;
@@ -11903,17 +11068,7 @@ class Core
         }
     }
 
-    public function minusDI(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function minusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $today, $lookbackTotal, $outIdx;
         //double $prevHigh, $prevLow, $prevClose;
@@ -12105,16 +11260,7 @@ class Core
         }
     }
 
-    public function minusDM(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function minusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $today, $lookbackTotal, $outIdx;
         //double $prevHigh, $prevLow, $tempReal;
@@ -12237,15 +11383,7 @@ class Core
         return $optInTimePeriod;
     }
 
-    public function mom(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function mom(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $inIdx, $outIdx, $trailingIdx;
         if ($startIdx < 0) {
@@ -12286,15 +11424,7 @@ class Core
         return 0;
     }
 
-    public function mult(
-        int $startIdx,
-        int $endIdx,
-        array $inReal0,
-        array $inReal1,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -12325,17 +11455,7 @@ class Core
         return $optInTimePeriod + ($this->unstablePeriod[FuncUnstId::NATR]);
     }
 
-    public function natr(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //RetCode $retCode;
         //int $outIdx, $today, $lookbackTotal;
@@ -12433,15 +11553,7 @@ class Core
         return 0;
     }
 
-    public function obv(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        array &$inVolume,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function obv(int $startIdx, int $endIdx, array $inReal, array &$inVolume, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $i;
         //int $outIdx;
@@ -12486,17 +11598,7 @@ class Core
         }
     }
 
-    public function plusDI(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function plusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $today, $lookbackTotal, $outIdx;
         //double $prevHigh, $prevLow, $prevClose;
@@ -12688,16 +11790,7 @@ class Core
         }
     }
 
-    public function plusDM(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function plusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $today, $lookbackTotal, $outIdx;
         //double $prevHigh, $prevLow, $tempReal;
@@ -12809,11 +11902,7 @@ class Core
     }
 
     /* Generated */
-    protected function ppoLookback(
-        int $optInFastPeriod,
-        int $optInSlowPeriod,
-        int $optInMAType
-    )
+    protected function ppoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType)
     {
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -12829,17 +11918,7 @@ class Core
         return $this->movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
     }
 
-    public function ppo(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInFastPeriod,
-        int $optInSlowPeriod,
-        int $optInMAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function ppo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //$tempBuffer;
         //RetCode $retCode;
@@ -12888,15 +11967,7 @@ class Core
         return $optInTimePeriod;
     }
 
-    public function roc(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function roc(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $inIdx, $outIdx, $trailingIdx;
         //double $tempReal;
@@ -12950,15 +12021,7 @@ class Core
         return $optInTimePeriod;
     }
 
-    public function rocP(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function rocP(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $inIdx, $outIdx, $trailingIdx;
         //double $tempReal;
@@ -13012,15 +12075,7 @@ class Core
         return $optInTimePeriod;
     }
 
-    public function rocR(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function rocR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $inIdx, $outIdx, $trailingIdx;
         //double $tempReal;
@@ -13074,15 +12129,7 @@ class Core
         return $optInTimePeriod;
     }
 
-    public function rocR100(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function rocR100(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $inIdx, $outIdx, $trailingIdx;
         //double $tempReal;
@@ -13141,15 +12188,7 @@ class Core
         return $retValue;
     }
 
-    public function rsi(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function rsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal, $unstablePeriod, $i;
@@ -13286,10 +12325,7 @@ class Core
     }
 
     /* Generated */
-    protected function sarLookback(
-        float $optInAcceleration,
-        float $optInMaximum
-    )
+    protected function sarLookback(float $optInAcceleration, float $optInMaximum)
     {
         if ($optInAcceleration == (-4e+37)) {
             $optInAcceleration = 2.000000e-2;
@@ -13305,17 +12341,7 @@ class Core
         return 1;
     }
 
-    public function sar(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        float $optInAcceleration,
-        float $optInMaximum,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sar(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInAcceleration, float $optInMaximum, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //RetCode $retCode;
         //int $isLong;
@@ -13471,16 +12497,7 @@ class Core
     }
 
     /* Generated */
-    protected function sarExtLookback(
-        float $optInStartValue,
-        float $optInOffsetOnReverse,
-        float $optInAccelerationInitLong,
-        float $optInAccelerationLong,
-        float $optInAccelerationMaxLong,
-        float $optInAccelerationInitShort,
-        float $optInAccelerationShort,
-        float $optInAccelerationMaxShort
-    )
+    protected function sarExtLookback(float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort)
     {
         if ($optInStartValue == (-4e+37)) {
             $optInStartValue = 0.000000e+0;
@@ -13526,23 +12543,7 @@ class Core
         return 1;
     }
 
-    public function sarExt(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        float $optInStartValue,
-        float $optInOffsetOnReverse,
-        float $optInAccelerationInitLong,
-        float $optInAccelerationLong,
-        float $optInAccelerationMaxLong,
-        float $optInAccelerationInitShort,
-        float $optInAccelerationShort,
-        float $optInAccelerationMaxShort,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sarExt(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //RetCode $retCode;
         //int $isLong;
@@ -13763,14 +12764,7 @@ class Core
         return 0;
     }
 
-    public function sin(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sin(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -13795,14 +12789,7 @@ class Core
         return 0;
     }
 
-    public function sinh(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sinh(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -13833,15 +12820,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function sma(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -13862,15 +12841,7 @@ class Core
         );
     }
 
-    protected function TA_INT_SMA(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    protected function TA_INT_SMA(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $periodTotal, $tempReal;
         //int $i, $outIdx, $trailingIdx, $lookbackTotal;
@@ -13911,14 +12882,7 @@ class Core
         return 0;
     }
 
-    public function sqrt(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sqrt(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -13938,10 +12902,7 @@ class Core
     }
 
     /* Generated */
-    protected function stdDevLookback(
-        int $optInTimePeriod,
-        float $optInNbDev
-    )
+    protected function stdDevLookback(int $optInTimePeriod, float $optInNbDev)
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -13957,16 +12918,7 @@ class Core
         return $this->varianceLookback($optInTimePeriod, $optInNbDev);
     }
 
-    public function stdDev(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        float $optInNbDev,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function stdDev(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $i;
         //RetCode $retCode;
@@ -14018,14 +12970,7 @@ class Core
         return RetCode::Success;
     }
 
-    protected function TA_INT_stddev_using_precalc_ma(
-        array $inReal,
-        array &$inMovAvg,
-        int $inMovAvgBegIdx,
-        int $inMovAvgNbElement,
-        int $timePeriod,
-        array &$output
-    )
+    protected function TA_INT_stddev_using_precalc_ma(array $inReal, array &$inMovAvg, int $inMovAvgBegIdx, int $inMovAvgNbElement, int $timePeriod, array &$output)
     {
         //double $tempReal, $periodTotal2, $meanValue2;
         //int $outIdx;
@@ -14058,13 +13003,7 @@ class Core
     }
 
     /* Generated */
-    protected function stochLookback(
-        int $optInFastK_Period,
-        int $optInSlowK_Period,
-        int $optInSlowK_MAType,
-        int $optInSlowD_Period,
-        int $optInSlowD_MAType
-    )
+    protected function stochLookback(int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType)
     {
         //int $retValue;
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
@@ -14089,22 +13028,7 @@ class Core
         return $retValue;
     }
 
-    public function stoch(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInFastK_Period,
-        int $optInSlowK_Period,
-        int $optInSlowK_MAType,
-        int $optInSlowD_Period,
-        int $optInSlowD_MAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outSlowK,
-        array &$outSlowD
-    )
+    public function stoch(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outSlowK, array &$outSlowD)
     {
         //RetCode $retCode;
         //double $lowest, $highest, $tmp, $diff;
@@ -14239,11 +13163,7 @@ class Core
     }
 
     /* Generated */
-    protected function stochFLookback(
-        int $optInFastK_Period,
-        int $optInFastD_Period,
-        int $optInFastD_MAType
-    )
+    protected function stochFLookback(int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType)
     {
         //int $retValue;
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
@@ -14262,20 +13182,7 @@ class Core
         return $retValue;
     }
 
-    public function stochF(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInFastK_Period,
-        int $optInFastD_Period,
-        int $optInFastD_MAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outFastK,
-        array &$outFastD
-    )
+    public function stochF(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outFastK, array &$outFastD)
     {
         //RetCode $retCode;
         //double $lowest, $highest, $tmp, $diff;
@@ -14398,12 +13305,7 @@ class Core
     }
 
     /* Generated */
-    protected function stochRsiLookback(
-        int $optInTimePeriod,
-        int $optInFastK_Period,
-        int $optInFastD_Period,
-        int $optInFastD_MAType
-    )
+    protected function stochRsiLookback(int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType )
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -14426,19 +13328,7 @@ class Core
         return $retValue;
     }
 
-    public function stochRsi(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        int $optInFastK_Period,
-        int $optInFastD_Period,
-        int $optInFastD_MAType,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outFastK,
-        array &$outFastD
-    )
+    public function stochRsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outFastK, array &$outFastD)
     {
         //double[] $tempRSIBuffer;
         //RetCode $retCode;
@@ -14528,15 +13418,7 @@ class Core
         return 0;
     }
 
-    public function sub(
-        int $startIdx,
-        int $endIdx,
-        array $inReal0,
-        array $inReal1,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -14567,15 +13449,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function sum(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $periodTotal, $tempReal;
         //int $i, $outIdx, $trailingIdx, $lookbackTotal;
@@ -14622,10 +13496,7 @@ class Core
     }
 
     /* Generated */
-    protected function t3Lookback(
-        int $optInTimePeriod,
-        float $optInVFactor
-    )
+    protected function t3Lookback(int $optInTimePeriod, float $optInVFactor)
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -14641,16 +13512,7 @@ class Core
         return 6 * ($optInTimePeriod - 1) + ($this->unstablePeriod[FuncUnstId::T3]);
     }
 
-    public function t3(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        float $optInVFactor,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function t3(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInVFactor, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $lookbackTotal;
         //int $today, $i;
@@ -14768,14 +13630,7 @@ class Core
         return 0;
     }
 
-    public function tan(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function tan(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -14800,14 +13655,7 @@ class Core
         return 0;
     }
 
-    public function tanh(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function tanh(int $startIdx, int $endIdx, array $inReal, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $i;
@@ -14840,15 +13688,7 @@ class Core
         return $retValue * 3;
     }
 
-    public function tema(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function tema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double[] $firstEMA;
         //double[] $secondEMA;
@@ -14933,16 +13773,7 @@ class Core
         return 1;
     }
 
-    public function trueRange(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $today, $outIdx;
         //double $val2, $val3, $greatest;
@@ -14998,15 +13829,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function trima(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function trima(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $lookbackTotal;
         //double $numerator;
@@ -15133,15 +13956,7 @@ class Core
         return ($emaLookback * 3) + $this->rocRLookback(1);
     }
 
-    public function trix(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function trix(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $k;
         //$tempBuffer;
@@ -15246,15 +14061,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function tsf(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function tsf(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx;
         //int $today, $lookbackTotal;
@@ -15312,16 +14119,7 @@ class Core
         return 0;
     }
 
-    public function typPrice(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $i;
         if ($startIdx < 0) {
@@ -15343,11 +14141,7 @@ class Core
     }
 
     /* Generated */
-    protected function ultOscLookback(
-        int $optInTimePeriod1,
-        int $optInTimePeriod2,
-        int $optInTimePeriod3
-    )
+    protected function ultOscLookback(int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3)
     {
         //int $maxPeriod;
         if ((int)$optInTimePeriod1 == (PHP_INT_MIN)) {
@@ -15370,19 +14164,7 @@ class Core
         return $this->smaLookback($maxPeriod) + 1;
     }
 
-    public function ultOsc(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInTimePeriod1,
-        int $optInTimePeriod2,
-        int $optInTimePeriod3,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function ultOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $a1Total, $a2Total, $a3Total;
         //double $b1Total, $b2Total, $b3Total;
@@ -15624,10 +14406,7 @@ class Core
     }
 
     /* Generated */
-    protected function varianceLookback(
-        int $optInTimePeriod,
-        float $optInNbDev
-    )
+    protected function varianceLookback(int $optInTimePeriod, float $optInNbDev)
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -15643,16 +14422,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function variance(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        float $optInNbDev,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function variance(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         if ($startIdx < 0) {
             return RetCode::OutOfRangeStartIndex;
@@ -15678,15 +14448,7 @@ class Core
         );
     }
 
-    protected function TA_INT_VAR(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    protected function TA_INT_VAR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $tempReal, $periodTotal1, $periodTotal2, $meanValue1, $meanValue2;
         //int $i, $outIdx, $trailingIdx, $nbInitialElementNeeded;
@@ -15738,16 +14500,7 @@ class Core
         return 0;
     }
 
-    public function wclPrice(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $outIdx, $i;
         if ($startIdx < 0) {
@@ -15780,17 +14533,7 @@ class Core
         return ($optInTimePeriod - 1);
     }
 
-    public function willR(
-        int $startIdx,
-        int $endIdx,
-        array $inHigh,
-        array $inLow,
-        array $inClose,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function willR(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //double $lowest, $highest, $tmp, $diff;
         //int $outIdx, $nbInitialElementNeeded;
@@ -15886,15 +14629,7 @@ class Core
         return $optInTimePeriod - 1;
     }
 
-    public function wma(
-        int $startIdx,
-        int $endIdx,
-        array $inReal,
-        int $optInTimePeriod,
-        MInteger &$outBegIdx,
-        MInteger &$outNBElement,
-        array &$outReal
-    )
+    public function wma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MInteger &$outBegIdx, MInteger &$outNBElement, array &$outReal)
     {
         //int $inIdx, $outIdx, $i, $trailingIdx, $divider;
         //double $periodSum, $periodSub, $tempReal, $trailingValue;
