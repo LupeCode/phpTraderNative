@@ -981,7 +981,8 @@ class CoreTest extends TestCase
         $outInPhase    = array();
         $outQuadrature = array();
         $RetCode       = self::$Core->htPhasor(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $outInPhase, $outQuadrature);
-        list($traderInPhase, $traderQuadrature) = \trader_ht_phasor($this->High, array());
+        $_             = array();
+        list($traderInPhase, $traderQuadrature) = \trader_ht_phasor($this->High, $_);
         $this->assertEquals($traderQuadrature, $this->adjustForPECL($outQuadrature, self::$outBegIdx));
         $this->assertEquals($traderInPhase, $this->adjustForPECL($outInPhase, self::$outBegIdx));
     }
@@ -991,7 +992,8 @@ class CoreTest extends TestCase
         $outSine     = array();
         $outLeadSine = array();
         $RetCode     = self::$Core->htSine(self::$startIdx, self::$endIdx, $this->High, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine);
-        list($traderSine, $traderLeadSine) = \trader_ht_sine($this->High, array());
+        $_           = array();
+        list($traderSine, $traderLeadSine) = \trader_ht_sine($this->High, $_);
         $this->assertEquals($traderSine, $this->adjustForPECL($outSine, self::$outBegIdx));
         $this->assertEquals($traderLeadSine, $this->adjustForPECL($outLeadSine, self::$outBegIdx));
     }
@@ -1514,4 +1516,5 @@ class CoreTest extends TestCase
         $RetCode         = self::$Core->wma(self::$startIdx, self::$endIdx, $this->High, $optInTimePeriod, self::$outBegIdx, self::$outNBElement, $this->outReal);
         $this->assertEquals(\trader_wma($this->High, $optInTimePeriod), $this->adjustForPECL($this->outReal, self::$outBegIdx));
     }
+
 }
