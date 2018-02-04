@@ -2539,8 +2539,9 @@ class Trader
         $endIdx        = count($real) - 1;
         $outQuadrature = [];
         self::prep();
-        $ReturnCode = (new CycleIndicators())->htPhasor(0, $endIdx, $real, $outBegIdx, $outNBElement, $inPhase, $outQuadrature);
+        $ReturnCode = (new CycleIndicators())->htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $inPhase, $outQuadrature);
         static::checkForError($ReturnCode);
+        $inPhase = self::adjustIndexes($inPhase, self::$outBegIdx->value);
 
         return self::adjustIndexes($outQuadrature, self::$outBegIdx->value);
     }
@@ -2560,8 +2561,9 @@ class Trader
         $endIdx      = count($real) - 1;
         $outLeadSine = [];
         self::prep();
-        $ReturnCode = (new CycleIndicators())->htSine(0, $endIdx, $real, $outBegIdx, $outNBElement, $sine, $outLeadSine);
+        $ReturnCode = (new CycleIndicators())->htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $sine, $outLeadSine);
         static::checkForError($ReturnCode);
+        $sine = self::adjustIndexes($sine, self::$outBegIdx->value);
 
         return self::adjustIndexes($outLeadSine, self::$outBegIdx->value);
     }
@@ -2826,7 +2828,7 @@ class Trader
      * @param int      $signalPeriod [OPTIONAL] [DEFAULT 9, SUGGESTED 1-200] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      * @param int|null $signalMAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MovingAverageType::* series of constants should be used.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [MACD => [...], MACDSignal => [...], MACDHist => [...]]
      * @throws \Exception
      */
     public static function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null, int $signalMAType = null): array
@@ -2860,7 +2862,7 @@ class Trader
      * @param array $real         Array of real values.
      * @param int   $signalPeriod [OPTIONAL] [DEFAULT 9, SUGGESTED 1-200] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [MACD => [...], MACDSignal => [...], MACDHist => [...]]
      * @throws \Exception
      */
     public static function macdfix(array $real, int $signalPeriod = null): array
@@ -2890,7 +2892,7 @@ class Trader
      * @param float $fastLimit [OPTIONAL] [DEFAULT 0.5, SUGGESTED 0.21-0.80] Upper limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
      * @param float $slowLimit [OPTIONAL] [DEFAULT 0.05, SUGGESTED 0.01-0.60] Lower limit use in the adaptive algorithm. Valid range from 0.01 to 0.99.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [MAMA => [...], FAMA => [...]]
      * @throws \Exception
      */
     public static function mama(array $real, float $fastLimit = null, float $slowLimit = null): array
@@ -2902,7 +2904,7 @@ class Trader
         $outMAMA   = [];
         $outFAMA   = [];
         self::prep();
-        $ReturnCode = (new OverlapStudies())->mama(0, $endIdx, $real, $fastLimit, $slowLimit, $outBegIdx, $outNBElement, $outMAMA, $outFAMA);
+        $ReturnCode = (new OverlapStudies())->mama(0, $endIdx, $real, $fastLimit, $slowLimit, self::$outBegIdx, self::$outNBElement, $outMAMA, $outFAMA);
         static::checkForError($ReturnCode);
 
         return
@@ -3133,7 +3135,7 @@ class Trader
      * @param array $real       Array of real values.
      * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [Min => [...], Max => [...]]
      * @throws \Exception
      */
     public static function minmax(array $real, int $timePeriod = null): array
@@ -3159,7 +3161,7 @@ class Trader
      * @param array $real       Array of real values.
      * @param int   $timePeriod [OPTIONAL] [DEFAULT 30, SUGGESTED 4-200] Number of period. Valid range from 2 to 100000.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [Min => [...], Max => [...]]
      * @throws \Exception
      */
     public static function minmaxindex(array $real, int $timePeriod = null): array
@@ -3703,7 +3705,7 @@ class Trader
      * @param int   $slowD_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Slow-D line. Valid range from 1 to 100000.
      * @param int   $slowD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Slow-D. MovingAverageType::* series of constants should be used.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [SlowK => [...], SlowD => [...]]
      * @throws \Exception
      */
     public static function stoch(array $high, array $low, array $close, int $fastK_Period = null, int $slowK_Period = null, int $slowK_MAType = null, int $slowD_Period = null, int $slowD_MAType = null): array
@@ -3740,7 +3742,7 @@ class Trader
      * @param int   $fastD_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Fast-D line. Valid range from 1 to 100000, usually set to 3.
      * @param int   $fastD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Fast-D. MovingAverageType::* series of constants should be used.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [FastK => [...], FastD => [...]]
      * @throws \Exception
      */
     public static function stochf(array $high, array $low, array $close, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
@@ -3760,8 +3762,8 @@ class Trader
         static::checkForError($ReturnCode);
 
         return [
-            'SlowK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
-            'SlowD' => self::adjustIndexes($outFastD, self::$outBegIdx->value),
+            'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
+            'FastD' => self::adjustIndexes($outFastD, self::$outBegIdx->value),
         ];
     }
 
@@ -3774,7 +3776,7 @@ class Trader
      * @param int   $fastD_Period [OPTIONAL] [DEFAULT 3, SUGGESTED 1-200] Smoothing for making the Fast-D line. Valid range from 1 to 100000, usually set to 3.
      * @param int   $fastD_MAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for Fast-D. MovingAverageType::* series of constants should be used.
      *
-     * @return array Returns an array with calculated data or false on failure.
+     * @return array Returns an array with calculated data or false on failure. [FastK => [...], FastD => [...]]
      * @throws \Exception
      */
     public static function stochrsi(array $real, int $timePeriod = null, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
@@ -3792,8 +3794,8 @@ class Trader
         static::checkForError($ReturnCode);
 
         return [
-            'SlowK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
-            'SlowD' => self::adjustIndexes($outFastD, self::$outBegIdx->value),
+            'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
+            'FastD' => self::adjustIndexes($outFastD, self::$outBegIdx->value),
         ];
     }
 
