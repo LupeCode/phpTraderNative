@@ -217,10 +217,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = null, int $slowPeriod = null): array
+    public static function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = 3, int $slowPeriod = 10): array
     {
-        $fastPeriod = $fastPeriod ?? 3;
-        $slowPeriod = $slowPeriod ?? 10;
         self::verifyArrayCounts([$high, $low, $close, $volume]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -246,9 +244,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function adx(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function adx(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -273,9 +270,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function adxr(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function adxr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -300,11 +296,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function apo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
+    public static function apo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
     {
-        $fastPeriod = $fastPeriod ?? 12;
-        $slowPeriod = $slowPeriod ?? 26;
-        $mAType     = $mAType ?? MovingAverageType::SMA;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -325,9 +318,8 @@ class Trader
      * @return array Returns a 2D array with calculated data or false on failure. [AroonDown => [...], AroonUp => [...]]
      * @throws \Exception
      */
-    public static function aroon(array $high, array $low, int $timePeriod = null): array
+    public static function aroon(array $high, array $low, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low]);
         $high         = \array_values($high);
         $low          = \array_values($low);
@@ -351,9 +343,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function aroonosc(array $high, array $low, int $timePeriod = null): array
+    public static function aroonosc(array $high, array $low, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -419,9 +410,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function atr(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function atr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -474,12 +464,8 @@ class Trader
      * @return array Returns a 2D array with calculated data or false on failure. [UpperBand => [...], MiddleBand => [...], LowerBand => [...]]
      * @throws \Exception
      */
-    public static function bbands(array $real, int $timePeriod = null, float $nbDevUp = null, float $nbDevDn = null, int $mAType = null): array
+    public static function bbands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, int $mAType = MovingAverageType::SMA): array
     {
-        $timePeriod        = $timePeriod ?? 5;
-        $nbDevUp           = $nbDevUp ?? 2.0;
-        $nbDevDn           = $nbDevDn ?? 2.0;
-        $mAType            = $mAType ?? MovingAverageType::SMA;
         $real              = \array_values($real);
         $endIdx            = count($real) - 1;
         $outRealUpperBand  = [];
@@ -507,9 +493,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function beta(array $real0, array $real1, int $timePeriod = null): array
+    public static function beta(array $real0, array $real1, int $timePeriod = 5): array
     {
-        $timePeriod = $timePeriod ?? 5;
         self::verifyArrayCounts([$real0, $real1]);
         $real0   = \array_values($real0);
         $real1   = \array_values($real1);
@@ -560,9 +545,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cci(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function cci(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -777,9 +761,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdlabandonedbaby(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdlabandonedbaby(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $penetration = $penetration ?? 0.3;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -968,9 +951,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdldarkcloudcover(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdldarkcloudcover(array $open, array $high, array $low, array $close, float $penetration = 0.5): array
     {
-        $penetration = $penetration ?? 0.5;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -1105,9 +1087,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdleveningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdleveningdojistar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $penetration = $penetration ?? 0.3;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -1134,9 +1115,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdleveningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdleveningstar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $penetration = $penetration ?? 0.3;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -1704,9 +1684,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdlmathold(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdlmathold(array $open, array $high, array $low, array $close, float $penetration = 0.5): array
     {
-        $penetration = $penetration ?? 0.5;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -1733,9 +1712,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdlmorningdojistar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdlmorningdojistar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $penetration = $penetration ?? 0.3;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -1762,9 +1740,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cdlmorningstar(array $open, array $high, array $low, array $close, float $penetration = null): array
+    public static function cdlmorningstar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $penetration = $penetration ?? 0.3;
         self::verifyArrayCounts([$open, $high, $low, $close]);
         $open       = \array_values($open);
         $high       = \array_values($high);
@@ -2268,7 +2245,7 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function cmo(array $real, int $timePeriod = null): array
+    public static function cmo(array $real, int $timePeriod = 14): array
     {
         $real    = \array_values($real);
         $endIdx  = count($real) - 1;
@@ -2290,9 +2267,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function correl(array $real0, array $real1, int $timePeriod = null): array
+    public static function correl(array $real0, array $real1, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         self::verifyArrayCounts([$real0, $real1]);
         $real0   = \array_values($real0);
         $real1   = \array_values($real1);
@@ -2356,9 +2332,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function dema(array $real, int $timePeriod = null): array
+    public static function dema(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2404,9 +2379,8 @@ class Trader
      * @return array  Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function dx(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function dx(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -2429,9 +2403,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function ema(array $real, int $timePeriod = null): array
+    public static function ema(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2617,9 +2590,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function kama(array $real, int $timePeriod = null): array
+    public static function kama(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2639,9 +2611,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function linearreg_angle(array $real, int $timePeriod = null): array
+    public static function linearreg_angle(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2661,9 +2632,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function linearreg_intercept(array $real, int $timePeriod = null): array
+    public static function linearreg_intercept(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2683,9 +2653,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function linearreg_slope(array $real, int $timePeriod = null): array
+    public static function linearreg_slope(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2705,9 +2674,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function linearreg(array $real, int $timePeriod = null): array
+    public static function linearreg(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2770,10 +2738,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function ma(array $real, int $timePeriod = null, int $mAType = null): array
+    public static function ma(array $real, int $timePeriod = 30, int $mAType = MovingAverageType::SMA): array
     {
-        $timePeriod = $timePeriod ?? 30;
-        $mAType     = $mAType ?? MovingAverageType::SMA;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2795,11 +2761,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [MACD => [...], MACDSignal => [...], MACDHist => [...]]
      * @throws \Exception
      */
-    public static function macd(array $real, int $fastPeriod = null, int $slowPeriod = null, int $signalPeriod = null): array
+    public static function macd(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $signalPeriod = 9): array
     {
-        $fastPeriod    = $fastPeriod ?? 12;
-        $slowPeriod    = $slowPeriod ?? 26;
-        $signalPeriod  = $signalPeriod ?? 9;
         $real          = \array_values($real);
         $endIdx        = count($real) - 1;
         $outMACD       = [];
@@ -2826,19 +2789,13 @@ class Trader
      * @param int      $slowPeriod   [OPTIONAL] [DEFAULT 26, SUGGESTED 4-200] Number of period for the slow MA. Valid range from 2 to 100000.
      * @param int      $slowMAType   [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MovingAverageType::* series of constants should be used.
      * @param int      $signalPeriod [OPTIONAL] [DEFAULT 9, SUGGESTED 1-200] Smoothing for the signal line (nb of period). Valid range from 1 to 100000.
-     * @param int|null $signalMAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MovingAverageType::* series of constants should be used.
+     * @param int      $signalMAType [OPTIONAL] [DEFAULT TRADER_MA_TYPE_SMA] Type of Moving Average for fast MA. MovingAverageType::* series of constants should be used.
      *
      * @return array Returns an array with calculated data or false on failure. [MACD => [...], MACDSignal => [...], MACDHist => [...]]
      * @throws \Exception
      */
-    public static function macdext(array $real, int $fastPeriod = null, int $fastMAType = null, int $slowPeriod = null, int $slowMAType = null, int $signalPeriod = null, int $signalMAType = null): array
+    public static function macdext(array $real, int $fastPeriod = 12, int $fastMAType = MovingAverageType::SMA, int $slowPeriod = 26, int $slowMAType = MovingAverageType::SMA, int $signalPeriod = 9, int $signalMAType = MovingAverageType::SMA): array
     {
-        $fastPeriod    = $fastPeriod ?? 12;
-        $fastMAType    = $fastMAType ?? MovingAverageType::SMA;
-        $slowPeriod    = $slowPeriod ?? 26;
-        $slowMAType    = $slowMAType ?? MovingAverageType::SMA;
-        $signalPeriod  = $signalPeriod ?? 9;
-        $signalMAType  = $signalMAType ?? MovingAverageType::SMA;
         $real          = \array_values($real);
         $endIdx        = count($real) - 1;
         $outMACD       = [];
@@ -2865,9 +2822,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [MACD => [...], MACDSignal => [...], MACDHist => [...]]
      * @throws \Exception
      */
-    public static function macdfix(array $real, int $signalPeriod = null): array
+    public static function macdfix(array $real, int $signalPeriod = 9): array
     {
-        $signalPeriod  = $signalPeriod ?? 9;
         $real          = \array_values($real);
         $endIdx        = count($real) - 1;
         $outMACD       = [];
@@ -2895,10 +2851,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [MAMA => [...], FAMA => [...]]
      * @throws \Exception
      */
-    public static function mama(array $real, float $fastLimit = null, float $slowLimit = null): array
+    public static function mama(array $real, float $fastLimit = 0.5, float $slowLimit = 0.05): array
     {
-        $fastLimit = $fastLimit ?? 0.5;
-        $slowLimit = $slowLimit ?? 0.05;
         $real      = \array_values($real);
         $endIdx    = count($real) - 1;
         $outMAMA   = [];
@@ -2926,11 +2880,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function mavp(array $real, array $periods, int $minPeriod = null, int $maxPeriod = null, int $mAType = null): array
+    public static function mavp(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, int $mAType = MovingAverageType::SMA): array
     {
-        $minPeriod = $minPeriod ?? 2;
-        $maxPeriod = $maxPeriod ?? 30;
-        $mAType    = $mAType ?? MovingAverageType::SMA;
         $real      = \array_values($real);
         $endIdx    = count($real) - 1;
         $outReal   = [];
@@ -2950,9 +2901,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function max(array $real, int $timePeriod = null): array
+    public static function max(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -2972,9 +2922,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function maxindex(array $real, int $timePeriod = null): array
+    public static function maxindex(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3020,9 +2969,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function mfi(array $high, array $low, array $close, array $volume, int $timePeriod = null): array
+    public static function mfi(array $high, array $low, array $close, array $volume, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close, $volume]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3046,9 +2994,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function midpoint(array $real, int $timePeriod = null): array
+    public static function midpoint(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3069,10 +3016,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function midprice(array $high, array $low, int $timePeriod = null)
+    public static function midprice(array $high, array $low, int $timePeriod = 14)
     {
-        $timePeriod = $timePeriod ?? 14;
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3094,9 +3039,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function min(array $real, int $timePeriod = null): array
+    public static function min(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3116,9 +3060,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function minindex(array $real, int $timePeriod = null): array
+    public static function minindex(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3138,9 +3081,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [Min => [...], Max => [...]]
      * @throws \Exception
      */
-    public static function minmax(array $real, int $timePeriod = null): array
+    public static function minmax(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outMin     = [];
@@ -3164,9 +3106,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [Min => [...], Max => [...]]
      * @throws \Exception
      */
-    public static function minmaxindex(array $real, int $timePeriod = null): array
+    public static function minmaxindex(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outMin     = [];
@@ -3192,9 +3133,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function minus_di(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function minus_di(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3218,9 +3158,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function minus_dm(array $high, array $low, int $timePeriod = null): array
+    public static function minus_dm(array $high, array $low, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3242,9 +3181,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function mom(array $real, int $timePeriod = null): array
+    public static function mom(array $real, int $timePeriod = 10): array
     {
-        $timePeriod = $timePeriod ?? 10;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3290,9 +3228,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function natr(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function natr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3340,9 +3277,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function plus_di(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function plus_di(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3366,9 +3302,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function plus_dm(array $high, array $low, int $timePeriod = null): array
+    public static function plus_dm(array $high, array $low, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3392,11 +3327,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function ppo(array $real, int $fastPeriod = null, int $slowPeriod = null, int $mAType = null): array
+    public static function ppo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
     {
-        $fastPeriod = $fastPeriod ?? 12;
-        $slowPeriod = $slowPeriod ?? 26;
-        $mAType     = $mAType ?? MovingAverageType::SMA;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3416,9 +3348,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function roc(array $real, int $timePeriod = null): array
+    public static function roc(array $real, int $timePeriod = 10): array
     {
-        $timePeriod = $timePeriod ?? 10;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3438,9 +3369,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function rocp(array $real, int $timePeriod = null): array
+    public static function rocp(array $real, int $timePeriod = 10): array
     {
-        $timePeriod = $timePeriod ?? 10;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3460,9 +3390,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function rocr100(array $real, int $timePeriod = null): array
+    public static function rocr100(array $real, int $timePeriod = 10): array
     {
-        $timePeriod = $timePeriod ?? 10;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3482,9 +3411,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function rocr(array $real, int $timePeriod = null): array
+    public static function rocr(array $real, int $timePeriod = 10): array
     {
-        $timePeriod = $timePeriod ?? 10;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3504,9 +3432,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function rsi(array $real, int $timePeriod = null): array
+    public static function rsi(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3528,10 +3455,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function sar(array $high, array $low, float $acceleration = null, float $maximum = null): array
+    public static function sar(array $high, array $low, float $acceleration = 0.02, float $maximum = 0.2): array
     {
-        $acceleration = $acceleration ?? 0.02;
-        $maximum      = $maximum ?? 0.2;
         self::verifyArrayCounts([$high, $low]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3561,16 +3486,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function sarext(array $high, array $low, float $startValue = null, float $offsetOnReverse = null, float $accelerationInitLong = null, float $accelerationLong = null, float $accelerationMaxLong = null, float $accelerationInitShort = null, float $accelerationShort = null, float $accelerationMaxShort = null): array
+    public static function sarext(array $high, array $low, float $startValue = 0.0, float $offsetOnReverse = 0.0, float $accelerationInitLong = 0.02, float $accelerationLong = 0.02, float $accelerationMaxLong = 0.2, float $accelerationInitShort = 0.02, float $accelerationShort = 0.02, float $accelerationMaxShort = 0.2): array
     {
-        $startValue            = $startValue ?? 0.0;
-        $offsetOnReverse       = $offsetOnReverse ?? 0.0;
-        $accelerationInitLong  = $accelerationInitLong ?? 0.02;
-        $accelerationLong      = $accelerationLong ?? 0.02;
-        $accelerationMaxLong   = $accelerationMaxLong ?? 0.2;
-        $accelerationInitShort = $accelerationInitShort ?? 0.02;
-        $accelerationShort     = $accelerationShort ?? 0.02;
-        $accelerationMaxShort  = $accelerationMaxShort ?? 0.2;
         self::verifyArrayCounts([$high, $low]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -3634,9 +3551,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function sma(array $real, int $timePeriod = null): array
+    public static function sma(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3678,11 +3594,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function stddev(array $real, int $timePeriod = null, float $nbDev = null): array
+    public static function stddev(array $real, int $timePeriod = 5, float $nbDev = 1.0): array
     {
-        $timePeriod = $timePeriod ?? 5;
-        $nbDev      = $nbDev ?? 1.0;
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3708,13 +3621,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [SlowK => [...], SlowD => [...]]
      * @throws \Exception
      */
-    public static function stoch(array $high, array $low, array $close, int $fastK_Period = null, int $slowK_Period = null, int $slowK_MAType = null, int $slowD_Period = null, int $slowD_MAType = null): array
+    public static function stoch(array $high, array $low, array $close, int $fastK_Period = 5, int $slowK_Period = 3, int $slowK_MAType = MovingAverageType::SMA, int $slowD_Period = 3, int $slowD_MAType = MovingAverageType::SMA): array
     {
-        $fastK_Period = $fastK_Period ?? 5;
-        $slowK_Period = $slowK_Period ?? 3;
-        $slowK_MAType = $slowK_MAType ?? MovingAverageType::SMA;
-        $slowD_Period = $slowD_Period ?? 3;
-        $slowD_MAType = $slowD_MAType ?? MovingAverageType::SMA;
         self::verifyArrayCounts([$high, $low, $close]);
         $high     = \array_values($high);
         $low      = \array_values($low);
@@ -3745,11 +3653,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [FastK => [...], FastD => [...]]
      * @throws \Exception
      */
-    public static function stochf(array $high, array $low, array $close, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
+    public static function stochf(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
     {
-        $fastK_Period = $fastK_Period ?? 5;
-        $fastD_Period = $fastD_Period ?? 3;
-        $fastD_MAType = $fastD_MAType ?? MovingAverageType::SMA;
         self::verifyArrayCounts([$high, $low, $close]);
         $high     = \array_values($high);
         $low      = \array_values($low);
@@ -3779,12 +3684,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure. [FastK => [...], FastD => [...]]
      * @throws \Exception
      */
-    public static function stochrsi(array $real, int $timePeriod = null, int $fastK_Period = null, int $fastD_Period = null, int $fastD_MAType = null): array
+    public static function stochrsi(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
     {
-        $timePeriod   = $timePeriod ?? 14;
-        $fastK_Period = $fastK_Period ?? 5;
-        $fastD_Period = $fastD_Period ?? 3;
-        $fastD_MAType = $fastD_MAType ?? MovingAverageType::SMA;
         $real         = \array_values($real);
         $endIdx       = count($real) - 1;
         $outFastK     = [];
@@ -3832,9 +3733,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function sum(array $real, int $timePeriod = null): array
+    public static function sum(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3855,10 +3755,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function t3(array $real, int $timePeriod = null, float $vFactor = null): array
+    public static function t3(array $real, int $timePeriod = 5, float $vFactor = 0.7): array
     {
-        $timePeriod = $timePeriod ?? 5;
-        $vFactor    = $vFactor ?? 0.7;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3920,9 +3818,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function tema(array $real, int $timePeriod = null): array
+    public static function tema(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3967,9 +3864,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function trima(array $real, int $timePeriod = null): array
+    public static function trima(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -3989,9 +3885,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function trix(array $real, int $timePeriod = null): array
+    public static function trix(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -4011,9 +3906,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function tsf(array $real, int $timePeriod = null): array
+    public static function tsf(array $real, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -4062,11 +3956,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function ultosc(array $high, array $low, array $close, int $timePeriod1 = null, int $timePeriod2 = null, int $timePeriod3 = null): array
+    public static function ultosc(array $high, array $low, array $close, int $timePeriod1 = 7, int $timePeriod2 = 14, int $timePeriod3 = 28): array
     {
-        $timePeriod1 = $timePeriod1 ?? 7;
-        $timePeriod2 = $timePeriod2 ?? 14;
-        $timePeriod3 = $timePeriod3 ?? 28;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -4090,10 +3981,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function var(array $real, int $timePeriod = null, float $nbDev = null): array
+    public static function var(array $real, int $timePeriod = 5, float $nbDev = 1.0): array
     {
-        $timePeriod = $timePeriod ?? 5;
-        $nbDev      = $nbDev ?? 1.0;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
@@ -4140,9 +4029,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function willr(array $high, array $low, array $close, int $timePeriod = null): array
+    public static function willr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $timePeriod = $timePeriod ?? 14;
         self::verifyArrayCounts([$high, $low, $close]);
         $high    = \array_values($high);
         $low     = \array_values($low);
@@ -4165,9 +4053,8 @@ class Trader
      * @return array Returns an array with calculated data or false on failure.
      * @throws \Exception
      */
-    public static function wma(array $real, int $timePeriod = null): array
+    public static function wma(array $real, int $timePeriod = 30): array
     {
-        $timePeriod = $timePeriod ?? 30;
         $real       = \array_values($real);
         $endIdx     = count($real) - 1;
         $outReal    = [];
