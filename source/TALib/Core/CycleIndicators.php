@@ -25,50 +25,16 @@ class CycleIndicators extends Core
      */
     public function htDcPeriod(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
-        $a = 0.0962;
-        $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
+        $a              = 0.0962;
+        $b              = 0.5769;
         $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
-        $jQ_Odd  = $this->double(3);
-        $jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg;
-        //double $todayValue, $smoothPeriod;
+        $Q1_Odd         = $this->double(3);
+        $Q1_Even        = $this->double(3);
+        $jI_Odd         = $this->double(3);
+        $jI_Even        = $this->double(3);
+        $jQ_Odd         = $this->double(3);
+        $jQ_Even        = $this->double(3);
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
         }
@@ -318,67 +284,29 @@ class CycleIndicators extends Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outReal
+     * @param array     $outReal
      *
      * @return int
      */
     public function htDcPhase(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
-        $a = 0.0962;
-        $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
-        $detrender_Odd  = $this->double(3);
-        $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
-        $jQ_Odd  = $this->double(3);
-        $jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg, $constDeg2RadBy360;
-        //double $todayValue, $smoothPeriod;
-        $smoothPrice_Idx = 0;
-        //$smoothPrice;
+        $a                       = 0.0962;
+        $b                       = 0.5769;
+        $detrender_Odd           = $this->double(3);
+        $detrender_Even          = $this->double(3);
+        $Q1_Odd                  = $this->double(3);
+        $Q1_Even                 = $this->double(3);
+        $jI_Odd                  = $this->double(3);
+        $jI_Even                 = $this->double(3);
+        $jQ_Odd                  = $this->double(3);
+        $jQ_Even                 = $this->double(3);
+        $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
-        //int $idxothPricePrice;
-        //int $DCPeriodInt;
-        //double $DCPhase, $DCPeriod, $imagPart, $realPart;
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
         }
@@ -678,62 +606,27 @@ class CycleIndicators extends Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outInPhase
-     * @param array  $outQuadrature
+     * @param array     $outInPhase
+     * @param array     $outQuadrature
      *
      * @return int
      */
     public function htPhasor(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInPhase, array &$outQuadrature): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
-        $a = 0.0962;
-        $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
+        $a              = 0.0962;
+        $b              = 0.5769;
         $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
-        $jQ_Odd = $this->double(3);
-        //$jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg;
-        //double $todayValue;
+        $Q1_Odd         = $this->double(3);
+        $Q1_Even        = $this->double(3);
+        $jI_Odd         = $this->double(3);
+        $jI_Even        = $this->double(3);
+        $jQ_Odd         = $this->double(3);
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
         }
@@ -986,68 +879,30 @@ class CycleIndicators extends Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outSine
-     * @param array  $outLeadSine
+     * @param array     $outSine
+     * @param array     $outLeadSine
      *
      * @return int
      */
     public function htSine(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outSine, array &$outLeadSine): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
-        $a = 0.0962;
-        $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
-        $detrender_Odd  = $this->double(3);
-        $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
-        $jQ_Odd  = $this->double(3);
-        $jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg, $deg2Rad, $constDeg2RadBy360;
-        //double $todayValue, $smoothPeriod;
-        $smoothPrice_Idx = 0;
-        //double[] $smoothPrice;
+        $a                       = 0.0962;
+        $b                       = 0.5769;
+        $detrender_Odd           = $this->double(3);
+        $detrender_Even          = $this->double(3);
+        $Q1_Odd                  = $this->double(3);
+        $Q1_Even                 = $this->double(3);
+        $jI_Odd                  = $this->double(3);
+        $jI_Even                 = $this->double(3);
+        $jQ_Odd                  = $this->double(3);
+        $jQ_Even                 = $this->double(3);
+        $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
-        //int $idxothPricePrice;
-        //int $DCPeriodInt;
-        //double $DCPhase, $DCPeriod, $imagPart, $realPart;
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
         }
@@ -1349,71 +1204,29 @@ class CycleIndicators extends Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outInteger
+     * @param array     $outInteger
      *
      * @return int
      */
     public function htTrendMode(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
-        //double $iTrend1, $iTrend2, $iTrend3;
-        $a = 0.0962;
-        $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
-        $detrender_Odd  = $this->double(3);
-        $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
-        $jQ_Odd  = $this->double(3);
-        $jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg, $deg2Rad, $constDeg2RadBy360;
-        //double $todayValue, $smoothPeriod;
-        $smoothPrice_Idx = 0;
-        //] $smoothPrice;
+        $a                       = 0.0962;
+        $b                       = 0.5769;
+        $detrender_Odd           = $this->double(3);
+        $detrender_Even          = $this->double(3);
+        $Q1_Odd                  = $this->double(3);
+        $Q1_Even                 = $this->double(3);
+        $jI_Odd                  = $this->double(3);
+        $jI_Even                 = $this->double(3);
+        $jQ_Odd                  = $this->double(3);
+        $jQ_Even                 = $this->double(3);
+        $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
-        //int $idxothPricePrice;
-        //int $DCPeriodInt;
-        //double $DCPhase, $DCPeriod, $imagPart, $realPart;
-        //int $daysInTrend, $trend;
-        //double $prevDCPhase, $trendline;
-        //double $prevSine, $prevLeadSine, $sine, $leadSine;
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
         }
