@@ -12,11 +12,29 @@ The goal is that this library can be used by those whom cannot install the PHP T
 
 That's the only thing you need!  As stated, you do not need to install any extensions for this library.
 
+## Usage
+### Drop-In Replacement
+
+This library is intended to be a drop-in replacement for the Trader extension, with a minimum of code changed.
+
+If you had    
+`trader_adosc($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`    
+You can swap that with    
+`Trader::adosc($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`    
+You only need to change `trader_` to `Trader::`.  That's it!
+
+### Friendly-Named Replacement
+
+Another option that this package provides is to use functions that have an easier to understand name.
+
+If you do not to use `adosc` because it is not descriptive enough, you can instead use `chaikinAccumulationDistributionOscillator` like this:    
+`TraderFriendly::chaikinAccumulationDistributionOscillator($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`
+
 ## Metrics & Coverage
 ### PHP Metrics Report
-To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/Projects/phpTraderNative/metrics/)
+To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/phpTraderNative/metrics/)
 ### PHP Unit Coverage
-To see the current report of coverage by PHP Unit, visit [Coverage](https://projects.lupecode.com/Projects/phpTraderNative/logs/report/)
+To see the current report of coverage by PHP Unit, visit [Coverage](https://projects.lupecode.com/phpTraderNative/logs/report/)
 
 ## License
 
