@@ -1002,8 +1002,7 @@ class TraderTest extends TestCase
     {
         $outInPhase    = array();
         $outQuadrature = array();
-        $_             = array();
-        list($traderInPhase, $traderQuadrature) = \trader_ht_phasor($this->High, $_);
+        list($traderInPhase, $traderQuadrature) = \trader_ht_phasor($this->High);
         $outQuadrature = Trader::ht_phasor($this->High, $outInPhase);
         $this->assertEquals($traderQuadrature, $this->adjustForPECL($outQuadrature));
         $this->assertEquals($traderInPhase, $this->adjustForPECL($outInPhase));
@@ -1016,8 +1015,7 @@ class TraderTest extends TestCase
     {
         $outSine     = array();
         $outLeadSine = array();
-        $_           = array();
-        list($traderSine, $traderLeadSine) = \trader_ht_sine($this->High, $_);
+        list($traderSine, $traderLeadSine) = \trader_ht_sine($this->High);
         $outLeadSine = Trader::ht_sine($this->High, $outSine);
         $this->assertEquals($traderLeadSine, $this->adjustForPECL($outLeadSine));
         $this->assertEquals($traderSine, $this->adjustForPECL($outSine));
