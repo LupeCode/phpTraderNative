@@ -35,6 +35,13 @@ If you do not to use `adosc` because it is not descriptive enough, you can inste
 To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/phpTraderNative/metrics/)
 ### PHP Unit Coverage
 To see the current report of coverage by PHP Unit, visit [Coverage](https://projects.lupecode.com/phpTraderNative/logs/report/)
+### PHP Unit Test Results
+ * PHP 7.0 NTS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.0NTS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.0NTS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.0NTS.html)
+ * PHP 7.0 TS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.0TS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.0TS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.0TS.html)
+ * PHP 7.1 NTS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.1NTS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.1NTS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.1NTS.html)
+ * PHP 7.1 TS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.1TS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.1TS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.1TS.html)
+ * PHP 7.2 NTS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.2NTS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2NTS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2TS.html)
+ * PHP 7.2 TS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.2TS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2TS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2TS.html)
 
 ## License
 

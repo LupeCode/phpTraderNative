@@ -39,3 +39,4 @@ nbproject
 logs/
 metrics/
 vendor/
+*.bat
