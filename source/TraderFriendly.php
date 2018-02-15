@@ -197,7 +197,7 @@ class TraderFriendly
      * @return array Returns an array with calculated data.
      * @throws \Exception
      */
-    public static function arronOscillator(array $high, array $low, int $timePeriod = 14): array
+    public static function aroonOscillator(array $high, array $low, int $timePeriod = 14): array
     {
         return Trader::aroonosc($high, $low, $timePeriod);
     }
