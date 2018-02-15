@@ -2,13 +2,8 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\TALib\Classes\CandleSetting;
 use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
-use LupeCode\phpTraderNative\TALib\Enum\CandleSettingType;
-use LupeCode\phpTraderNative\TALib\Enum\Compatibility;
-use LupeCode\phpTraderNative\TALib\Enum\RangeType;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
-use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
 class MathTransform extends Core
 {
