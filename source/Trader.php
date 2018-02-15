@@ -2198,45 +2198,49 @@ class Trader
     /**
      * Hilbert Transform - Phasor Components
      *
-     * @param array $real    Array of real values.
-     * @param array $inPhase Empty array, will be filled with in phase data.
+     * @param array $real Array of real values.
      *
-     * @return array Returns an array with calculated data.
+     * @return array Returns an array with calculated data. [Quadrature => [...], InPhase => [...]]
      * @throws \Exception
      */
-    public static function ht_phasor(array $real, array &$inPhase): array
+    public static function ht_phasor(array $real): array
     {
         $real          = \array_values($real);
         $endIdx        = count($real) - 1;
+        $outInPhase    = [];
         $outQuadrature = [];
         self::prep();
-        $ReturnCode = (new CycleIndicators())->htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $inPhase, $outQuadrature);
+        $ReturnCode = (new CycleIndicators())->htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInPhase, $outQuadrature);
         static::checkForError($ReturnCode);
-        $inPhase = self::adjustIndexes($inPhase, self::$outBegIdx->value);
 
-        return self::adjustIndexes($outQuadrature, self::$outBegIdx->value);
+        return [
+            "Quadrature" => self::adjustIndexes($outQuadrature, self::$outBegIdx->value),
+            "InPhase"    => self::adjustIndexes($outInPhase, self::$outBegIdx->value),
+        ];
     }
 
     /**
      * Hilbert Transform - SineWave
      *
      * @param array $real Array of real values.
-     * @param array $sine Empty array, will be filled with sine data.
      *
-     * @return array Returns an array with calculated data.
+     * @return array Returns an array with calculated data. [LeadSine => [...], Sine => [...]]
      * @throws \Exception
      */
-    public static function ht_sine(array $real, array &$sine): array
+    public static function ht_sine(array $real): array
     {
         $real        = \array_values($real);
         $endIdx      = count($real) - 1;
+        $outSine     = [];
         $outLeadSine = [];
         self::prep();
-        $ReturnCode = (new CycleIndicators())->htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $sine, $outLeadSine);
+        $ReturnCode = (new CycleIndicators())->htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine);
         static::checkForError($ReturnCode);
-        $sine = self::adjustIndexes($sine, self::$outBegIdx->value);
 
-        return self::adjustIndexes($outLeadSine, self::$outBegIdx->value);
+        return [
+            "LeadSine" => self::adjustIndexes($outLeadSine, self::$outBegIdx->value),
+            "Sine"     => self::adjustIndexes($outSine, self::$outBegIdx->value),
+        ];
     }
 
     /**

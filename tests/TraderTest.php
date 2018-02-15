@@ -260,7 +260,6 @@ class TraderTest extends TestCase
 
         $optInTimePeriod = 20;
         $this->assertEquals(\trader_adxr($this->High, $this->Low, $this->Close, $optInTimePeriod), $this->adjustForPECL(Trader::adxr($this->High, $this->Low, $this->Close, $optInTimePeriod)));
-
     }
 
     /**
@@ -1000,12 +999,10 @@ class TraderTest extends TestCase
      */
     public function testHtPhasor()
     {
-        $outInPhase    = array();
-        $outQuadrature = array();
         list($traderInPhase, $traderQuadrature) = \trader_ht_phasor($this->High);
-        $outQuadrature = Trader::ht_phasor($this->High, $outInPhase);
-        $this->assertEquals($traderQuadrature, $this->adjustForPECL($outQuadrature));
-        $this->assertEquals($traderInPhase, $this->adjustForPECL($outInPhase));
+        $Output = Trader::ht_phasor($this->High);
+        $this->assertEquals($traderQuadrature, $this->adjustForPECL($Output['Quadrature']));
+        $this->assertEquals($traderInPhase, $this->adjustForPECL($Output['InPhase']));
     }
 
     /**
@@ -1013,12 +1010,10 @@ class TraderTest extends TestCase
      */
     public function testHtSine()
     {
-        $outSine     = array();
-        $outLeadSine = array();
         list($traderSine, $traderLeadSine) = \trader_ht_sine($this->High);
-        $outLeadSine = Trader::ht_sine($this->High, $outSine);
-        $this->assertEquals($traderLeadSine, $this->adjustForPECL($outLeadSine));
-        $this->assertEquals($traderSine, $this->adjustForPECL($outSine));
+        $Output = Trader::ht_sine($this->High);
+        $this->assertEquals($traderLeadSine, $this->adjustForPECL($Output['LeadSine']));
+        $this->assertEquals($traderSine, $this->adjustForPECL($Output['Sine']));
     }
 
     /**
