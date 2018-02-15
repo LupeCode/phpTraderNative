@@ -66,20 +66,12 @@ class VolatilityIndicators extends Core
      */
     public function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //ReturnCode $retCode;
-        //int $outIdx, $today, $lookbackTotal;
-        //int $nbATR;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $outBegIdx1    = new MyInteger();
         $outNbElement1 = new MyInteger();
-        //double $prevATR, $tempValue;
-        //$tempBuffer;
         $prevATRTemp = $this->double(1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
@@ -170,14 +162,8 @@ class VolatilityIndicators extends Core
      */
     public function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $today, $outIdx;
-        //double $val2, $val3, $greatest;
-        //double $tempCY, $tempLT, $tempHT;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ($startIdx < 1) {
             $startIdx = 1;

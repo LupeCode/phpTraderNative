@@ -91,6 +91,16 @@ class Core
         return \array_pad([], $size, 0.);
     }
 
+    protected function validateStartEndIndexes(int $startIdx, int $endIdx)
+    {
+        if ($startIdx < 0) {
+            return ReturnCode::OutOfRangeStartIndex;
+        }
+        if (($endIdx < 0) || ($endIdx < $startIdx)) {
+            return ReturnCode::OutOfRangeEndIndex;
+        }
+    }
+
     /**
      * @param int   $settingType
      * @param int   $rangeType

@@ -63,6 +63,9 @@ class CycleIndicators extends Core
      */
     public function htDcPeriod(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $a              = 0.0962;
         $b              = 0.5769;
         $detrender_Odd  = $this->double(3);
@@ -73,14 +76,8 @@ class CycleIndicators extends Core
         $jI_Even        = $this->double(3);
         $jQ_Odd         = $this->double(3);
         $jQ_Even        = $this->double(3);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
-        $rad2Deg       = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
+        $rad2Deg        = 180.0 / (4.0 * atan(1));
+        $lookbackTotal  = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -333,6 +330,9 @@ class CycleIndicators extends Core
      */
     public function htDcPhase(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $a                       = 0.0962;
         $b                       = 0.5769;
         $detrender_Odd           = $this->double(3);
@@ -345,12 +345,6 @@ class CycleIndicators extends Core
         $jQ_Even                 = $this->double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
         };
@@ -656,6 +650,9 @@ class CycleIndicators extends Core
      */
     public function htPhasor(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInPhase, array &$outQuadrature): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $a              = 0.0962;
         $b              = 0.5769;
         $detrender_Odd  = $this->double(3);
@@ -665,12 +662,6 @@ class CycleIndicators extends Core
         $jI_Odd         = $this->double(3);
         $jI_Even        = $this->double(3);
         $jQ_Odd         = $this->double(3);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         $rad2Deg       = 180.0 / (4.0 * atan(1));
         $lookbackTotal = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
         if ($startIdx < $lookbackTotal) {
@@ -929,6 +920,9 @@ class CycleIndicators extends Core
      */
     public function htSine(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outSine, array &$outLeadSine): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $a                       = 0.0962;
         $b                       = 0.5769;
         $detrender_Odd           = $this->double(3);
@@ -941,12 +935,6 @@ class CycleIndicators extends Core
         $jQ_Even                 = $this->double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
         };
@@ -1253,6 +1241,9 @@ class CycleIndicators extends Core
      */
     public function htTrendMode(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $a                       = 0.0962;
         $b                       = 0.5769;
         $detrender_Odd           = $this->double(3);
@@ -1265,12 +1256,6 @@ class CycleIndicators extends Core
         $jQ_Even                 = $this->double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
         };

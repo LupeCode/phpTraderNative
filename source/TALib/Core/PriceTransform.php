@@ -65,11 +65,8 @@ class PriceTransform extends Core
      */
     public function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         $outIdx = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {
@@ -94,12 +91,8 @@ class PriceTransform extends Core
      */
     public function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         $outIdx = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {
@@ -125,12 +118,8 @@ class PriceTransform extends Core
      */
     public function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         $outIdx = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {
@@ -158,12 +147,8 @@ class PriceTransform extends Core
      */
     public function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         $outIdx = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {

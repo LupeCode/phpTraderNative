@@ -62,11 +62,8 @@ class MathTransform extends Core
      */
     public function acos(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = acos($inReal[$i]);
@@ -89,11 +86,8 @@ class MathTransform extends Core
      */
     public function asin(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = asin($inReal[$i]);
@@ -116,11 +110,8 @@ class MathTransform extends Core
      */
     public function atan(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = atan($inReal[$i]);
@@ -143,13 +134,8 @@ class MathTransform extends Core
      */
     public function ceil(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = ceil($inReal[$i]);
@@ -172,13 +158,8 @@ class MathTransform extends Core
      */
     public function cos(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = cos($inReal[$i]);
@@ -201,13 +182,8 @@ class MathTransform extends Core
      */
     public function cosh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = cosh($inReal[$i]);
@@ -230,13 +206,8 @@ class MathTransform extends Core
      */
     public function exp(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = exp($inReal[$i]);
@@ -259,13 +230,8 @@ class MathTransform extends Core
      */
     public function floor(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = floor($inReal[$i]);
@@ -288,13 +254,8 @@ class MathTransform extends Core
      */
     public function ln(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = log($inReal[$i]);
@@ -317,13 +278,8 @@ class MathTransform extends Core
      */
     public function log10(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = log10($inReal[$i]);
@@ -346,13 +302,8 @@ class MathTransform extends Core
      */
     public function sin(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = sin($inReal[$i]);
@@ -375,13 +326,8 @@ class MathTransform extends Core
      */
     public function sinh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = sinh($inReal[$i]);
@@ -404,13 +350,8 @@ class MathTransform extends Core
      */
     public function sqrt(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = sqrt($inReal[$i]);
@@ -433,13 +374,8 @@ class MathTransform extends Core
      */
     public function tan(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = tan($inReal[$i]);
@@ -462,13 +398,8 @@ class MathTransform extends Core
      */
     public function tanh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = tanh($inReal[$i]);

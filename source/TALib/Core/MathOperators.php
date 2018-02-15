@@ -63,11 +63,8 @@ class MathOperators extends Core
      */
     public function add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] + $inReal1[$i];
@@ -91,13 +88,8 @@ class MathOperators extends Core
      */
     public function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] / $inReal1[$i];
@@ -121,14 +113,8 @@ class MathOperators extends Core
      */
     public function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $highest, $tmp;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $today, $i, $highestIdx;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -190,14 +176,8 @@ class MathOperators extends Core
      */
     public function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
-        //double $highest, $tmp;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $today, $i, $highestIdx;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -259,14 +239,8 @@ class MathOperators extends Core
      */
     public function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $lowest, $tmp;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $lowestIdx, $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -328,14 +302,8 @@ class MathOperators extends Core
      */
     public function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
-        //double $lowest, $tmp;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $lowestIdx, $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -398,14 +366,8 @@ class MathOperators extends Core
      */
     public function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMin, array &$outMax): int
     {
-        //double $highest, $lowest, $tmpHigh, $tmpLow;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $today, $i, $highestIdx, $lowestIdx;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -487,14 +449,8 @@ class MathOperators extends Core
      */
     public function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMinIdx, array &$outMaxIdx): int
     {
-        //double $highest, $lowest, $tmpHigh, $tmpLow;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $today, $i, $highestIdx, $lowestIdx;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -575,13 +531,8 @@ class MathOperators extends Core
      */
     public function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] * $inReal1[$i];
@@ -605,13 +556,8 @@ class MathOperators extends Core
      */
     public function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] - $inReal1[$i];
@@ -635,13 +581,8 @@ class MathOperators extends Core
      */
     public function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $periodTotal, $tempReal;
-        //int $i, $outIdx, $trailingIdx, $lookbackTotal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;

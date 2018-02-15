@@ -69,11 +69,8 @@ class OverlapStudies extends Core
      */
     public function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -180,21 +177,13 @@ class OverlapStudies extends Core
      */
     public function dema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double[] $firstEMA;
-        //double[] $secondEMA;
-        //double $k;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $firstEMABegIdx     = new MyInteger();
         $firstEMANbElement  = new MyInteger();
         $secondEMABegIdx    = new MyInteger();
         $secondEMANbElement = new MyInteger();
-        //int $tempInt, $outIdx, $firstEMAIdx, $lookbackTotal, $lookbackEMA;
-        //ReturnCode $ReturnCode;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
@@ -261,11 +250,8 @@ class OverlapStudies extends Core
      */
     public function ema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -293,63 +279,21 @@ class OverlapStudies extends Core
      */
     public function htTrendline(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
-        //double $iTrend1, $iTrend2, $iTrend3;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $a = 0.0962;
         $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
         $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
         $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
         $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
         $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg;
-        //double $todayValue, $smoothPeriod;
         $smoothPrice_Idx = 0;
-        //double[] $smoothPrice;
         $maxIdx_smoothPricePrice = (50 - 1);
-        //int $idxothPricePrice;
-        //int $DCPeriodInt;
-        //double $DCPeriod;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         {
             $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
         };
@@ -634,19 +578,11 @@ class OverlapStudies extends Core
      */
     public function kama(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $constMax  = 2.0 / (30.0 + 1.0);
         $constDiff = 2.0 / (2.0 + 1.0) - $constMax;
-        //double $tempReal, $tempReal2;
-        //double $sumROC1, $periodROC, $prevKAMA;
-        //int $i, $today, $outIdx, $lookbackTotal;
-        //int $trailingIdx;
-        //double $trailingValue;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
@@ -741,15 +677,8 @@ class OverlapStudies extends Core
      */
     public function movingAverage(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double[] $dummyBuffer;
-        //ReturnCode $ReturnCode;
-        //int $nbElement;
-        //int $outIdx, $todayIdx;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -847,55 +776,18 @@ class OverlapStudies extends Core
      */
     public function mama(int $startIdx, int $endIdx, array $inReal, float $optInFastLimit, float $optInSlowLimit, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMAMA, array &$outFAMA): int
     {
-        //int $outIdx, $i;
-        //int $lookbackTotal, $today;
-        //double $tempReal, $tempReal2;
-        //double $adjustedPrevPeriod, $period;
-        //int $trailingWMAIdx;
-        //double $periodWMASum, $periodWMASub, $trailingWMAValue;
-        //double $smoothedValue;
         $a = 0.0962;
         $b = 0.5769;
-        //double $hilbertTempReal;
-        //int $hilbertIdx;
         $detrender_Odd  = $this->double(3);
         $detrender_Even = $this->double(3);
-        //double $detrender;
-        //double $prev_detrender_Odd;
-        //double $prev_detrender_Even;
-        //double $prev_detrender_input_Odd;
-        //double $prev_detrender_input_Even;
         $Q1_Odd  = $this->double(3);
         $Q1_Even = $this->double(3);
-        //double $Q1;
-        //double $prev_Q1_Odd;
-        //double $prev_Q1_Even;
-        //double $prev_Q1_input_Odd;
-        //double $prev_Q1_input_Even;
         $jI_Odd  = $this->double(3);
         $jI_Even = $this->double(3);
-        //double $jI;
-        //double $prev_jI_Odd;
-        //double $prev_jI_Even;
-        //double $prev_jI_input_Odd;
-        //double $prev_jI_input_Even;
         $jQ_Odd  = $this->double(3);
         $jQ_Even = $this->double(3);
-        //double $jQ;
-        //double $prev_jQ_Odd;
-        //double $prev_jQ_Even;
-        //double $prev_jQ_input_Odd;
-        //double $prev_jQ_input_Even;
-        //double $Q2, $I2, $prevQ2, $prevI2, $Re, $Im;
-        //double $I1ForOddPrev2, $I1ForOddPrev3;
-        //double $I1ForEvenPrev2, $I1ForEvenPrev3;
-        //double $rad2Deg;
-        //double $mama, $fama, $todayValue, $prevPhase;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ($optInFastLimit == (-4e+37)) {
             $optInFastLimit = 5.000000e-1;
@@ -1192,18 +1084,11 @@ class OverlapStudies extends Core
      */
     public function movingAverageVariablePeriod(int $startIdx, int $endIdx, array $inReal, array &$inPeriods, int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $i, $j, $lookbackTotal, $outputSize, $tempInt, $curPeriod;
-        //int[] $localPeriodArray;
-        //double[] $localOutputArray;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $localBegIdx    = new MyInteger();
         $localNbElement = new MyInteger();
-        //ReturnCode $ReturnCode;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInMinPeriod == (PHP_INT_MIN)) {
             $optInMinPeriod = 2;
         } elseif (((int)$optInMinPeriod < 2) || ((int)$optInMinPeriod > 100000)) {
@@ -1289,14 +1174,8 @@ class OverlapStudies extends Core
      */
     public function midPoint(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $lowest, $highest, $tmp;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1350,14 +1229,8 @@ class OverlapStudies extends Core
      */
     public function midPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $lowest, $highest, $tmp;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1415,19 +1288,11 @@ class OverlapStudies extends Core
      */
     public function sar(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInAcceleration, float $optInMaximum, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //ReturnCode $ReturnCode;
-        //int $isLong;
-        //int $todayIdx, $outIdx;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $tempInt = new MyInteger();
-        //double $newHigh, $newLow, $prevHigh, $prevLow;
-        //double $af, $ep, $sar;
         $ep_temp = $this->double(1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ($optInAcceleration == (-4e+37)) {
             $optInAcceleration = 2.000000e-2;
         } elseif (($optInAcceleration < 0.000000e+0) || ($optInAcceleration > 3.000000e+37)) {
@@ -1589,19 +1454,11 @@ class OverlapStudies extends Core
      */
     public function sarExt(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //ReturnCode $ReturnCode;
-        //int $isLong;
-        //int $todayIdx, $outIdx;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $tempInt = new MyInteger();
-        //double $newHigh, $newLow, $prevHigh, $prevLow;
-        //double $afLong, $afShort, $ep, $sar;
         $ep_temp = $this->double(1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ($optInStartValue == (-4e+37)) {
             $optInStartValue = 0.000000e+0;
         } elseif (($optInStartValue < -3.000000e+37) || ($optInStartValue > 3.000000e+37)) {
@@ -1815,11 +1672,8 @@ class OverlapStudies extends Core
      */
     public function sma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -1848,17 +1702,8 @@ class OverlapStudies extends Core
      */
     public function t3(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInVFactor, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx, $lookbackTotal;
-        //int $today, $i;
-        //double $k, $one_minus_k;
-        //double $e1, $e2, $e3, $e4, $e5, $e6;
-        //double $c1, $c2, $c3, $c4;
-        //double $tempReal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -1971,24 +1816,15 @@ class OverlapStudies extends Core
      */
     public function tema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double[] $firstEMA;
-        //double[] $secondEMA;
-        //double $k;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $firstEMABegIdx     = new MyInteger();
         $firstEMANbElement  = new MyInteger();
         $secondEMABegIdx    = new MyInteger();
         $secondEMANbElement = new MyInteger();
         $thirdEMABegIdx     = new MyInteger();
         $thirdEMANbElement  = new MyInteger();
-        //int $tempInt, $outIdx, $lookbackTotal, $lookbackEMA;
-        //int $firstEMAIdx, $secondEMAIdx;
-        //ReturnCode $ReturnCode;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
@@ -2061,17 +1897,8 @@ class OverlapStudies extends Core
      */
     public function trima(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $lookbackTotal;
-        //double $numerator;
-        //double $numeratorSub;
-        //double $numeratorAdd;
-        //int $i, $outIdx, $todayIdx, $trailingIdx, $middleIdx;
-        //double $factor, $tempReal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -2185,14 +2012,8 @@ class OverlapStudies extends Core
      */
     public function wma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $inIdx, $outIdx, $i, $trailingIdx, $divider;
-        //double $periodSum, $periodSub, $tempReal, $trailingValue;
-        //int $lookbackTotal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;

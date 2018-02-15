@@ -67,11 +67,8 @@ class MomentumIndicators extends Core
      */
     public function adx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -264,11 +261,8 @@ class MomentumIndicators extends Core
      */
     public function adxr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -319,11 +313,8 @@ class MomentumIndicators extends Core
      */
     public function apo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -356,11 +347,8 @@ class MomentumIndicators extends Core
      */
     public function aroon(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outAroonDown, array &$outAroonUp): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -443,11 +431,8 @@ class MomentumIndicators extends Core
      */
     public function aroonOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -531,11 +516,8 @@ class MomentumIndicators extends Core
      */
     public function bop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         $outIdx = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {
@@ -567,13 +549,10 @@ class MomentumIndicators extends Core
      */
     public function cci(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $circBuffer_Idx = 0;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
@@ -655,15 +634,8 @@ class MomentumIndicators extends Core
      */
     public function cmo(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $today, $lookbackTotal, $unstablePeriod, $i;
-        //double $prevGain, $prevLoss, $prevValue, $savePrevValue;
-        //double $tempValue1, $tempValue2, $tempValue3, $tempValue4;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -805,17 +777,8 @@ class MomentumIndicators extends Core
      */
     public function dx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $today, $lookbackTotal, $outIdx;
-        //double $prevHigh, $prevLow, $prevClose;
-        //double $prevMinusDM, $prevPlusDM, $prevTR;
-        //double $tempReal, $tempReal2, $diffP, $diffM;
-        //double $minusDI, $plusDI;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -980,11 +943,8 @@ class MomentumIndicators extends Core
      */
     public function macd(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -1035,23 +995,13 @@ class MomentumIndicators extends Core
      */
     public function macdExt(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
-        //double[] $slowMABuffer;
-        //double[] $fastMABuffer;
-        //ReturnCode $ReturnCode;
-        //int $tempInteger;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $outBegIdx1    = new MyInteger();
         $outNbElement1 = new MyInteger();
         $outBegIdx2    = new MyInteger();
         $outNbElement2 = new MyInteger();
-        //int $lookbackTotal, $lookbackSignal, $lookbackLargest;
-        //int $i;
-        //MAType $tempMAType;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
         } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
@@ -1170,11 +1120,8 @@ class MomentumIndicators extends Core
      */
     public function macdFix(int $startIdx, int $endIdx, array $inReal, int $optInSignalPeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInSignalPeriod == (PHP_INT_MIN)) {
             $optInSignalPeriod = 9;
@@ -1211,18 +1158,11 @@ class MomentumIndicators extends Core
      */
     public function mfi(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array &$inVolume, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $posSumMF, $negSumMF, $prevValue;
-        //double $tempValue1, $tempValue2;
-        //int $lookbackTotal, $outIdx, $i, $today;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $money_flow_Idx = 0;
-        //MoneyFlow[] $mflow;
         $maxIdx_money_flow = (50 - 1);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
@@ -1365,16 +1305,8 @@ class MomentumIndicators extends Core
      */
     public function minusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $today, $lookbackTotal, $outIdx;
-        //double $prevHigh, $prevLow, $prevClose;
-        //double $prevMinusDM, $prevTR;
-        //double $tempReal, $tempReal2, $diffP, $diffM;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1554,16 +1486,8 @@ class MomentumIndicators extends Core
      */
     public function minusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $today, $lookbackTotal, $outIdx;
-        //double $prevHigh, $prevLow, $tempReal;
-        //double $prevMinusDM;
-        //double $diffP, $diffM;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1676,12 +1600,8 @@ class MomentumIndicators extends Core
      */
     public function mom(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $inIdx, $outIdx, $trailingIdx;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -1724,16 +1644,8 @@ class MomentumIndicators extends Core
      */
     public function plusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $today, $lookbackTotal, $outIdx;
-        //double $prevHigh, $prevLow, $prevClose;
-        //double $prevPlusDM, $prevTR;
-        //double $tempReal, $tempReal2, $diffP, $diffM;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1913,16 +1825,8 @@ class MomentumIndicators extends Core
      */
     public function plusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $today, $lookbackTotal, $outIdx;
-        //double $prevHigh, $prevLow, $tempReal;
-        //double $prevPlusDM;
-        //double $diffP, $diffM;
-        //int $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -2037,13 +1941,8 @@ class MomentumIndicators extends Core
      */
     public function ppo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //$tempBuffer;
-        //ReturnCode $ReturnCode;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -2085,13 +1984,8 @@ class MomentumIndicators extends Core
      */
     public function roc(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $inIdx, $outIdx, $trailingIdx;
-        //double $tempReal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -2138,13 +2032,8 @@ class MomentumIndicators extends Core
      */
     public function rocP(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $inIdx, $outIdx, $trailingIdx;
-        //double $tempReal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -2191,13 +2080,8 @@ class MomentumIndicators extends Core
      */
     public function rocR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $inIdx, $outIdx, $trailingIdx;
-        //double $tempReal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -2244,13 +2128,8 @@ class MomentumIndicators extends Core
      */
     public function rocR100(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $inIdx, $outIdx, $trailingIdx;
-        //double $tempReal;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -2297,15 +2176,8 @@ class MomentumIndicators extends Core
      */
     public function rsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //int $outIdx;
-        //int $today, $lookbackTotal, $unstablePeriod, $i;
-        //double $prevGain, $prevLoss, $prevValue, $savePrevValue;
-        //double $tempValue1, $tempValue2;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -2451,17 +2323,8 @@ class MomentumIndicators extends Core
      */
     public function stoch(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outSlowK, array &$outSlowD): int
     {
-        //ReturnCode $ReturnCode;
-        //double $lowest, $highest, $tmp, $diff;
-        //$tempBuffer;
-        //int $outIdx, $lowestIdx, $highestIdx;
-        //int $lookbackTotal, $lookbackK, $lookbackKSlow, $lookbackDSlow;
-        //int $trailingIdx, $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
             $optInFastK_Period = 5;
@@ -2601,17 +2464,8 @@ class MomentumIndicators extends Core
      */
     public function stochF(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outFastK, array &$outFastD): int
     {
-        //ReturnCode $ReturnCode;
-        //double $lowest, $highest, $tmp, $diff;
-        //$tempBuffer;
-        //int $outIdx, $lowestIdx, $highestIdx;
-        //int $lookbackTotal, $lookbackK, $lookbackFastD;
-        //int $trailingIdx, $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
             $optInFastK_Period = 5;
@@ -2738,18 +2592,12 @@ class MomentumIndicators extends Core
      */
     public function stochRsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outFastK, array &$outFastD): int
     {
-        //double[] $tempRSIBuffer;
-        //ReturnCode $ReturnCode;
-        //int $lookbackTotal, $lookbackSTOCHF, $tempArraySize;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $outBegIdx1    = new MyInteger();
         $outBegIdx2    = new MyInteger();
         $outNbElement1 = new MyInteger();
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
@@ -2833,20 +2681,11 @@ class MomentumIndicators extends Core
      */
     public function trix(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $k;
-        //$tempBuffer;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $nbElement = new MyInteger();
         $begIdx    = new MyInteger();
-        //int $totalLookback;
-        //int $emaLookback, $rocLookback;
-        //ReturnCode $ReturnCode;
-        //int $nbElementToOutput;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
@@ -2941,23 +2780,12 @@ class MomentumIndicators extends Core
      */
     public function ultOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $a1Total, $a2Total, $a3Total;
-        //double $b1Total, $b2Total, $b3Total;
-        //double $trueLow, $trueRange, $closeMinusTrueLow;
-        //double $tempDouble, $output, $tempHT, $tempLT, $tempCY;
-        //int $lookbackTotal;
-        //int $longestPeriod, $longestIndex;
-        //int $i, $j, $today, $outIdx;
-        //int $trailingIdx1, $trailingIdx2, $trailingIdx3;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
         $usedFlag      = \array_pad([], 3, 0);
         $periods       = \array_pad([], 3, 0);
         $sortedPeriods = \array_pad([], 3, 0);
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
         if ((int)$optInTimePeriod1 == (PHP_INT_MIN)) {
             $optInTimePeriod1 = 7;
         } elseif (((int)$optInTimePeriod1 < 1) || ((int)$optInTimePeriod1 > 100000)) {
@@ -3195,15 +3023,8 @@ class MomentumIndicators extends Core
      */
     public function willR(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        //double $lowest, $highest, $tmp, $diff;
-        //int $outIdx, $nbInitialElementNeeded;
-        //int $trailingIdx, $lowestIdx, $highestIdx;
-        //int $today, $i;
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
