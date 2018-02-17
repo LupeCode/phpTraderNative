@@ -72,65 +72,7 @@ class Core
      */
     public function __construct()
     {
-        $this->TA_CandleDefaultSettings = $this->TA_CandleDefaultSettings();
-        $this->unstablePeriod           = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
-        $this->compatibility            = Compatibility::Default;
-        $this->candleSettings           = \array_fill(0, CandleSettingType::AllCandleSettings, null);
-        for ($i = 0; $i < count($this->candleSettings); $i++) {
-            $this->candleSettings[$i] = $this->TA_CandleDefaultSettings[$i];
-        }
-    }
-
-    /**
-     * @param int $size
-     *
-     * @return array
-     */
-    protected function double(int $size)
-    {
-        return \array_pad([], $size, 0.);
-    }
-
-    protected function validateStartEndIndexes(int $startIdx, int $endIdx)
-    {
-        if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
-        }
-        if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
-        }
-    }
-
-    /**
-     * @param int   $settingType
-     * @param int   $rangeType
-     * @param int   $avgPeriod
-     * @param float $factor
-     *
-     * @return int
-     */
-    public function SetCandleSettings(int $settingType, int $rangeType, int $avgPeriod, float $factor)
-    {
-        if ($settingType >= CandleSettingType::AllCandleSettings) {
-            return ReturnCode::BadParam;
-        }
-        $this->candleSettings[$settingType]->settingType = $settingType;
-        $this->candleSettings[$settingType]->rangeType   = $rangeType;
-        $this->candleSettings[$settingType]->avgPeriod   = $avgPeriod;
-        $this->candleSettings[$settingType]->factor      = $factor;
-
-        return ReturnCode::Success;
-    }
-
-    /** @var CandleSetting[] */
-    protected $TA_CandleDefaultSettings;
-
-    /**
-     * @return array
-     */
-    final protected function TA_CandleDefaultSettings()
-    {
-        return [
+        $this->candleSettings = [
             /* real body is long when it's longer than the average of the 10 previous candles' real body */
             new CandleSetting(CandleSettingType::BodyLong, RangeType::RealBody, 10, 1.),
             /* real body is very long when it's longer than 3 times the average of the 10 previous candles' real body */
@@ -154,73 +96,36 @@ class Core
             /* when measuring distance between parts of candles or width of gaps "equal" means "<= 5% of the average of the 5 previous candles' high-low range" */
             new CandleSetting(CandleSettingType::Equal, RangeType::HighLow, 5, 0.05),
         ];
+        $this->unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
+        $this->compatibility  = Compatibility::Default;
     }
 
     /**
-     * @param int $settingType
+     * @param int $size
+     *
+     * @return array
+     */
+    protected function double(int $size)
+    {
+        return \array_pad([], $size, 0.);
+    }
+
+    /**
+     * @param int $startIdx
+     * @param int $endIdx
      *
      * @return int
      */
-    public function RestoreCandleDefaultSettings(int $settingType): int
+    protected function validateStartEndIndexes(int $startIdx, int $endIdx)
     {
-        if ($settingType > CandleSettingType::AllCandleSettings) {
-            return ReturnCode::BadParam;
+        if ($startIdx < 0) {
+            return ReturnCode::OutOfRangeStartIndex;
         }
-        if ($settingType === CandleSettingType::AllCandleSettings) {
-            for ($i = 0; $i < CandleSettingType::AllCandleSettings; ++$i) {
-                $this->candleSettings[$i]->CopyFrom($this->TA_CandleDefaultSettings[$i]);
-            }
-        } else {
-            $this->candleSettings[$settingType]->CopyFrom($this->TA_CandleDefaultSettings[$settingType]);
+        if (($endIdx < 0) || ($endIdx < $startIdx)) {
+            return ReturnCode::OutOfRangeEndIndex;
         }
 
         return ReturnCode::Success;
-    }
-
-    /**
-     * @param int $id
-     * @param int $period
-     *
-     * @return int
-     */
-    public function SetUnstablePeriod(int $id, int $period): int
-    {
-        if ($id >= UnstablePeriodFunctionID::ALL) {
-            return ReturnCode::BadParam;
-        }
-        $this->unstablePeriod[$id] = $period;
-
-        return ReturnCode::Success;
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return int
-     */
-    public function GetUnstablePeriod(int $id): int
-    {
-        return $this->unstablePeriod[$id];
-    }
-
-    /**
-     * @param int $compatibility
-     *
-     * @return int
-     */
-    public function SetCompatibility(int $compatibility)
-    {
-        $this->compatibility = $compatibility;
-
-        return ReturnCode::Success;
-    }
-
-    /**
-     * @return int
-     */
-    public function getCompatibility(): int
-    {
-        return $this->compatibility;
     }
 
     /**
@@ -250,7 +155,7 @@ class Core
             $optInFastPeriod = $tempInteger;
         }
         $OverlapStudies = new OverlapStudies();
-        $ReturnCode = $OverlapStudies->movingAverage($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInMethod_2, $outBegIdx2, $outNbElement2, $tempBuffer);
+        $ReturnCode     = $OverlapStudies->movingAverage($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInMethod_2, $outBegIdx2, $outNbElement2, $tempBuffer);
         if ($ReturnCode == ReturnCode::Success) {
             $ReturnCode = $OverlapStudies->movingAverage($startIdx, $endIdx, $inReal, $optInSlowPeriod, $optInMethod_2, $outBegIdx1, $outNbElement1, $outReal);
             if ($ReturnCode == ReturnCode::Success) {
@@ -282,17 +187,17 @@ class Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
-     * @param int    $optInFastPeriod
-     * @param int    $optInSlowPeriod
-     * @param int    $optInSignalPeriod_2
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
+     * @param int       $optInFastPeriod
+     * @param int       $optInSlowPeriod
+     * @param int       $optInSignalPeriod_2
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outMACD
-     * @param array  $outMACDSignal
-     * @param array  $outMACDHist
+     * @param array     $outMACD
+     * @param array     $outMACDSignal
+     * @param array     $outMACDHist
      *
      * @return int
      */
@@ -326,7 +231,7 @@ class Core
             $optInFastPeriod = 12;
             $k2              = (double)0.15;
         }
-        $Lookback = new Lookback();
+        $Lookback       = new Lookback();
         $lookbackSignal = $Lookback->emaLookback($optInSignalPeriod_2);
         $lookbackTotal  = $lookbackSignal;
         $lookbackTotal  += $Lookback->emaLookback($optInSlowPeriod);
@@ -343,22 +248,14 @@ class Core
         $fastEMABuffer = $this->double($tempInteger);
         $slowEMABuffer = $this->double($tempInteger);
         $tempInteger   = $startIdx - $lookbackSignal;
-        $ReturnCode       = $this->TA_INT_EMA(
-            $tempInteger, $endIdx,
-            $inReal, $optInSlowPeriod, $k1,
-            $outBegIdx1, $outNbElement1, $slowEMABuffer
-        );
+        $ReturnCode    = $this->TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInSlowPeriod, $k1, $outBegIdx1, $outNbElement1, $slowEMABuffer);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
             return $ReturnCode;
         }
-        $ReturnCode = $this->TA_INT_EMA(
-            $tempInteger, $endIdx,
-            $inReal, $optInFastPeriod, $k2,
-            $outBegIdx2, $outNbElement2, $fastEMABuffer
-        );
+        $ReturnCode = $this->TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInFastPeriod, $k2, $outBegIdx2, $outNbElement2, $fastEMABuffer);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
@@ -378,12 +275,8 @@ class Core
             $fastEMABuffer[$i] = $fastEMABuffer[$i] - $slowEMABuffer[$i];
         }
         //System::arraycopy($fastEMABuffer, $lookbackSignal, $outMACD, 0, ($endIdx - $startIdx) + 1);
-        $outMACD = \array_slice($fastEMABuffer, $lookbackSignal, ($endIdx - $startIdx) + 1);
-        $ReturnCode = $this->TA_INT_EMA(
-            0, $outNbElement1->value - 1,
-            $fastEMABuffer, $optInSignalPeriod_2, ((double)2.0 / ((double)($optInSignalPeriod_2 + 1))),
-            $outBegIdx2, $outNbElement2, $outMACDSignal
-        );
+        $outMACD    = \array_slice($fastEMABuffer, $lookbackSignal, ($endIdx - $startIdx) + 1);
+        $ReturnCode = $this->TA_INT_EMA(0, $outNbElement1->value - 1, $fastEMABuffer, $optInSignalPeriod_2, ((double)2.0 / ((double)($optInSignalPeriod_2 + 1))), $outBegIdx2, $outNbElement2, $outMACDSignal);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
@@ -400,14 +293,14 @@ class Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param        $inReal
-     * @param int    $optInTimePeriod
-     * @param float  $optInK_1
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param           $inReal
+     * @param int       $optInTimePeriod
+     * @param float     $optInK_1
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outReal
+     * @param array     $outReal
      *
      * @return int
      */
@@ -415,7 +308,7 @@ class Core
     {
         //double $tempReal, $prevMA;
         //int $i, $today, $outIdx, $lookbackTotal;
-        $Lookback = new Lookback();
+        $Lookback      = new Lookback();
         $lookbackTotal = $Lookback->emaLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -454,13 +347,13 @@ class Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
-     * @param int    $optInTimePeriod
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
+     * @param int       $optInTimePeriod
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outReal
+     * @param array     $outReal
      *
      * @return int
      */
@@ -544,13 +437,13 @@ class Core
     }
 
     /**
-     * @param int    $startIdx
-     * @param int    $endIdx
-     * @param array  $inReal
-     * @param int    $optInTimePeriod
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param array     $inReal
+     * @param int       $optInTimePeriod
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param array  $outReal
+     * @param array     $outReal
      *
      * @return int
      */
