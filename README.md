@@ -30,6 +30,16 @@ Another option that this package provides is to use functions that have an easie
 If you do not to use `adosc` because it is not descriptive enough, you can instead use `chaikinAccumulationDistributionOscillator` like this:    
 `TraderFriendly::chaikinAccumulationDistributionOscillator($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`
 
+## Note about default values
+The PECL version of the TA-LIB, "Trader", does not have the correct default values for the functions.
+A quick look shows that many of the function use the minimum value for the optional parameters instead of the defaults used in the C/Java version of TA-LIB.
+Some of the tests, like `testAdOscDefaultsDifferent` pass as long as the PECL Trader library uses different defaults than those in the C/Java code.
+
+For the curious, the TA-LIB source for AdOsc can be seen [here](https://svn.php.net/viewvc/pecl/trader/trunk/ta-lib/src/ta_func/ta_ADOSC.c?revision=325828&view=markup) with defaults of 3 and 10,
+while the PECL Trader source can be seen [here](https://svn.php.net/viewvc/pecl/trader/trunk/functions/trader_adosc.c?revision=344243&view=markup) with defaults of 2 and 2.
+
+**This package uses the C/Java defaults and not the PECL defaults.**
+
 ## Metrics & Coverage
 ### PHP Metrics Report
 To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/phpTraderNative/metrics/)
@@ -42,16 +52,6 @@ To see the current report of coverage by PHP Unit, visit [Coverage](https://proj
  * PHP 7.1 TS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.1TS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.1TS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.1TS.html)
  * PHP 7.2 NTS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.2NTS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2NTS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2TS.html)
  * PHP 7.2 TS [[XML]](https://projects.lupecode.com/phpTraderNative/logs/logfile-7.2TS.xml) [[TXT]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2TS.txt) [[HTML]](https://projects.lupecode.com/phpTraderNative/logs/testdox-7.2TS.html)
-
-## Note about default values
-The PECL version of the TA-LIB, "Trader", does not have the correct default values for the functions.
-A quick look shows that many of the function use the minimum value for the optional parameters instead of the defaults used in the C/Java version of TA-LIB.
-Some of the tests, like `testAdOscDefaultsDifferent` pass as long as the PECL Trader library uses different defaults than those in the C/Java code.
-
-For the curious, the TA-LIB source for AdOsc can be seen [here](https://svn.php.net/viewvc/pecl/trader/trunk/ta-lib/src/ta_func/ta_ADOSC.c?revision=325828&view=markup) with defaults of 3 and 10,
-while the PECL Trader source can be seen [here](https://svn.php.net/viewvc/pecl/trader/trunk/functions/trader_adosc.c?revision=344243&view=markup) with defaults of 2 and 2.
-
-**This package uses the C/Java defaults and not the PECL defaults.**
 
 ## License
 
