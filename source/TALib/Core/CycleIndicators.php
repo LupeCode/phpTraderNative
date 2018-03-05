@@ -66,18 +66,11 @@ class CycleIndicators extends Core
         if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $a              = 0.0962;
-        $b              = 0.5769;
-        $detrender_Odd  = $this->double(3);
-        $detrender_Even = $this->double(3);
-        $Q1_Odd         = $this->double(3);
-        $Q1_Even        = $this->double(3);
-        $jI_Odd         = $this->double(3);
-        $jI_Even        = $this->double(3);
-        $jQ_Odd         = $this->double(3);
-        $jQ_Even        = $this->double(3);
-        $rad2Deg        = 180.0 / (4.0 * atan(1));
-        $lookbackTotal  = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
+        $a             = 0.0962;
+        $b             = 0.5769;
+        $detrender_Odd = $detrender_Even = $Q1_Odd = $Q1_Even = $jI_Odd = $jI_Even = $jQ_Odd = $jQ_Even = $this->double(3);
+        $rad2Deg       = 180.0 / (4.0 * atan(1));
+        $lookbackTotal = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -112,66 +105,12 @@ class CycleIndicators extends Core
                 $periodWMASum     -= $periodWMASub;
             };
         } while (--$i != 0);
-        $hilbertIdx = 0;
-        {
-            $detrender_Odd[0]          = 0.0;
-            $detrender_Odd[1]          = 0.0;
-            $detrender_Odd[2]          = 0.0;
-            $detrender_Even[0]         = 0.0;
-            $detrender_Even[1]         = 0.0;
-            $detrender_Even[2]         = 0.0;
-            $detrender                 = 0.0;
-            $prev_detrender_Odd        = 0.0;
-            $prev_detrender_Even       = 0.0;
-            $prev_detrender_input_Odd  = 0.0;
-            $prev_detrender_input_Even = 0.0;
-        };
-        {
-            $Q1_Odd[0]          = 0.0;
-            $Q1_Odd[1]          = 0.0;
-            $Q1_Odd[2]          = 0.0;
-            $Q1_Even[0]         = 0.0;
-            $Q1_Even[1]         = 0.0;
-            $Q1_Even[2]         = 0.0;
-            $Q1                 = 0.0;
-            $prev_Q1_Odd        = 0.0;
-            $prev_Q1_Even       = 0.0;
-            $prev_Q1_input_Odd  = 0.0;
-            $prev_Q1_input_Even = 0.0;
-        };
-        {
-            $jI_Odd[0]          = 0.0;
-            $jI_Odd[1]          = 0.0;
-            $jI_Odd[2]          = 0.0;
-            $jI_Even[0]         = 0.0;
-            $jI_Even[1]         = 0.0;
-            $jI_Even[2]         = 0.0;
-            $jI                 = 0.0;
-            $prev_jI_Odd        = 0.0;
-            $prev_jI_Even       = 0.0;
-            $prev_jI_input_Odd  = 0.0;
-            $prev_jI_input_Even = 0.0;
-        };
-        {
-            $jQ_Odd[0]          = 0.0;
-            $jQ_Odd[1]          = 0.0;
-            $jQ_Odd[2]          = 0.0;
-            $jQ_Even[0]         = 0.0;
-            $jQ_Even[1]         = 0.0;
-            $jQ_Even[2]         = 0.0;
-            $jQ                 = 0.0;
-            $prev_jQ_Odd        = 0.0;
-            $prev_jQ_Even       = 0.0;
-            $prev_jQ_input_Odd  = 0.0;
-            $prev_jQ_input_Even = 0.0;
-        };
-        $period        = 0.0;
-        $outIdx        = 0;
-        $prevI2        = $prevQ2 = 0.0;
-        $Re            = $Im = 0.0;
-        $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
-        $I1ForOddPrev2 = $I1ForEvenPrev2 = 0.0;
-        $smoothPeriod  = 0.0;
+        $hilbertIdx = $outIdx = 0;
+        $detrender  = $prev_detrender_Odd = $prev_detrender_Even = $prev_detrender_input_Odd = $prev_detrender_input_Even = 0.0;
+        $Q1         = $prev_Q1_Odd = $prev_Q1_Even = $prev_Q1_input_Odd = $prev_Q1_input_Even = 0.0;
+        $jI         = $prev_jI_Odd = $prev_jI_Even = $prev_jI_input_Odd = $prev_jI_input_Even = 0.0;
+        $jQ         = $prev_jQ_Odd = $prev_jQ_Even = $prev_jQ_input_Odd = $prev_jQ_input_Even = 0.0;
+        $period     = $prevI2 = $prevQ2 = $Re = $Im = $I1ForOddPrev3 = $I1ForEvenPrev3 = $I1ForOddPrev2 = $I1ForEvenPrev2 = $smoothPeriod = 0.0;
         while ($today <= $endIdx) {
             $adjustedPrevPeriod = (0.075 * $period) + 0.54;
             $todayValue         = $inReal[$today];
@@ -186,47 +125,31 @@ class CycleIndicators extends Core
             if (($today % 2) == 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
-                    $detrender                   = -$detrender_Even[$hilbertIdx];
+                    $detrender                   = (-$detrender_Even[$hilbertIdx] + $hilbertTempReal - $prev_detrender_Even + ($b * $prev_detrender_input_Even)) * $adjustedPrevPeriod;
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                   += $hilbertTempReal;
-                    $detrender                   -= $prev_detrender_Even;
                     $prev_detrender_Even         = $b * $prev_detrender_input_Even;
-                    $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
-                    $detrender                   *= $adjustedPrevPeriod;
                 };
                 {
                     $hilbertTempReal      = $a * $detrender;
-                    $Q1                   = -$Q1_Even[$hilbertIdx];
+                    $Q1                   = (-$Q1_Even[$hilbertIdx] + $hilbertTempReal - $prev_Q1_Even + ($b * $prev_Q1_input_Even)) * $adjustedPrevPeriod;
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                   += $hilbertTempReal;
-                    $Q1                   -= $prev_Q1_Even;
                     $prev_Q1_Even         = $b * $prev_Q1_input_Even;
-                    $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
-                    $Q1                   *= $adjustedPrevPeriod;
                 };
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
-                    $jI                   = -$jI_Even[$hilbertIdx];
+                    $jI                   = (-$jI_Even[$hilbertIdx] + $hilbertTempReal - $prev_jI_Even + ($b * $prev_jI_input_Even)) * $adjustedPrevPeriod;
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                   += $hilbertTempReal;
-                    $jI                   -= $prev_jI_Even;
                     $prev_jI_Even         = $b * $prev_jI_input_Even;
-                    $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
-                    $jI                   *= $adjustedPrevPeriod;
                 };
                 {
                     $hilbertTempReal      = $a * $Q1;
-                    $jQ                   = -$jQ_Even[$hilbertIdx];
+                    $jQ                   = (-$jQ_Even[$hilbertIdx] + $hilbertTempReal - $prev_jQ_Even + ($b * $prev_jQ_input_Even)) * $adjustedPrevPeriod;
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                   += $hilbertTempReal;
-                    $jQ                   -= $prev_jQ_Even;
                     $prev_jQ_Even         = $b * $prev_jQ_input_Even;
-                    $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
-                    $jQ                   *= $adjustedPrevPeriod;
                 };
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
@@ -238,47 +161,31 @@ class CycleIndicators extends Core
             } else {
                 {
                     $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Odd[$hilbertIdx];
+                    $detrender                  = (-$detrender_Odd[$hilbertIdx] + $hilbertTempReal - $prev_detrender_Odd + ($b * $prev_detrender_input_Odd)) * $adjustedPrevPeriod;
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Odd;
                     $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
-                    $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
                 };
                 {
                     $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Odd[$hilbertIdx];
+                    $Q1                  = (-$Q1_Odd[$hilbertIdx] + $hilbertTempReal - $prev_Q1_Odd + ($b * $prev_Q1_input_Odd)) * $adjustedPrevPeriod;
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Odd;
                     $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
-                    $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
                 };
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
-                    $jI                  = -$jI_Odd[$hilbertIdx];
+                    $jI                  = (-$jI_Odd[$hilbertIdx] + $hilbertTempReal - $prev_jI_Odd + ($b * $prev_jI_input_Odd)) * $adjustedPrevPeriod;
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Odd;
                     $prev_jI_Odd         = $b * $prev_jI_input_Odd;
-                    $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
                 };
                 {
                     $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Odd[$hilbertIdx];
+                    $jQ                  = (-$jQ_Odd[$hilbertIdx] + $hilbertTempReal - $prev_jQ_Odd + ($b * $prev_jQ_input_Odd)) * $adjustedPrevPeriod;
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Odd;
                     $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
-                    $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
                 };
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
@@ -662,8 +569,8 @@ class CycleIndicators extends Core
         $jI_Odd         = $this->double(3);
         $jI_Even        = $this->double(3);
         $jQ_Odd         = $this->double(3);
-        $rad2Deg       = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
+        $rad2Deg        = 180.0 / (4.0 * atan(1));
+        $lookbackTotal  = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
