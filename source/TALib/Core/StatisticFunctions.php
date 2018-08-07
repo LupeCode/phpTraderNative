@@ -488,21 +488,11 @@ class StatisticFunctions extends Core
         }
         if ($optInNbDev != 1.0) {
             for ($i = 0; $i < (int)$outNBElement->value; $i++) {
-                $tempReal = $outReal[$i];
-                if (!($tempReal < 0.00000001)) {
-                    $outReal[$i] = sqrt($tempReal) * $optInNbDev;
-                } else {
-                    $outReal[$i] = (double)0.0;
-                }
+                $outReal[$i] = sqrt($outReal[$i]) * $optInNbDev;
             }
         } else {
             for ($i = 0; $i < (int)$outNBElement->value; $i++) {
-                $tempReal = $outReal[$i];
-                if (!($tempReal < 0.00000001)) {
-                    $outReal[$i] = sqrt($tempReal);
-                } else {
-                    $outReal[$i] = (double)0.0;
-                }
+                $outReal[$i] = sqrt($outReal[$i]);
             }
         }
 
