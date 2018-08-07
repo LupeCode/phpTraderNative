@@ -241,14 +241,6 @@ class TraderTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testAdOscDefaultsDifferent()
-    {
-        $this->assertNotEquals(\trader_adosc($this->High, $this->Low, $this->Close, $this->Volume), $this->adjustForPECL(Trader::adosc($this->High, $this->Low, $this->Close, $this->Volume)));
-    }
-
-    /**
-     * @throws \Exception
-     */
     public function testAdx()
     {
         $optInTimePeriod = 10;
