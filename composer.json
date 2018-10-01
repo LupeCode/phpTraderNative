@@ -1,14 +1,14 @@
 {
   "name": "lupecode/php-trader-native",
   "description": "An native version of the PHP Trader extension.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "library",
   "license": "GPL-3.0-or-later",
   "authors":[
     {
       "name": "Joshua Lopez",
       "email": "joshua@lupecode.com",
-      "homepage": "http://github.com/jbsaige",
+      "homepage": "http://github.com/jb-lopez",
       "role": "Developer"
     }
   ],
