@@ -12,6 +12,14 @@ The goal is that this library can be used by those whom cannot install the PHP T
 
 That's the only thing you need!  As stated, you do not need to install any extensions for this library.
 
+## Installation
+
+This library is intended to be installed with composer.
+
+~~~
+composer require lupecode/php-trader-native
+~~~
+
 ## Usage
 ### Drop-In Replacement
 
