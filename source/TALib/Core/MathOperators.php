@@ -51,19 +51,19 @@ class MathOperators extends Core
 {
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inReal0
-     * @param float[]  $inReal1
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param float[]   $inReal0
+     * @param float[]   $inReal1
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param float[]   $outReal
      *
      * @return int
      */
-    public function add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -86,9 +86,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -111,9 +111,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -174,9 +174,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -237,9 +237,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -300,9 +300,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -364,9 +364,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMin, array &$outMax): int
+    public static function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMin, array &$outMax): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -447,9 +447,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMinIdx, array &$outMaxIdx): int
+    public static function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMinIdx, array &$outMaxIdx): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -529,9 +529,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -554,9 +554,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -579,9 +579,9 @@ class MathOperators extends Core
      *
      * @return int
      */
-    public function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {

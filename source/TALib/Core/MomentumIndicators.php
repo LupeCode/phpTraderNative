@@ -65,9 +65,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function adx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function adx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -75,7 +75,7 @@ class MomentumIndicators extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (2 * $optInTimePeriod) + ($this->unstablePeriod[UnstablePeriodFunctionID::ADX]) - 1;
+        $lookbackTotal = (2 * $optInTimePeriod) + (static::$unstablePeriod[UnstablePeriodFunctionID::ADX]) - 1;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -161,7 +161,7 @@ class MomentumIndicators extends Core
             }
         }
         $prevADX = ($sumDX / $optInTimePeriod);
-        $i       = ($this->unstablePeriod[UnstablePeriodFunctionID::ADX]);
+        $i       = (static::$unstablePeriod[UnstablePeriodFunctionID::ADX]);
         while ($i-- > 0) {
             $today++;
             $tempReal    = $inHigh[$today];
@@ -259,9 +259,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function adxr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function adxr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -269,8 +269,7 @@ class MomentumIndicators extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $Lookback     = new Lookback();
-        $adxrLookback = $Lookback->adxrLookback($optInTimePeriod);
+        $adxrLookback = Lookback::adxrLookback($optInTimePeriod);
         if ($startIdx < $adxrLookback) {
             $startIdx = $adxrLookback;
         }
@@ -280,8 +279,8 @@ class MomentumIndicators extends Core
 
             return ReturnCode::Success;
         }
-        $adx        = $this->double($endIdx - $startIdx + $optInTimePeriod);
-        $ReturnCode = $this->adx($startIdx - ($optInTimePeriod - 1), $endIdx, $inHigh, $inLow, $inClose, $optInTimePeriod, $outBegIdx, $outNBElement, $adx);
+        $adx        = Core::double($endIdx - $startIdx + $optInTimePeriod);
+        $ReturnCode = MomentumIndicators::adx($startIdx - ($optInTimePeriod - 1), $endIdx, $inHigh, $inLow, $inClose, $optInTimePeriod, $outBegIdx, $outNBElement, $adx);
         if ($ReturnCode != ReturnCode::Success) {
             return $ReturnCode;
         }
@@ -311,9 +310,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function apo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function apo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -326,8 +325,8 @@ class MomentumIndicators extends Core
         } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $tempBuffer = $this->double($endIdx - $startIdx + 1);
-        $ReturnCode = $this->TA_INT_PO($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal, $tempBuffer, false);
+        $tempBuffer = Core::double($endIdx - $startIdx + 1);
+        $ReturnCode = Core::TA_INT_PO($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInSlowPeriod, $optInMAType, $outBegIdx, $outNBElement, $outReal, $tempBuffer, false);
 
         return $ReturnCode;
     }
@@ -345,9 +344,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function aroon(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outAroonDown, array &$outAroonUp): int
+    public static function aroon(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outAroonDown, array &$outAroonUp): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -429,9 +428,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function aroonOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function aroonOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -514,9 +513,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function bop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function bop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -547,9 +546,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function cci(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function cci(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $circBuffer_Idx = 0;
@@ -572,7 +571,7 @@ class MomentumIndicators extends Core
             if ($optInTimePeriod <= 0) {
                 return ReturnCode::AllocError;
             }
-            $circBuffer        = $this->double($optInTimePeriod);
+            $circBuffer        = Core::double($optInTimePeriod);
             $maxIdx_circBuffer = ($optInTimePeriod - 1);
         };
         $i = $startIdx - $lookbackTotal;
@@ -632,9 +631,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function cmo(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function cmo(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -644,8 +643,7 @@ class MomentumIndicators extends Core
         }
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $Lookback            = new Lookback();
-        $lookbackTotal       = $Lookback->cmoLookback($optInTimePeriod);
+        $lookbackTotal       = Lookback::cmoLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -663,9 +661,9 @@ class MomentumIndicators extends Core
         }
         $today          = $startIdx - $lookbackTotal;
         $prevValue      = $inReal[$today];
-        $unstablePeriod = ($this->unstablePeriod[UnstablePeriodFunctionID::CMO]);
+        $unstablePeriod = (static::$unstablePeriod[UnstablePeriodFunctionID::CMO]);
         if (($unstablePeriod == 0) &&
-            (($this->compatibility) == Compatibility::Metastock)) {
+            ((static::$compatibility) == Compatibility::Metastock)) {
             $savePrevValue = $prevValue;
             $prevGain      = 0.0;
             $prevLoss      = 0.0;
@@ -775,9 +773,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function dx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function dx(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -786,7 +784,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod > 1) {
-            $lookbackTotal = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::DX]);
+            $lookbackTotal = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::DX]);
         } else {
             $lookbackTotal = 2;
         }
@@ -836,7 +834,7 @@ class MomentumIndicators extends Core
             $prevTR    += $tempReal;
             $prevClose = $inClose[$today];
         }
-        $i = ($this->unstablePeriod[UnstablePeriodFunctionID::DX]) + 1;
+        $i = (static::$unstablePeriod[UnstablePeriodFunctionID::DX]) + 1;
         while ($i-- != 0) {
             $today++;
             $tempReal    = $inHigh[$today];
@@ -941,9 +939,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function macd(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
+    public static function macd(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -962,7 +960,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
 
-        return $this->TA_INT_MACD(
+        return Core::TA_INT_MACD(
             $startIdx, $endIdx, $inReal,
             $optInFastPeriod,
             $optInSlowPeriod,
@@ -993,9 +991,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function macdExt(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
+    public static function macdExt(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outBegIdx1    = new MyInteger();
@@ -1025,13 +1023,12 @@ class MomentumIndicators extends Core
             $optInSlowMAType = $optInFastMAType;
             $optInFastMAType = $tempMAType;
         }
-        $Lookback        = new Lookback();
-        $lookbackLargest = $Lookback->movingAverageLookback($optInFastPeriod, $optInFastMAType);
-        $tempInteger     = $Lookback->movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
+        $lookbackLargest = Lookback::movingAverageLookback($optInFastPeriod, $optInFastMAType);
+        $tempInteger     = Lookback::movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
         if ($tempInteger > $lookbackLargest) {
             $lookbackLargest = $tempInteger;
         }
-        $lookbackSignal = $Lookback->movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
+        $lookbackSignal = Lookback::movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
         $lookbackTotal  = $lookbackSignal + $lookbackLargest;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -1043,11 +1040,10 @@ class MomentumIndicators extends Core
             return ReturnCode::Success;
         }
         $tempInteger    = ($endIdx - $startIdx) + 1 + $lookbackSignal;
-        $fastMABuffer   = $this->double($tempInteger);
-        $slowMABuffer   = $this->double($tempInteger);
+        $fastMABuffer   = Core::double($tempInteger);
+        $slowMABuffer   = Core::double($tempInteger);
         $tempInteger    = $startIdx - $lookbackSignal;
-        $OverlapStudies = new OverlapStudies();
-        $ReturnCode     = $OverlapStudies->movingAverage(
+        $ReturnCode     = OverlapStudies::movingAverage(
             $tempInteger, $endIdx,
             $inReal, $optInSlowPeriod, $optInSlowMAType,
             $outBegIdx1, $outNbElement1,
@@ -1059,7 +1055,7 @@ class MomentumIndicators extends Core
 
             return $ReturnCode;
         }
-        $ReturnCode = $OverlapStudies->movingAverage(
+        $ReturnCode = OverlapStudies::movingAverage(
             $tempInteger, $endIdx,
             $inReal, $optInFastPeriod, $optInFastMAType,
             $outBegIdx2, $outNbElement2,
@@ -1085,7 +1081,7 @@ class MomentumIndicators extends Core
         }
         //System::arraycopy($fastMABuffer, $lookbackSignal, $outMACD, 0, ($endIdx - $startIdx) + 1);
         $outMACD    = \array_slice($fastMABuffer, $lookbackSignal, ($endIdx - $startIdx) + 1);
-        $ReturnCode = $OverlapStudies->movingAverage(
+        $ReturnCode = OverlapStudies::movingAverage(
             0, $outNbElement1->value - 1,
             $fastMABuffer, $optInSignalPeriod, $optInSignalMAType,
             $outBegIdx2, $outNbElement2, $outMACDSignal
@@ -1118,9 +1114,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function macdFix(int $startIdx, int $endIdx, array $inReal, int $optInSignalPeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
+    public static function macdFix(int $startIdx, int $endIdx, array $inReal, int $optInSignalPeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInSignalPeriod == (PHP_INT_MIN)) {
@@ -1129,7 +1125,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
 
-        return $this->TA_INT_MACD(
+        return Core::TA_INT_MACD(
             $startIdx, $endIdx, $inReal,
             0,
             0,
@@ -1156,9 +1152,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function mfi(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array &$inVolume, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function mfi(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array &$inVolume, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $money_flow_Idx = 0;
@@ -1180,7 +1176,7 @@ class MomentumIndicators extends Core
         };
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $lookbackTotal       = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::MFI]);
+        $lookbackTotal       = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MFI]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1303,9 +1299,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function minusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function minusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1314,7 +1310,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod > 1) {
-            $lookbackTotal = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::MinusDI]);
+            $lookbackTotal = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDI]);
         } else {
             $lookbackTotal = 1;
         }
@@ -1401,7 +1397,7 @@ class MomentumIndicators extends Core
             $prevTR    += $tempReal;
             $prevClose = $inClose[$today];
         }
-        $i = ($this->unstablePeriod[UnstablePeriodFunctionID::MinusDI]) + 1;
+        $i = (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDI]) + 1;
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
@@ -1484,9 +1480,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function minusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function minusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1495,7 +1491,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod > 1) {
-            $lookbackTotal = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::MinusDM]) - 1;
+            $lookbackTotal = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM]) - 1;
         } else {
             $lookbackTotal = 1;
         }
@@ -1550,7 +1546,7 @@ class MomentumIndicators extends Core
                 $prevMinusDM += $diffM;
             }
         }
-        $i = ($this->unstablePeriod[UnstablePeriodFunctionID::MinusDM]);
+        $i = (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM]);
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
@@ -1598,9 +1594,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function mom(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function mom(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1642,9 +1638,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function plusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function plusDI(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1653,7 +1649,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod > 1) {
-            $lookbackTotal = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::PlusDI]);
+            $lookbackTotal = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI]);
         } else {
             $lookbackTotal = 1;
         }
@@ -1740,7 +1736,7 @@ class MomentumIndicators extends Core
             $prevTR    += $tempReal;
             $prevClose = $inClose[$today];
         }
-        $i = ($this->unstablePeriod[UnstablePeriodFunctionID::PlusDI]) + 1;
+        $i = (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI]) + 1;
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
@@ -1823,9 +1819,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function plusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function plusDM(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1834,7 +1830,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod > 1) {
-            $lookbackTotal = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::PlusDM]) - 1;
+            $lookbackTotal = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM]) - 1;
         } else {
             $lookbackTotal = 1;
         }
@@ -1889,7 +1885,7 @@ class MomentumIndicators extends Core
                 $prevPlusDM += $diffP;
             }
         }
-        $i = ($this->unstablePeriod[UnstablePeriodFunctionID::PlusDM]);
+        $i = (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM]);
         while ($i-- != 0) {
             $today++;
             $tempReal = $inHigh[$today];
@@ -1939,9 +1935,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function ppo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function ppo(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -1954,9 +1950,9 @@ class MomentumIndicators extends Core
         } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $tempBuffer = $this->double($endIdx - $startIdx + 1);
+        $tempBuffer = Core::double($endIdx - $startIdx + 1);
         $one        = 1;
-        $ReturnCode = $this->TA_INT_PO(
+        $ReturnCode = Core::TA_INT_PO(
             $startIdx, $endIdx, $inReal,
             $optInFastPeriod,
             $optInSlowPeriod,
@@ -1982,9 +1978,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function roc(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function roc(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2030,9 +2026,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function rocP(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function rocP(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2078,9 +2074,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function rocR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function rocR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2126,9 +2122,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function rocR100(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function rocR100(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2174,9 +2170,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function rsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function rsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2186,7 +2182,7 @@ class MomentumIndicators extends Core
         }
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $lookbackTotal       = (new Lookback())->rsiLookback($optInTimePeriod);
+        $lookbackTotal       = Lookback::rsiLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2205,9 +2201,9 @@ class MomentumIndicators extends Core
         }
         $today          = $startIdx - $lookbackTotal;
         $prevValue      = $inReal[$today];
-        $unstablePeriod = ($this->unstablePeriod[UnstablePeriodFunctionID::RSI]);
+        $unstablePeriod = (static::$unstablePeriod[UnstablePeriodFunctionID::RSI]);
         if (($unstablePeriod == 0) &&
-            (($this->compatibility) == Compatibility::Metastock)) {
+            ((static::$compatibility) == Compatibility::Metastock)) {
             $savePrevValue = $prevValue;
             $prevGain      = 0.0;
             $prevLoss      = 0.0;
@@ -2321,9 +2317,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function stoch(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outSlowK, array &$outSlowD): int
+    public static function stoch(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outSlowK, array &$outSlowD): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
@@ -2342,8 +2338,8 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         $lookbackK     = $optInFastK_Period - 1;
-        $lookbackKSlow = (new Lookback())->movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
-        $lookbackDSlow = (new Lookback())->movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
+        $lookbackKSlow = Lookback::movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
+        $lookbackDSlow = Lookback::movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
         $lookbackTotal = $lookbackK + $lookbackDSlow + $lookbackKSlow;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -2368,7 +2364,7 @@ class MomentumIndicators extends Core
                   ($outSlowD == $inClose)) {
             $tempBuffer = $outSlowD;
         } else {
-            $tempBuffer = $this->double($endIdx - $today + 1);
+            $tempBuffer = Core::double($endIdx - $today + 1);
         }
         while ($today <= $endIdx) {
             $tmp = $inLow[$today];
@@ -2415,7 +2411,7 @@ class MomentumIndicators extends Core
             $trailingIdx++;
             $today++;
         }
-        $ReturnCode = (new OverlapStudies())->movingAverage(
+        $ReturnCode = OverlapStudies::movingAverage(
             0, $outIdx - 1,
             $tempBuffer, $optInSlowK_Period,
             $optInSlowK_MAType,
@@ -2427,7 +2423,7 @@ class MomentumIndicators extends Core
 
             return $ReturnCode;
         }
-        $ReturnCode = (new OverlapStudies())->movingAverage(
+        $ReturnCode = OverlapStudies::movingAverage(
             0, (int)$outNBElement->value - 1,
             $tempBuffer, $optInSlowD_Period,
             $optInSlowD_MAType,
@@ -2462,9 +2458,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function stochF(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outFastK, array &$outFastD): int
+    public static function stochF(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outFastK, array &$outFastD): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
@@ -2478,7 +2474,7 @@ class MomentumIndicators extends Core
             return ReturnCode::BadParam;
         }
         $lookbackK     = $optInFastK_Period - 1;
-        $lookbackFastD = (new Lookback())->movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
+        $lookbackFastD = Lookback::movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
         $lookbackTotal = $lookbackK + $lookbackFastD;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -2503,7 +2499,7 @@ class MomentumIndicators extends Core
                   ($outFastD == $inClose)) {
             $tempBuffer = $outFastD;
         } else {
-            $tempBuffer = $this->double($endIdx - $today + 1);
+            $tempBuffer = Core::double($endIdx - $today + 1);
         }
         while ($today <= $endIdx) {
             $tmp = $inLow[$today];
@@ -2550,7 +2546,7 @@ class MomentumIndicators extends Core
             $trailingIdx++;
             $today++;
         }
-        $ReturnCode = (new OverlapStudies())->movingAverage(
+        $ReturnCode = OverlapStudies::movingAverage(
             0, $outIdx - 1,
             $tempBuffer, $optInFastD_Period,
             $optInFastD_MAType,
@@ -2590,9 +2586,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function stochRsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outFastK, array &$outFastD): int
+    public static function stochRsi(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outFastK, array &$outFastD): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outBegIdx1    = new MyInteger();
@@ -2615,8 +2611,8 @@ class MomentumIndicators extends Core
         }
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $lookbackSTOCHF      = (new Lookback())->stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
-        $lookbackTotal       = (new Lookback())->rsiLookback($optInTimePeriod) + $lookbackSTOCHF;
+        $lookbackSTOCHF      = Lookback::stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        $lookbackTotal       = Lookback::rsiLookback($optInTimePeriod) + $lookbackSTOCHF;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -2628,8 +2624,8 @@ class MomentumIndicators extends Core
         }
         $outBegIdx->value = $startIdx;
         $tempArraySize    = ($endIdx - $startIdx) + 1 + $lookbackSTOCHF;
-        $tempRSIBuffer    = $this->double($tempArraySize);
-        $ReturnCode       = $this->rsi(
+        $tempRSIBuffer    = Core::double($tempArraySize);
+        $ReturnCode       = MomentumIndicators::rsi(
             $startIdx - $lookbackSTOCHF,
             $endIdx,
             $inReal,
@@ -2644,7 +2640,7 @@ class MomentumIndicators extends Core
 
             return $ReturnCode;
         }
-        $ReturnCode = $this->stochF(
+        $ReturnCode = MomentumIndicators::stochF(
             0,
             $tempArraySize - 1,
             $tempRSIBuffer,
@@ -2679,9 +2675,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function trix(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function trix(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $nbElement = new MyInteger();
@@ -2691,8 +2687,8 @@ class MomentumIndicators extends Core
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $emaLookback   = (new Lookback())->emaLookback($optInTimePeriod);
-        $rocLookback   = (new Lookback())->rocRLookback(1);
+        $emaLookback   = Lookback::emaLookback($optInTimePeriod);
+        $rocLookback   = Lookback::rocRLookback(1);
         $totalLookback = ($emaLookback * 3) + $rocLookback;
         if ($startIdx < $totalLookback) {
             $startIdx = $totalLookback;
@@ -2705,9 +2701,9 @@ class MomentumIndicators extends Core
         }
         $outBegIdx->value  = $startIdx;
         $nbElementToOutput = ($endIdx - $startIdx) + 1 + $totalLookback;
-        $tempBuffer        = $this->double($nbElementToOutput);
+        $tempBuffer        = Core::double($nbElementToOutput);
         $k                 = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $ReturnCode        = $this->TA_INT_EMA(
+        $ReturnCode        = Core::TA_INT_EMA(
             ($startIdx - $totalLookback), $endIdx, $inReal,
                                           $optInTimePeriod, $k,
                                           $begIdx, $nbElement,
@@ -2721,7 +2717,7 @@ class MomentumIndicators extends Core
         }
         $nbElementToOutput--;
         $nbElementToOutput -= $emaLookback;
-        $ReturnCode        = $this->TA_INT_EMA(
+        $ReturnCode        = Core::TA_INT_EMA(
             0, $nbElementToOutput, $tempBuffer,
             $optInTimePeriod, $k,
             $begIdx, $nbElement,
@@ -2734,7 +2730,7 @@ class MomentumIndicators extends Core
             return $ReturnCode;
         }
         $nbElementToOutput -= $emaLookback;
-        $ReturnCode        = $this->TA_INT_EMA(
+        $ReturnCode        = Core::TA_INT_EMA(
             0, $nbElementToOutput, $tempBuffer,
             $optInTimePeriod, $k,
             $begIdx, $nbElement,
@@ -2747,7 +2743,7 @@ class MomentumIndicators extends Core
             return $ReturnCode;
         }
         $nbElementToOutput -= $emaLookback;
-        $ReturnCode        = $this->roc(
+        $ReturnCode        = MomentumIndicators::roc(
             0, $nbElementToOutput,
             $tempBuffer,
             1, $begIdx, $outNBElement,
@@ -2778,9 +2774,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function ultOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function ultOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $usedFlag      = \array_pad([], 3, 0);
@@ -2824,7 +2820,7 @@ class MomentumIndicators extends Core
         $optInTimePeriod1 = $sortedPeriods[2];
         $optInTimePeriod2 = $sortedPeriods[1];
         $optInTimePeriod3 = $sortedPeriods[0];
-        $lookbackTotal    = (new Lookback())->ultOscLookback($optInTimePeriod1, $optInTimePeriod2, $optInTimePeriod3);
+        $lookbackTotal    = Lookback::ultOscLookback($optInTimePeriod1, $optInTimePeriod2, $optInTimePeriod3);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -3021,9 +3017,9 @@ class MomentumIndicators extends Core
      *
      * @return int
      */
-    public function willR(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function willR(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {

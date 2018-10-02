@@ -61,18 +61,18 @@ class Core
 {
 
     /** @var int[] */
-    protected $unstablePeriod;
+    protected static $unstablePeriod;
     /** @var CandleSetting[] */
-    protected $candleSettings;
+    protected static $candleSettings;
     /** @var int */
-    protected $compatibility;
+    protected static $compatibility;
 
     /**
      * Core constructor.
      */
-    public function __construct()
+    public static function construct()
     {
-        $this->candleSettings = [
+        static::$candleSettings = [
             /* real body is long when it's longer than the average of the 10 previous candles' real body */
             new CandleSetting(CandleSettingType::BodyLong, RangeType::RealBody, 10, 1.),
             /* real body is very long when it's longer than 3 times the average of the 10 previous candles' real body */
@@ -96,8 +96,8 @@ class Core
             /* when measuring distance between parts of candles or width of gaps "equal" means "<= 5% of the average of the 5 previous candles' high-low range" */
             new CandleSetting(CandleSettingType::Equal, RangeType::HighLow, 5, 0.05),
         ];
-        $this->unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
-        $this->compatibility  = Compatibility::Default;
+        static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
+        static::$compatibility  = Compatibility::Default;
     }
 
     /**
@@ -105,7 +105,7 @@ class Core
      *
      * @return array
      */
-    protected function double(int $size)
+    protected static function double(int $size)
     {
         return \array_pad([], $size, 0.);
     }
@@ -116,7 +116,7 @@ class Core
      *
      * @return int
      */
-    protected function validateStartEndIndexes(int $startIdx, int $endIdx)
+    protected static function validateStartEndIndexes(int $startIdx, int $endIdx)
     {
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
@@ -143,7 +143,7 @@ class Core
      *
      * @return int
      */
-    protected function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMethod_2, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal, array &$tempBuffer, bool $doPercentageOutput): int
+    protected static function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMethod_2, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal, array &$tempBuffer, bool $doPercentageOutput): int
     {
         $outBegIdx1    = new MyInteger();
         $outNbElement1 = new MyInteger();
@@ -154,10 +154,9 @@ class Core
             $optInSlowPeriod = $optInFastPeriod;
             $optInFastPeriod = $tempInteger;
         }
-        $OverlapStudies = new OverlapStudies();
-        $ReturnCode     = $OverlapStudies->movingAverage($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInMethod_2, $outBegIdx2, $outNbElement2, $tempBuffer);
+        $ReturnCode     = OverlapStudies::movingAverage($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInMethod_2, $outBegIdx2, $outNbElement2, $tempBuffer);
         if ($ReturnCode == ReturnCode::Success) {
-            $ReturnCode = $OverlapStudies->movingAverage($startIdx, $endIdx, $inReal, $optInSlowPeriod, $optInMethod_2, $outBegIdx1, $outNbElement1, $outReal);
+            $ReturnCode = OverlapStudies::movingAverage($startIdx, $endIdx, $inReal, $optInSlowPeriod, $optInMethod_2, $outBegIdx1, $outNbElement1, $outReal);
             if ($ReturnCode == ReturnCode::Success) {
                 $tempInteger = $outBegIdx1->value - $outBegIdx2->value;
                 if ($doPercentageOutput != 0) {
@@ -201,7 +200,7 @@ class Core
      *
      * @return int
      */
-    protected function TA_INT_MACD(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod_2, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
+    protected static function TA_INT_MACD(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod_2, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
     {
         //double[] $slowEMABuffer;
         //double[] $fastEMABuffer;
@@ -231,10 +230,9 @@ class Core
             $optInFastPeriod = 12;
             $k2              = (double)0.15;
         }
-        $Lookback       = new Lookback();
-        $lookbackSignal = $Lookback->emaLookback($optInSignalPeriod_2);
+        $lookbackSignal = Lookback::emaLookback($optInSignalPeriod_2);
         $lookbackTotal  = $lookbackSignal;
-        $lookbackTotal  += $Lookback->emaLookback($optInSlowPeriod);
+        $lookbackTotal  += Lookback::emaLookback($optInSlowPeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -245,17 +243,17 @@ class Core
             return ReturnCode::Success;
         }
         $tempInteger   = ($endIdx - $startIdx) + 1 + $lookbackSignal;
-        $fastEMABuffer = $this->double($tempInteger);
-        $slowEMABuffer = $this->double($tempInteger);
+        $fastEMABuffer = Core::double($tempInteger);
+        $slowEMABuffer = Core::double($tempInteger);
         $tempInteger   = $startIdx - $lookbackSignal;
-        $ReturnCode    = $this->TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInSlowPeriod, $k1, $outBegIdx1, $outNbElement1, $slowEMABuffer);
+        $ReturnCode    = Core::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInSlowPeriod, $k1, $outBegIdx1, $outNbElement1, $slowEMABuffer);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
 
             return $ReturnCode;
         }
-        $ReturnCode = $this->TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInFastPeriod, $k2, $outBegIdx2, $outNbElement2, $fastEMABuffer);
+        $ReturnCode = Core::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInFastPeriod, $k2, $outBegIdx2, $outNbElement2, $fastEMABuffer);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
@@ -276,7 +274,7 @@ class Core
         }
         //System::arraycopy($fastEMABuffer, $lookbackSignal, $outMACD, 0, ($endIdx - $startIdx) + 1);
         $outMACD    = \array_slice($fastEMABuffer, $lookbackSignal, ($endIdx - $startIdx) + 1);
-        $ReturnCode = $this->TA_INT_EMA(0, $outNbElement1->value - 1, $fastEMABuffer, $optInSignalPeriod_2, ((double)2.0 / ((double)($optInSignalPeriod_2 + 1))), $outBegIdx2, $outNbElement2, $outMACDSignal);
+        $ReturnCode = Core::TA_INT_EMA(0, $outNbElement1->value - 1, $fastEMABuffer, $optInSignalPeriod_2, ((double)2.0 / ((double)($optInSignalPeriod_2 + 1))), $outBegIdx2, $outNbElement2, $outMACDSignal);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx->value    = 0;
             $outNBElement->value = 0;
@@ -304,12 +302,11 @@ class Core
      *
      * @return int
      */
-    protected function TA_INT_EMA(int $startIdx, int $endIdx, $inReal, int $optInTimePeriod, float $optInK_1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    protected static function TA_INT_EMA(int $startIdx, int $endIdx, $inReal, int $optInTimePeriod, float $optInK_1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
         //double $tempReal, $prevMA;
         //int $i, $today, $outIdx, $lookbackTotal;
-        $Lookback      = new Lookback();
-        $lookbackTotal = $Lookback->emaLookback($optInTimePeriod);
+        $lookbackTotal = Lookback::emaLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -320,7 +317,7 @@ class Core
             return ReturnCode::Success;
         }
         $outBegIdx->value = $startIdx;
-        if (($this->compatibility) == Compatibility::Default) {
+        if ((static::$compatibility) == Compatibility::Default) {
             $today    = $startIdx - $lookbackTotal;
             $i        = $optInTimePeriod;
             $tempReal = 0.0;
@@ -357,7 +354,7 @@ class Core
      *
      * @return int
      */
-    protected function TA_INT_SMA(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    protected static function TA_INT_SMA(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
         //double $periodTotal, $tempReal;
         //int $i, $outIdx, $trailingIdx, $lookbackTotal;
@@ -402,7 +399,7 @@ class Core
      *
      * @return int
      */
-    protected function TA_INT_stddev_using_precalc_ma(array $inReal, array &$inMovAvg, int $inMovAvgBegIdx, int $inMovAvgNbElement, int $timePeriod, array &$output): int
+    protected static function TA_INT_stddev_using_precalc_ma(array $inReal, array &$inMovAvg, int $inMovAvgBegIdx, int $inMovAvgNbElement, int $timePeriod, array &$output): int
     {
         //double $tempReal, $periodTotal2, $meanValue2;
         //int $outIdx;
@@ -447,7 +444,7 @@ class Core
      *
      * @return int
      */
-    protected function TA_INT_VAR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    protected static function TA_INT_VAR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
         //double $tempReal, $periodTotal1, $periodTotal2, $meanValue1, $meanValue2;
         //int $i, $outIdx, $trailingIdx, $nbInitialElementNeeded;

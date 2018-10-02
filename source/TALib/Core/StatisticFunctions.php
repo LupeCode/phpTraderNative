@@ -51,20 +51,20 @@ class StatisticFunctions extends Core
 {
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inReal0
-     * @param float[]  $inReal1
-     * @param int      $optInTimePeriod
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param float[]   $inReal0
+     * @param float[]   $inReal1
+     * @param int       $optInTimePeriod
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param float[]   $outReal
      *
      * @return int
      */
-    public function beta(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function beta(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -171,9 +171,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function correl(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function correl(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -250,9 +250,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function linearReg(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function linearReg(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -260,7 +260,7 @@ class StatisticFunctions extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (new Lookback())->linearRegLookback($optInTimePeriod);
+        $lookbackTotal = Lookback::linearRegLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -304,9 +304,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function linearRegAngle(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function linearRegAngle(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -314,7 +314,7 @@ class StatisticFunctions extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (new Lookback())->linearRegAngleLookback($optInTimePeriod);
+        $lookbackTotal = Lookback::linearRegAngleLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -357,9 +357,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function linearRegIntercept(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function linearRegIntercept(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -367,7 +367,7 @@ class StatisticFunctions extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (new Lookback())->linearRegInterceptLookback($optInTimePeriod);
+        $lookbackTotal = Lookback::linearRegInterceptLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -410,9 +410,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function linearRegSlope(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function linearRegSlope(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -420,7 +420,7 @@ class StatisticFunctions extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (new Lookback())->linearRegSlopeLookback($optInTimePeriod);
+        $lookbackTotal = Lookback::linearRegSlopeLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -463,9 +463,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function stdDev(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function stdDev(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -478,7 +478,7 @@ class StatisticFunctions extends Core
         } elseif (($optInNbDev < -3.000000e+37) || ($optInNbDev > 3.000000e+37)) {
             return ReturnCode::BadParam;
         }
-        $retCode = $this->TA_INT_VAR(
+        $retCode = Core::TA_INT_VAR(
             $startIdx, $endIdx,
             $inReal, $optInTimePeriod,
             $outBegIdx, $outNBElement, $outReal
@@ -510,9 +510,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function tsf(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function tsf(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -520,7 +520,7 @@ class StatisticFunctions extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (new Lookback())->tsfLookback($optInTimePeriod);
+        $lookbackTotal = Lookback::tsfLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -565,9 +565,9 @@ class StatisticFunctions extends Core
      *
      * @return int
      */
-    public function variance(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function variance(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -581,7 +581,7 @@ class StatisticFunctions extends Core
             return ReturnCode::BadParam;
         }
 
-        return $this->TA_INT_VAR(
+        return Core::TA_INT_VAR(
             $startIdx, $endIdx, $inReal,
             $optInTimePeriod,
             $outBegIdx, $outNBElement, $outReal

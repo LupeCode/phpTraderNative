@@ -51,21 +51,21 @@ class PriceTransform extends Core
 {
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inOpen
-     * @param float[]  $inHigh
-     * @param float[]  $inLow
-     * @param float[]  $inClose
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param float[]   $inOpen
+     * @param float[]   $inHigh
+     * @param float[]   $inLow
+     * @param float[]   $inClose
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param float[]   $outReal
      *
      * @return int
      */
-    public function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -89,9 +89,9 @@ class PriceTransform extends Core
      *
      * @return int
      */
-    public function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -116,9 +116,9 @@ class PriceTransform extends Core
      *
      * @return int
      */
-    public function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -145,9 +145,9 @@ class PriceTransform extends Core
      *
      * @return int
      */
-    public function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;

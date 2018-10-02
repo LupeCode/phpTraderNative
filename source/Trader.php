@@ -57,11 +57,12 @@ class Trader
      */
     protected static function getCycleIndicators()
     {
-        if (\is_null(static::$cycleIndicators)) {
-            static::$cycleIndicators = new CycleIndicators();
+        if (\is_null(self::$cycleIndicators)) {
+            self::$cycleIndicators = new CycleIndicators();
+            self::$cycleIndicators::construct();
         }
 
-        return static::$cycleIndicators;
+        return self::$cycleIndicators;
     }
 
     /**
@@ -69,11 +70,12 @@ class Trader
      */
     protected static function getMathOperators()
     {
-        if (\is_null(static::$mathOperators)) {
-            static::$mathOperators = new MathOperators();
+        if (\is_null(self::$mathOperators)) {
+            self::$mathOperators = new MathOperators();
+            self::$mathOperators::construct();
         }
 
-        return static::$mathOperators;
+        return self::$mathOperators;
     }
 
     /**
@@ -81,11 +83,12 @@ class Trader
      */
     protected static function getMathTransform()
     {
-        if (\is_null(static::$mathTransform)) {
-            static::$mathTransform = new MathTransform();
+        if (\is_null(self::$mathTransform)) {
+            self::$mathTransform = new MathTransform();
+            self::$mathTransform::construct();
         }
 
-        return static::$mathTransform;
+        return self::$mathTransform;
     }
 
     /**
@@ -93,11 +96,12 @@ class Trader
      */
     protected static function getMomentumIndicators()
     {
-        if (\is_null(static::$momentumIndicators)) {
-            static::$momentumIndicators = new MomentumIndicators();
+        if (\is_null(self::$momentumIndicators)) {
+            self::$momentumIndicators = new MomentumIndicators();
+            self::$momentumIndicators::construct();
         }
 
-        return static::$momentumIndicators;
+        return self::$momentumIndicators;
     }
 
     /**
@@ -105,11 +109,12 @@ class Trader
      */
     protected static function getOverlapStudies()
     {
-        if (\is_null(static::$overlapStudies)) {
-            static::$overlapStudies = new OverlapStudies();
+        if (\is_null(self::$overlapStudies)) {
+            self::$overlapStudies = new OverlapStudies();
+            self::$overlapStudies::construct();
         }
 
-        return static::$overlapStudies;
+        return self::$overlapStudies;
     }
 
     /**
@@ -117,11 +122,12 @@ class Trader
      */
     protected static function getPatternRecognition()
     {
-        if (\is_null(static::$patternRecognition)) {
-            static::$patternRecognition = new PatternRecognition();
+        if (\is_null(self::$patternRecognition)) {
+            self::$patternRecognition = new PatternRecognition();
+            self::$patternRecognition::construct();
         }
 
-        return static::$patternRecognition;
+        return self::$patternRecognition;
     }
 
     /**
@@ -129,11 +135,12 @@ class Trader
      */
     protected static function getPriceTransform()
     {
-        if (\is_null(static::$priceTransform)) {
-            static::$priceTransform = new PriceTransform();
+        if (\is_null(self::$priceTransform)) {
+            self::$priceTransform = new PriceTransform();
+            self::$priceTransform::construct();
         }
 
-        return static::$priceTransform;
+        return self::$priceTransform;
     }
 
     /**
@@ -141,11 +148,12 @@ class Trader
      */
     protected static function getStatisticFunctions()
     {
-        if (\is_null(static::$statisticFunctions)) {
-            static::$statisticFunctions = new StatisticFunctions();
+        if (\is_null(self::$statisticFunctions)) {
+            self::$statisticFunctions = new StatisticFunctions();
+            self::$statisticFunctions::construct();
         }
 
-        return static::$statisticFunctions;
+        return self::$statisticFunctions;
     }
 
     /**
@@ -153,11 +161,12 @@ class Trader
      */
     protected static function getVolatilityIndicators()
     {
-        if (\is_null(static::$volatilityIndicators)) {
-            static::$volatilityIndicators = new VolatilityIndicators();
+        if (\is_null(self::$volatilityIndicators)) {
+            self::$volatilityIndicators = new VolatilityIndicators();
+            self::$volatilityIndicators::construct();
         }
 
-        return static::$volatilityIndicators;
+        return self::$volatilityIndicators;
     }
 
     /**
@@ -165,11 +174,12 @@ class Trader
      */
     protected static function getVolumeIndicators()
     {
-        if (\is_null(static::$volumeIndicators)) {
-            static::$volumeIndicators = new VolumeIndicators();
+        if (\is_null(self::$volumeIndicators)) {
+            self::$volumeIndicators = new VolumeIndicators();
+            self::$volumeIndicators::construct();
         }
 
-        return static::$volumeIndicators;
+        return self::$volumeIndicators;
     }
 
     protected static function prep()
@@ -189,7 +199,7 @@ class Trader
             case ReturnCode::Success:
                 return;
             default:
-                throw new \Exception(static::$errorArray[$ReturnCode], $ReturnCode);
+                throw new \Exception(self::$errorArray[$ReturnCode], $ReturnCode);
         }
     }
 
@@ -245,8 +255,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->acos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::acos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -276,8 +286,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getVolumeIndicators()->ad(0, $endIdx, $high, $low, $close, $volume, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getVolumeIndicators()::ad(0, $endIdx, $high, $low, $close, $volume, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -296,8 +306,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->add(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::add(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -329,8 +339,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getVolumeIndicators()->adOsc(0, $endIdx, $high, $low, $close, $volume, $fastPeriod, $slowPeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getVolumeIndicators()::adOsc(0, $endIdx, $high, $low, $close, $volume, $fastPeriod, $slowPeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -362,8 +372,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->adx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::adx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -390,8 +400,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->adxr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::adxr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -422,8 +432,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -450,8 +460,8 @@ class Trader
         $outAroonDown = [];
         $outAroonUp   = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->aroon(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outAroonDown, $outAroonUp);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::aroon(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outAroonDown, $outAroonUp);
+        self::checkForError($ReturnCode);
 
         return ['AroonDown' => self::adjustIndexes($outAroonDown, self::$outBegIdx->value), 'AroonUp' => self::adjustIndexes($outAroonUp, self::$outBegIdx->value)];
     }
@@ -474,8 +484,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->aroonOsc(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::aroonOsc(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -496,8 +506,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->asin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::asin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -518,8 +528,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->atan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::atan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -547,8 +557,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getVolumeIndicators()->atr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getVolumeIndicators()::atr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -572,8 +582,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getPriceTransform()->avgPrice(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPriceTransform()::avgPrice(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -604,8 +614,8 @@ class Trader
         $outRealMiddleBand = [];
         $outRealLowerBand  = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->bbands(0, $endIdx, $real, $timePeriod, $nbDevUp, $nbDevDn, $mAType, self::$outBegIdx, self::$outNBElement, $outRealUpperBand, $outRealMiddleBand, $outRealLowerBand);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::bbands(0, $endIdx, $real, $timePeriod, $nbDevUp, $nbDevDn, $mAType, self::$outBegIdx, self::$outNBElement, $outRealUpperBand, $outRealMiddleBand, $outRealLowerBand);
+        self::checkForError($ReturnCode);
 
         return
             [
@@ -638,8 +648,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->beta(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::beta(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -660,8 +670,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->bop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::bop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -685,8 +695,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->cci(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::cci(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -707,8 +717,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -729,8 +739,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl3BlackCrows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl3BlackCrows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -751,8 +761,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl3Inside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl3Inside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -773,8 +783,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl3LineStrike(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl3LineStrike(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -795,8 +805,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl3Outside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl3Outside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -817,8 +827,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl3StarsInSouth(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl3StarsInSouth(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -839,8 +849,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdl3WhiteSoldiers(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdl3WhiteSoldiers(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -862,8 +872,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlAbandonedBaby(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlAbandonedBaby(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -884,8 +894,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlAdvanceBlock(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlAdvanceBlock(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -906,8 +916,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlBeltHold(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlBeltHold(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -928,8 +938,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlBreakaway(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlBreakaway(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -950,8 +960,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlClosingMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlClosingMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -972,8 +982,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlConcealBabysWall(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlConcealBabysWall(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -994,8 +1004,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlCounterAttack(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlCounterAttack(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1017,8 +1027,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlDarkCloudCover(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlDarkCloudCover(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1039,8 +1049,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1061,8 +1071,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdldojistar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdldojistar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1083,8 +1093,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlDragonflyDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlDragonflyDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1105,8 +1115,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlEngulfing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlEngulfing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1128,8 +1138,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlEveningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlEveningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1151,8 +1161,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlEveningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlEveningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1173,8 +1183,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlGapSideSideWhite(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlGapSideSideWhite(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1196,8 +1206,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlGravestoneDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlGravestoneDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1218,8 +1228,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1241,8 +1251,8 @@ class Trader
         $endIdx     = count($high) - 1;
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHangingMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHangingMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1263,8 +1273,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHarami(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHarami(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1285,8 +1295,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHaramiCross(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHaramiCross(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1307,8 +1317,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHighWave(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHighWave(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1329,8 +1339,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHikkake(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHikkake(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1351,8 +1361,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHikkakeMod(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHikkakeMod(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1373,8 +1383,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlHomingPigeon(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlHomingPigeon(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1395,8 +1405,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlIdentical3Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlIdentical3Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1417,8 +1427,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlInNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlInNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1439,8 +1449,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlInvertedHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlInvertedHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1461,8 +1471,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlKicking(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlKicking(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1483,8 +1493,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlKickingByLength(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlKickingByLength(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1505,8 +1515,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlLadderBottom(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlLadderBottom(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1527,8 +1537,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlLongLeggedDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlLongLeggedDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1549,8 +1559,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlLongLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlLongLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1571,8 +1581,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1593,8 +1603,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlMatchingLow(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlMatchingLow(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1616,8 +1626,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlMatHold(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlMatHold(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1639,8 +1649,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlMorningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlMorningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1662,8 +1672,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlMorningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlMorningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1684,8 +1694,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlOnNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlOnNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1706,8 +1716,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlPiercing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlPiercing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1728,8 +1738,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlRickshawMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlRickshawMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1750,8 +1760,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlRiseFall3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlRiseFall3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1772,8 +1782,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlSeparatingLines(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlSeparatingLines(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1794,8 +1804,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlShootingStar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlShootingStar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1816,8 +1826,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlShortLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlShortLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1838,8 +1848,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlSpinningTop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlSpinningTop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1860,8 +1870,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlStalledPattern(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlStalledPattern(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1882,8 +1892,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlStickSandwich(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlStickSandwich(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1904,8 +1914,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlTakuri(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlTakuri(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1926,8 +1936,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlTasukiGap(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlTasukiGap(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1948,8 +1958,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlThrusting(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlThrusting(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1970,8 +1980,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlTristar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlTristar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -1992,8 +2002,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlUnique3River(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlUnique3River(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -2014,8 +2024,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlUpsideGap2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlUpsideGap2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -2036,8 +2046,8 @@ class Trader
         $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getPatternRecognition()->cdlXSideGap3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPatternRecognition()::cdlXSideGap3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -2058,8 +2068,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->ceil(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::ceil(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2083,8 +2093,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->cmo(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::cmo(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2106,8 +2116,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->correl(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::correl(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2128,8 +2138,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->cos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::cos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2150,8 +2160,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->cosh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::cosh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2174,8 +2184,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->dema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::dema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2196,8 +2206,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->div(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::div(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2221,8 +2231,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->dx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::dx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2246,8 +2256,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->ema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::ema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2268,8 +2278,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->exp(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::exp(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2290,8 +2300,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->floor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::floor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2310,8 +2320,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getCycleIndicators()->htDcPeriod(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getCycleIndicators()::htDcPeriod(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2330,8 +2340,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getCycleIndicators()->htDcPhase(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getCycleIndicators()::htDcPhase(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2351,8 +2361,8 @@ class Trader
         $outInPhase    = [];
         $outQuadrature = [];
         self::prep();
-        $ReturnCode = static::getCycleIndicators()->htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInPhase, $outQuadrature);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getCycleIndicators()::htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInPhase, $outQuadrature);
+        self::checkForError($ReturnCode);
 
         return [
             "Quadrature" => self::adjustIndexes($outQuadrature, self::$outBegIdx->value),
@@ -2375,8 +2385,8 @@ class Trader
         $outSine     = [];
         $outLeadSine = [];
         self::prep();
-        $ReturnCode = static::getCycleIndicators()->htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getCycleIndicators()::htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine);
+        self::checkForError($ReturnCode);
 
         return [
             "LeadSine" => self::adjustIndexes($outLeadSine, self::$outBegIdx->value),
@@ -2398,8 +2408,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->htTrendline(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::htTrendline(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2418,8 +2428,8 @@ class Trader
         $endIdx     = count($real) - 1;
         $outInteger = [];
         self::prep();
-        $ReturnCode = static::getCycleIndicators()->htTrendMode(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInteger);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getCycleIndicators()::htTrendMode(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInteger);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outInteger, self::$outBegIdx->value);
     }
@@ -2444,8 +2454,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->kama(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::kama(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2465,8 +2475,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->linearRegAngle(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::linearRegAngle(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2486,8 +2496,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->linearRegIntercept(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::linearRegIntercept(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2507,8 +2517,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->linearRegSlope(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::linearRegSlope(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2528,8 +2538,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->linearReg(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::linearReg(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2550,8 +2560,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->ln(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::ln(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2572,8 +2582,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->log10(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::log10(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2594,8 +2604,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->movingAverage(0, $endIdx, $real, $timePeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::movingAverage(0, $endIdx, $real, $timePeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2619,8 +2629,8 @@ class Trader
         $outMACDSignal = [];
         $outMACDHist   = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->macd(0, $endIdx, $real, $fastPeriod, $slowPeriod, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::macd(0, $endIdx, $real, $fastPeriod, $slowPeriod, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
+        self::checkForError($ReturnCode);
 
         return
             [
@@ -2652,8 +2662,8 @@ class Trader
         $outMACDSignal = [];
         $outMACDHist   = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->macdExt(0, $endIdx, $real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::macdExt(0, $endIdx, $real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
+        self::checkForError($ReturnCode);
 
         return
             [
@@ -2680,8 +2690,8 @@ class Trader
         $outMACDSignal = [];
         $outMACDHist   = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->macdFix(0, $endIdx, $real, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::macdFix(0, $endIdx, $real, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist);
+        self::checkForError($ReturnCode);
 
         return
             [
@@ -2708,8 +2718,8 @@ class Trader
         $outMAMA = [];
         $outFAMA = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->mama(0, $endIdx, $real, $fastLimit, $slowLimit, self::$outBegIdx, self::$outNBElement, $outMAMA, $outFAMA);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::mama(0, $endIdx, $real, $fastLimit, $slowLimit, self::$outBegIdx, self::$outNBElement, $outMAMA, $outFAMA);
+        self::checkForError($ReturnCode);
 
         return
             [
@@ -2736,8 +2746,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2757,8 +2767,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->max(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::max(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2778,8 +2788,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->maxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::maxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2798,8 +2808,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getPriceTransform()->medPrice(0, $endIdx, $high, $low, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPriceTransform()::medPrice(0, $endIdx, $high, $low, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2821,8 +2831,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->mfi(0, $endIdx, $high, $low, $close, $volume, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::mfi(0, $endIdx, $high, $low, $close, $volume, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2842,8 +2852,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->midPoint(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::midPoint(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2863,8 +2873,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->midPrice(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::midPrice(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2884,8 +2894,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->min(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::min(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2905,8 +2915,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->minIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::minIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2927,8 +2937,8 @@ class Trader
         $outMin = [];
         $outMax = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->minMax(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::minMax(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax);
+        self::checkForError($ReturnCode);
 
         return [
             'Min' => self::adjustIndexes($outMin, self::$outBegIdx->value),
@@ -2952,8 +2962,8 @@ class Trader
         $outMin = [];
         $outMax = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->minMaxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::minMaxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax);
+        self::checkForError($ReturnCode);
 
         return [
             'Min' => self::adjustIndexes($outMin, self::$outBegIdx->value),
@@ -2977,8 +2987,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->minusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::minusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -2998,8 +3008,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->minusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::minusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3019,8 +3029,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->mom(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::mom(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3041,8 +3051,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->mult(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::mult(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3063,8 +3073,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getVolatilityIndicators()->natr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getVolatilityIndicators()::natr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3083,8 +3093,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real, &$volume]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getVolumeIndicators()->obv(0, $endIdx, $real, $volume, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getVolumeIndicators()::obv(0, $endIdx, $real, $volume, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3105,8 +3115,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->plusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::plusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3126,8 +3136,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->plusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::plusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3149,8 +3159,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3170,8 +3180,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->roc(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::roc(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3191,8 +3201,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->rocp(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::rocp(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3212,8 +3222,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->rocr100(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::rocr100(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3233,8 +3243,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->rocr(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::rocr(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3254,8 +3264,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->rsi(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::rsi(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3276,8 +3286,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->sar(0, $endIdx, $high, $low, $acceleration, $maximum, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::sar(0, $endIdx, $high, $low, $acceleration, $maximum, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3304,8 +3314,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->sarExt(0, $endIdx, $high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::sarExt(0, $endIdx, $high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3326,8 +3336,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->sin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::sin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3348,8 +3358,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->sinh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::sinh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3369,8 +3379,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->sma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::sma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3391,8 +3401,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->sqrt(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::sqrt(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3413,8 +3423,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->stddev(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::stddev(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3440,8 +3450,8 @@ class Trader
         $outSlowK = [];
         $outSlowD = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->stoch(0, $endIdx, $high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType, self::$outBegIdx, self::$outNBElement, $outSlowK, $outSlowD);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::stoch(0, $endIdx, $high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType, self::$outBegIdx, self::$outNBElement, $outSlowK, $outSlowD);
+        self::checkForError($ReturnCode);
 
         return [
             'SlowK' => self::adjustIndexes($outSlowK, self::$outBegIdx->value),
@@ -3468,8 +3478,8 @@ class Trader
         $outFastK = [];
         $outFastD = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->stochF(0, $endIdx, $high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::stochF(0, $endIdx, $high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
+        self::checkForError($ReturnCode);
 
         return [
             'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
@@ -3496,8 +3506,8 @@ class Trader
         $outFastK = [];
         $outFastD = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->stochRsi(0, $endIdx, $real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::stochRsi(0, $endIdx, $real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD);
+        self::checkForError($ReturnCode);
 
         return [
             'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
@@ -3521,8 +3531,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->sub(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::sub(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3542,8 +3552,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathOperators()->sum(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathOperators()::sum(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3564,8 +3574,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->t3(0, $endIdx, $real, $timePeriod, $vFactor, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::t3(0, $endIdx, $real, $timePeriod, $vFactor, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3586,8 +3596,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->tan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::tan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3608,8 +3618,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMathTransform()->tanh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMathTransform()::tanh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3629,8 +3639,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->tema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::tema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3650,8 +3660,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getVolatilityIndicators()->trueRange(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getVolatilityIndicators()::trueRange(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3671,8 +3681,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->trima(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::trima(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3692,8 +3702,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->trix(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::trix(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3713,8 +3723,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->tsf(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::tsf(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3734,8 +3744,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getPriceTransform()->typPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPriceTransform()::typPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3758,8 +3768,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->ultOsc(0, $endIdx, $high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::ultOsc(0, $endIdx, $high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3780,8 +3790,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getStatisticFunctions()->variance(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getStatisticFunctions()::variance(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3801,8 +3811,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getPriceTransform()->wclPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getPriceTransform()::wclPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3823,8 +3833,8 @@ class Trader
         $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getMomentumIndicators()->willR(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getMomentumIndicators()::willR(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }
@@ -3844,8 +3854,8 @@ class Trader
         $endIdx  = count($real) - 1;
         $outReal = [];
         self::prep();
-        $ReturnCode = static::getOverlapStudies()->wma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
-        static::checkForError($ReturnCode);
+        $ReturnCode = self::getOverlapStudies()::wma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal);
+        self::checkForError($ReturnCode);
 
         return self::adjustIndexes($outReal, self::$outBegIdx->value);
     }

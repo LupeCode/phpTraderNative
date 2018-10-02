@@ -67,9 +67,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
+    public static function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -103,16 +103,16 @@ class OverlapStudies extends Core
         if (($tempBuffer1 == $inReal) || ($tempBuffer2 == $inReal)) {
             return ReturnCode::BadParam;
         }
-        $ReturnCode = $this->movingAverage($startIdx, $endIdx, $inReal, $optInTimePeriod, $optInMAType, $outBegIdx, $outNBElement, $tempBuffer1);
+        $ReturnCode = OverlapStudies::movingAverage($startIdx, $endIdx, $inReal, $optInTimePeriod, $optInMAType, $outBegIdx, $outNBElement, $tempBuffer1);
         if (($ReturnCode != ReturnCode::Success) || ((int)$outNBElement->value == 0)) {
             $outNBElement->value = 0;
 
             return $ReturnCode;
         }
         if ($optInMAType == MovingAverageType::SMA) {
-            $this->TA_INT_stddev_using_precalc_ma($inReal, $tempBuffer1, (int)$outBegIdx->value, (int)$outNBElement->value, $optInTimePeriod, $tempBuffer2);
+            Core::TA_INT_stddev_using_precalc_ma($inReal, $tempBuffer1, (int)$outBegIdx->value, (int)$outNBElement->value, $optInTimePeriod, $tempBuffer2);
         } else {
-            $ReturnCode = (new StatisticFunctions())->stdDev((int)$outBegIdx->value, $endIdx, $inReal, $optInTimePeriod, 1.0, $outBegIdx, $outNBElement, $tempBuffer2);
+            $ReturnCode = StatisticFunctions::stdDev((int)$outBegIdx->value, $endIdx, $inReal, $optInTimePeriod, 1.0, $outBegIdx, $outNBElement, $tempBuffer2);
             if ($ReturnCode != ReturnCode::Success) {
                 $outNBElement->value = 0;
 
@@ -175,9 +175,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function dema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function dema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $firstEMABegIdx     = new MyInteger();
@@ -191,7 +191,7 @@ class OverlapStudies extends Core
         }
         $outNBElement->value = 0;
         $outBegIdx->value    = 0;
-        $lookbackEMA         = (new Lookback())->emaLookback($optInTimePeriod);
+        $lookbackEMA         = Lookback::emaLookback($optInTimePeriod);
         $lookbackTotal       = $lookbackEMA * 2;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -203,10 +203,10 @@ class OverlapStudies extends Core
             $firstEMA = $outReal;
         } else {
             $tempInt  = $lookbackTotal + ($endIdx - $startIdx) + 1;
-            $firstEMA = $this->double($tempInt);
+            $firstEMA = Core::double($tempInt);
         }
         $k          = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $ReturnCode = $this->TA_INT_EMA(
+        $ReturnCode = Core::TA_INT_EMA(
             $startIdx - $lookbackEMA, $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
@@ -215,8 +215,8 @@ class OverlapStudies extends Core
         if (($ReturnCode != ReturnCode::Success) || ($firstEMANbElement->value == 0)) {
             return $ReturnCode;
         }
-        $secondEMA  = $this->double($firstEMANbElement->value);
-        $ReturnCode = $this->TA_INT_EMA(
+        $secondEMA  = Core::double($firstEMANbElement->value);
+        $ReturnCode = Core::TA_INT_EMA(
             0, $firstEMANbElement->value - 1, $firstEMA,
             $optInTimePeriod, $k,
             $secondEMABegIdx, $secondEMANbElement,
@@ -248,9 +248,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function ema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function ema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -259,7 +259,7 @@ class OverlapStudies extends Core
             return ReturnCode::BadParam;
         }
 
-        return $this->TA_INT_EMA(
+        return Core::TA_INT_EMA(
             $startIdx, $endIdx, $inReal,
             $optInTimePeriod,
             ((double)2.0 / ((double)($optInTimePeriod + 1))),
@@ -277,30 +277,30 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function htTrendline(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function htTrendline(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a = 0.0962;
         $b = 0.5769;
-        $detrender_Odd  = $this->double(3);
-        $detrender_Even = $this->double(3);
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        $jQ_Odd  = $this->double(3);
-        $jQ_Even = $this->double(3);
+        $detrender_Odd  = Core::double(3);
+        $detrender_Even = Core::double(3);
+        $Q1_Odd  = Core::double(3);
+        $Q1_Even = Core::double(3);
+        $jI_Odd  = Core::double(3);
+        $jI_Even = Core::double(3);
+        $jQ_Odd  = Core::double(3);
+        $jQ_Even = Core::double(3);
         $smoothPrice_Idx = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
         {
-            $smoothPrice = $this->double($maxIdx_smoothPricePrice + 1);
+            $smoothPrice = Core::double($maxIdx_smoothPricePrice + 1);
         };
         $iTrend1       = $iTrend2 = $iTrend3 = 0.0;
         $tempReal      = atan(1);
         $rad2Deg       = 45.0 / $tempReal;
-        $lookbackTotal = 63 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtTrendline]);
+        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendline]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -576,9 +576,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function kama(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function kama(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $constMax  = 2.0 / (30.0 + 1.0);
@@ -590,7 +590,7 @@ class OverlapStudies extends Core
         }
         $outBegIdx->value    = 0;
         $outNBElement->value = 0;
-        $lookbackTotal       = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::KAMA]);
+        $lookbackTotal       = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::KAMA]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -675,9 +675,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function movingAverage(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function movingAverage(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -697,57 +697,57 @@ class OverlapStudies extends Core
         }
         switch ($optInMAType) {
             case MovingAverageType::SMA:
-                $ReturnCode = $this->sma(
+                $ReturnCode = OverlapStudies::sma(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::EMA:
-                $ReturnCode = $this->ema(
+                $ReturnCode = OverlapStudies::ema(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::WMA:
-                $ReturnCode = $this->wma(
+                $ReturnCode = OverlapStudies::wma(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::DEMA:
-                $ReturnCode = $this->dema(
+                $ReturnCode = OverlapStudies::dema(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::TEMA:
-                $ReturnCode = $this->tema(
+                $ReturnCode = OverlapStudies::tema(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::TRIMA:
-                $ReturnCode = $this->trima(
+                $ReturnCode = OverlapStudies::trima(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::KAMA:
-                $ReturnCode = $this->kama(
+                $ReturnCode = OverlapStudies::kama(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::MAMA:
-                $dummyBuffer = $this->double(($endIdx - $startIdx + 1));
-                $ReturnCode  = $this->mama(
+                $dummyBuffer = Core::double(($endIdx - $startIdx + 1));
+                $ReturnCode  = OverlapStudies::mama(
                     $startIdx, $endIdx, $inReal, 0.5, 0.05,
                     $outBegIdx, $outNBElement,
                     $outReal, $dummyBuffer
                 );
                 break;
             case MovingAverageType::T3:
-                $ReturnCode = $this->t3(
+                $ReturnCode = OverlapStudies::t3(
                     $startIdx, $endIdx, $inReal,
                     $optInTimePeriod, 0.7,
                     $outBegIdx, $outNBElement, $outReal
@@ -774,19 +774,19 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function mama(int $startIdx, int $endIdx, array $inReal, float $optInFastLimit, float $optInSlowLimit, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMAMA, array &$outFAMA): int
+    public static function mama(int $startIdx, int $endIdx, array $inReal, float $optInFastLimit, float $optInSlowLimit, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMAMA, array &$outFAMA): int
     {
         $a = 0.0962;
         $b = 0.5769;
-        $detrender_Odd  = $this->double(3);
-        $detrender_Even = $this->double(3);
-        $Q1_Odd  = $this->double(3);
-        $Q1_Even = $this->double(3);
-        $jI_Odd  = $this->double(3);
-        $jI_Even = $this->double(3);
-        $jQ_Odd  = $this->double(3);
-        $jQ_Even = $this->double(3);
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        $detrender_Odd  = Core::double(3);
+        $detrender_Even = Core::double(3);
+        $Q1_Odd  = Core::double(3);
+        $Q1_Even = Core::double(3);
+        $jI_Odd  = Core::double(3);
+        $jI_Even = Core::double(3);
+        $jQ_Odd  = Core::double(3);
+        $jQ_Even = Core::double(3);
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ($optInFastLimit == (-4e+37)) {
@@ -800,7 +800,7 @@ class OverlapStudies extends Core
             return ReturnCode::BadParam;
         }
         $rad2Deg       = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::MAMA]);
+        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::MAMA]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1082,9 +1082,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function movingAverageVariablePeriod(int $startIdx, int $endIdx, array $inReal, array &$inPeriods, int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function movingAverageVariablePeriod(int $startIdx, int $endIdx, array $inReal, array &$inPeriods, int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $localBegIdx    = new MyInteger();
@@ -1099,7 +1099,7 @@ class OverlapStudies extends Core
         } elseif (((int)$optInMaxPeriod < 2) || ((int)$optInMaxPeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = (new Lookback())->movingAverageLookback($optInMaxPeriod, $optInMAType);
+        $lookbackTotal = Lookback::movingAverageLookback($optInMaxPeriod, $optInMAType);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1135,7 +1135,7 @@ class OverlapStudies extends Core
         for ($i = 0; $i < $outputSize; $i++) {
             $curPeriod = $localPeriodArray[$i];
             if ($curPeriod != 0) {
-                $ReturnCode = $this->movingAverage(
+                $ReturnCode = OverlapStudies::movingAverage(
                     $startIdx, $endIdx, $inReal,
                     $curPeriod, $optInMAType,
                     $localBegIdx, $localNbElement, $localOutputArray
@@ -1172,9 +1172,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function midPoint(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function midPoint(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1227,9 +1227,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function midPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function midPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1286,13 +1286,13 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function sar(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInAcceleration, float $optInMaximum, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sar(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInAcceleration, float $optInMaximum, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $tempInt = new MyInteger();
-        $ep_temp = $this->double(1);
+        $ep_temp = Core::double(1);
         if ($optInAcceleration == (-4e+37)) {
             $optInAcceleration = 2.000000e-2;
         } elseif (($optInAcceleration < 0.000000e+0) || ($optInAcceleration > 3.000000e+37)) {
@@ -1316,7 +1316,7 @@ class OverlapStudies extends Core
         if ($af > $optInMaximum) {
             $af = $optInAcceleration = $optInMaximum;
         }
-        $ReturnCode = (new MomentumIndicators())->minusDM(
+        $ReturnCode = MomentumIndicators::minusDM(
             $startIdx, $startIdx, $inHigh, $inLow, 1,
             $tempInt, $tempInt,
             $ep_temp
@@ -1452,13 +1452,13 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function sarExt(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sarExt(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $tempInt = new MyInteger();
-        $ep_temp = $this->double(1);
+        $ep_temp = Core::double(1);
         if ($optInStartValue == (-4e+37)) {
             $optInStartValue = 0.000000e+0;
         } elseif (($optInStartValue < -3.000000e+37) || ($optInStartValue > 3.000000e+37)) {
@@ -1523,7 +1523,7 @@ class OverlapStudies extends Core
             $optInAccelerationShort = $optInAccelerationMaxShort;
         }
         if ($optInStartValue == 0) {
-            $ReturnCode = (new MomentumIndicators())->minusDM(
+            $ReturnCode = MomentumIndicators::minusDM(
                 $startIdx, $startIdx, $inHigh, $inLow, 1,
                 $tempInt, $tempInt,
                 $ep_temp
@@ -1670,9 +1670,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function sma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1681,7 +1681,7 @@ class OverlapStudies extends Core
             return ReturnCode::BadParam;
         }
 
-        return $this->TA_INT_SMA(
+        return Core::TA_INT_SMA(
             $startIdx, $endIdx,
             $inReal, $optInTimePeriod,
             $outBegIdx, $outNBElement, $outReal
@@ -1700,9 +1700,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function t3(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInVFactor, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function t3(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInVFactor, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1715,7 +1715,7 @@ class OverlapStudies extends Core
         } elseif (($optInVFactor < 0.000000e+0) || ($optInVFactor > 1.000000e+0)) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = 6 * ($optInTimePeriod - 1) + ($this->unstablePeriod[UnstablePeriodFunctionID::T3]);
+        $lookbackTotal = 6 * ($optInTimePeriod - 1) + (static::$unstablePeriod[UnstablePeriodFunctionID::T3]);
         if ($startIdx <= $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1814,9 +1814,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function tema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function tema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $firstEMABegIdx     = new MyInteger();
@@ -1832,7 +1832,7 @@ class OverlapStudies extends Core
         }
         $outNBElement->value = 0;
         $outBegIdx->value    = 0;
-        $lookbackEMA         = (new Lookback())->emaLookback($optInTimePeriod);
+        $lookbackEMA         = Lookback::emaLookback($optInTimePeriod);
         $lookbackTotal       = $lookbackEMA * 3;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -1841,9 +1841,9 @@ class OverlapStudies extends Core
             return ReturnCode::Success;
         }
         $tempInt    = $lookbackTotal + ($endIdx - $startIdx) + 1;
-        $firstEMA   = $this->double($tempInt);
+        $firstEMA   = Core::double($tempInt);
         $k          = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $ReturnCode = $this->TA_INT_EMA(
+        $ReturnCode = Core::TA_INT_EMA(
             $startIdx - ($lookbackEMA * 2), $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
@@ -1852,8 +1852,8 @@ class OverlapStudies extends Core
         if (($ReturnCode != ReturnCode::Success) || ($firstEMANbElement->value == 0)) {
             return $ReturnCode;
         }
-        $secondEMA  = $this->double($firstEMANbElement->value);
-        $ReturnCode = $this->TA_INT_EMA(
+        $secondEMA  = Core::double($firstEMANbElement->value);
+        $ReturnCode = Core::TA_INT_EMA(
             0, $firstEMANbElement->value - 1, $firstEMA,
             $optInTimePeriod, $k,
             $secondEMABegIdx, $secondEMANbElement,
@@ -1862,7 +1862,7 @@ class OverlapStudies extends Core
         if (($ReturnCode != ReturnCode::Success) || ($secondEMANbElement->value == 0)) {
             return $ReturnCode;
         }
-        $ReturnCode = $this->TA_INT_EMA(
+        $ReturnCode = Core::TA_INT_EMA(
             0, $secondEMANbElement->value - 1, $secondEMA,
             $optInTimePeriod, $k,
             $thirdEMABegIdx, $thirdEMANbElement,
@@ -1895,9 +1895,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function trima(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function trima(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2010,9 +2010,9 @@ class OverlapStudies extends Core
      *
      * @return int
      */
-    public function wma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function wma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {

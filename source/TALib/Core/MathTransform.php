@@ -51,18 +51,18 @@ class MathTransform extends Core
 {
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param float[]   $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param float[]   $outReal
      *
      * @return int
      */
-    public function acos(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function acos(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -75,18 +75,18 @@ class MathTransform extends Core
     }
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param float[]   $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param float[]   $outReal
      *
      * @return int
      */
-    public function asin(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function asin(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -99,18 +99,18 @@ class MathTransform extends Core
     }
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inReal
+     * @param int       $startIdx
+     * @param int       $endIdx
+     * @param float[]   $inReal
      * @param MyInteger $outBegIdx
      * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param float[]   $outReal
      *
      * @return int
      */
-    public function atan(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function atan(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -132,9 +132,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function ceil(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function ceil(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -156,9 +156,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function cos(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function cos(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -180,9 +180,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function cosh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function cosh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -204,9 +204,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function exp(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function exp(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -228,9 +228,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function floor(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function floor(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -252,9 +252,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function ln(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function ln(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -276,9 +276,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function log10(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function log10(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -300,9 +300,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function sin(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sin(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -324,9 +324,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function sinh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sinh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -348,9 +348,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function sqrt(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sqrt(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -372,9 +372,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function tan(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function tan(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -396,9 +396,9 @@ class MathTransform extends Core
      *
      * @return int
      */
-    public function tanh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function tanh(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
