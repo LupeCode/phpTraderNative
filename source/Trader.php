@@ -24,28 +24,29 @@ class Trader
         ReturnCode::OutOfRangeStartIndex => "Out of range on start index",
         ReturnCode::OutOfRangeEndIndex   => "Out of range on end index",
         ReturnCode::InternalError        => "Internal error",
+        ReturnCode::UnevenParameters     => "The count of the input arrays do not match each other",
     ];
 
     /** @var CycleIndicators */
-    protected static $cycleIndicators      = null;
+    protected static $cycleIndicators = null;
     /** @var MathOperators */
-    protected static $mathOperators        = null;
+    protected static $mathOperators = null;
     /** @var MathTransform */
-    protected static $mathTransform        = null;
+    protected static $mathTransform = null;
     /** @var MomentumIndicators */
-    protected static $momentumIndicators   = null;
+    protected static $momentumIndicators = null;
     /** @var OverlapStudies */
-    protected static $overlapStudies       = null;
+    protected static $overlapStudies = null;
     /** @var PatternRecognition */
-    protected static $patternRecognition   = null;
+    protected static $patternRecognition = null;
     /** @var PriceTransform */
-    protected static $priceTransform       = null;
+    protected static $priceTransform = null;
     /** @var StatisticFunctions */
-    protected static $statisticFunctions   = null;
+    protected static $statisticFunctions = null;
     /** @var VolatilityIndicators */
     protected static $volatilityIndicators = null;
     /** @var VolumeIndicators */
-    protected static $volumeIndicators     = null;
+    protected static $volumeIndicators = null;
 
     /** @var MyInteger */
     protected static $outBegIdx;
@@ -224,7 +225,7 @@ class Trader
         $count = count($arrays[0]);
         foreach ($arrays as &$array) {
             if (count($array) !== $count) {
-                throw new \Exception("The count of the input arrays do not match each other.");
+                throw new \Exception(self::$errorArray[ReturnCode::UnevenParameters], ReturnCode::UnevenParameters);
             }
             $array = \array_values($array);
         }
