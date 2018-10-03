@@ -85,7 +85,7 @@ class Lookback extends Core
             $slowestPeriod = $optInFastPeriod;
         }
 
-        return Lookback::emaLookback($slowestPeriod);
+        return self::emaLookback($slowestPeriod);
     }
 
     public static function adxLookback(int $optInTimePeriod): int
@@ -107,7 +107,7 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + Lookback::adxLookback($optInTimePeriod) - 1;
+            return $optInTimePeriod + self::adxLookback($optInTimePeriod) - 1;
         } else {
             return 3;
         }
@@ -126,7 +126,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
+        return self::movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
     }
 
     public static function aroonLookback(int $optInTimePeriod): int
@@ -195,7 +195,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::movingAverageLookback($optInTimePeriod, $optInMAType);
+        return self::movingAverageLookback($optInTimePeriod, $optInMAType);
     }
 
     public static function betaLookback(int $optInTimePeriod): int
@@ -622,7 +622,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::emaLookback($optInTimePeriod) * 2;
+        return self::emaLookback($optInTimePeriod) * 2;
     }
 
     public static function divLookback(): int
@@ -775,31 +775,31 @@ class Lookback extends Core
         }
         switch ($optInMAType) {
             case MovingAverageType::SMA:
-                $retValue = Lookback::smaLookback($optInTimePeriod);
+                $retValue = self::smaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::EMA:
-                $retValue = Lookback::emaLookback($optInTimePeriod);
+                $retValue = self::emaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::WMA:
-                $retValue = Lookback::wmaLookback($optInTimePeriod);
+                $retValue = self::wmaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::DEMA:
-                $retValue = Lookback::demaLookback($optInTimePeriod);
+                $retValue = self::demaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::TEMA:
-                $retValue = Lookback::temaLookback($optInTimePeriod);
+                $retValue = self::temaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::TRIMA:
-                $retValue = Lookback::trimaLookback($optInTimePeriod);
+                $retValue = self::trimaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::KAMA:
-                $retValue = Lookback::kamaLookback($optInTimePeriod);
+                $retValue = self::kamaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::MAMA:
-                $retValue = Lookback::mamaLookback(0.5, 0.05);
+                $retValue = self::mamaLookback(0.5, 0.05);
                 break;
             case MovingAverageType::T3:
-                $retValue = Lookback::t3Lookback($optInTimePeriod, 0.7);
+                $retValue = self::t3Lookback($optInTimePeriod, 0.7);
                 break;
             default:
                 $retValue = 0;
@@ -832,8 +832,8 @@ class Lookback extends Core
             $optInFastPeriod = $tempInteger;
         }
 
-        return Lookback::emaLookback($optInSlowPeriod)
-               + Lookback::emaLookback($optInSignalPeriod);
+        return self::emaLookback($optInSlowPeriod)
+               + self::emaLookback($optInSignalPeriod);
     }
 
     public static function macdExtLookback(int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType): int
@@ -854,13 +854,13 @@ class Lookback extends Core
         } elseif (((int)$optInSignalPeriod < 1) || ((int)$optInSignalPeriod > 100000)) {
             return -1;
         }
-        $lookbackLargest = Lookback::movingAverageLookback($optInFastPeriod, $optInFastMAType);
-        $tempInteger     = Lookback::movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
+        $lookbackLargest = self::movingAverageLookback($optInFastPeriod, $optInFastMAType);
+        $tempInteger     = self::movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
         if ($tempInteger > $lookbackLargest) {
             $lookbackLargest = $tempInteger;
         }
 
-        return $lookbackLargest + Lookback::movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
+        return $lookbackLargest + self::movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
     }
 
     public static function macdFixLookback(int $optInSignalPeriod): int
@@ -871,8 +871,8 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::emaLookback(26)
-               + Lookback::emaLookback($optInSignalPeriod);
+        return self::emaLookback(26)
+               + self::emaLookback($optInSignalPeriod);
     }
 
     public static function mamaLookback(float $optInFastLimit, float $optInSlowLimit): int
@@ -904,7 +904,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::movingAverageLookback($optInMaxPeriod, $optInMAType);
+        return self::movingAverageLookback($optInMaxPeriod, $optInMAType);
     }
 
     public static function maxLookback(int $optInTimePeriod): int
@@ -1112,7 +1112,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
+        return self::movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
     }
 
     public static function rocLookback(int $optInTimePeriod): int
@@ -1276,7 +1276,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return Lookback::varianceLookback($optInTimePeriod, $optInNbDev);
+        return self::varianceLookback($optInTimePeriod, $optInNbDev);
     }
 
     public static function stochLookback(int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType): int
@@ -1298,8 +1298,8 @@ class Lookback extends Core
             return -1;
         }
         $retValue = ($optInFastK_Period - 1);
-        $retValue += Lookback::movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
-        $retValue += Lookback::movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
+        $retValue += self::movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
+        $retValue += self::movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
 
         return $retValue;
     }
@@ -1318,7 +1318,7 @@ class Lookback extends Core
             return -1;
         }
         $retValue = ($optInFastK_Period - 1);
-        $retValue += Lookback::movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
+        $retValue += self::movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
 
         return $retValue;
     }
@@ -1341,7 +1341,7 @@ class Lookback extends Core
         } elseif (((int)$optInFastD_Period < 1) || ((int)$optInFastD_Period > 100000)) {
             return -1;
         }
-        $retValue = Lookback::rsiLookback($optInTimePeriod) + Lookback::stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        $retValue = self::rsiLookback($optInTimePeriod) + self::stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
 
         return $retValue;
     }
@@ -1396,7 +1396,7 @@ class Lookback extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return -1;
         }
-        $retValue = Lookback::emaLookback($optInTimePeriod);
+        $retValue = self::emaLookback($optInTimePeriod);
 
         return $retValue * 3;
     }
@@ -1425,9 +1425,9 @@ class Lookback extends Core
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
             return -1;
         }
-        $emaLookback = Lookback::emaLookback($optInTimePeriod);
+        $emaLookback = self::emaLookback($optInTimePeriod);
 
-        return ($emaLookback * 3) + Lookback::rocRLookback(1);
+        return ($emaLookback * 3) + self::rocRLookback(1);
     }
 
     public static function tsfLookback(int $optInTimePeriod): int
@@ -1466,7 +1466,7 @@ class Lookback extends Core
         }
         $maxPeriod = (((((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) > ($optInTimePeriod3)) ? (((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) : ($optInTimePeriod3));
 
-        return Lookback::smaLookback($maxPeriod) + 1;
+        return self::smaLookback($maxPeriod) + 1;
     }
 
     public static function varianceLookback(int $optInTimePeriod, float $optInNbDev): int

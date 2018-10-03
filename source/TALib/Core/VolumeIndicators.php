@@ -64,7 +64,7 @@ class VolumeIndicators extends Core
      */
     public static function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $nbBar        = $endIdx - $startIdx + 1;
@@ -106,7 +106,7 @@ class VolumeIndicators extends Core
      */
     public static function adOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod, int $optInSlowPeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -203,12 +203,12 @@ class VolumeIndicators extends Core
      */
     public static function atr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outBegIdx1    = 0;
         $outNbElement1 = 0;
-        $prevATRTemp   = Core::double(1);
+        $prevATRTemp   = static::double(1);
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
@@ -226,12 +226,12 @@ class VolumeIndicators extends Core
         if ($optInTimePeriod <= 1) {
             return VolatilityIndicators::trueRange($startIdx, $endIdx, $inHigh, $inLow, $inClose, $outBegIdx, $outNBElement, $outReal);
         }
-        $tempBuffer = Core::double($lookbackTotal + ($endIdx - $startIdx) + 1);
+        $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
         $retCode    = VolatilityIndicators::trueRange(($startIdx - $lookbackTotal + 1), $endIdx, $inHigh, $inLow, $inClose, $outBegIdx1, $outNbElement1, $tempBuffer);
         if ($retCode != ReturnCode::Success) {
             return $retCode;
         }
-        $retCode = Core::TA_INT_SMA($optInTimePeriod - 1, $optInTimePeriod - 1, $tempBuffer, $optInTimePeriod, $outBegIdx1, $outNbElement1, $prevATRTemp);
+        $retCode = static::TA_INT_SMA($optInTimePeriod - 1, $optInTimePeriod - 1, $tempBuffer, $optInTimePeriod, $outBegIdx1, $outNbElement1, $prevATRTemp);
         if ($retCode != ReturnCode::Success) {
             return $retCode;
         }
@@ -272,7 +272,7 @@ class VolumeIndicators extends Core
      */
     public static function obv(int $startIdx, int $endIdx, array $inReal, array &$inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $prevOBV  = $inVolume[$startIdx];

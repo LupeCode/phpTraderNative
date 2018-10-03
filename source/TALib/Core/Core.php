@@ -242,17 +242,17 @@ class Core
             return ReturnCode::Success;
         }
         $tempInteger   = ($endIdx - $startIdx) + 1 + $lookbackSignal;
-        $fastEMABuffer = Core::double($tempInteger);
-        $slowEMABuffer = Core::double($tempInteger);
+        $fastEMABuffer = static::double($tempInteger);
+        $slowEMABuffer = static::double($tempInteger);
         $tempInteger   = $startIdx - $lookbackSignal;
-        $ReturnCode    = Core::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInSlowPeriod, $k1, $outBegIdx1, $outNbElement1, $slowEMABuffer);
+        $ReturnCode    = static::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInSlowPeriod, $k1, $outBegIdx1, $outNbElement1, $slowEMABuffer);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx    = 0;
             $outNBElement = 0;
 
             return $ReturnCode;
         }
-        $ReturnCode = Core::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInFastPeriod, $k2, $outBegIdx2, $outNbElement2, $fastEMABuffer);
+        $ReturnCode = static::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInFastPeriod, $k2, $outBegIdx2, $outNbElement2, $fastEMABuffer);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx    = 0;
             $outNBElement = 0;
@@ -273,7 +273,7 @@ class Core
         }
         //System::arraycopy($fastEMABuffer, $lookbackSignal, $outMACD, 0, ($endIdx - $startIdx) + 1);
         $outMACD    = \array_slice($fastEMABuffer, $lookbackSignal, ($endIdx - $startIdx) + 1);
-        $ReturnCode = Core::TA_INT_EMA(0, $outNbElement1 - 1, $fastEMABuffer, $optInSignalPeriod_2, ((double)2.0 / ((double)($optInSignalPeriod_2 + 1))), $outBegIdx2, $outNbElement2, $outMACDSignal);
+        $ReturnCode = static::TA_INT_EMA(0, $outNbElement1 - 1, $fastEMABuffer, $optInSignalPeriod_2, ((double)2.0 / ((double)($optInSignalPeriod_2 + 1))), $outBegIdx2, $outNbElement2, $outMACDSignal);
         if ($ReturnCode != ReturnCode::Success) {
             $outBegIdx    = 0;
             $outNBElement = 0;

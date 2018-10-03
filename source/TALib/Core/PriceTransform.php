@@ -64,7 +64,7 @@ class PriceTransform extends Core
      */
     public static function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -90,7 +90,7 @@ class PriceTransform extends Core
      */
     public static function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -117,7 +117,7 @@ class PriceTransform extends Core
      */
     public static function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;
@@ -146,7 +146,7 @@ class PriceTransform extends Core
      */
     public static function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outIdx = 0;

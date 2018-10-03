@@ -63,7 +63,7 @@ class StatisticFunctions extends Core
      */
     public static function beta(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -172,7 +172,7 @@ class StatisticFunctions extends Core
      */
     public static function correl(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -251,7 +251,7 @@ class StatisticFunctions extends Core
      */
     public static function linearReg(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -305,7 +305,7 @@ class StatisticFunctions extends Core
      */
     public static function linearRegAngle(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -358,7 +358,7 @@ class StatisticFunctions extends Core
      */
     public static function linearRegIntercept(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -411,7 +411,7 @@ class StatisticFunctions extends Core
      */
     public static function linearRegSlope(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -464,7 +464,7 @@ class StatisticFunctions extends Core
      */
     public static function stdDev(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -477,7 +477,7 @@ class StatisticFunctions extends Core
         } elseif (($optInNbDev < -3.000000e+37) || ($optInNbDev > 3.000000e+37)) {
             return ReturnCode::BadParam;
         }
-        $retCode = Core::TA_INT_VAR(
+        $retCode = static::TA_INT_VAR(
             $startIdx, $endIdx,
             $inReal, $optInTimePeriod,
             $outBegIdx, $outNBElement, $outReal
@@ -511,7 +511,7 @@ class StatisticFunctions extends Core
      */
     public static function tsf(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -566,7 +566,7 @@ class StatisticFunctions extends Core
      */
     public static function variance(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -580,7 +580,7 @@ class StatisticFunctions extends Core
             return ReturnCode::BadParam;
         }
 
-        return Core::TA_INT_VAR(
+        return static::TA_INT_VAR(
             $startIdx, $endIdx, $inReal,
             $optInTimePeriod,
             $outBegIdx, $outNBElement, $outReal

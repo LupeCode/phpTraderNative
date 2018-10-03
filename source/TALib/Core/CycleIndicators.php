@@ -62,12 +62,12 @@ class CycleIndicators extends Core
      */
     public static function htDcPeriod(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a             = 0.0962;
         $b             = 0.5769;
-        $detrender_Odd = $detrender_Even = $Q1_Odd = $Q1_Even = $jI_Odd = $jI_Even = $jQ_Odd = $jQ_Even = Core::double(3);
+        $detrender_Odd = $detrender_Even = $Q1_Odd = $Q1_Even = $jI_Odd = $jI_Even = $jQ_Odd = $jQ_Even = static::double(3);
         $rad2Deg       = 180.0 / (4.0 * atan(1));
         $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
         if ($startIdx < $lookbackTotal) {
@@ -236,23 +236,23 @@ class CycleIndicators extends Core
      */
     public static function htDcPhase(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a                       = 0.0962;
         $b                       = 0.5769;
-        $detrender_Odd           = Core::double(3);
-        $detrender_Even          = Core::double(3);
-        $Q1_Odd                  = Core::double(3);
-        $Q1_Even                 = Core::double(3);
-        $jI_Odd                  = Core::double(3);
-        $jI_Even                 = Core::double(3);
-        $jQ_Odd                  = Core::double(3);
-        $jQ_Even                 = Core::double(3);
+        $detrender_Odd           = static::double(3);
+        $detrender_Even          = static::double(3);
+        $Q1_Odd                  = static::double(3);
+        $Q1_Even                 = static::double(3);
+        $jI_Odd                  = static::double(3);
+        $jI_Even                 = static::double(3);
+        $jQ_Odd                  = static::double(3);
+        $jQ_Even                 = static::double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
         {
-            $smoothPrice = Core::double($maxIdx_smoothPricePrice + 1);
+            $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
         };
         $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
@@ -556,18 +556,18 @@ class CycleIndicators extends Core
      */
     public static function htPhasor(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInPhase, array &$outQuadrature): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a              = 0.0962;
         $b              = 0.5769;
-        $detrender_Odd  = Core::double(3);
-        $detrender_Even = Core::double(3);
-        $Q1_Odd         = Core::double(3);
-        $Q1_Even        = Core::double(3);
-        $jI_Odd         = Core::double(3);
-        $jI_Even        = Core::double(3);
-        $jQ_Odd         = Core::double(3);
+        $detrender_Odd  = static::double(3);
+        $detrender_Even = static::double(3);
+        $Q1_Odd         = static::double(3);
+        $Q1_Even        = static::double(3);
+        $jI_Odd         = static::double(3);
+        $jI_Even        = static::double(3);
+        $jQ_Odd         = static::double(3);
         $rad2Deg        = 180.0 / (4.0 * atan(1));
         $lookbackTotal  = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
         if ($startIdx < $lookbackTotal) {
@@ -826,23 +826,23 @@ class CycleIndicators extends Core
      */
     public static function htSine(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outSine, array &$outLeadSine): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a                       = 0.0962;
         $b                       = 0.5769;
-        $detrender_Odd           = Core::double(3);
-        $detrender_Even          = Core::double(3);
-        $Q1_Odd                  = Core::double(3);
-        $Q1_Even                 = Core::double(3);
-        $jI_Odd                  = Core::double(3);
-        $jI_Even                 = Core::double(3);
-        $jQ_Odd                  = Core::double(3);
-        $jQ_Even                 = Core::double(3);
+        $detrender_Odd           = static::double(3);
+        $detrender_Even          = static::double(3);
+        $Q1_Odd                  = static::double(3);
+        $Q1_Even                 = static::double(3);
+        $jI_Odd                  = static::double(3);
+        $jI_Even                 = static::double(3);
+        $jQ_Odd                  = static::double(3);
+        $jQ_Even                 = static::double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
         {
-            $smoothPrice = Core::double($maxIdx_smoothPricePrice + 1);
+            $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
         };
         $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
@@ -1147,23 +1147,23 @@ class CycleIndicators extends Core
      */
     public static function htTrendMode(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a                       = 0.0962;
         $b                       = 0.5769;
-        $detrender_Odd           = Core::double(3);
-        $detrender_Even          = Core::double(3);
-        $Q1_Odd                  = Core::double(3);
-        $Q1_Even                 = Core::double(3);
-        $jI_Odd                  = Core::double(3);
-        $jI_Even                 = Core::double(3);
-        $jQ_Odd                  = Core::double(3);
-        $jQ_Even                 = Core::double(3);
+        $detrender_Odd           = static::double(3);
+        $detrender_Even          = static::double(3);
+        $Q1_Odd                  = static::double(3);
+        $Q1_Even                 = static::double(3);
+        $jI_Odd                  = static::double(3);
+        $jI_Even                 = static::double(3);
+        $jQ_Odd                  = static::double(3);
+        $jQ_Even                 = static::double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
         {
-            $smoothPrice = Core::double($maxIdx_smoothPricePrice + 1);
+            $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
         };
         $iTrend1           = $iTrend2 = $iTrend3 = 0.0;
         $daysInTrend       = 0;

@@ -65,12 +65,12 @@ class VolatilityIndicators extends Core
      */
     public static function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $outBegIdx1    = 0;
         $outNbElement1 = 0;
-        $prevATRTemp   = Core::double(1);
+        $prevATRTemp   = static::double(1);
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
@@ -86,14 +86,14 @@ class VolatilityIndicators extends Core
             return ReturnCode::Success;
         }
         if ($optInTimePeriod <= 1) {
-            return VolatilityIndicators::trueRange(
+            return self::trueRange(
                 $startIdx, $endIdx,
                 $inHigh, $inLow, $inClose,
                 $outBegIdx, $outNBElement, $outReal
             );
         }
-        $tempBuffer = Core::double($lookbackTotal + ($endIdx - $startIdx) + 1);
-        $retCode    = VolatilityIndicators::trueRange(
+        $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
+        $retCode    = self::trueRange(
             ($startIdx - $lookbackTotal + 1), $endIdx,
                                               $inHigh, $inLow, $inClose,
                                               $outBegIdx1, $outNbElement1,
@@ -102,7 +102,7 @@ class VolatilityIndicators extends Core
         if ($retCode != ReturnCode::Success) {
             return $retCode;
         }
-        $retCode = Core::TA_INT_SMA(
+        $retCode = static::TA_INT_SMA(
             $optInTimePeriod - 1,
             $optInTimePeriod - 1,
             $tempBuffer, $optInTimePeriod,
@@ -161,7 +161,7 @@ class VolatilityIndicators extends Core
      */
     public static function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ($startIdx < 1) {

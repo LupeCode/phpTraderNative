@@ -68,7 +68,7 @@ class OverlapStudies extends Core
      */
     public static function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType, int &$outBegIdx, int &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -102,14 +102,14 @@ class OverlapStudies extends Core
         if (($tempBuffer1 == $inReal) || ($tempBuffer2 == $inReal)) {
             return ReturnCode::BadParam;
         }
-        $ReturnCode = OverlapStudies::movingAverage($startIdx, $endIdx, $inReal, $optInTimePeriod, $optInMAType, $outBegIdx, $outNBElement, $tempBuffer1);
+        $ReturnCode = self::movingAverage($startIdx, $endIdx, $inReal, $optInTimePeriod, $optInMAType, $outBegIdx, $outNBElement, $tempBuffer1);
         if (($ReturnCode != ReturnCode::Success) || ((int)$outNBElement == 0)) {
             $outNBElement = 0;
 
             return $ReturnCode;
         }
         if ($optInMAType == MovingAverageType::SMA) {
-            Core::TA_INT_stddev_using_precalc_ma($inReal, $tempBuffer1, (int)$outBegIdx, (int)$outNBElement, $optInTimePeriod, $tempBuffer2);
+            static::TA_INT_stddev_using_precalc_ma($inReal, $tempBuffer1, (int)$outBegIdx, (int)$outNBElement, $optInTimePeriod, $tempBuffer2);
         } else {
             $ReturnCode = StatisticFunctions::stdDev((int)$outBegIdx, $endIdx, $inReal, $optInTimePeriod, 1.0, $outBegIdx, $outNBElement, $tempBuffer2);
             if ($ReturnCode != ReturnCode::Success) {
@@ -176,7 +176,7 @@ class OverlapStudies extends Core
      */
     public static function dema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $firstEMABegIdx     = 0;
@@ -202,10 +202,10 @@ class OverlapStudies extends Core
             $firstEMA = $outReal;
         } else {
             $tempInt  = $lookbackTotal + ($endIdx - $startIdx) + 1;
-            $firstEMA = Core::double($tempInt);
+            $firstEMA = static::double($tempInt);
         }
         $k          = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $ReturnCode = Core::TA_INT_EMA(
+        $ReturnCode = static::TA_INT_EMA(
             $startIdx - $lookbackEMA, $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
@@ -214,8 +214,8 @@ class OverlapStudies extends Core
         if (($ReturnCode != ReturnCode::Success) || ($firstEMANbElement == 0)) {
             return $ReturnCode;
         }
-        $secondEMA  = Core::double($firstEMANbElement);
-        $ReturnCode = Core::TA_INT_EMA(
+        $secondEMA  = static::double($firstEMANbElement);
+        $ReturnCode = static::TA_INT_EMA(
             0, $firstEMANbElement - 1, $firstEMA,
             $optInTimePeriod, $k,
             $secondEMABegIdx, $secondEMANbElement,
@@ -249,7 +249,7 @@ class OverlapStudies extends Core
      */
     public static function ema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -258,7 +258,7 @@ class OverlapStudies extends Core
             return ReturnCode::BadParam;
         }
 
-        return Core::TA_INT_EMA(
+        return static::TA_INT_EMA(
             $startIdx, $endIdx, $inReal,
             $optInTimePeriod,
             ((double)2.0 / ((double)($optInTimePeriod + 1))),
@@ -278,23 +278,23 @@ class OverlapStudies extends Core
      */
     public static function htTrendline(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $a                       = 0.0962;
         $b                       = 0.5769;
-        $detrender_Odd           = Core::double(3);
-        $detrender_Even          = Core::double(3);
-        $Q1_Odd                  = Core::double(3);
-        $Q1_Even                 = Core::double(3);
-        $jI_Odd                  = Core::double(3);
-        $jI_Even                 = Core::double(3);
-        $jQ_Odd                  = Core::double(3);
-        $jQ_Even                 = Core::double(3);
+        $detrender_Odd           = static::double(3);
+        $detrender_Even          = static::double(3);
+        $Q1_Odd                  = static::double(3);
+        $Q1_Even                 = static::double(3);
+        $jI_Odd                  = static::double(3);
+        $jI_Even                 = static::double(3);
+        $jQ_Odd                  = static::double(3);
+        $jQ_Even                 = static::double(3);
         $smoothPrice_Idx         = 0;
         $maxIdx_smoothPricePrice = (50 - 1);
         {
-            $smoothPrice = Core::double($maxIdx_smoothPricePrice + 1);
+            $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
         };
         $iTrend1       = $iTrend2 = $iTrend3 = 0.0;
         $tempReal      = atan(1);
@@ -577,7 +577,7 @@ class OverlapStudies extends Core
      */
     public static function kama(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $constMax  = 2.0 / (30.0 + 1.0);
@@ -676,7 +676,7 @@ class OverlapStudies extends Core
      */
     public static function movingAverage(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int $optInMAType, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -696,57 +696,57 @@ class OverlapStudies extends Core
         }
         switch ($optInMAType) {
             case MovingAverageType::SMA:
-                $ReturnCode = OverlapStudies::sma(
+                $ReturnCode = self::sma(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::EMA:
-                $ReturnCode = OverlapStudies::ema(
+                $ReturnCode = self::ema(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::WMA:
-                $ReturnCode = OverlapStudies::wma(
+                $ReturnCode = self::wma(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::DEMA:
-                $ReturnCode = OverlapStudies::dema(
+                $ReturnCode = self::dema(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::TEMA:
-                $ReturnCode = OverlapStudies::tema(
+                $ReturnCode = self::tema(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::TRIMA:
-                $ReturnCode = OverlapStudies::trima(
+                $ReturnCode = self::trima(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::KAMA:
-                $ReturnCode = OverlapStudies::kama(
+                $ReturnCode = self::kama(
                     $startIdx, $endIdx, $inReal, $optInTimePeriod,
                     $outBegIdx, $outNBElement, $outReal
                 );
                 break;
             case MovingAverageType::MAMA:
-                $dummyBuffer = Core::double(($endIdx - $startIdx + 1));
-                $ReturnCode  = OverlapStudies::mama(
+                $dummyBuffer = static::double(($endIdx - $startIdx + 1));
+                $ReturnCode  = self::mama(
                     $startIdx, $endIdx, $inReal, 0.5, 0.05,
                     $outBegIdx, $outNBElement,
                     $outReal, $dummyBuffer
                 );
                 break;
             case MovingAverageType::T3:
-                $ReturnCode = OverlapStudies::t3(
+                $ReturnCode = self::t3(
                     $startIdx, $endIdx, $inReal,
                     $optInTimePeriod, 0.7,
                     $outBegIdx, $outNBElement, $outReal
@@ -777,15 +777,15 @@ class OverlapStudies extends Core
     {
         $a              = 0.0962;
         $b              = 0.5769;
-        $detrender_Odd  = Core::double(3);
-        $detrender_Even = Core::double(3);
-        $Q1_Odd         = Core::double(3);
-        $Q1_Even        = Core::double(3);
-        $jI_Odd         = Core::double(3);
-        $jI_Even        = Core::double(3);
-        $jQ_Odd         = Core::double(3);
-        $jQ_Even        = Core::double(3);
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        $detrender_Odd  = static::double(3);
+        $detrender_Even = static::double(3);
+        $Q1_Odd         = static::double(3);
+        $Q1_Even        = static::double(3);
+        $jI_Odd         = static::double(3);
+        $jI_Even        = static::double(3);
+        $jQ_Odd         = static::double(3);
+        $jQ_Even        = static::double(3);
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ($optInFastLimit == (-4e+37)) {
@@ -1083,7 +1083,7 @@ class OverlapStudies extends Core
      */
     public static function movingAverageVariablePeriod(int $startIdx, int $endIdx, array $inReal, array &$inPeriods, int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $localBegIdx    = 0;
@@ -1134,7 +1134,7 @@ class OverlapStudies extends Core
         for ($i = 0; $i < $outputSize; $i++) {
             $curPeriod = $localPeriodArray[$i];
             if ($curPeriod != 0) {
-                $ReturnCode = OverlapStudies::movingAverage(
+                $ReturnCode = self::movingAverage(
                     $startIdx, $endIdx, $inReal,
                     $curPeriod, $optInMAType,
                     $localBegIdx, $localNbElement, $localOutputArray
@@ -1173,7 +1173,7 @@ class OverlapStudies extends Core
      */
     public static function midPoint(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1228,7 +1228,7 @@ class OverlapStudies extends Core
      */
     public static function midPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1287,11 +1287,11 @@ class OverlapStudies extends Core
      */
     public static function sar(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInAcceleration, float $optInMaximum, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $tempInt = 0;
-        $ep_temp = Core::double(1);
+        $ep_temp = static::double(1);
         if ($optInAcceleration == (-4e+37)) {
             $optInAcceleration = 2.000000e-2;
         } elseif (($optInAcceleration < 0.000000e+0) || ($optInAcceleration > 3.000000e+37)) {
@@ -1453,11 +1453,11 @@ class OverlapStudies extends Core
      */
     public static function sarExt(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $tempInt = 0;
-        $ep_temp = Core::double(1);
+        $ep_temp = static::double(1);
         if ($optInStartValue == (-4e+37)) {
             $optInStartValue = 0.000000e+0;
         } elseif (($optInStartValue < -3.000000e+37) || ($optInStartValue > 3.000000e+37)) {
@@ -1671,7 +1671,7 @@ class OverlapStudies extends Core
      */
     public static function sma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1680,7 +1680,7 @@ class OverlapStudies extends Core
             return ReturnCode::BadParam;
         }
 
-        return Core::TA_INT_SMA(
+        return static::TA_INT_SMA(
             $startIdx, $endIdx,
             $inReal, $optInTimePeriod,
             $outBegIdx, $outNBElement, $outReal
@@ -1701,7 +1701,7 @@ class OverlapStudies extends Core
      */
     public static function t3(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInVFactor, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1815,7 +1815,7 @@ class OverlapStudies extends Core
      */
     public static function tema(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $firstEMABegIdx     = 0;
@@ -1840,9 +1840,9 @@ class OverlapStudies extends Core
             return ReturnCode::Success;
         }
         $tempInt    = $lookbackTotal + ($endIdx - $startIdx) + 1;
-        $firstEMA   = Core::double($tempInt);
+        $firstEMA   = static::double($tempInt);
         $k          = ((double)2.0 / ((double)($optInTimePeriod + 1)));
-        $ReturnCode = Core::TA_INT_EMA(
+        $ReturnCode = static::TA_INT_EMA(
             $startIdx - ($lookbackEMA * 2), $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
@@ -1851,8 +1851,8 @@ class OverlapStudies extends Core
         if (($ReturnCode != ReturnCode::Success) || ($firstEMANbElement == 0)) {
             return $ReturnCode;
         }
-        $secondEMA  = Core::double($firstEMANbElement);
-        $ReturnCode = Core::TA_INT_EMA(
+        $secondEMA  = static::double($firstEMANbElement);
+        $ReturnCode = static::TA_INT_EMA(
             0, $firstEMANbElement - 1, $firstEMA,
             $optInTimePeriod, $k,
             $secondEMABegIdx, $secondEMANbElement,
@@ -1861,7 +1861,7 @@ class OverlapStudies extends Core
         if (($ReturnCode != ReturnCode::Success) || ($secondEMANbElement == 0)) {
             return $ReturnCode;
         }
-        $ReturnCode = Core::TA_INT_EMA(
+        $ReturnCode = static::TA_INT_EMA(
             0, $secondEMANbElement - 1, $secondEMA,
             $optInTimePeriod, $k,
             $thirdEMABegIdx, $thirdEMANbElement,
@@ -1896,7 +1896,7 @@ class OverlapStudies extends Core
      */
     public static function trima(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -2011,7 +2011,7 @@ class OverlapStudies extends Core
      */
     public static function wma(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {

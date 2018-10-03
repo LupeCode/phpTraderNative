@@ -61,7 +61,7 @@ class MathTransform extends Core
      */
     public static function acos(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -85,7 +85,7 @@ class MathTransform extends Core
      */
     public static function asin(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -109,7 +109,7 @@ class MathTransform extends Core
      */
     public static function atan(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -133,7 +133,7 @@ class MathTransform extends Core
      */
     public static function ceil(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -157,7 +157,7 @@ class MathTransform extends Core
      */
     public static function cos(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -181,7 +181,7 @@ class MathTransform extends Core
      */
     public static function cosh(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -205,7 +205,7 @@ class MathTransform extends Core
      */
     public static function exp(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -229,7 +229,7 @@ class MathTransform extends Core
      */
     public static function floor(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -253,7 +253,7 @@ class MathTransform extends Core
      */
     public static function ln(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -277,7 +277,7 @@ class MathTransform extends Core
      */
     public static function log10(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -301,7 +301,7 @@ class MathTransform extends Core
      */
     public static function sin(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -325,7 +325,7 @@ class MathTransform extends Core
      */
     public static function sinh(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -349,7 +349,7 @@ class MathTransform extends Core
      */
     public static function sqrt(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -373,7 +373,7 @@ class MathTransform extends Core
      */
     public static function tan(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
@@ -397,7 +397,7 @@ class MathTransform extends Core
      */
     public static function tanh(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
