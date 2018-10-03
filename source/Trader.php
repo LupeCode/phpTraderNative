@@ -17,14 +17,6 @@ use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 
 class Trader
 {
-    protected static $errorArray = [
-        ReturnCode::BadParam             => "Bad parameter",
-        ReturnCode::AllocError           => "Allocation error",
-        ReturnCode::OutOfRangeStartIndex => "Out of range on start index",
-        ReturnCode::OutOfRangeEndIndex   => "Out of range on end index",
-        ReturnCode::InternalError        => "Internal error",
-        ReturnCode::UnevenParameters     => "The count of the input arrays do not match each other",
-    ];
 
     /** @var CycleIndicators */
     protected static $cycleIndicators = null;
@@ -209,7 +201,7 @@ class Trader
             case ReturnCode::Success:
                 return;
             default:
-                throw new \Exception(self::$errorArray[$ReturnCode], $ReturnCode);
+                throw new \Exception(ReturnCode::Messages[$ReturnCode], $ReturnCode);
         }
     }
 
@@ -224,7 +216,7 @@ class Trader
         $count = count($arrays[0]);
         foreach ($arrays as &$array) {
             if (count($array) !== $count) {
-                throw new \Exception(self::$errorArray[ReturnCode::UnevenParameters], ReturnCode::UnevenParameters);
+                throw new \Exception(ReturnCode::Messages[ReturnCode::UnevenParameters], ReturnCode::UnevenParameters);
             }
             $array = \array_values($array);
         }
