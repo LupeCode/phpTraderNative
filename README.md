@@ -48,6 +48,36 @@ while the PECL Trader source can be seen [here](https://svn.php.net/viewvc/pecl/
 
 **This package uses the C/Java defaults and not the PECL defaults.**
 
+## Contributing/Development
+### Requirements
+
+* PHP >= 7.0.0
+* ext_trader >= 0.4.1 [here](https://pecl.php.net/package/trader)
+
+### Setup
+
+Checkout the repository and then install with composer.
+
+~~~
+git checkout git@github.com:LupeCode/phpTraderNative.git
+cd phpTraderNative
+composer install --dev
+~~~
+
+### Testing
+
+Two PHPUnit XML files are included, one for testing and the other for coverage.  This is due to the fact that when some tests are run with coverage, PHP hangs and never finishes.
+
+Run the tests using
+~~~
+php -dxdebug.coverage_enable=0 ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit.xml ./tests
+~~~
+
+Run the coverage using
+~~~
+php -dxdebug.coverage_enable=1 ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit_coverage.xml ./tests
+~~~
+
 ## Metrics & Coverage
 ### PHP Metrics Report
 To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/phpTraderNative/metrics/)
