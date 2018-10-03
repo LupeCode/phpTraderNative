@@ -44,26 +44,25 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 
 class PriceTransform extends Core
 {
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param float[]   $outReal
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param float[] $outReal
      *
      * @return int
      */
-    public static function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -72,24 +71,24 @@ class PriceTransform extends Core
         for ($i = $startIdx; $i <= $endIdx; $i++) {
             $outReal[$outIdx++] = ($inHigh[$i] + $inLow[$i] + $inClose[$i] + $inOpen[$i]) / 4;
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inHigh
+     * @param array $inLow
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public static function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -98,25 +97,25 @@ class PriceTransform extends Core
         for ($i = $startIdx; $i <= $endIdx; $i++) {
             $outReal[$outIdx++] = ($inHigh[$i] + $inLow[$i]) / 2.0;
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public static function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -127,25 +126,25 @@ class PriceTransform extends Core
                                    $inLow[$i] +
                                    $inClose[$i]) / 3.0;
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public static function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -156,8 +155,8 @@ class PriceTransform extends Core
                                    $inLow[$i] +
                                    ($inClose[$i] * 2.0)) / 4.0;
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }

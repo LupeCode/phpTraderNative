@@ -44,7 +44,6 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
@@ -52,16 +51,16 @@ class CycleIndicators extends Core
 {
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public static function htDcPeriod(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function htDcPeriod(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -75,12 +74,12 @@ class CycleIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx->value = $startIdx;
+        $outBegIdx        = $startIdx;
         $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
@@ -220,22 +219,22 @@ class CycleIndicators extends Core
             }
             $today++;
         }
-        $outNBElement->value = $outIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public static function htDcPhase(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function htDcPhase(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -263,12 +262,12 @@ class CycleIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx->value = $startIdx;
+        $outBegIdx        = $startIdx;
         $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
@@ -539,23 +538,23 @@ class CycleIndicators extends Core
             };
             $today++;
         }
-        $outNBElement->value = $outIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInPhase
-     * @param array     $outQuadrature
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInPhase
+     * @param array $outQuadrature
      *
      * @return int
      */
-    public static function htPhasor(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInPhase, array &$outQuadrature): int
+    public static function htPhasor(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInPhase, array &$outQuadrature): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -575,12 +574,12 @@ class CycleIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx->value = $startIdx;
+        $outBegIdx        = $startIdx;
         $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
@@ -809,23 +808,23 @@ class CycleIndicators extends Core
             $period = (0.2 * $period) + (0.8 * $tempReal);
             $today++;
         }
-        $outNBElement->value = $outIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outSine
-     * @param array     $outLeadSine
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outSine
+     * @param array $outLeadSine
      *
      * @return int
      */
-    public static function htSine(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outSine, array &$outLeadSine): int
+    public static function htSine(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outSine, array &$outLeadSine): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -854,12 +853,12 @@ class CycleIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx->value = $startIdx;
+        $outBegIdx        = $startIdx;
         $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
@@ -1131,22 +1130,22 @@ class CycleIndicators extends Core
             };
             $today++;
         }
-        $outNBElement->value = $outIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function htTrendMode(int $startIdx, int $endIdx, array $inReal, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function htTrendMode(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1180,12 +1179,12 @@ class CycleIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx->value = $startIdx;
+        $outBegIdx        = $startIdx;
         $trailingWMAIdx   = $startIdx - $lookbackTotal;
         $today            = $trailingWMAIdx;
         $tempReal         = $inReal[$today++];
@@ -1494,7 +1493,7 @@ class CycleIndicators extends Core
             };
             $today++;
         }
-        $outNBElement->value = $outIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }

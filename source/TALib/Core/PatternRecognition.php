@@ -44,7 +44,6 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
 use LupeCode\phpTraderNative\TALib\Enum\CandleSettingType;
 use LupeCode\phpTraderNative\TALib\Enum\RangeType;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
@@ -53,19 +52,19 @@ class PatternRecognition extends Core
 {
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -75,8 +74,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -106,26 +105,26 @@ class PatternRecognition extends Core
             $i++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl3BlackCrows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl3BlackCrows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -135,8 +134,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -178,26 +177,26 @@ class PatternRecognition extends Core
             $i++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl3Inside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl3Inside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -207,8 +206,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -248,26 +247,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl3LineStrike(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl3LineStrike(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -277,8 +276,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -327,26 +326,26 @@ class PatternRecognition extends Core
             $i++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl3Outside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl3Outside(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -356,8 +355,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -380,38 +379,38 @@ class PatternRecognition extends Core
             }
             $i++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl3StarsInSouth(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl3StarsInSouth(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = Core::double(2);
-        $lookbackTotal = Lookback::cdl3StarsInSouthLookback();
+        $lookbackTotal              = Lookback::cdl3StarsInSouthLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -483,26 +482,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdl3WhiteSoldiers(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdl3WhiteSoldiers(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -510,13 +509,13 @@ class PatternRecognition extends Core
         $ShadowVeryShortPeriodTotal = Core::double(3);
         $NearPeriodTotal            = Core::double(3);
         $FarPeriodTotal             = Core::double(3);
-        $lookbackTotal = Lookback::cdl3WhiteSoldiersLookback();
+        $lookbackTotal              = Lookback::cdl3WhiteSoldiersLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -597,27 +596,27 @@ class PatternRecognition extends Core
             $FarTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param float   $optInPenetration
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -632,8 +631,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -692,26 +691,26 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlAdvanceBlock(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlAdvanceBlock(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -720,13 +719,13 @@ class PatternRecognition extends Core
         $ShadowLongPeriodTotal  = Core::double(2);
         $NearPeriodTotal        = Core::double(3);
         $FarPeriodTotal         = Core::double(3);
-        $lookbackTotal = Lookback::cdlAdvanceBlockLookback();
+        $lookbackTotal          = Lookback::cdlAdvanceBlockLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -838,26 +837,26 @@ class PatternRecognition extends Core
             $FarTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlBeltHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlBeltHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -867,8 +866,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -910,26 +909,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlBreakaway(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlBreakaway(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -939,8 +938,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -983,26 +982,26 @@ class PatternRecognition extends Core
             $i++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlClosingMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlClosingMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1012,8 +1011,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1055,38 +1054,38 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlConcealBabysWall(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlConcealBabysWall(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = Core::double(4);
-        $lookbackTotal = Lookback::cdlConcealBabysWallLookback();
+        $lookbackTotal              = Lookback::cdlConcealBabysWallLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1128,38 +1127,38 @@ class PatternRecognition extends Core
             $i++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlCounterAttack(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlCounterAttack(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $BodyLongPeriodTotal = Core::double(2);
-        $lookbackTotal = Lookback::cdlCounterAttackLookback();
+        $lookbackTotal       = Lookback::cdlCounterAttackLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1201,27 +1200,27 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param float[]   $inOpen
-     * @param float[]   $inHigh
-     * @param float[]   $inLow
-     * @param float[]   $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param int[]     $outInteger
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inOpen
+     * @param float[] $inHigh
+     * @param float[] $inLow
+     * @param float[] $inClose
+     * @param float   $optInPenetration
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param int[]   $outInteger
      *
      * @return int
      */
-    public static function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1236,8 +1235,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1266,26 +1265,26 @@ class PatternRecognition extends Core
             $i++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1295,8 +1294,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1318,26 +1317,26 @@ class PatternRecognition extends Core
             $i++;
             $BodyDojiTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1347,8 +1346,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1384,26 +1383,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyDojiTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlDragonflyDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlDragonflyDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1413,8 +1412,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1449,26 +1448,26 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlEngulfing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlEngulfing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1478,8 +1477,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1500,27 +1499,27 @@ class PatternRecognition extends Core
             }
             $i++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param float $optInPenetration
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlEveningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlEveningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1535,8 +1534,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1584,27 +1583,27 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param float $optInPenetration
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlEveningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlEveningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1619,8 +1618,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1662,26 +1661,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlGapSideSideWhite(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlGapSideSideWhite(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1691,8 +1690,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1736,26 +1735,26 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlGravestoneDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlGravestoneDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1765,8 +1764,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1801,26 +1800,26 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1830,8 +1829,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1889,26 +1888,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHangingMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHangingMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1918,8 +1917,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -1977,26 +1976,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHarami(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHarami(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2006,8 +2005,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2043,26 +2042,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHaramiCross(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHaramiCross(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2072,8 +2071,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2109,26 +2108,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyDojiTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHighWave(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHighWave(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2138,8 +2137,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2172,26 +2171,26 @@ class PatternRecognition extends Core
             $BodyTrailingIdx++;
             $ShadowTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHikkake(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHikkake(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2201,8 +2200,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2253,26 +2252,26 @@ class PatternRecognition extends Core
             }
             $i++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHikkakeMod(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHikkakeMod(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2282,8 +2281,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2355,26 +2354,26 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
             $i++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlHomingPigeon(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlHomingPigeon(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2384,8 +2383,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2423,39 +2422,39 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlIdentical3Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlIdentical3Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = Core::double(3);
         $EqualPeriodTotal           = Core::double(3);
-        $lookbackTotal = Lookback::cdlIdentical3CrowsLookback();
+        $lookbackTotal              = Lookback::cdlIdentical3CrowsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2512,26 +2511,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlInNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlInNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2541,8 +2540,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2581,26 +2580,26 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlInvertedHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlInvertedHammer(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2610,8 +2609,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2657,39 +2656,39 @@ class PatternRecognition extends Core
             $ShadowLongTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlKicking(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlKicking(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = Core::double(2);
         $BodyLongPeriodTotal        = Core::double(2);
-        $lookbackTotal = Lookback::cdlKickingLookback();
+        $lookbackTotal              = Lookback::cdlKickingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2741,39 +2740,39 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlKickingByLength(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlKickingByLength(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = Core::double(2);
         $BodyLongPeriodTotal        = Core::double(2);
-        $lookbackTotal = Lookback::cdlKickingByLengthLookback();
+        $lookbackTotal              = Lookback::cdlKickingByLengthLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2825,26 +2824,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlLadderBottom(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlLadderBottom(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2854,8 +2853,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2888,26 +2887,26 @@ class PatternRecognition extends Core
             $i++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlLongLeggedDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlLongLeggedDoji(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2917,8 +2916,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -2954,26 +2953,26 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
             $ShadowLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlLongLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlLongLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -2983,8 +2982,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3017,26 +3016,26 @@ class PatternRecognition extends Core
             $BodyTrailingIdx++;
             $ShadowTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlMarubozu(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3046,8 +3045,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3081,26 +3080,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlMatchingLow(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlMatchingLow(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3110,8 +3109,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3138,27 +3137,27 @@ class PatternRecognition extends Core
             $i++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param float $optInPenetration
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlMatHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlMatHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3174,8 +3173,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3232,27 +3231,27 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param float $optInPenetration
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlMorningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlMorningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3267,8 +3266,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3316,27 +3315,27 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param float     $optInPenetration
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param float $optInPenetration
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlMorningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlMorningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3351,8 +3350,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3394,26 +3393,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlOnNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlOnNeck(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3423,8 +3422,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3463,38 +3462,38 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlPiercing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlPiercing(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $BodyLongPeriodTotal = Core::double(2);
-        $lookbackTotal = Lookback::cdlPiercingLookback();
+        $lookbackTotal       = Lookback::cdlPiercingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3529,26 +3528,26 @@ class PatternRecognition extends Core
             $i++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlRickshawMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlRickshawMan(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3558,8 +3557,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3609,38 +3608,38 @@ class PatternRecognition extends Core
             $ShadowLongTrailingIdx++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlRiseFall3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlRiseFall3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $BodyPeriodTotal = Core::double(5);
-        $lookbackTotal = Lookback::cdlRiseFall3MethodsLookback();
+        $lookbackTotal   = Lookback::cdlRiseFall3MethodsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3699,26 +3698,26 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlSeparatingLines(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlSeparatingLines(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3728,8 +3727,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3784,26 +3783,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlShootingStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlShootingStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3813,8 +3812,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3860,26 +3859,26 @@ class PatternRecognition extends Core
             $ShadowLongTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlShortLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlShortLine(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3889,8 +3888,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3923,26 +3922,26 @@ class PatternRecognition extends Core
             $BodyTrailingIdx++;
             $ShadowTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlSpinningTop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlSpinningTop(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -3952,8 +3951,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -3978,39 +3977,39 @@ class PatternRecognition extends Core
             $i++;
             $BodyTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlStalledPattern(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlStalledPattern(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         $BodyLongPeriodTotal = Core::double(3);
         $NearPeriodTotal     = Core::double(3);
-        $lookbackTotal = Lookback::cdlStalledPatternLookback();
+        $lookbackTotal       = Lookback::cdlStalledPatternLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4082,26 +4081,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlStickSandwich(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlStickSandwich(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4111,8 +4110,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4141,26 +4140,26 @@ class PatternRecognition extends Core
             $i++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlTakuri(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlTakuri(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4170,8 +4169,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4216,26 +4215,26 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
             $ShadowVeryLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlTasukiGap(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlTasukiGap(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4245,8 +4244,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4288,26 +4287,26 @@ class PatternRecognition extends Core
             $i++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlThrusting(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlThrusting(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4317,8 +4316,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4357,26 +4356,26 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlTristar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlTristar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4386,8 +4385,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4425,26 +4424,26 @@ class PatternRecognition extends Core
             $i++;
             $BodyTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlUnique3River(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlUnique3River(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4454,8 +4453,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4495,26 +4494,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlUpsideGap2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlUpsideGap2Crows(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4524,8 +4523,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4565,26 +4564,26 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inOpen
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inOpen
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public static function cdlXSideGap3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function cdlXSideGap3Methods(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
         if ($RetCode = Core::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -4594,8 +4593,8 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -4624,8 +4623,8 @@ class PatternRecognition extends Core
             }
             $i++;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }

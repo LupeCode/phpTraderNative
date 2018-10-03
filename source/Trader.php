@@ -2,7 +2,6 @@
 
 namespace LupeCode\phpTraderNative;
 
-use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
 use LupeCode\phpTraderNative\TALib\Core\CycleIndicators;
 use LupeCode\phpTraderNative\TALib\Core\MathOperators;
 use LupeCode\phpTraderNative\TALib\Core\MathTransform;
@@ -48,9 +47,9 @@ class Trader
     /** @var VolumeIndicators */
     protected static $volumeIndicators = null;
 
-    /** @var MyInteger */
+    /** @var int */
     protected static $outBegIdx;
-    /** @var MyInteger */
+    /** @var int */
     protected static $outNBElement;
 
     /**
@@ -195,8 +194,8 @@ class Trader
 
     protected static function prep()
     {
-        self::$outBegIdx    = new MyInteger();
-        self::$outNBElement = new MyInteger();
+        self::$outBegIdx    = 0;
+        self::$outNBElement = 0;
     }
 
     /**
@@ -267,7 +266,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::acos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -296,7 +295,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::ad(0, $endIdx, $high, $low, $close, $volume, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -314,7 +313,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::add(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -345,7 +344,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::adOsc(0, $endIdx, $high, $low, $close, $volume, $fastPeriod, $slowPeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -376,7 +375,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::adx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -402,7 +401,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::adxr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -432,7 +431,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -458,7 +457,7 @@ class Trader
         $outAroonUp   = [];
         self::checkForError(self::getMomentumIndicators()::aroon(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outAroonDown, $outAroonUp));
 
-        return ['AroonDown' => self::adjustIndexes($outAroonDown, self::$outBegIdx->value), 'AroonUp' => self::adjustIndexes($outAroonUp, self::$outBegIdx->value)];
+        return ['AroonDown' => self::adjustIndexes($outAroonDown, self::$outBegIdx), 'AroonUp' => self::adjustIndexes($outAroonUp, self::$outBegIdx)];
     }
 
     /**
@@ -480,7 +479,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::aroonOsc(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -500,7 +499,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::asin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -520,7 +519,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::atan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -547,7 +546,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::atr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -570,7 +569,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getPriceTransform()::avgPrice(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -602,9 +601,9 @@ class Trader
 
         return
             [
-                'UpperBand'  => self::adjustIndexes($outRealUpperBand, self::$outBegIdx->value),
-                'MiddleBand' => self::adjustIndexes($outRealMiddleBand, self::$outBegIdx->value),
-                'LowerBand'  => self::adjustIndexes($outRealLowerBand, self::$outBegIdx->value),
+                'UpperBand'  => self::adjustIndexes($outRealUpperBand, self::$outBegIdx),
+                'MiddleBand' => self::adjustIndexes($outRealMiddleBand, self::$outBegIdx),
+                'LowerBand'  => self::adjustIndexes($outRealLowerBand, self::$outBegIdx),
             ];
     }
 
@@ -632,7 +631,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::beta(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -652,7 +651,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::bop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -675,7 +674,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::cci(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -695,7 +694,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -715,7 +714,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3BlackCrows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -735,7 +734,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3Inside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -755,7 +754,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3LineStrike(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -775,7 +774,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3Outside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -795,7 +794,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3StarsInSouth(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -815,7 +814,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3WhiteSoldiers(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -836,7 +835,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlAbandonedBaby(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -856,7 +855,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlAdvanceBlock(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -876,7 +875,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlBeltHold(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -896,7 +895,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlBreakaway(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -916,7 +915,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlClosingMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -936,7 +935,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlConcealBabysWall(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -956,7 +955,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlCounterAttack(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -977,7 +976,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlDarkCloudCover(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -997,7 +996,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1017,7 +1016,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdldojistar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1037,7 +1036,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlDragonflyDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1057,7 +1056,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlEngulfing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1078,7 +1077,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlEveningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1099,7 +1098,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlEveningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1119,7 +1118,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlGapSideSideWhite(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1140,7 +1139,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlGravestoneDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1160,7 +1159,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1181,7 +1180,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHangingMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1201,7 +1200,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHarami(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1221,7 +1220,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHaramiCross(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1241,7 +1240,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHighWave(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1261,7 +1260,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHikkake(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1281,7 +1280,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHikkakeMod(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1301,7 +1300,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHomingPigeon(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1321,7 +1320,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlIdentical3Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1341,7 +1340,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlInNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1361,7 +1360,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlInvertedHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1381,7 +1380,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlKicking(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1401,7 +1400,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlKickingByLength(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1421,7 +1420,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlLadderBottom(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1441,7 +1440,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlLongLeggedDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1461,7 +1460,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlLongLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1481,7 +1480,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1501,7 +1500,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMatchingLow(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1522,7 +1521,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMatHold(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1543,7 +1542,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMorningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1564,7 +1563,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMorningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1584,7 +1583,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlOnNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1604,7 +1603,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlPiercing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1624,7 +1623,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlRickshawMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1644,7 +1643,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlRiseFall3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1664,7 +1663,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlSeparatingLines(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1684,7 +1683,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlShootingStar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1704,7 +1703,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlShortLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1724,7 +1723,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlSpinningTop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1744,7 +1743,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlStalledPattern(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1764,7 +1763,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlStickSandwich(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1784,7 +1783,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlTakuri(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1804,7 +1803,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlTasukiGap(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1824,7 +1823,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlThrusting(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1844,7 +1843,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlTristar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1864,7 +1863,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlUnique3River(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1884,7 +1883,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlUpsideGap2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1904,7 +1903,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlXSideGap3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -1924,7 +1923,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::ceil(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1947,7 +1946,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::cmo(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1968,7 +1967,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::correl(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -1988,7 +1987,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::cos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2008,7 +2007,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::cosh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2030,7 +2029,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::dema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2050,7 +2049,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::div(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2073,7 +2072,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::dx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2096,7 +2095,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::ema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2116,7 +2115,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::exp(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2136,7 +2135,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::floor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2154,7 +2153,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getCycleIndicators()::htDcPeriod(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2172,7 +2171,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getCycleIndicators()::htDcPhase(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2192,8 +2191,8 @@ class Trader
         self::checkForError(self::getCycleIndicators()::htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInPhase, $outQuadrature));
 
         return [
-            "Quadrature" => self::adjustIndexes($outQuadrature, self::$outBegIdx->value),
-            "InPhase"    => self::adjustIndexes($outInPhase, self::$outBegIdx->value),
+            "Quadrature" => self::adjustIndexes($outQuadrature, self::$outBegIdx),
+            "InPhase"    => self::adjustIndexes($outInPhase, self::$outBegIdx),
         ];
     }
 
@@ -2214,8 +2213,8 @@ class Trader
         self::checkForError(self::getCycleIndicators()::htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine));
 
         return [
-            "LeadSine" => self::adjustIndexes($outLeadSine, self::$outBegIdx->value),
-            "Sine"     => self::adjustIndexes($outSine, self::$outBegIdx->value),
+            "LeadSine" => self::adjustIndexes($outLeadSine, self::$outBegIdx),
+            "Sine"     => self::adjustIndexes($outSine, self::$outBegIdx),
         ];
     }
 
@@ -2234,7 +2233,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::htTrendline(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2252,7 +2251,7 @@ class Trader
         $outInteger = [];
         self::checkForError(self::getCycleIndicators()::htTrendMode(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInteger));
 
-        return self::adjustIndexes($outInteger, self::$outBegIdx->value);
+        return self::adjustIndexes($outInteger, self::$outBegIdx);
     }
 
     /**
@@ -2276,7 +2275,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::kama(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2295,7 +2294,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearRegAngle(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2314,7 +2313,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearRegIntercept(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2333,7 +2332,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearRegSlope(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2352,7 +2351,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearReg(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2372,7 +2371,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::ln(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2392,7 +2391,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::log10(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2412,7 +2411,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::movingAverage(0, $endIdx, $real, $timePeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2437,9 +2436,9 @@ class Trader
 
         return
             [
-                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx->value),
-                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx->value),
-                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx->value),
+                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
             ];
     }
 
@@ -2468,9 +2467,9 @@ class Trader
 
         return
             [
-                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx->value),
-                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx->value),
-                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx->value),
+                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
             ];
     }
 
@@ -2494,9 +2493,9 @@ class Trader
 
         return
             [
-                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx->value),
-                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx->value),
-                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx->value),
+                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
             ];
     }
 
@@ -2520,8 +2519,8 @@ class Trader
 
         return
             [
-                'MAMA' => self::adjustIndexes($outMAMA, self::$outBegIdx->value),
-                'FAMA' => self::adjustIndexes($outFAMA, self::$outBegIdx->value),
+                'MAMA' => self::adjustIndexes($outMAMA, self::$outBegIdx),
+                'FAMA' => self::adjustIndexes($outFAMA, self::$outBegIdx),
             ];
     }
 
@@ -2544,7 +2543,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2563,7 +2562,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::max(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2582,7 +2581,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::maxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2600,7 +2599,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getPriceTransform()::medPrice(0, $endIdx, $high, $low, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2621,7 +2620,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::mfi(0, $endIdx, $high, $low, $close, $volume, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2640,7 +2639,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::midPoint(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2659,7 +2658,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::midPrice(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2678,7 +2677,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::min(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2697,7 +2696,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::minIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2718,8 +2717,8 @@ class Trader
         self::checkForError(self::getMathOperators()::minMax(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax));
 
         return [
-            'Min' => self::adjustIndexes($outMin, self::$outBegIdx->value),
-            'Max' => self::adjustIndexes($outMax, self::$outBegIdx->value),
+            'Min' => self::adjustIndexes($outMin, self::$outBegIdx),
+            'Max' => self::adjustIndexes($outMax, self::$outBegIdx),
         ];
     }
 
@@ -2741,8 +2740,8 @@ class Trader
         self::checkForError(self::getMathOperators()::minMaxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outMin, $outMax));
 
         return [
-            'Min' => self::adjustIndexes($outMin, self::$outBegIdx->value),
-            'Max' => self::adjustIndexes($outMax, self::$outBegIdx->value),
+            'Min' => self::adjustIndexes($outMin, self::$outBegIdx),
+            'Max' => self::adjustIndexes($outMax, self::$outBegIdx),
         ];
     }
 
@@ -2763,7 +2762,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::minusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2782,7 +2781,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::minusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2801,7 +2800,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::mom(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2821,7 +2820,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::mult(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2841,7 +2840,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getVolatilityIndicators()::natr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2859,7 +2858,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::obv(0, $endIdx, $real, $volume, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2879,7 +2878,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::plusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2898,7 +2897,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::plusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2919,7 +2918,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2938,7 +2937,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::roc(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2957,7 +2956,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rocp(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2976,7 +2975,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rocr100(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2995,7 +2994,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rocr(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3014,7 +3013,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rsi(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3034,7 +3033,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::sar(0, $endIdx, $high, $low, $acceleration, $maximum, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3060,7 +3059,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::sarExt(0, $endIdx, $high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3080,7 +3079,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::sin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3100,7 +3099,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::sinh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3119,7 +3118,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::sma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3139,7 +3138,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::sqrt(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3159,7 +3158,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::stddev(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3185,8 +3184,8 @@ class Trader
         self::checkForError(self::getMomentumIndicators()::stoch(0, $endIdx, $high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType, self::$outBegIdx, self::$outNBElement, $outSlowK, $outSlowD));
 
         return [
-            'SlowK' => self::adjustIndexes($outSlowK, self::$outBegIdx->value),
-            'SlowD' => self::adjustIndexes($outSlowD, self::$outBegIdx->value),
+            'SlowK' => self::adjustIndexes($outSlowK, self::$outBegIdx),
+            'SlowD' => self::adjustIndexes($outSlowD, self::$outBegIdx),
         ];
     }
 
@@ -3211,8 +3210,8 @@ class Trader
         self::checkForError(self::getMomentumIndicators()::stochF(0, $endIdx, $high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD));
 
         return [
-            'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
-            'FastD' => self::adjustIndexes($outFastD, self::$outBegIdx->value),
+            'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx),
+            'FastD' => self::adjustIndexes($outFastD, self::$outBegIdx),
         ];
     }
 
@@ -3237,8 +3236,8 @@ class Trader
         self::checkForError(self::getMomentumIndicators()::stochRsi(0, $endIdx, $real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD));
 
         return [
-            'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx->value),
-            'FastD' => self::adjustIndexes($outFastD, self::$outBegIdx->value),
+            'FastK' => self::adjustIndexes($outFastK, self::$outBegIdx),
+            'FastD' => self::adjustIndexes($outFastD, self::$outBegIdx),
         ];
     }
 
@@ -3259,7 +3258,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::sub(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3278,7 +3277,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathOperators()::sum(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3298,7 +3297,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::t3(0, $endIdx, $real, $timePeriod, $vFactor, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3318,7 +3317,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::tan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3338,7 +3337,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMathTransform()::tanh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3357,7 +3356,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::tema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3376,7 +3375,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getVolatilityIndicators()::trueRange(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3395,7 +3394,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::trima(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3414,7 +3413,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::trix(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3433,7 +3432,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::tsf(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3452,7 +3451,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getPriceTransform()::typPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3474,7 +3473,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::ultOsc(0, $endIdx, $high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3494,7 +3493,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::variance(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3513,7 +3512,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getPriceTransform()::wclPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3533,7 +3532,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::willR(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -3552,7 +3551,7 @@ class Trader
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::wma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
-        return self::adjustIndexes($outReal, self::$outBegIdx->value);
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
 }
