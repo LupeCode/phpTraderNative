@@ -52,4 +52,14 @@ class ReturnCode
     const OutOfRangeEndIndex   = 3;
     const AllocError           = 4;
     const InternalError        = 5;
+    const UnevenParameters     = 6;
+    const Messages             = [
+        self::Success              => "Success",
+        self::BadParam             => "Bad parameter",
+        self::AllocError           => "Allocation error",
+        self::OutOfRangeStartIndex => "Out of range on start index",
+        self::OutOfRangeEndIndex   => "Out of range on end index",
+        self::InternalError        => "Internal error",
+        self::UnevenParameters     => "The count of the input arrays do not match each other",
+    ];
 }
