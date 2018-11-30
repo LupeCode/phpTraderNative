@@ -52,22 +52,22 @@ use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 class Lookback extends Core
 {
 
-    public function acosLookback(): int
+    public static function acosLookback(): int
     {
         return 0;
     }
 
-    public function adLookback(): int
+    public static function adLookback(): int
     {
         return 0;
     }
 
-    public function addLookback(): int
+    public static function addLookback(): int
     {
         return 0;
     }
 
-    public function adOscLookback(int $optInFastPeriod, int $optInSlowPeriod): int
+    public static function adOscLookback(int $optInFastPeriod, int $optInSlowPeriod): int
     {
         if ((int)$optInFastPeriod == (\PHP_INT_MIN)) {
             $optInFastPeriod = 3;
@@ -85,10 +85,10 @@ class Lookback extends Core
             $slowestPeriod = $optInFastPeriod;
         }
 
-        return $this->emaLookback($slowestPeriod);
+        return self::emaLookback($slowestPeriod);
     }
 
-    public function adxLookback(int $optInTimePeriod): int
+    public static function adxLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -96,10 +96,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return (2 * $optInTimePeriod) + ($this->unstablePeriod[UnstablePeriodFunctionID::ADX]) - 1;
+        return (2 * $optInTimePeriod) + (static::$unstablePeriod[UnstablePeriodFunctionID::ADX]) - 1;
     }
 
-    public function adxrLookback(int $optInTimePeriod): int
+    public static function adxrLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -107,13 +107,13 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + $this->adxLookback($optInTimePeriod) - 1;
+            return $optInTimePeriod + self::adxLookback($optInTimePeriod) - 1;
         } else {
             return 3;
         }
     }
 
-    public function apoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
+    public static function apoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
     {
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -126,10 +126,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
+        return self::movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
     }
 
-    public function aroonLookback(int $optInTimePeriod): int
+    public static function aroonLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -140,7 +140,7 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function aroonOscLookback(int $optInTimePeriod): int
+    public static function aroonOscLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -151,17 +151,17 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function asinLookback(): int
+    public static function asinLookback(): int
     {
         return 0;
     }
 
-    public function atanLookback(): int
+    public static function atanLookback(): int
     {
         return 0;
     }
 
-    public function atrLookback(int $optInTimePeriod): int
+    public static function atrLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -169,15 +169,15 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::ATR]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
     }
 
-    public function avgPriceLookback(): int
+    public static function avgPriceLookback(): int
     {
         return 0;
     }
 
-    public function bbandsLookback(int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType): int
+    public static function bbandsLookback(int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -195,10 +195,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->movingAverageLookback($optInTimePeriod, $optInMAType);
+        return self::movingAverageLookback($optInTimePeriod, $optInMAType);
     }
 
-    public function betaLookback(int $optInTimePeriod): int
+    public static function betaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -209,12 +209,12 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function bopLookback(): int
+    public static function bopLookback(): int
     {
         return 0;
     }
 
-    public function cciLookback(int $optInTimePeriod): int
+    public static function cciLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -225,42 +225,42 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function cdl2CrowsLookback(): int
+    public static function cdl2CrowsLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 2;
     }
 
-    public function cdl3BlackCrowsLookback(): int
+    public static function cdl3BlackCrowsLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 3;
+        return (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 3;
     }
 
-    public function cdl3InsideLookback(): int
+    public static function cdl3InsideLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdl3LineStrikeLookback(): int
+    public static function cdl3LineStrikeLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::Near]->avgPeriod) + 3;
+        return (static::$candleSettings[CandleSettingType::Near]->avgPeriod) + 3;
     }
 
-    public function cdl3OutsideLookback(): int
+    public static function cdl3OutsideLookback(): int
     {
         return 3;
     }
 
-    public function cdl3StarsInSouthLookback(): int
+    public static function cdl3StarsInSouthLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))))) ? ((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))))) + 2;
     }
 
-    public function cdl3WhiteSoldiersLookback(): int
+    public static function cdl3WhiteSoldiersLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) > ((((($this->candleSettings[CandleSettingType::Far]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Far]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))))) ? ((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) : ((((($this->candleSettings[CandleSettingType::Far]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Far]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) + 2;
     }
 
-    public function cdlAbandonedBabyLookback(float $optInPenetration): int
+    public static function cdlAbandonedBabyLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -268,40 +268,40 @@ class Lookback extends Core
             return -1;
         }
 
-        return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
     }
 
-    public function cdlAdvanceBlockLookback(): int
+    public static function cdlAdvanceBlockLookback(): int
     {
-        return (((((((((($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) > ((((($this->candleSettings[CandleSettingType::Far]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Far]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))))) ? ((((($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) : ((((($this->candleSettings[CandleSettingType::Far]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Far]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod)))))) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (((((((($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) > ((((($this->candleSettings[CandleSettingType::Far]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Far]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))))) ? ((((($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) : ((((($this->candleSettings[CandleSettingType::Far]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Far]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod)))))) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((((((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)))))) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)))))) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlBeltHoldLookback(): int
+    public static function cdlBeltHoldLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlBreakawayLookback(): int
+    public static function cdlBreakawayLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 4;
+        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 4;
     }
 
-    public function cdlClosingMarubozuLookback(): int
+    public static function cdlClosingMarubozuLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlConcealBabysWallLookback(): int
+    public static function cdlConcealBabysWallLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 3;
+        return (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 3;
     }
 
-    public function cdlCounterAttackLookback(): int
+    public static function cdlCounterAttackLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlDarkCloudCoverLookback(float $optInPenetration): int
+    public static function cdlDarkCloudCoverLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 5.000000e-1;
@@ -309,30 +309,30 @@ class Lookback extends Core
             return -1;
         }
 
-        return ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
+        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
     }
 
-    public function cdlDojiLookback(): int
+    public static function cdlDojiLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        return (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
     }
 
-    public function cdlDojiStarLookback(): int
+    public static function cdlDojiStarLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlDragonflyDojiLookback(): int
+    public static function cdlDragonflyDojiLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlEngulfingLookback(): int
+    public static function cdlEngulfingLookback(): int
     {
         return 2;
     }
 
-    public function cdlEveningDojiStarLookback(float $optInPenetration): int
+    public static function cdlEveningDojiStarLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -340,10 +340,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
     }
 
-    public function cdlEveningStarLookback(float $optInPenetration): int
+    public static function cdlEveningStarLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -351,110 +351,110 @@ class Lookback extends Core
             return -1;
         }
 
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlGapSideSideWhiteLookback(): int
+    public static function cdlGapSideSideWhiteLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::Near]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Near]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::Near]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
     }
 
-    public function cdlGravestoneDojiLookback(): int
+    public static function cdlGravestoneDojiLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlHammerLookback(): int
+    public static function cdlHammerLookback(): int
     {
-        return (((((((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (((((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) + 1;
+        return ((((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) + 1;
     }
 
-    public function cdlHangingManLookback(): int
+    public static function cdlHangingManLookback(): int
     {
-        return (((((((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (((((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) + 1;
+        return ((((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) + 1;
     }
 
-    public function cdlHaramiLookback(): int
+    public static function cdlHaramiLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlHaramiCrossLookback(): int
+    public static function cdlHaramiCrossLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlHighWaveLookback(): int
+    public static function cdlHighWaveLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
     }
 
-    public function cdlHikkakeLookback(): int
+    public static function cdlHikkakeLookback(): int
     {
         return 5;
     }
 
-    public function cdlHikkakeModLookback(): int
+    public static function cdlHikkakeModLookback(): int
     {
-        return (((1) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (1) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) + 5;
+        return (((1) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? (1) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) + 5;
     }
 
-    public function cdlHomingPigeonLookback(): int
+    public static function cdlHomingPigeonLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlIdentical3CrowsLookback(): int
+    public static function cdlIdentical3CrowsLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
     }
 
-    public function cdlInNeckLookback(): int
+    public static function cdlInNeckLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlInvertedHammerLookback(): int
+    public static function cdlInvertedHammerLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) + 1;
+        return (((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) + 1;
     }
 
-    public function cdlKickingLookback(): int
+    public static function cdlKickingLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlKickingByLengthLookback(): int
+    public static function cdlKickingByLengthLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlLadderBottomLookback(): int
+    public static function cdlLadderBottomLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 4;
+        return (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 4;
     }
 
-    public function cdlLongLeggedDojiLookback(): int
+    public static function cdlLongLeggedDojiLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)));
     }
 
-    public function cdlLongLineLookback(): int
+    public static function cdlLongLineLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
     }
 
-    public function cdlMarubozuLookback(): int
+    public static function cdlMarubozuLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
     }
 
-    public function cdlMatchingLowLookback(): int
+    public static function cdlMatchingLowLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::Equal]->avgPeriod) + 1;
+        return (static::$candleSettings[CandleSettingType::Equal]->avgPeriod) + 1;
     }
 
-    public function cdlMatHoldLookback(float $optInPenetration): int
+    public static function cdlMatHoldLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 5.000000e-1;
@@ -462,10 +462,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
     }
 
-    public function cdlMorningDojiStarLookback(float $optInPenetration): int
+    public static function cdlMorningDojiStarLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -473,10 +473,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
     }
 
-    public function cdlMorningStarLookback(float $optInPenetration): int
+    public static function cdlMorningStarLookback(float $optInPenetration): int
     {
         if ($optInPenetration == (-4e+37)) {
             $optInPenetration = 3.000000e-1;
@@ -484,100 +484,100 @@ class Lookback extends Core
             return -1;
         }
 
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlOnNeckLookback(): int
+    public static function cdlOnNeckLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlPiercingLookback(): int
+    public static function cdlPiercingLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
+        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
     }
 
-    public function cdlRickshawManLookback(): int
+    public static function cdlRickshawManLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod)));
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)));
     }
 
-    public function cdlRiseFall3MethodsLookback(): int
+    public static function cdlRiseFall3MethodsLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
     }
 
-    public function cdlSeparatingLinesLookback(): int
+    public static function cdlSeparatingLinesLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::Equal]->avgPeriod))) + 1;
+        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) + 1;
     }
 
-    public function cdlShootingStarLookback(): int
+    public static function cdlShootingStarLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) + 1;
+        return (((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) + 1;
     }
 
-    public function cdlShortLineLookback(): int
+    public static function cdlShortLineLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
     }
 
-    public function cdlSpinningTopLookback(): int
+    public static function cdlSpinningTopLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        return (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
     }
 
-    public function cdlStalledPatternLookback(): int
+    public static function cdlStalledPatternLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) > ((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))))) ? ((((($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) : ((((($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::Near]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::Near]->avgPeriod))))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) + 2;
     }
 
-    public function cdlStickSandwichLookback(): int
+    public static function cdlStickSandwichLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::Equal]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::Equal]->avgPeriod) + 2;
     }
 
-    public function cdlTakuriLookback(): int
+    public static function cdlTakuriLookback(): int
     {
-        return ((((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? ((((($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : (($this->candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : (($this->candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
     }
 
-    public function cdlTasukiGapLookback(): int
+    public static function cdlTasukiGapLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::Near]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::Near]->avgPeriod) + 2;
     }
 
-    public function cdlThrustingLookback(): int
+    public static function cdlThrustingLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::Equal]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
     }
 
-    public function cdlTristarLookback(): int
+    public static function cdlTristarLookback(): int
     {
-        return ($this->candleSettings[CandleSettingType::BodyDoji]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod) + 2;
     }
 
-    public function cdlUnique3RiverLookback(): int
+    public static function cdlUnique3RiverLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlUpsideGap2CrowsLookback(): int
+    public static function cdlUpsideGap2CrowsLookback(): int
     {
-        return (((($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? (($this->candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : (($this->candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
     }
 
-    public function cdlXSideGap3MethodsLookback(): int
+    public static function cdlXSideGap3MethodsLookback(): int
     {
         return 2;
     }
 
-    public function ceilLookback(): int
+    public static function ceilLookback(): int
     {
         return 0;
     }
 
-    public function cmoLookback(int $optInTimePeriod): int
+    public static function cmoLookback(int $optInTimePeriod): int
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -585,15 +585,15 @@ class Lookback extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return -1;
         }
-        $retValue = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::CMO]);
-        if (($this->compatibility) == Compatibility::Metastock) {
+        $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::CMO]);
+        if ((static::$compatibility) == Compatibility::Metastock) {
             $retValue--;
         }
 
         return $retValue;
     }
 
-    public function correlLookback(int $optInTimePeriod): int
+    public static function correlLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -604,17 +604,17 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function cosLookback(): int
+    public static function cosLookback(): int
     {
         return 0;
     }
 
-    public function coshLookback(): int
+    public static function coshLookback(): int
     {
         return 0;
     }
 
-    public function demaLookback(int $optInTimePeriod): int
+    public static function demaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -622,15 +622,15 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->emaLookback($optInTimePeriod) * 2;
+        return self::emaLookback($optInTimePeriod) * 2;
     }
 
-    public function divLookback(): int
+    public static function divLookback(): int
     {
         return 0;
     }
 
-    public function dxLookback(int $optInTimePeriod): int
+    public static function dxLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -638,13 +638,13 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::DX]);
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::DX]);
         } else {
             return 2;
         }
     }
 
-    public function emaLookback(int $optInTimePeriod): int
+    public static function emaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -654,50 +654,50 @@ class Lookback extends Core
             }
         }
 
-        return $optInTimePeriod - 1 + ($this->unstablePeriod[UnstablePeriodFunctionID::EMA]);
+        return $optInTimePeriod - 1 + (static::$unstablePeriod[UnstablePeriodFunctionID::EMA]);
     }
 
-    public function expLookback(): int
+    public static function expLookback(): int
     {
         return 0;
     }
 
-    public function floorLookback(): int
+    public static function floorLookback(): int
     {
         return 0;
     }
 
-    public function htDcPeriodLookback(): int
+    public static function htDcPeriodLookback(): int
     {
-        return 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
+        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
     }
 
-    public function htDcPhaseLookback(): int
+    public static function htDcPhaseLookback(): int
     {
-        return 63 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtDcPhase]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase]);
     }
 
-    public function htPhasorLookback(): int
+    public static function htPhasorLookback(): int
     {
-        return 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
+        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
     }
 
-    public function htSineLookback(): int
+    public static function htSineLookback(): int
     {
-        return 63 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtSine]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine]);
     }
 
-    public function htTrendlineLookback(): int
+    public static function htTrendlineLookback(): int
     {
-        return 63 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtTrendline]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendline]);
     }
 
-    public function htTrendModeLookback(): int
+    public static function htTrendModeLookback(): int
     {
-        return 63 + ($this->unstablePeriod[UnstablePeriodFunctionID::HtTrendMode]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode]);
     }
 
-    public function kamaLookback(int $optInTimePeriod): int
+    public static function kamaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -705,10 +705,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::KAMA]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::KAMA]);
     }
 
-    public function linearRegLookback(int $optInTimePeriod): int
+    public static function linearRegLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -719,7 +719,7 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegAngleLookback(int $optInTimePeriod): int
+    public static function linearRegAngleLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -730,7 +730,7 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegInterceptLookback(int $optInTimePeriod): int
+    public static function linearRegInterceptLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -741,7 +741,7 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function linearRegSlopeLookback(int $optInTimePeriod): int
+    public static function linearRegSlopeLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -752,17 +752,17 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function lnLookback(): int
+    public static function lnLookback(): int
     {
         return 0;
     }
 
-    public function log10Lookback(): int
+    public static function log10Lookback(): int
     {
         return 0;
     }
 
-    public function movingAverageLookback(int $optInTimePeriod, int $optInMAType): int
+    public static function movingAverageLookback(int $optInTimePeriod, int $optInMAType): int
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -775,31 +775,31 @@ class Lookback extends Core
         }
         switch ($optInMAType) {
             case MovingAverageType::SMA:
-                $retValue = $this->smaLookback($optInTimePeriod);
+                $retValue = self::smaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::EMA:
-                $retValue = $this->emaLookback($optInTimePeriod);
+                $retValue = self::emaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::WMA:
-                $retValue = $this->wmaLookback($optInTimePeriod);
+                $retValue = self::wmaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::DEMA:
-                $retValue = $this->demaLookback($optInTimePeriod);
+                $retValue = self::demaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::TEMA:
-                $retValue = $this->temaLookback($optInTimePeriod);
+                $retValue = self::temaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::TRIMA:
-                $retValue = $this->trimaLookback($optInTimePeriod);
+                $retValue = self::trimaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::KAMA:
-                $retValue = $this->kamaLookback($optInTimePeriod);
+                $retValue = self::kamaLookback($optInTimePeriod);
                 break;
             case MovingAverageType::MAMA:
-                $retValue = $this->mamaLookback(0.5, 0.05);
+                $retValue = self::mamaLookback(0.5, 0.05);
                 break;
             case MovingAverageType::T3:
-                $retValue = $this->t3Lookback($optInTimePeriod, 0.7);
+                $retValue = self::t3Lookback($optInTimePeriod, 0.7);
                 break;
             default:
                 $retValue = 0;
@@ -808,7 +808,7 @@ class Lookback extends Core
         return $retValue;
     }
 
-    public function macdLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod): int
+    public static function macdLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod): int
     {
         //int $tempInteger;
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -832,11 +832,11 @@ class Lookback extends Core
             $optInFastPeriod = $tempInteger;
         }
 
-        return $this->emaLookback($optInSlowPeriod)
-               + $this->emaLookback($optInSignalPeriod);
+        return self::emaLookback($optInSlowPeriod)
+               + self::emaLookback($optInSignalPeriod);
     }
 
-    public function macdExtLookback(int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType): int
+    public static function macdExtLookback(int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType): int
     {
         //int $tempInteger, $lookbackLargest;
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
@@ -854,16 +854,16 @@ class Lookback extends Core
         } elseif (((int)$optInSignalPeriod < 1) || ((int)$optInSignalPeriod > 100000)) {
             return -1;
         }
-        $lookbackLargest = $this->movingAverageLookback($optInFastPeriod, $optInFastMAType);
-        $tempInteger     = $this->movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
+        $lookbackLargest = self::movingAverageLookback($optInFastPeriod, $optInFastMAType);
+        $tempInteger     = self::movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
         if ($tempInteger > $lookbackLargest) {
             $lookbackLargest = $tempInteger;
         }
 
-        return $lookbackLargest + $this->movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
+        return $lookbackLargest + self::movingAverageLookback($optInSignalPeriod, $optInSignalMAType);
     }
 
-    public function macdFixLookback(int $optInSignalPeriod): int
+    public static function macdFixLookback(int $optInSignalPeriod): int
     {
         if ((int)$optInSignalPeriod == (PHP_INT_MIN)) {
             $optInSignalPeriod = 9;
@@ -871,11 +871,11 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->emaLookback(26)
-               + $this->emaLookback($optInSignalPeriod);
+        return self::emaLookback(26)
+               + self::emaLookback($optInSignalPeriod);
     }
 
-    public function mamaLookback(float $optInFastLimit, float $optInSlowLimit): int
+    public static function mamaLookback(float $optInFastLimit, float $optInSlowLimit): int
     {
         if ($optInFastLimit == (-4e+37)) {
             $optInFastLimit = 5.000000e-1;
@@ -888,10 +888,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return 32 + ($this->unstablePeriod[UnstablePeriodFunctionID::MAMA]);
+        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::MAMA]);
     }
 
-    public function movingAverageVariablePeriodLookback(int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType): int
+    public static function movingAverageVariablePeriodLookback(int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType): int
     {
         if ((int)$optInMinPeriod == (PHP_INT_MIN)) {
             $optInMinPeriod = 2;
@@ -904,10 +904,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->movingAverageLookback($optInMaxPeriod, $optInMAType);
+        return self::movingAverageLookback($optInMaxPeriod, $optInMAType);
     }
 
-    public function maxLookback(int $optInTimePeriod): int
+    public static function maxLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -918,7 +918,7 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function maxIndexLookback(int $optInTimePeriod): int
+    public static function maxIndexLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -929,12 +929,12 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function medPriceLookback(): int
+    public static function medPriceLookback(): int
     {
         return 0;
     }
 
-    public function mfiLookback(int $optInTimePeriod): int
+    public static function mfiLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -942,21 +942,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::MFI]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MFI]);
     }
 
-    public function midPointLookback(int $optInTimePeriod): int
-    {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
-            $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
-            return -1;
-        }
-
-        return ($optInTimePeriod - 1);
-    }
-
-    public function midPriceLookback(int $optInTimePeriod): int
+    public static function midPointLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -967,7 +956,18 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minLookback(int $optInTimePeriod): int
+    public static function midPriceLookback(int $optInTimePeriod): int
+    {
+        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+            $optInTimePeriod = 14;
+        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+            return -1;
+        }
+
+        return ($optInTimePeriod - 1);
+    }
+
+    public static function minLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -978,7 +978,7 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minIndexLookback(int $optInTimePeriod): int
+    public static function minIndexLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -989,7 +989,7 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minMaxLookback(int $optInTimePeriod): int
+    public static function minMaxLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -1000,7 +1000,7 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minMaxIndexLookback(int $optInTimePeriod): int
+    public static function minMaxIndexLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -1011,7 +1011,7 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function minusDILookback(int $optInTimePeriod): int
+    public static function minusDILookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1019,13 +1019,13 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::MinusDI]);
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDI]);
         } else {
             return 1;
         }
     }
 
-    public function minusDMLookback(int $optInTimePeriod): int
+    public static function minusDMLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1033,13 +1033,13 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::MinusDM]) - 1;
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM]) - 1;
         } else {
             return 1;
         }
     }
 
-    public function momLookback(int $optInTimePeriod): int
+    public static function momLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -1050,12 +1050,12 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function multLookback(): int
+    public static function multLookback(): int
     {
         return 0;
     }
 
-    public function natrLookback(int $optInTimePeriod): int
+    public static function natrLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1063,15 +1063,15 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::NATR]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::NATR]);
     }
 
-    public function obvLookback(): int
+    public static function obvLookback(): int
     {
         return 0;
     }
 
-    public function plusDILookback(int $optInTimePeriod): int
+    public static function plusDILookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1079,13 +1079,13 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::PlusDI]);
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI]);
         } else {
             return 1;
         }
     }
 
-    public function plusDMLookback(int $optInTimePeriod): int
+    public static function plusDMLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1093,13 +1093,13 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::PlusDM]) - 1;
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM]) - 1;
         } else {
             return 1;
         }
     }
 
-    public function ppoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
+    public static function ppoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
     {
         if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
@@ -1112,10 +1112,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
+        return self::movingAverageLookback(((($optInSlowPeriod) > ($optInFastPeriod)) ? ($optInSlowPeriod) : ($optInFastPeriod)), $optInMAType);
     }
 
-    public function rocLookback(int $optInTimePeriod): int
+    public static function rocLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -1126,7 +1126,7 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function rocPLookback(int $optInTimePeriod): int
+    public static function rocPLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -1137,7 +1137,7 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function rocRLookback(int $optInTimePeriod): int
+    public static function rocRLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -1148,7 +1148,7 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function rocR100Lookback(int $optInTimePeriod): int
+    public static function rocR100Lookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
@@ -1159,7 +1159,7 @@ class Lookback extends Core
         return $optInTimePeriod;
     }
 
-    public function rsiLookback(int $optInTimePeriod): int
+    public static function rsiLookback(int $optInTimePeriod): int
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1167,15 +1167,15 @@ class Lookback extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return -1;
         }
-        $retValue = $optInTimePeriod + ($this->unstablePeriod[UnstablePeriodFunctionID::RSI]);
-        if (($this->compatibility) == Compatibility::Metastock) {
+        $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::RSI]);
+        if ((static::$compatibility) == Compatibility::Metastock) {
             $retValue--;
         }
 
         return $retValue;
     }
 
-    public function sarLookback(float $optInAcceleration, float $optInMaximum): int
+    public static function sarLookback(float $optInAcceleration, float $optInMaximum): int
     {
         if ($optInAcceleration == (-4e+37)) {
             $optInAcceleration = 2.000000e-2;
@@ -1191,7 +1191,7 @@ class Lookback extends Core
         return 1;
     }
 
-    public function sarExtLookback(float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort): int
+    public static function sarExtLookback(float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort): int
     {
         if ($optInStartValue == (-4e+37)) {
             $optInStartValue = 0.000000e+0;
@@ -1237,17 +1237,17 @@ class Lookback extends Core
         return 1;
     }
 
-    public function sinLookback(): int
+    public static function sinLookback(): int
     {
         return 0;
     }
 
-    public function sinhLookback(): int
+    public static function sinhLookback(): int
     {
         return 0;
     }
 
-    public function smaLookback(int $optInTimePeriod): int
+    public static function smaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -1258,12 +1258,12 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function sqrtLookback(): int
+    public static function sqrtLookback(): int
     {
         return 0;
     }
 
-    public function stdDevLookback(int $optInTimePeriod, float $optInNbDev): int
+    public static function stdDevLookback(int $optInTimePeriod, float $optInNbDev): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -1276,10 +1276,10 @@ class Lookback extends Core
             return -1;
         }
 
-        return $this->varianceLookback($optInTimePeriod, $optInNbDev);
+        return self::varianceLookback($optInTimePeriod, $optInNbDev);
     }
 
-    public function stochLookback(int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType): int
+    public static function stochLookback(int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType): int
     {
         //int $retValue;
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
@@ -1298,13 +1298,13 @@ class Lookback extends Core
             return -1;
         }
         $retValue = ($optInFastK_Period - 1);
-        $retValue += $this->movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
-        $retValue += $this->movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
+        $retValue += self::movingAverageLookback($optInSlowK_Period, $optInSlowK_MAType);
+        $retValue += self::movingAverageLookback($optInSlowD_Period, $optInSlowD_MAType);
 
         return $retValue;
     }
 
-    public function stochFLookback(int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType): int
+    public static function stochFLookback(int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType): int
     {
         //int $retValue;
         if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
@@ -1318,12 +1318,12 @@ class Lookback extends Core
             return -1;
         }
         $retValue = ($optInFastK_Period - 1);
-        $retValue += $this->movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
+        $retValue += self::movingAverageLookback($optInFastD_Period, $optInFastD_MAType);
 
         return $retValue;
     }
 
-    public function stochRsiLookback(int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType): int
+    public static function stochRsiLookback(int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType): int
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1341,17 +1341,17 @@ class Lookback extends Core
         } elseif (((int)$optInFastD_Period < 1) || ((int)$optInFastD_Period > 100000)) {
             return -1;
         }
-        $retValue = $this->rsiLookback($optInTimePeriod) + $this->stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        $retValue = self::rsiLookback($optInTimePeriod) + self::stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
 
         return $retValue;
     }
 
-    public function subLookback(): int
+    public static function subLookback(): int
     {
         return 0;
     }
 
-    public function sumLookback(int $optInTimePeriod): int
+    public static function sumLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -1362,7 +1362,7 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function t3Lookback(int $optInTimePeriod, float $optInVFactor): int
+    public static function t3Lookback(int $optInTimePeriod, float $optInVFactor): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -1375,20 +1375,20 @@ class Lookback extends Core
             return -1;
         }
 
-        return 6 * ($optInTimePeriod - 1) + ($this->unstablePeriod[UnstablePeriodFunctionID::T3]);
+        return 6 * ($optInTimePeriod - 1) + (static::$unstablePeriod[UnstablePeriodFunctionID::T3]);
     }
 
-    public function tanLookback(): int
+    public static function tanLookback(): int
     {
         return 0;
     }
 
-    public function tanhLookback(): int
+    public static function tanhLookback(): int
     {
         return 0;
     }
 
-    public function temaLookback(int $optInTimePeriod): int
+    public static function temaLookback(int $optInTimePeriod): int
     {
         //int $retValue;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1396,17 +1396,17 @@ class Lookback extends Core
         } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
             return -1;
         }
-        $retValue = $this->emaLookback($optInTimePeriod);
+        $retValue = self::emaLookback($optInTimePeriod);
 
         return $retValue * 3;
     }
 
-    public function trueRangeLookback(): int
+    public static function trueRangeLookback(): int
     {
         return 1;
     }
 
-    public function trimaLookback(int $optInTimePeriod): int
+    public static function trimaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
@@ -1417,7 +1417,7 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function trixLookback(int $optInTimePeriod): int
+    public static function trixLookback(int $optInTimePeriod): int
     {
         //int $emaLookback;
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -1425,12 +1425,12 @@ class Lookback extends Core
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
             return -1;
         }
-        $emaLookback = $this->emaLookback($optInTimePeriod);
+        $emaLookback = self::emaLookback($optInTimePeriod);
 
-        return ($emaLookback * 3) + $this->rocRLookback(1);
+        return ($emaLookback * 3) + self::rocRLookback(1);
     }
 
-    public function tsfLookback(int $optInTimePeriod): int
+    public static function tsfLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1441,12 +1441,12 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function typPriceLookback(): int
+    public static function typPriceLookback(): int
     {
         return 0;
     }
 
-    public function ultOscLookback(int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3): int
+    public static function ultOscLookback(int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3): int
     {
         //int $maxPeriod;
         if ((int)$optInTimePeriod1 == (PHP_INT_MIN)) {
@@ -1466,10 +1466,10 @@ class Lookback extends Core
         }
         $maxPeriod = (((((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) > ($optInTimePeriod3)) ? (((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) : ($optInTimePeriod3));
 
-        return $this->smaLookback($maxPeriod) + 1;
+        return self::smaLookback($maxPeriod) + 1;
     }
 
-    public function varianceLookback(int $optInTimePeriod, float $optInNbDev): int
+    public static function varianceLookback(int $optInTimePeriod, float $optInNbDev): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
@@ -1485,12 +1485,12 @@ class Lookback extends Core
         return $optInTimePeriod - 1;
     }
 
-    public function wclPriceLookback(): int
+    public static function wclPriceLookback(): int
     {
         return 0;
     }
 
-    public function willRLookback(int $optInTimePeriod): int
+    public static function willRLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
@@ -1501,7 +1501,7 @@ class Lookback extends Core
         return ($optInTimePeriod - 1);
     }
 
-    public function wmaLookback(int $optInTimePeriod): int
+    public static function wmaLookback(int $optInTimePeriod): int
     {
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 30;

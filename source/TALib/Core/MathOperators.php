@@ -44,76 +44,75 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 
 class MathOperators extends Core
 {
 
     /**
-     * @param int      $startIdx
-     * @param int      $endIdx
-     * @param float[]  $inReal0
-     * @param float[]  $inReal1
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param float[]  $outReal
+     * @param int     $startIdx
+     * @param int     $endIdx
+     * @param float[] $inReal0
+     * @param float[] $inReal1
+     * @param int     $outBegIdx
+     * @param int     $outNBElement
+     * @param float[] $outReal
      *
      * @return int
      */
-    public function add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function add(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] + $inReal1[$i];
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal0
-     * @param array     $inReal1
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal0
+     * @param array $inReal1
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] / $inReal1[$i];
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -126,8 +125,8 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -157,26 +156,26 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -189,8 +188,8 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -220,26 +219,26 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -252,8 +251,8 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -283,26 +282,26 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outInteger
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outInteger
      *
      * @return int
      */
-    public function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outInteger): int
+    public static function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -315,8 +314,8 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -346,27 +345,27 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outMin
-     * @param array     $outMax
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outMin
+     * @param array $outMax
      *
      * @return int
      */
-    public function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMin, array &$outMax): int
+    public static function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outMin, array &$outMax): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -379,8 +378,8 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -429,27 +428,27 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outMinIdx
-     * @param array     $outMaxIdx
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outMinIdx
+     * @param array $outMaxIdx
      *
      * @return int
      */
-    public function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outMinIdx, array &$outMaxIdx): int
+    public static function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outMinIdx, array &$outMaxIdx): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -462,8 +461,8 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -512,76 +511,76 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal0
-     * @param array     $inReal1
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal0
+     * @param array $inReal1
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] * $inReal1[$i];
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal0
-     * @param array     $inReal1
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal0
+     * @param array $inReal1
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         for ($i = $startIdx, $outIdx = 0; $i <= $endIdx; $i++, $outIdx++) {
             $outReal[$outIdx] = $inReal0[$i] - $inReal1[$i];
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inReal
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inReal
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
@@ -594,8 +593,8 @@ class MathOperators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -614,8 +613,8 @@ class MathOperators extends Core
             $periodTotal        -= $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $tempReal;
         } while ($i <= $endIdx);
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }

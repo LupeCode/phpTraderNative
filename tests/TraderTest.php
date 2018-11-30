@@ -201,6 +201,51 @@ class TraderTest extends TestCase
 
     /**
      * @throws \Exception
+     * @group exceptions
+     */
+    public function testAddUnevenParametersError()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("The count of the input arrays do not match each other");
+        $this->expectExceptionCode(6);
+        Trader::add([1, 2], [1, 2, 3]);
+    }
+
+    /**
+     * @throws \Exception
+     * @group exceptions
+     */
+    public function testAddEmptyParametersError()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Out of range on end index");
+        $this->expectExceptionCode(3);
+        Trader::add([], []);
+    }
+
+    /**
+     * @throws \Exception
+     * @group exceptions
+     */
+    public function testAdxBadParameterError()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Bad parameter");
+        $this->expectExceptionCode(1);
+        Trader::adx([1], [1], [1], 0);
+    }
+
+    /**
+     * @throws \Exception
+     * @group exceptions
+     */
+    public function testAdOscDefaultsDifferent()
+    {
+        $this->assertNotEquals(\trader_adosc($this->High, $this->Low, $this->Close, $this->Volume), $this->adjustForPECL(Trader::adosc($this->High, $this->Low, $this->Close, $this->Volume)));
+    }
+
+    /**
+     * @throws \Exception
      */
     public function testAcos()
     {

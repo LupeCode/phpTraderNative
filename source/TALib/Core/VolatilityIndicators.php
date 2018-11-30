@@ -44,7 +44,6 @@
 
 namespace LupeCode\phpTraderNative\TALib\Core;
 
-use LupeCode\phpTraderNative\TALib\Classes\MyInteger;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
@@ -52,34 +51,34 @@ class VolatilityIndicators extends Core
 {
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param int       $optInTimePeriod
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $optInTimePeriod
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $outBegIdx1    = new MyInteger();
-        $outNbElement1 = new MyInteger();
-        $prevATRTemp = $this->double(1);
+        $outBegIdx1    = 0;
+        $outNbElement1 = 0;
+        $prevATRTemp   = static::double(1);
         if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $outBegIdx->value    = 0;
-        $outNBElement->value = 0;
-        $lookbackTotal       = (new Lookback())->natrLookback($optInTimePeriod);
+        $outBegIdx     = 0;
+        $outNBElement  = 0;
+        $lookbackTotal = Lookback::natrLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -87,14 +86,14 @@ class VolatilityIndicators extends Core
             return ReturnCode::Success;
         }
         if ($optInTimePeriod <= 1) {
-            return $this->trueRange(
+            return self::trueRange(
                 $startIdx, $endIdx,
                 $inHigh, $inLow, $inClose,
                 $outBegIdx, $outNBElement, $outReal
             );
         }
-        $tempBuffer = $this->double($lookbackTotal + ($endIdx - $startIdx) + 1);
-        $retCode    = $this->trueRange(
+        $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
+        $retCode    = self::trueRange(
             ($startIdx - $lookbackTotal + 1), $endIdx,
                                               $inHigh, $inLow, $inClose,
                                               $outBegIdx1, $outNbElement1,
@@ -103,7 +102,7 @@ class VolatilityIndicators extends Core
         if ($retCode != ReturnCode::Success) {
             return $retCode;
         }
-        $retCode = $this->TA_INT_SMA(
+        $retCode = static::TA_INT_SMA(
             $optInTimePeriod - 1,
             $optInTimePeriod - 1,
             $tempBuffer, $optInTimePeriod,
@@ -115,7 +114,7 @@ class VolatilityIndicators extends Core
         }
         $prevATR = $prevATRTemp[0];
         $today   = $optInTimePeriod;
-        $outIdx  = ($this->unstablePeriod[UnstablePeriodFunctionID::NATR]);
+        $outIdx  = (static::$unstablePeriod[UnstablePeriodFunctionID::NATR]);
         while ($outIdx != 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
@@ -142,35 +141,35 @@ class VolatilityIndicators extends Core
             }
             $outIdx++;
         }
-        $outBegIdx->value    = $startIdx;
-        $outNBElement->value = $outIdx;
+        $outBegIdx    = $startIdx;
+        $outNBElement = $outIdx;
 
         return $retCode;
     }
 
     /**
-     * @param int       $startIdx
-     * @param int       $endIdx
-     * @param array     $inHigh
-     * @param array     $inLow
-     * @param array     $inClose
-     * @param MyInteger $outBegIdx
-     * @param MyInteger $outNBElement
-     * @param array     $outReal
+     * @param int   $startIdx
+     * @param int   $endIdx
+     * @param array $inHigh
+     * @param array $inLow
+     * @param array $inClose
+     * @param int   $outBegIdx
+     * @param int   $outNBElement
+     * @param array $outReal
      *
      * @return int
      */
-    public function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, MyInteger &$outBegIdx, MyInteger &$outNBElement, array &$outReal): int
+    public static function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
-        if ($RetCode = $this->validateStartEndIndexes($startIdx, $endIdx)) {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
         if ($startIdx < 1) {
             $startIdx = 1;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx->value    = 0;
-            $outNBElement->value = 0;
+            $outBegIdx    = 0;
+            $outNBElement = 0;
 
             return ReturnCode::Success;
         }
@@ -192,8 +191,8 @@ class VolatilityIndicators extends Core
             $outReal[$outIdx++] = $greatest;
             $today++;
         }
-        $outNBElement->value = $outIdx;
-        $outBegIdx->value    = $startIdx;
+        $outNBElement = $outIdx;
+        $outBegIdx    = $startIdx;
 
         return ReturnCode::Success;
     }
