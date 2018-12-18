@@ -1554,10 +1554,12 @@ class TraderTest extends TestCase
         $optInFastK_Period = 2;
         $optInFastD_Period = 10;
         $optInFastD_MAType = MovingAverageType::SMA;
-        list($traderFastK, $traderFastD) = \trader_stochrsi($this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
-        $Output = Trader::stochrsi($this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
-        $this->assertEquals($traderFastK, $this->adjustForPECL($Output['FastK']));
-        $this->assertEquals($traderFastD, $this->adjustForPECL($Output['FastD']));
+        for($optInFastD_MAType = MovingAverageType::SMA; $optInFastD_MAType < MovingAverageType::MAMA; $optInFastD_MAType++){
+            list($traderFastK, $traderFastD) = \trader_stochrsi($this->Close, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+            $Output = Trader::stochrsi($this->Close, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+            $this->assertEquals($traderFastK, $this->adjustForPECL($Output['FastK']));
+            $this->assertEquals($traderFastD, $this->adjustForPECL($Output['FastD']));
+        }
     }
 
     /**
