@@ -30,6 +30,7 @@
     <groups>
         <exclude>
             <group>exceptions</group>
+            <!-- The exceptions group are tests that do not work properly with xDebug enabled. -->
         </exclude>
     </groups>
 
