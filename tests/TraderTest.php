@@ -3,6 +3,7 @@
 namespace LupeCode\phpTraderNative;
 
 use LupeCode\phpTraderNative\TALib\Enum\MovingAverageType;
+use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 use PHPUnit\Framework\TestCase;
 
 class TraderTest extends TestCase
@@ -206,7 +207,7 @@ class TraderTest extends TestCase
     public function testAddUnevenParametersError()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("The count of the input arrays do not match each other");
+        $this->expectExceptionMessage(ReturnCode::Messages[ReturnCode::UnevenParameters]);
         $this->expectExceptionCode(6);
         Trader::add([1, 2], [1, 2, 3]);
     }
@@ -218,7 +219,7 @@ class TraderTest extends TestCase
     public function testAddEmptyParametersError()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Out of range on end index");
+        $this->expectExceptionMessage(ReturnCode::Messages[ReturnCode::OutOfRangeEndIndex]);
         $this->expectExceptionCode(3);
         Trader::add([], []);
     }
@@ -230,7 +231,7 @@ class TraderTest extends TestCase
     public function testAdxBadParameterError()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("Bad parameter");
+        $this->expectExceptionMessage(ReturnCode::Messages[ReturnCode::BadParam]);
         $this->expectExceptionCode(1);
         Trader::adx([1], [1], [1], 0);
     }
