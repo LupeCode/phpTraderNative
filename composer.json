@@ -17,7 +17,6 @@
   },
   "require-dev": {
     "phpunit/phpunit": "~6.0",
-    "codacy/coverage": "~1.4",
     "phpmetrics/phpmetrics": "~2.3",
     "ext-trader": "~0.4"
   },
