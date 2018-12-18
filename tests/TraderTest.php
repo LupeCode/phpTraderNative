@@ -1550,9 +1550,10 @@ class TraderTest extends TestCase
      */
     public function testStochRsi()
     {
-        $optInTimePeriod   = 10;
-        $optInFastK_Period = 2;
-        $optInFastD_Period = 10;
+        $close = [4265.36, 4283.8, 3774.99, 3936.69, 3731.32, 3775, 4225.03, 4248, 3976, 4142.01, 4103.19, 3833.47, 3901.84, 3694.39, 3433.26, 3380.01, 3401, 3531.18, 3410.15, 3349.36, 3430.24, 3265, 3195.71, 3183, 3195];
+        $optInTimePeriod   = 14;
+        $optInFastK_Period = 3;
+        $optInFastD_Period = 3;
         $optInFastD_MAType = MovingAverageType::SMA;
         for($optInFastD_MAType = MovingAverageType::SMA; $optInFastD_MAType < MovingAverageType::MAMA; $optInFastD_MAType++){
             list($traderFastK, $traderFastD) = \trader_stochrsi($this->Close, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
