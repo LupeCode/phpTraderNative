@@ -1,7 +1,7 @@
 {
   "name": "lupecode/php-trader-native",
   "description": "An native version of the PHP Trader extension.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "library",
   "license": "GPL-3.0-or-later",
   "authors":[
@@ -21,6 +21,9 @@
     "ext-trader": "~0.4"
   },
   "autoload": {
-    "psr-4": {"LupeCode\\phpTraderNative\\": "source/"}
+    "psr-4": {
+      "LupeCode\\phpTraderNative\\": "source/",
+      "LupeCode\\phpTraderNativeTest\\": "tests/"
+    }
   }
 }

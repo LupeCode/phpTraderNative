@@ -1,9 +1,10 @@
 <?php
 
-namespace LupeCode\phpTraderNative;
+namespace LupeCode\phpTraderNativeTest;
 
 use LupeCode\phpTraderNative\TALib\Enum\MovingAverageType;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
+use LupeCode\phpTraderNative\Trader;
 use PHPUnit\Framework\TestCase;
 
 class TraderTest extends TestCase
