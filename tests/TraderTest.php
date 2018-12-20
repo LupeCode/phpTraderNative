@@ -1629,6 +1629,18 @@ class TraderTest extends TestCase
     /**
      * @throws \Exception
      */
+    public function testStochRstVsStochAndRsi()
+    {
+        $rsi      = Trader::rsi($this->Close, 14);
+        $stoch    = Trader::stochf($rsi, $rsi, $rsi, 14, 3, MovingAverageType::SMA);
+        $stochRsi = Trader::stochrsi($this->Close, 14, 14, 3, MovingAverageType::SMA);
+        $this->assertEquals(array_values($stoch['FastK']), array_values($stochRsi['FastK']));
+        $this->assertEquals(array_values($stoch['FastD']), array_values($stochRsi['FastD']));
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function testSub()
     {
         $this->assertEquals(\trader_sub($this->High, $this->Low), $this->adjustForPECL(Trader::sub($this->High, $this->Low)));
