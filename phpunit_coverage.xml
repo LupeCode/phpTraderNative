@@ -35,8 +35,8 @@
     </groups>
 
     <logging>
-        <log type="coverage-html" target="./logs/report"/>
-        <log type="coverage-clover" target="./logs/coverage.xml"/>
+        <log type="coverage-html" target="./test-results/coverage-report"/>
+        <log type="coverage-clover" target="./test-results/coverage.xml"/>
         <log type="coverage-text" target="php://stdout"/>
     </logging>
 
