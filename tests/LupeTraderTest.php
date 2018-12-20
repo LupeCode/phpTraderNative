@@ -6,5 +6,4 @@ use LupeCode\phpTraderNativeTest\TraderTest;
 
 class LupeTraderTest extends TraderTest
 {
-
 }
