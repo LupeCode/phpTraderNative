@@ -14,15 +14,16 @@ class LupeTraderTest extends TraderTest
      */
     public function testSlowStochRsi()
     {
-        $close = [4265.36, 4283.8, 3774.99, 3936.69, 3731.32, 3775, 4225.03, 4248, 3976, 4142.01, 4103.19, 3833.47, 3901.84, 3694.39, 3433.26, 3380.01, 3401, 3531.18, 3410.15, 3349.36, 3430.24, 3265, 3195.71, 3183, 3195];
-
-        $rsi_period        = 3;
+        $rsi_period        = 14;
         $optInFastK_Period = 3;
-        $optInSlowK_Period = 14;
-        $optInSlowD_Period = 3;
+        $optInSlowK_Period = 10;
+        $optInSlowD_Period = 5;
         $optInSlowK_MAType = MovingAverageType::SMA;
         $optInSlowD_MAType = MovingAverageType::SMA;
-        $Output            = LupeTrader::slowstochrsi($close, $rsi_period, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
-        var_export($Output);
+        $Output            = LupeTrader::slowstochrsi($this->Close, $rsi_period, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
+        $traderRsi         = \trader_rsi($this->Close, $rsi_period);
+        list($traderSlowK, $traderSlowD) = \trader_stoch($traderRsi, $traderRsi, $traderRsi, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
+        $this->assertEquals($traderSlowK, $this->adjustForPECL($Output['SlowK']), '', 0.1);
+        $this->assertEquals($traderSlowD, $this->adjustForPECL($Output['SlowD']), '', 0.1);
     }
 }
