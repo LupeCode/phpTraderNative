@@ -2,7 +2,6 @@
 
 namespace LupeCode\phpTraderNative;
 
-use LupeCode\phpTraderNative\LupeTrader\Core\MomentumIndicators;
 use LupeCode\phpTraderNative\TALib\Enum\MovingAverageType;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 
