@@ -35,8 +35,13 @@ nbproject
 #############################
 .*
 !/.gitignore
+!/.gitlab-ci.yml
+
+# Project specific files and directories #
+##########################################
 /ta-lib/
 logs/
+test-results/
 metrics/
 vendor/
 *.bat

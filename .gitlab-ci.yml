@@ -1,0 +1,29 @@
+.tests:
+  stage: test
+  before_script:
+    - apt-get update -yqq > /dev/null
+    - apt-get install git zlib1g-dev -yqq > /dev/null
+    - echo "memory_limit = 256M" >> "$PHP_INI_DIR/php.ini"
+    - docker-php-ext-install zip > /dev/null
+    - pecl install xdebug > /dev/null
+    - pecl install trader > /dev/null
+    - docker-php-ext-enable trader
+    - curl -sS https://getcomposer.org/installer | php > /dev/null
+    - php composer.phar update
+  script:
+    - vendor/bin/phpunit --configuration ./phpunit.xml
+    - docker-php-ext-enable xdebug
+    - vendor/bin/phpunit --coverage-text --colors=never --configuration ./phpunit_coverage.xml
+  cache:
+    paths:
+      - vendor/
+
+test:7.0:
+  image: php:7.0
+  extends: .tests
+test:7.1:
+  image: php:7.1
+  extends: .tests
+test:7.2:
+  image: php:7.2
+  extends: .tests
