@@ -1,0 +1,15 @@
+language: php
+php:
+  - 7.0
+
+before_script:
+  - sudo apt-get update > /dev/null
+  - echo "memory_limit = 256M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - pecl install xdebug > /dev/null
+  - pecl install trader > /dev/null
+  - composer update
+
+script:
+  - vendor/bin/phpunit --coverage-text --colors=never --configuration ./phpunit_coverage.xml
+  - phpenv config-rm xdebug.ini
+  - vendor/bin/phpunit --configuration ./phpunit.xml

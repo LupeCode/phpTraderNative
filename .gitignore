@@ -36,6 +36,7 @@ nbproject
 .*
 !/.gitignore
 !/.gitlab-ci.yml
+!/.travis.yml
 
 # Project specific files and directories #
 ##########################################
