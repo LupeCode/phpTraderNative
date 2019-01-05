@@ -8,6 +8,7 @@ The goal is that this library can be used by those whom cannot install the PHP T
 
 [![pipeline status](https://gitlab.lupecode.com/LupeCode/phpTraderNative/badges/master/pipeline.svg)](https://gitlab.lupecode.com/LupeCode/phpTraderNative/commits/master)
 [![coverage report](https://gitlab.lupecode.com/LupeCode/phpTraderNative/badges/master/coverage.svg)](https://gitlab.lupecode.com/LupeCode/phpTraderNative/commits/master)
+[![Build Status](https://travis-ci.org/LupeCode/phpTraderNative.svg?branch=master)](https://travis-ci.org/LupeCode/phpTraderNative)
 
 ## Requirements
 
