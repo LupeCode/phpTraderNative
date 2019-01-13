@@ -1,3 +1,8 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=0ba904403dda60fd3095aa5d56887d3b004f935f27cecc5133a3a09fcf35a69a
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+
 language: php
 php:
   - 7.0
@@ -9,10 +14,15 @@ before_script:
   - echo "memory_limit = 256M" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - pecl install trader > /dev/null
   - composer update
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script:
   - vendor/bin/phpunit --configuration ./phpunit_coverage.xml --coverage-clover build/logs/clover.xml
 
 after_success:
+  - php vendor/bin/codacycoverage clover build/logs/clover.xml
   - wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar
   - php php-coveralls.phar --verbose;
+  - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
