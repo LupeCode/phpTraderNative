@@ -26,6 +26,7 @@ composer require lupecode/php-trader-native
 ~~~
 
 ## Usage
+
 ### Drop-In Replacement
 
 This library is intended to be a drop-in replacement for the Trader extension, with a minimum of code changed.
@@ -53,7 +54,16 @@ while the PECL Trader source can be seen [here](https://svn.php.net/viewvc/pecl/
 
 **This package uses the C/Java defaults and not the PECL defaults.**
 
+## Speed
+
+Given that this library is written in pure PHP, is does run slower than the PECL extension which is written in C.
+My benchmarks give 5x to 30x slower depending on the function.
+
+**I welcome any help with optimizations!**
+I have not worked to optimize this library; it's a simple conversion from C to PHP.
+
 ## Contributing/Development
+
 ### Requirements
 
 * PHP >= 7.0.0
