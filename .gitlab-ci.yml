@@ -27,3 +27,9 @@ test:7.1:
 test:7.2:
   image: php:7.2
   extends: .tests
+test:7.3:
+  image: php:7.3
+  extends: .tests
+test:7.4:
+  image: php:7.4
+  extends: .tests
