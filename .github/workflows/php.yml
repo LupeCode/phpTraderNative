@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Validate composer.json and composer.lock
-      run: composer validate
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
@@ -24,43 +22,18 @@ jobs:
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
-  phpunit-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: php-actions/composer@dynamic-docker
-      - name: PHP 7.0 Tests
-        uses: php-actions/phpunit@dynamic-docker
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          php_version : 7.0
-          phpunit_version : 6.5.14
-      - name: PHP 7.1 Tests
-        uses: php-actions/phpunit@dynamic-docker
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          php_version : 7.1
-          phpunit_version : 6.5.14
-      - name: PHP 7.2 Tests
-        uses: php-actions/phpunit@dynamic-docker
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          php_version : 7.2
-          phpunit_version : 6.5.14
-      - name: PHP 7.3 Tests
-        uses: php-actions/phpunit@dynamic-docker
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          php_version : 7.3
-          phpunit_version : 6.5.14
-      - name: PHP 7.4 Tests
-        uses: php-actions/phpunit@dynamic-docker
-        with:
-          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          php_version : 7.4
-          phpunit_version : 6.5.14
+    - name: PHP 7.0 Test
+      uses: uses "LupeCode/gh-action-php@master"
+      run: php7.0 vendor/bin/phpunit
+    - name: PHP 7.1 Test
+      uses: uses "LupeCode/gh-action-php@master"
+      run: php7.1 vendor/bin/phpunit
+    - name: PHP 7.2 Test
+      uses: uses "LupeCode/gh-action-php@master"
+      run: php7.2 vendor/bin/phpunit
+    - name: PHP 7.3 Test
+      uses: uses "LupeCode/gh-action-php@master"
+      run: php7.3 vendor/bin/phpunit
+    - name: PHP 7.4 Test
+      uses: uses "LupeCode/gh-action-php@master"
+      run: php7.4 vendor/bin/phpunit
