@@ -17,8 +17,6 @@ jobs:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-    - name: Validate Composer files
-      run: composer validate --no-check-all --strict
     - name: Install Composer dependencies
       run: composer install --prefer-dist --no-progress --no-suggest
     - name: Run tests
