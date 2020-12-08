@@ -18,7 +18,7 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         tools: pecl
-        extension: trader
+        extensions: trader
 #     - name: Update PECL
 #       run: pecl channel-update pecl.php.net
 #     - name: Install ext-trader
