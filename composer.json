@@ -26,5 +26,8 @@
       "LupeCode\\phpTraderNative\\": "source/",
       "LupeCode\\phpTraderNativeTest\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "phpunit"
   }
 }
