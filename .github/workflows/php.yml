@@ -17,11 +17,13 @@ jobs:
     - uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-    - name: Update PECL
-      run: pecl channel-update pecl.php.net
-    - name: Install ext-trader
-      run: pecl install trader
+        tools: pecl
+        extension: trader
+#     - name: Update PECL
+#       run: pecl channel-update pecl.php.net
+#     - name: Install ext-trader
+#       run: pecl install trader
     - name: Install Composer dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress
     - name: Run tests
       run: php vendor/bin/phpunit
