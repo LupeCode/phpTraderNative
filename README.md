@@ -6,10 +6,7 @@ This port is written in PHP and without any other requirements.
 
 The goal is that this library can be used by those whom cannot install the PHP Trader extension.
 
-[![pipeline status](https://gitlab.com/LupeCode/phpTraderNative/badges/master/pipeline.svg)](https://gitlab.com/LupeCode/phpTraderNative/commits/master)
-[![coverage report](https://gitlab.com/LupeCode/phpTraderNative/badges/master/coverage.svg)](https://gitlab.com/LupeCode/phpTraderNative/commits/master)
-[![Build Status](https://travis-ci.org/LupeCode/phpTraderNative.svg?branch=master)](https://travis-ci.org/LupeCode/phpTraderNative)
-[![Coverage Status](https://coveralls.io/repos/github/LupeCode/phpTraderNative/badge.svg?branch=master)](https://coveralls.io/github/LupeCode/phpTraderNative?branch=master)
+![PHPUnit Tests](https://github.com/LupeCode/phpTraderNative/workflows/PHPUnit%20Tests/badge.svg)
 
 ## Requirements
 
