@@ -1,0 +1,7 @@
+version = 1
+
+test_patterns = ["tests/*Test.php"]
+
+[[analyzers]]
+name = "php"
+enabled = true
