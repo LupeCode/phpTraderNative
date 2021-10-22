@@ -64,7 +64,7 @@ class Core
     /** @var CandleSetting[] */
     protected static $candleSettings;
     /** @var int */
-    protected static $compatibility;
+    public static $compatibility;
 
     /**
      * Core constructor.
