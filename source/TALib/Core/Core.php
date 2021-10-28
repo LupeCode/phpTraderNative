@@ -64,10 +64,12 @@ class Core
     /** @var CandleSetting[] */
     protected static $candleSettings;
     /** @var int */
-    public static $compatibility;
+    public static $compatibility = Compatibility::Default;
 
     /**
      * Core constructor.
+     *
+     * These settings would be set above, but are not allowed to be defaults for static variables.
      */
     public static function construct()
     {
@@ -96,7 +98,6 @@ class Core
             new CandleSetting(CandleSettingType::Equal, RangeType::HighLow, 5, 0.05),
         ];
         static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
-        static::$compatibility  = Compatibility::Default;
     }
 
     /**
