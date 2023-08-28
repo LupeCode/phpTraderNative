@@ -2,29 +2,30 @@
 
 <phpunit
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
         bootstrap="vendor/autoload.php"
-        verbose="true"
-        convertDeprecationsToExceptions="false"
-        convertErrorsToExceptions="false"
-        convertNoticesToExceptions="false"
-        convertWarningsToExceptions="false"
         processIsolation="false"
+        cacheDirectory=".phpunit.cache"
 >
-
+  <coverage includeUncoveredFiles="true">
+    <report>
+      <clover outputFile="./test-results/coverage.xml"/>
+      <html outputDirectory="./test-results/coverage-report"/>
+      <text outputFile="php://stdout"/>
+    </report>
+  </coverage>
     <testsuites>
         <testsuite name="all">
             <directory>tests</directory>
+      <exclude>tests/benchmark</exclude>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true" addUncoveredFilesFromWhitelist="true">
+  <source>
+    <include>
             <directory suffix=".php">./source</directory>
+    </include>
             <exclude>
                 <directory>./vendor</directory>
             </exclude>
-        </whitelist>
-    </filter>
-
+  </source>
 </phpunit>
