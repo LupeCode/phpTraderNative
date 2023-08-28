@@ -10,7 +10,7 @@ The goal is that this library can be used by those whom cannot install the PHP T
 
 ## Requirements
 
-* PHP >= 7.0.0
+* PHP >= 8.0.0
 
 That's the only thing you need!  As stated, you do not need to install any extensions for this library.
 
@@ -26,19 +26,13 @@ composer require lupecode/php-trader-native
 
 ### Drop-In Replacement
 
-This library is intended to be a drop-in replacement for the Trader extension, with a minimum of code changed.
-
-If you had    
-`trader_adosc($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`    
-You can swap that with    
-`Trader::adosc($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`    
-You only need to change `trader_` to `Trader::`.  That's it!
+This library is intended to be a drop-in replacement for the Trader extension, it comes with a polyfill for the Trader extension.
 
 ### Friendly-Named Replacement
 
 Another option that this package provides is to use functions that have an easier to understand name.
 
-If you do not to use `adosc` because it is not descriptive enough, you can instead use `chaikinAccumulationDistributionOscillator` like this:    
+If you do not to use `adosc` because it is not descriptive enough, you can instead use `chaikinAccumulationDistributionOscillator` like this:
 `TraderFriendly::chaikinAccumulationDistributionOscillator($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`
 
 ## Note about default values
@@ -63,7 +57,7 @@ I have not worked to optimize this library; it's a simple conversion from C to P
 
 ### Requirements
 
-* PHP >= 7.0.0
+* PHP >= 8.0.0
 * ext_trader >= 0.4.1 [here](https://pecl.php.net/package/trader)
 
 ### Setup
@@ -98,14 +92,14 @@ Below is the copyright information for TA-LIB found in the source code.
 TA-LIB Copyright (c) 1999-2007, Mario Fortier
 All rights reserved.
 
-Redistribution and use in source and binary forms, with or without 
+Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
 - Redistributions of source code must retain the above copyright notice,
  this list of conditions and the following disclaimer.
 
-- Redistributions in binary form must reproduce the above copyright 
- notice, this list of conditions and the following disclaimer in the 
+- Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
  documentation and/or other materials provided with the distribution.
 
 - Neither name of author nor the names of its contributors may be used

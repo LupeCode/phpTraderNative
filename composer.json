@@ -25,7 +25,10 @@
     "psr-4": {
       "LupeCode\\phpTraderNative\\": "source/",
       "LupeCode\\phpTraderNativeTest\\": "tests/"
-    }
+    },
+    "files": [
+      "source/polyfill.php"
+    ]
   },
   "scripts": {
     "test": "phpunit"
