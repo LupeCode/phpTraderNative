@@ -90,25 +90,6 @@ Run the coverage using
 php -dxdebug.coverage_enable=1 ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit_coverage.xml ./tests
 ~~~
 
-## Metrics & Coverage
-### PHP Metrics Report
-To see the current report of metrics by PHP Metrics, visit [Metrics](https://projects.lupecode.com/phpTraderNative/metrics/)
-### PHP Unit Coverage
-To see the current report of coverage by PHP Unit, visit [Coverage](https://projects.lupecode.com/phpTraderNative/logs/report/)
-### PHP Unit Test Results
- * [[PHP 7.0 NTS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.0nts.html)
- * [[PHP 7.0 TS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.0ts.html)
- * [[PHP 7.1 NTS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.1nts.html)
- * [[PHP 7.1 TS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.1ts.html)
- * [[PHP 7.2 NTS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.2nts.html)
- * [[PHP 7.2 TS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.2ts.html)
- * [[PHP 7.3 NTS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.3nts.html)
- * [[PHP 7.3 TS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.3ts.html)
- * [[PHP 7.4 NTS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.4nts.html)
- * [[PHP 7.4 TS]](https://projects.lupecode.com/phpTraderNative/logs/php-7.4ts.html)
- * [[PHP 8.0 NTS]](https://projects.lupecode.com/phpTraderNative/logs/php-8.0nts.html)
- * [[PHP 8.0 TS]](https://projects.lupecode.com/phpTraderNative/logs/php-8.0ts.html)
-
 ## License
 
 Below is the copyright information for TA-LIB found in the source code.
@@ -156,5 +137,5 @@ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with
-this program.  If not, see http://www.gnu.org/licenses/.
+this program.  If not, see https://www.gnu.org/licenses/.
 ~~~
