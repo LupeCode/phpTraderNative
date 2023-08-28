@@ -166,7 +166,7 @@ class OverlapStudies extends Core
         $lookbackEMA   = Lookback::emaLookback($optInTimePeriod);
         $lookbackTotal = $lookbackEMA * 2;
         if ($startIdx < $lookbackTotal) {
-            $startIdx = $lookbackTotal;
+            $startIdx = (int)$lookbackTotal;
         }
         if ($startIdx > $endIdx) {
             return ReturnCode::Success;
@@ -1540,7 +1540,7 @@ class OverlapStudies extends Core
         }
         $lookbackTotal = 6 * ($optInTimePeriod - 1) + (static::$unstablePeriod[UnstablePeriodFunctionID::T3]);
         if ($startIdx <= $lookbackTotal) {
-            $startIdx = $lookbackTotal;
+            $startIdx = (int)$lookbackTotal;
         }
         if ($startIdx > $endIdx) {
             $outNBElement = 0;
@@ -1647,7 +1647,7 @@ class OverlapStudies extends Core
         $lookbackEMA   = Lookback::emaLookback($optInTimePeriod);
         $lookbackTotal = $lookbackEMA * 3;
         if ($startIdx < $lookbackTotal) {
-            $startIdx = $lookbackTotal;
+            $startIdx = (int)$lookbackTotal;
         }
         if ($startIdx > $endIdx) {
             return ReturnCode::Success;
@@ -1717,8 +1717,8 @@ class OverlapStudies extends Core
             return ReturnCode::Success;
         }
         $outIdx = 0;
+        $i            = ($optInTimePeriod >> 1);
         if (($optInTimePeriod % 2) === 1) {
-            $i            = ($optInTimePeriod >> 1);
             $factor       = ($i + 1) * ($i + 1);
             $factor       = 1.0 / $factor;
             $trailingIdx  = $startIdx - $lookbackTotal;
@@ -1738,7 +1738,6 @@ class OverlapStudies extends Core
                 $numeratorAdd += $tempReal;
                 $numerator    += $numeratorAdd;
             }
-            $outIdx             = 0;
             $tempReal           = $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $numerator * $factor;
             $todayIdx++;
@@ -1756,7 +1755,6 @@ class OverlapStudies extends Core
                 $outReal[$outIdx++] = $numerator * $factor;
             }
         } else {
-            $i            = ($optInTimePeriod >> 1);
             $factor       = $i * ($i + 1);
             $factor       = 1.0 / $factor;
             $trailingIdx  = $startIdx - $lookbackTotal;
@@ -1776,7 +1774,6 @@ class OverlapStudies extends Core
                 $numeratorAdd += $tempReal;
                 $numerator    += $numeratorAdd;
             }
-            $outIdx             = 0;
             $tempReal           = $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $numerator * $factor;
             $todayIdx++;
@@ -1817,14 +1814,6 @@ class OverlapStudies extends Core
         if ($startIdx > $endIdx) {
             $outBegIdx    = 0;
             $outNBElement = 0;
-
-            return ReturnCode::Success;
-        }
-        if ($optInTimePeriod === 1) {
-            $outBegIdx    = $startIdx;
-            $outNBElement = $endIdx - $startIdx + 1;
-            //System::arraycopy($inReal, $startIdx, $outReal, 0, (int)$outNBElement);
-            $outReal = \array_slice($inReal, $startIdx, $outNBElement);
 
             return ReturnCode::Success;
         }
