@@ -37,6 +37,7 @@ nbproject
 !/.gitignore
 !/.gitlab-ci.yml
 !/.travis.yml
+!/.editorconfig
 
 # Project specific files and directories #
 ##########################################
