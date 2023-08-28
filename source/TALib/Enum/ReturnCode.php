@@ -44,16 +44,16 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-class ReturnCode
+enum ReturnCode
 {
-    const Success              = 0;
-    const BadParam             = 1;
-    const OutOfRangeStartIndex = 2;
-    const OutOfRangeEndIndex   = 3;
-    const AllocError           = 4;
-    const InternalError        = 5;
-    const UnevenParameters     = 6;
-    const Messages             = [
+    public const Success              = 0;
+    public const BadParam             = 1;
+    public const OutOfRangeStartIndex = 2;
+    public const OutOfRangeEndIndex   = 3;
+    public const AllocError           = 4;
+    public const InternalError        = 5;
+    public const UnevenParameters     = 6;
+    public const Messages             = [
         self::Success              => "Success",
         self::BadParam             => "Bad parameter",
         self::AllocError           => "Allocation error",

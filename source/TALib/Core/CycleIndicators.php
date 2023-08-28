@@ -102,8 +102,8 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
-        } while (--$i != 0);
+            }
+        } while (--$i !== 0);
         $hilbertIdx = $outIdx = 0;
         $detrender  = $prev_detrender_Odd = $prev_detrender_Even = $prev_detrender_input_Odd = $prev_detrender_input_Even = 0.0;
         $Q1         = $prev_Q1_Odd = $prev_Q1_Even = $prev_Q1_input_Odd = $prev_Q1_input_Even = 0.0;
@@ -120,37 +120,37 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
-            if (($today % 2) == 0) {
+            }
+            if (($today % 2) === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = (-$detrender_Even[$hilbertIdx] + $hilbertTempReal - $prev_detrender_Even + ($b * $prev_detrender_input_Even)) * $adjustedPrevPeriod;
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
                     $prev_detrender_Even         = $b * $prev_detrender_input_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = (-$Q1_Even[$hilbertIdx] + $hilbertTempReal - $prev_Q1_Even + ($b * $prev_Q1_input_Even)) * $adjustedPrevPeriod;
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
                     $prev_Q1_Even         = $b * $prev_Q1_input_Even;
                     $prev_Q1_input_Even   = $detrender;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
                     $jI                   = (-$jI_Even[$hilbertIdx] + $hilbertTempReal - $prev_jI_Even + ($b * $prev_jI_input_Even)) * $adjustedPrevPeriod;
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
                     $prev_jI_Even         = $b * $prev_jI_input_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = (-$jQ_Even[$hilbertIdx] + $hilbertTempReal - $prev_jQ_Even + ($b * $prev_jQ_input_Even)) * $adjustedPrevPeriod;
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
                     $prev_jQ_Even         = $b * $prev_jQ_input_Even;
                     $prev_jQ_input_Even   = $Q1;
-                };
-                if (++$hilbertIdx == 3) {
+                }
+                if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
                 $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
@@ -164,28 +164,28 @@ class CycleIndicators extends Core
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
                     $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = (-$Q1_Odd[$hilbertIdx] + $hilbertTempReal - $prev_Q1_Odd + ($b * $prev_Q1_input_Odd)) * $adjustedPrevPeriod;
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
                     $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
                     $prev_Q1_input_Odd   = $detrender;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
                     $jI                  = (-$jI_Odd[$hilbertIdx] + $hilbertTempReal - $prev_jI_Odd + ($b * $prev_jI_input_Odd)) * $adjustedPrevPeriod;
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
                     $prev_jI_Odd         = $b * $prev_jI_input_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = (-$jQ_Odd[$hilbertIdx] + $hilbertTempReal - $prev_jQ_Odd + ($b * $prev_jQ_input_Odd)) * $adjustedPrevPeriod;
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
                     $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
                     $prev_jQ_input_Odd   = $Q1;
-                };
+                }
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -253,7 +253,7 @@ class CycleIndicators extends Core
         $maxIdx_smoothPricePrice = (50 - 1);
         {
             $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
-        };
+        }
         $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
         $constDeg2RadBy360 = $tempReal * 8.0;
@@ -290,7 +290,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
         } while (--$i != 0);
         $hilbertIdx = 0;
         {
@@ -305,7 +305,7 @@ class CycleIndicators extends Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        };
+        }
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -318,7 +318,7 @@ class CycleIndicators extends Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        };
+        }
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -331,7 +331,7 @@ class CycleIndicators extends Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        };
+        }
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -344,7 +344,7 @@ class CycleIndicators extends Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        };
+        }
         $period        = 0.0;
         $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
@@ -366,7 +366,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
@@ -379,7 +379,7 @@ class CycleIndicators extends Core
                     $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
                     $detrender                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = -$Q1_Even[$hilbertIdx];
@@ -390,7 +390,7 @@ class CycleIndicators extends Core
                     $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
                     $Q1                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
                     $jI                   = -$jI_Even[$hilbertIdx];
@@ -401,7 +401,7 @@ class CycleIndicators extends Core
                     $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
                     $jI                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = -$jQ_Even[$hilbertIdx];
@@ -412,7 +412,7 @@ class CycleIndicators extends Core
                     $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
-                };
+                }
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
                 }
@@ -431,7 +431,7 @@ class CycleIndicators extends Core
                     $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
                     $detrender                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = -$Q1_Odd[$hilbertIdx];
@@ -442,7 +442,7 @@ class CycleIndicators extends Core
                     $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
                     $Q1                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
                     $jI                  = -$jI_Odd[$hilbertIdx];
@@ -453,7 +453,7 @@ class CycleIndicators extends Core
                     $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
                     $jI                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = -$jQ_Odd[$hilbertIdx];
@@ -464,7 +464,7 @@ class CycleIndicators extends Core
                     $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
-                };
+                }
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -535,7 +535,7 @@ class CycleIndicators extends Core
                 if ($smoothPrice_Idx > $maxIdx_smoothPricePrice) {
                     $smoothPrice_Idx = 0;
                 }
-            };
+            }
             $today++;
         }
         $outNBElement = $outIdx;
@@ -602,7 +602,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
         } while (--$i != 0);
         $hilbertIdx = 0;
         {
@@ -617,7 +617,7 @@ class CycleIndicators extends Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        };
+        }
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -630,7 +630,7 @@ class CycleIndicators extends Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        };
+        }
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -643,7 +643,7 @@ class CycleIndicators extends Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        };
+        }
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -656,7 +656,7 @@ class CycleIndicators extends Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        };
+        }
         $period        = 0.0;
         $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
@@ -673,7 +673,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
             if (($today % 2) == 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
@@ -685,7 +685,7 @@ class CycleIndicators extends Core
                     $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
                     $detrender                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = -$Q1_Even[$hilbertIdx];
@@ -696,7 +696,7 @@ class CycleIndicators extends Core
                     $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
                     $Q1                   *= $adjustedPrevPeriod;
-                };
+                }
                 if ($today >= $startIdx) {
                     $outQuadrature[$outIdx] = $Q1;
                     $outInPhase[$outIdx++]  = $I1ForEvenPrev3;
@@ -711,7 +711,7 @@ class CycleIndicators extends Core
                     $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
                     $jI                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = -$jQ_Even[$hilbertIdx];
@@ -722,7 +722,7 @@ class CycleIndicators extends Core
                     $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
-                };
+                }
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
                 }
@@ -741,7 +741,7 @@ class CycleIndicators extends Core
                     $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
                     $detrender                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = -$Q1_Odd[$hilbertIdx];
@@ -752,7 +752,7 @@ class CycleIndicators extends Core
                     $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
                     $Q1                  *= $adjustedPrevPeriod;
-                };
+                }
                 if ($today >= $startIdx) {
                     $outQuadrature[$outIdx] = $Q1;
                     $outInPhase[$outIdx++]  = $I1ForOddPrev3;
@@ -767,7 +767,7 @@ class CycleIndicators extends Core
                     $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
                     $jI                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = -$jQ_Odd[$hilbertIdx];
@@ -778,7 +778,7 @@ class CycleIndicators extends Core
                     $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
-                };
+                }
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -843,7 +843,7 @@ class CycleIndicators extends Core
         $maxIdx_smoothPricePrice = (50 - 1);
         {
             $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
-        };
+        }
         $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
         $deg2Rad           = 1.0 / $rad2Deg;
@@ -881,7 +881,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
         } while (--$i != 0);
         $hilbertIdx = 0;
         {
@@ -896,7 +896,7 @@ class CycleIndicators extends Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        };
+        }
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -909,7 +909,7 @@ class CycleIndicators extends Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        };
+        }
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -922,7 +922,7 @@ class CycleIndicators extends Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        };
+        }
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -935,7 +935,7 @@ class CycleIndicators extends Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        };
+        }
         $period        = 0.0;
         $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
@@ -957,7 +957,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
@@ -970,7 +970,7 @@ class CycleIndicators extends Core
                     $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
                     $detrender                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = -$Q1_Even[$hilbertIdx];
@@ -981,7 +981,7 @@ class CycleIndicators extends Core
                     $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
                     $Q1                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
                     $jI                   = -$jI_Even[$hilbertIdx];
@@ -992,7 +992,7 @@ class CycleIndicators extends Core
                     $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
                     $jI                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = -$jQ_Even[$hilbertIdx];
@@ -1003,7 +1003,7 @@ class CycleIndicators extends Core
                     $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
-                };
+                }
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
                 }
@@ -1022,7 +1022,7 @@ class CycleIndicators extends Core
                     $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
                     $detrender                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = -$Q1_Odd[$hilbertIdx];
@@ -1033,7 +1033,7 @@ class CycleIndicators extends Core
                     $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
                     $Q1                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
                     $jI                  = -$jI_Odd[$hilbertIdx];
@@ -1044,7 +1044,7 @@ class CycleIndicators extends Core
                     $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
                     $jI                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = -$jQ_Odd[$hilbertIdx];
@@ -1055,7 +1055,7 @@ class CycleIndicators extends Core
                     $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
-                };
+                }
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -1127,7 +1127,7 @@ class CycleIndicators extends Core
                 if ($smoothPrice_Idx > $maxIdx_smoothPricePrice) {
                     $smoothPrice_Idx = 0;
                 }
-            };
+            }
             $today++;
         }
         $outNBElement = $outIdx;
@@ -1164,7 +1164,7 @@ class CycleIndicators extends Core
         $maxIdx_smoothPricePrice = (50 - 1);
         {
             $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
-        };
+        }
         $iTrend1           = $iTrend2 = $iTrend3 = 0.0;
         $daysInTrend       = 0;
         $prevDCPhase       = $DCPhase = 0.0;
@@ -1207,7 +1207,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
         } while (--$i != 0);
         $hilbertIdx = 0;
         {
@@ -1222,7 +1222,7 @@ class CycleIndicators extends Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        };
+        }
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -1235,7 +1235,7 @@ class CycleIndicators extends Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        };
+        }
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -1248,7 +1248,7 @@ class CycleIndicators extends Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        };
+        }
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -1261,7 +1261,7 @@ class CycleIndicators extends Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        };
+        }
         $period        = 0.0;
         $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
@@ -1283,7 +1283,7 @@ class CycleIndicators extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if (($today % 2) == 0) {
                 {
@@ -1296,7 +1296,7 @@ class CycleIndicators extends Core
                     $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
                     $detrender                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = -$Q1_Even[$hilbertIdx];
@@ -1307,7 +1307,7 @@ class CycleIndicators extends Core
                     $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
                     $Q1                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
                     $jI                   = -$jI_Even[$hilbertIdx];
@@ -1318,7 +1318,7 @@ class CycleIndicators extends Core
                     $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
                     $jI                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = -$jQ_Even[$hilbertIdx];
@@ -1329,7 +1329,7 @@ class CycleIndicators extends Core
                     $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
-                };
+                }
                 if (++$hilbertIdx == 3) {
                     $hilbertIdx = 0;
                 }
@@ -1348,7 +1348,7 @@ class CycleIndicators extends Core
                     $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
                     $detrender                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = -$Q1_Odd[$hilbertIdx];
@@ -1359,7 +1359,7 @@ class CycleIndicators extends Core
                     $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
                     $Q1                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
                     $jI                  = -$jI_Odd[$hilbertIdx];
@@ -1370,7 +1370,7 @@ class CycleIndicators extends Core
                     $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
                     $jI                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = -$jQ_Odd[$hilbertIdx];
@@ -1381,7 +1381,7 @@ class CycleIndicators extends Core
                     $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
-                };
+                }
                 $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
                 $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -1490,7 +1490,7 @@ class CycleIndicators extends Core
                 if ($smoothPrice_Idx > $maxIdx_smoothPricePrice) {
                     $smoothPrice_Idx = 0;
                 }
-            };
+            }
             $today++;
         }
         $outNBElement = $outIdx;

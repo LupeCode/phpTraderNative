@@ -49,19 +49,6 @@ use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 class PriceTransform extends Core
 {
 
-    /**
-     * @param int     $startIdx
-     * @param int     $endIdx
-     * @param float[] $inOpen
-     * @param float[] $inHigh
-     * @param float[] $inLow
-     * @param float[] $inClose
-     * @param int     $outBegIdx
-     * @param int     $outNBElement
-     * @param float[] $outReal
-     *
-     * @return int
-     */
     public static function avgPrice(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
@@ -77,17 +64,6 @@ class PriceTransform extends Core
         return ReturnCode::Success;
     }
 
-    /**
-     * @param int   $startIdx
-     * @param int   $endIdx
-     * @param array $inHigh
-     * @param array $inLow
-     * @param int   $outBegIdx
-     * @param int   $outNBElement
-     * @param array $outReal
-     *
-     * @return int
-     */
     public static function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
@@ -103,18 +79,6 @@ class PriceTransform extends Core
         return ReturnCode::Success;
     }
 
-    /**
-     * @param int   $startIdx
-     * @param int   $endIdx
-     * @param array $inHigh
-     * @param array $inLow
-     * @param array $inClose
-     * @param int   $outBegIdx
-     * @param int   $outNBElement
-     * @param array $outReal
-     *
-     * @return int
-     */
     public static function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
@@ -132,18 +96,6 @@ class PriceTransform extends Core
         return ReturnCode::Success;
     }
 
-    /**
-     * @param int   $startIdx
-     * @param int   $endIdx
-     * @param array $inHigh
-     * @param array $inLow
-     * @param array $inClose
-     * @param int   $outBegIdx
-     * @param int   $outNBElement
-     * @param array $outReal
-     *
-     * @return int
-     */
     public static function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {

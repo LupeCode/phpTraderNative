@@ -44,8 +44,8 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-class Compatibility
+enum Compatibility
 {
-    const Default   = 0;
-    const Metastock = 1;
+    public const Default   = 0;
+    public const Metastock = 1;
 }

@@ -44,18 +44,18 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-class CandleSettingType
+enum CandleSettingType
 {
-    const BodyLong          = 0;
-    const BodyVeryLong      = 1;
-    const BodyShort         = 2;
-    const BodyDoji          = 3;
-    const ShadowLong        = 4;
-    const ShadowVeryLong    = 5;
-    const ShadowShort       = 6;
-    const ShadowVeryShort   = 7;
-    const Near              = 8;
-    const Far               = 9;
-    const Equal             = 10;
-    const AllCandleSettings = 11;
+    public const BodyLong          = 0;
+    public const BodyVeryLong      = 1;
+    public const BodyShort         = 2;
+    public const BodyDoji          = 3;
+    public const ShadowLong        = 4;
+    public const ShadowVeryLong    = 5;
+    public const ShadowShort       = 6;
+    public const ShadowVeryShort   = 7;
+    public const Near              = 8;
+    public const Far               = 9;
+    public const Equal             = 10;
+    public const AllCandleSettings = 11;
 }

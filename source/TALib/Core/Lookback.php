@@ -69,30 +69,26 @@ class Lookback extends Core
 
     public static function adOscLookback(int $optInFastPeriod, int $optInSlowPeriod): int
     {
-        if ((int)$optInFastPeriod == (\PHP_INT_MIN)) {
+        if ($optInFastPeriod === (\PHP_INT_MIN)) {
             $optInFastPeriod = 3;
-        } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+        } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowPeriod == (\PHP_INT_MIN)) {
+        if ($optInSlowPeriod === (\PHP_INT_MIN)) {
             $optInSlowPeriod = 10;
-        } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+        } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
             return -1;
         }
-        if ($optInFastPeriod < $optInSlowPeriod) {
-            $slowestPeriod = $optInSlowPeriod;
-        } else {
-            $slowestPeriod = $optInFastPeriod;
-        }
+        $slowestPeriod = max($optInFastPeriod, $optInSlowPeriod);
 
         return self::emaLookback($slowestPeriod);
     }
 
     public static function adxLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -101,28 +97,28 @@ class Lookback extends Core
 
     public static function adxrLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInTimePeriod > 1) {
             return $optInTimePeriod + self::adxLookback($optInTimePeriod) - 1;
-        } else {
-            return 3;
         }
+
+        return 3;
     }
 
     public static function apoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
     {
-        if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
+        if ($optInFastPeriod === (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
-        } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+        } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowPeriod == (PHP_INT_MIN)) {
+        if ($optInSlowPeriod === (PHP_INT_MIN)) {
             $optInSlowPeriod = 26;
-        } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+        } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
             return -1;
         }
 
@@ -131,9 +127,9 @@ class Lookback extends Core
 
     public static function aroonLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -142,9 +138,9 @@ class Lookback extends Core
 
     public static function aroonOscLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -163,9 +159,9 @@ class Lookback extends Core
 
     public static function atrLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -179,17 +175,17 @@ class Lookback extends Core
 
     public static function bbandsLookback(int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        if ($optInNbDevUp == (-4e+37)) {
+        if ($optInNbDevUp === (-4e+37)) {
             $optInNbDevUp = 2.000000e+0;
         } elseif (($optInNbDevUp < -3.000000e+37) || ($optInNbDevUp > 3.000000e+37)) {
             return -1;
         }
-        if ($optInNbDevDn == (-4e+37)) {
+        if ($optInNbDevDn === (-4e+37)) {
             $optInNbDevDn = 2.000000e+0;
         } elseif (($optInNbDevDn < -3.000000e+37) || ($optInNbDevDn > 3.000000e+37)) {
             return -1;
@@ -200,9 +196,9 @@ class Lookback extends Core
 
     public static function betaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -216,9 +212,9 @@ class Lookback extends Core
 
     public static function cciLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -262,7 +258,7 @@ class Lookback extends Core
 
     public static function cdlAbandonedBabyLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -303,7 +299,7 @@ class Lookback extends Core
 
     public static function cdlDarkCloudCoverLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 5.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -334,7 +330,7 @@ class Lookback extends Core
 
     public static function cdlEveningDojiStarLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -345,7 +341,7 @@ class Lookback extends Core
 
     public static function cdlEveningStarLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -456,7 +452,7 @@ class Lookback extends Core
 
     public static function cdlMatHoldLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 5.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -467,7 +463,7 @@ class Lookback extends Core
 
     public static function cdlMorningDojiStarLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -478,7 +474,7 @@ class Lookback extends Core
 
     public static function cdlMorningStarLookback(float $optInPenetration): int
     {
-        if ($optInPenetration == (-4e+37)) {
+        if ($optInPenetration === (-4e+37)) {
             $optInPenetration = 3.000000e-1;
         } elseif (($optInPenetration < 0.000000e+0) || ($optInPenetration > 3.000000e+37)) {
             return -1;
@@ -580,13 +576,13 @@ class Lookback extends Core
     public static function cmoLookback(int $optInTimePeriod): int
     {
         //int $retValue;
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::CMO]);
-        if ((static::$compatibility) == Compatibility::Metastock) {
+        if ((static::$compatibility) === Compatibility::Metastock) {
             $retValue--;
         }
 
@@ -595,9 +591,9 @@ class Lookback extends Core
 
     public static function correlLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -616,9 +612,9 @@ class Lookback extends Core
 
     public static function demaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -632,24 +628,21 @@ class Lookback extends Core
 
     public static function dxLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::DX]);
-        } else {
-            return 2;
-        }
+
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::DX]);
     }
 
     public static function emaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } else {
-            if (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+            if (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
                 return -1;
             }
         }
@@ -699,9 +692,9 @@ class Lookback extends Core
 
     public static function kamaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -710,9 +703,9 @@ class Lookback extends Core
 
     public static function linearRegLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -721,9 +714,9 @@ class Lookback extends Core
 
     public static function linearRegAngleLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -732,9 +725,9 @@ class Lookback extends Core
 
     public static function linearRegInterceptLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -743,9 +736,9 @@ class Lookback extends Core
 
     public static function linearRegSlopeLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -765,9 +758,9 @@ class Lookback extends Core
     public static function movingAverageLookback(int $optInTimePeriod, int $optInMAType): int
     {
         //int $retValue;
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInTimePeriod <= 1) {
@@ -811,19 +804,19 @@ class Lookback extends Core
     public static function macdLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod): int
     {
         //int $tempInteger;
-        if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
+        if ($optInFastPeriod === (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
-        } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+        } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowPeriod == (PHP_INT_MIN)) {
+        if ($optInSlowPeriod === (PHP_INT_MIN)) {
             $optInSlowPeriod = 26;
-        } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+        } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSignalPeriod == (PHP_INT_MIN)) {
+        if ($optInSignalPeriod === (PHP_INT_MIN)) {
             $optInSignalPeriod = 9;
-        } elseif (((int)$optInSignalPeriod < 1) || ((int)$optInSignalPeriod > 100000)) {
+        } elseif (($optInSignalPeriod < 1) || ($optInSignalPeriod > 100000)) {
             return -1;
         }
         if ($optInSlowPeriod < $optInFastPeriod) {
@@ -839,19 +832,19 @@ class Lookback extends Core
     public static function macdExtLookback(int $optInFastPeriod, int $optInFastMAType, int $optInSlowPeriod, int $optInSlowMAType, int $optInSignalPeriod, int $optInSignalMAType): int
     {
         //int $tempInteger, $lookbackLargest;
-        if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
+        if ($optInFastPeriod === (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
-        } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+        } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowPeriod == (PHP_INT_MIN)) {
+        if ($optInSlowPeriod === (PHP_INT_MIN)) {
             $optInSlowPeriod = 26;
-        } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+        } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSignalPeriod == (PHP_INT_MIN)) {
+        if ($optInSignalPeriod === (PHP_INT_MIN)) {
             $optInSignalPeriod = 9;
-        } elseif (((int)$optInSignalPeriod < 1) || ((int)$optInSignalPeriod > 100000)) {
+        } elseif (($optInSignalPeriod < 1) || ($optInSignalPeriod > 100000)) {
             return -1;
         }
         $lookbackLargest = self::movingAverageLookback($optInFastPeriod, $optInFastMAType);
@@ -865,9 +858,9 @@ class Lookback extends Core
 
     public static function macdFixLookback(int $optInSignalPeriod): int
     {
-        if ((int)$optInSignalPeriod == (PHP_INT_MIN)) {
+        if ($optInSignalPeriod === (PHP_INT_MIN)) {
             $optInSignalPeriod = 9;
-        } elseif (((int)$optInSignalPeriod < 1) || ((int)$optInSignalPeriod > 100000)) {
+        } elseif (($optInSignalPeriod < 1) || ($optInSignalPeriod > 100000)) {
             return -1;
         }
 
@@ -893,14 +886,14 @@ class Lookback extends Core
 
     public static function movingAverageVariablePeriodLookback(int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType): int
     {
-        if ((int)$optInMinPeriod == (PHP_INT_MIN)) {
+        if ($optInMinPeriod === (PHP_INT_MIN)) {
             $optInMinPeriod = 2;
-        } elseif (((int)$optInMinPeriod < 2) || ((int)$optInMinPeriod > 100000)) {
+        } elseif (($optInMinPeriod < 2) || ($optInMinPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInMaxPeriod == (PHP_INT_MIN)) {
+        if ($optInMaxPeriod === (PHP_INT_MIN)) {
             $optInMaxPeriod = 30;
-        } elseif (((int)$optInMaxPeriod < 2) || ((int)$optInMaxPeriod > 100000)) {
+        } elseif (($optInMaxPeriod < 2) || ($optInMaxPeriod > 100000)) {
             return -1;
         }
 
@@ -909,9 +902,9 @@ class Lookback extends Core
 
     public static function maxLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -920,9 +913,9 @@ class Lookback extends Core
 
     public static function maxIndexLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -936,9 +929,9 @@ class Lookback extends Core
 
     public static function mfiLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -947,9 +940,9 @@ class Lookback extends Core
 
     public static function midPointLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -958,9 +951,9 @@ class Lookback extends Core
 
     public static function midPriceLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -969,9 +962,9 @@ class Lookback extends Core
 
     public static function minLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -980,9 +973,9 @@ class Lookback extends Core
 
     public static function minIndexLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -991,9 +984,9 @@ class Lookback extends Core
 
     public static function minMaxLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1002,9 +995,9 @@ class Lookback extends Core
 
     public static function minMaxIndexLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1013,37 +1006,37 @@ class Lookback extends Core
 
     public static function minusDILookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInTimePeriod > 1) {
             return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDI]);
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     public static function minusDMLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInTimePeriod > 1) {
             return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM]) - 1;
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     public static function momLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1057,9 +1050,9 @@ class Lookback extends Core
 
     public static function natrLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1073,42 +1066,42 @@ class Lookback extends Core
 
     public static function plusDILookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInTimePeriod > 1) {
             return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI]);
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     public static function plusDMLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInTimePeriod > 1) {
             return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM]) - 1;
-        } else {
-            return 1;
         }
+
+        return 1;
     }
 
     public static function ppoLookback(int $optInFastPeriod, int $optInSlowPeriod, int $optInMAType): int
     {
-        if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
+        if ($optInFastPeriod === (PHP_INT_MIN)) {
             $optInFastPeriod = 12;
-        } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+        } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowPeriod == (PHP_INT_MIN)) {
+        if ($optInSlowPeriod === (PHP_INT_MIN)) {
             $optInSlowPeriod = 26;
-        } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+        } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
             return -1;
         }
 
@@ -1117,9 +1110,9 @@ class Lookback extends Core
 
     public static function rocLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1128,9 +1121,9 @@ class Lookback extends Core
 
     public static function rocPLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1139,9 +1132,9 @@ class Lookback extends Core
 
     public static function rocRLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1150,9 +1143,9 @@ class Lookback extends Core
 
     public static function rocR100Lookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 10;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1162,9 +1155,9 @@ class Lookback extends Core
     public static function rsiLookback(int $optInTimePeriod): int
     {
         //int $retValue;
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::RSI]);
@@ -1249,9 +1242,9 @@ class Lookback extends Core
 
     public static function smaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1265,12 +1258,12 @@ class Lookback extends Core
 
     public static function stdDevLookback(int $optInTimePeriod, float $optInNbDev): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        if ($optInNbDev == (-4e+37)) {
+        if ($optInNbDev === (-4e+37)) {
             $optInNbDev = 1.000000e+0;
         } elseif (($optInNbDev < -3.000000e+37) || ($optInNbDev > 3.000000e+37)) {
             return -1;
@@ -1282,19 +1275,19 @@ class Lookback extends Core
     public static function stochLookback(int $optInFastK_Period, int $optInSlowK_Period, int $optInSlowK_MAType, int $optInSlowD_Period, int $optInSlowD_MAType): int
     {
         //int $retValue;
-        if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
+        if ($optInFastK_Period === (PHP_INT_MIN)) {
             $optInFastK_Period = 5;
-        } elseif (((int)$optInFastK_Period < 1) || ((int)$optInFastK_Period > 100000)) {
+        } elseif (($optInFastK_Period < 1) || ($optInFastK_Period > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowK_Period == (PHP_INT_MIN)) {
+        if ($optInSlowK_Period === (PHP_INT_MIN)) {
             $optInSlowK_Period = 3;
-        } elseif (((int)$optInSlowK_Period < 1) || ((int)$optInSlowK_Period > 100000)) {
+        } elseif (($optInSlowK_Period < 1) || ($optInSlowK_Period > 100000)) {
             return -1;
         }
-        if ((int)$optInSlowD_Period == (PHP_INT_MIN)) {
+        if ($optInSlowD_Period === (PHP_INT_MIN)) {
             $optInSlowD_Period = 3;
-        } elseif (((int)$optInSlowD_Period < 1) || ((int)$optInSlowD_Period > 100000)) {
+        } elseif (($optInSlowD_Period < 1) || ($optInSlowD_Period > 100000)) {
             return -1;
         }
         $retValue = ($optInFastK_Period - 1);
@@ -1307,14 +1300,14 @@ class Lookback extends Core
     public static function stochFLookback(int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType): int
     {
         //int $retValue;
-        if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
+        if ($optInFastK_Period === (PHP_INT_MIN)) {
             $optInFastK_Period = 5;
-        } elseif (((int)$optInFastK_Period < 1) || ((int)$optInFastK_Period > 100000)) {
+        } elseif (($optInFastK_Period < 1) || ($optInFastK_Period > 100000)) {
             return -1;
         }
-        if ((int)$optInFastD_Period == (PHP_INT_MIN)) {
+        if ($optInFastD_Period === (PHP_INT_MIN)) {
             $optInFastD_Period = 3;
-        } elseif (((int)$optInFastD_Period < 1) || ((int)$optInFastD_Period > 100000)) {
+        } elseif (($optInFastD_Period < 1) || ($optInFastD_Period > 100000)) {
             return -1;
         }
         $retValue = ($optInFastK_Period - 1);
@@ -1326,19 +1319,19 @@ class Lookback extends Core
     public static function stochRsiLookback(int $optInTimePeriod, int $optInFastK_Period, int $optInFastD_Period, int $optInFastD_MAType): int
     {
         //int $retValue;
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        if ((int)$optInFastK_Period == (PHP_INT_MIN)) {
+        if ($optInFastK_Period === (PHP_INT_MIN)) {
             $optInFastK_Period = 5;
-        } elseif (((int)$optInFastK_Period < 1) || ((int)$optInFastK_Period > 100000)) {
+        } elseif (($optInFastK_Period < 1) || ($optInFastK_Period > 100000)) {
             return -1;
         }
-        if ((int)$optInFastD_Period == (PHP_INT_MIN)) {
+        if ($optInFastD_Period === (PHP_INT_MIN)) {
             $optInFastD_Period = 3;
-        } elseif (((int)$optInFastD_Period < 1) || ((int)$optInFastD_Period > 100000)) {
+        } elseif (($optInFastD_Period < 1) || ($optInFastD_Period > 100000)) {
             return -1;
         }
         $retValue = self::rsiLookback($optInTimePeriod) + self::stochFLookback($optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
@@ -1353,9 +1346,9 @@ class Lookback extends Core
 
     public static function sumLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1364,9 +1357,9 @@ class Lookback extends Core
 
     public static function t3Lookback(int $optInTimePeriod, float $optInVFactor): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         if ($optInVFactor == (-4e+37)) {
@@ -1391,9 +1384,9 @@ class Lookback extends Core
     public static function temaLookback(int $optInTimePeriod): int
     {
         //int $retValue;
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         $retValue = self::emaLookback($optInTimePeriod);
@@ -1408,9 +1401,9 @@ class Lookback extends Core
 
     public static function trimaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1420,9 +1413,9 @@ class Lookback extends Core
     public static function trixLookback(int $optInTimePeriod): int
     {
         //int $emaLookback;
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
         $emaLookback = self::emaLookback($optInTimePeriod);
@@ -1432,9 +1425,9 @@ class Lookback extends Core
 
     public static function tsfLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1449,19 +1442,19 @@ class Lookback extends Core
     public static function ultOscLookback(int $optInTimePeriod1, int $optInTimePeriod2, int $optInTimePeriod3): int
     {
         //int $maxPeriod;
-        if ((int)$optInTimePeriod1 == (PHP_INT_MIN)) {
+        if ($optInTimePeriod1 === (PHP_INT_MIN)) {
             $optInTimePeriod1 = 7;
-        } elseif (((int)$optInTimePeriod1 < 1) || ((int)$optInTimePeriod1 > 100000)) {
+        } elseif (($optInTimePeriod1 < 1) || ($optInTimePeriod1 > 100000)) {
             return -1;
         }
-        if ((int)$optInTimePeriod2 == (PHP_INT_MIN)) {
+        if ($optInTimePeriod2 === (PHP_INT_MIN)) {
             $optInTimePeriod2 = 14;
-        } elseif (((int)$optInTimePeriod2 < 1) || ((int)$optInTimePeriod2 > 100000)) {
+        } elseif (($optInTimePeriod2 < 1) || ($optInTimePeriod2 > 100000)) {
             return -1;
         }
-        if ((int)$optInTimePeriod3 == (PHP_INT_MIN)) {
+        if ($optInTimePeriod3 === (PHP_INT_MIN)) {
             $optInTimePeriod3 = 28;
-        } elseif (((int)$optInTimePeriod3 < 1) || ((int)$optInTimePeriod3 > 100000)) {
+        } elseif (($optInTimePeriod3 < 1) || ($optInTimePeriod3 > 100000)) {
             return -1;
         }
         $maxPeriod = (((((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) > ($optInTimePeriod3)) ? (((($optInTimePeriod1) > ($optInTimePeriod2)) ? ($optInTimePeriod1) : ($optInTimePeriod2))) : ($optInTimePeriod3));
@@ -1471,12 +1464,12 @@ class Lookback extends Core
 
     public static function varianceLookback(int $optInTimePeriod, float $optInNbDev): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        if ($optInNbDev == (-4e+37)) {
+        if ($optInNbDev === (-4e+37)) {
             $optInNbDev = 1.000000e+0;
         } elseif (($optInNbDev < -3.000000e+37) || ($optInNbDev > 3.000000e+37)) {
             return -1;
@@ -1492,9 +1485,9 @@ class Lookback extends Core
 
     public static function willRLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
@@ -1503,13 +1496,12 @@ class Lookback extends Core
 
     public static function wmaLookback(int $optInTimePeriod): int
     {
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
-        } elseif (((int)$optInTimePeriod < 2) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
 
         return $optInTimePeriod - 1;
     }
 }
-

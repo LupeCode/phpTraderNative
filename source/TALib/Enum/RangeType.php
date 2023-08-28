@@ -44,9 +44,9 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-class RangeType
+enum RangeType
 {
-    const RealBody = 0;
-    const HighLow  = 1;
-    const Shadows  = 2;
+    public const RealBody = 0;
+    public const HighLow  = 1;
+    public const Shadows  = 2;
 }

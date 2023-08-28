@@ -49,19 +49,6 @@ use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
 class VolumeIndicators extends Core
 {
-    /**
-     * @param int     $startIdx
-     * @param int     $endIdx
-     * @param float[] $inHigh
-     * @param float[] $inLow
-     * @param float[] $inClose
-     * @param float[] $inVolume
-     * @param int     $outBegIdx
-     * @param int     $outNBElement
-     * @param float[] $outReal
-     *
-     * @return int
-     */
     public static function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
@@ -73,7 +60,7 @@ class VolumeIndicators extends Core
         $currentBar   = $startIdx;
         $outIdx       = 0;
         $ad           = 0.0;
-        while ($nbBar != 0) {
+        while ($nbBar !== 0) {
             $high  = $inHigh[$currentBar];
             $low   = $inLow[$currentBar];
             $tmp   = $high - $low;
@@ -89,34 +76,19 @@ class VolumeIndicators extends Core
         return ReturnCode::Success;
     }
 
-    /**
-     * @param int     $startIdx
-     * @param int     $endIdx
-     * @param float[] $inHigh
-     * @param float[] $inLow
-     * @param float[] $inClose
-     * @param float[] $inVolume
-     * @param int     $optInFastPeriod
-     * @param int     $optInSlowPeriod
-     * @param int     $outBegIdx
-     * @param int     $outNBElement
-     * @param float[] $outReal
-     *
-     * @return int
-     */
     public static function adOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod, int $optInSlowPeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ((int)$optInFastPeriod == (PHP_INT_MIN)) {
+        if ($optInFastPeriod === (PHP_INT_MIN)) {
             $optInFastPeriod = 3;
-        } elseif (((int)$optInFastPeriod < 2) || ((int)$optInFastPeriod > 100000)) {
+        } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        if ((int)$optInSlowPeriod == (PHP_INT_MIN)) {
+        if ($optInSlowPeriod === (PHP_INT_MIN)) {
             $optInSlowPeriod = 10;
-        } elseif (((int)$optInSlowPeriod < 2) || ((int)$optInSlowPeriod > 100000)) {
+        } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
             return ReturnCode::BadParam;
         }
         if ($optInFastPeriod < $optInSlowPeriod) {
@@ -137,9 +109,9 @@ class VolumeIndicators extends Core
         $outBegIdx       = $startIdx;
         $today           = $startIdx - $lookbackTotal;
         $ad              = 0.0;
-        $fastK           = ((double)2.0 / ((double)($optInFastPeriod + 1)));
+        $fastK           = (2.0 / ((double)($optInFastPeriod + 1)));
         $one_minus_fastK = 1.0 - $fastK;
-        $slowK           = ((double)2.0 / ((double)($optInSlowPeriod + 1)));
+        $slowK           = (2.0 / ((double)($optInSlowPeriod + 1)));
         $one_minus_slowK = 1.0 - $slowK;
         {
             $high  = $inHigh[$today];
@@ -150,7 +122,7 @@ class VolumeIndicators extends Core
                 $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
             }
             $today++;
-        };
+        }
         $fastEMA = $ad;
         $slowEMA = $ad;
         while ($today < $startIdx) {
@@ -163,7 +135,7 @@ class VolumeIndicators extends Core
                     $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
                 }
                 $today++;
-            };
+            }
             $fastEMA = ($fastK * $ad) + ($one_minus_fastK * $fastEMA);
             $slowEMA = ($slowK * $ad) + ($one_minus_slowK * $slowEMA);
         }
@@ -178,7 +150,7 @@ class VolumeIndicators extends Core
                     $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
                 }
                 $today++;
-            };
+            }
             $fastEMA            = ($fastK * $ad) + ($one_minus_fastK * $fastEMA);
             $slowEMA            = ($slowK * $ad) + ($one_minus_slowK * $slowEMA);
             $outReal[$outIdx++] = $fastEMA - $slowEMA;
@@ -188,19 +160,6 @@ class VolumeIndicators extends Core
         return ReturnCode::Success;
     }
 
-    /**
-     * @param int     $startIdx
-     * @param int     $endIdx
-     * @param float[] $inHigh
-     * @param float[] $inLow
-     * @param float[] $inClose
-     * @param int     $optInTimePeriod
-     * @param int     $outBegIdx
-     * @param int     $outNBElement
-     * @param float[] $outReal
-     *
-     * @return int
-     */
     public static function atr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
@@ -209,9 +168,9 @@ class VolumeIndicators extends Core
         $outBegIdx1    = 0;
         $outNbElement1 = 0;
         $prevATRTemp   = static::double(1);
-        if ((int)$optInTimePeriod == (PHP_INT_MIN)) {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
-        } elseif (((int)$optInTimePeriod < 1) || ((int)$optInTimePeriod > 100000)) {
+        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
         $outBegIdx     = 0;
@@ -228,17 +187,17 @@ class VolumeIndicators extends Core
         }
         $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
         $retCode    = VolatilityIndicators::trueRange(($startIdx - $lookbackTotal + 1), $endIdx, $inHigh, $inLow, $inClose, $outBegIdx1, $outNbElement1, $tempBuffer);
-        if ($retCode != ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success) {
             return $retCode;
         }
         $retCode = static::TA_INT_SMA($optInTimePeriod - 1, $optInTimePeriod - 1, $tempBuffer, $optInTimePeriod, $outBegIdx1, $outNbElement1, $prevATRTemp);
-        if ($retCode != ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success) {
             return $retCode;
         }
         $prevATR = $prevATRTemp[0];
         $today   = $optInTimePeriod;
         $outIdx  = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
-        while ($outIdx != 0) {
+        while ($outIdx !== 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
             $prevATR /= $optInTimePeriod;
@@ -247,7 +206,7 @@ class VolumeIndicators extends Core
         $outIdx     = 1;
         $outReal[0] = $prevATR;
         $nbATR      = ($endIdx - $startIdx) + 1;
-        while (--$nbATR != 0) {
+        while (--$nbATR !== 0) {
             $prevATR            *= $optInTimePeriod - 1;
             $prevATR            += $tempBuffer[$today++];
             $prevATR            /= $optInTimePeriod;
@@ -259,17 +218,6 @@ class VolumeIndicators extends Core
         return $retCode;
     }
 
-    /**
-     * @param int   $startIdx
-     * @param int   $endIdx
-     * @param array $inReal
-     * @param array $inVolume
-     * @param int   $outBegIdx
-     * @param int   $outNBElement
-     * @param array $outReal
-     *
-     * @return int
-     */
     public static function obv(int $startIdx, int $endIdx, array $inReal, array &$inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): int
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {

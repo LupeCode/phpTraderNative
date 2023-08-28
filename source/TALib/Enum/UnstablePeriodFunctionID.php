@@ -44,31 +44,31 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-class UnstablePeriodFunctionID
+enum UnstablePeriodFunctionID
 {
-    const ADX         = 0;
-    const ADRX        = 1;
-    const ATR         = 2;
-    const CMO         = 3;
-    const DX          = 4;
-    const EMA         = 5;
-    const HtDcPeriod  = 6;
-    const HtDcPhase   = 7;
-    const HtPhasor    = 8;
-    const HtSine      = 9;
-    const HtTrendline = 10;
-    const HtTrendMode = 11;
-    const KAMA        = 12;
-    const MAMA        = 13;
-    const MFI         = 14;
-    const MinusDI     = 15;
-    const MinusDM     = 16;
-    const NATR        = 17;
-    const PlusDI      = 18;
-    const PlusDM      = 19;
-    const RSI         = 20;
-    const StochRSI    = 21;
-    const T3          = 22;
-    const ALL         = 23;
-    const None        = 24;
+    public const ADX         = 0;
+    public const ADRX        = 1;
+    public const ATR         = 2;
+    public const CMO         = 3;
+    public const DX          = 4;
+    public const EMA         = 5;
+    public const HtDcPeriod  = 6;
+    public const HtDcPhase   = 7;
+    public const HtPhasor    = 8;
+    public const HtSine      = 9;
+    public const HtTrendline = 10;
+    public const HtTrendMode = 11;
+    public const KAMA        = 12;
+    public const MAMA        = 13;
+    public const MFI         = 14;
+    public const MinusDI     = 15;
+    public const MinusDM     = 16;
+    public const NATR        = 17;
+    public const PlusDI      = 18;
+    public const PlusDM      = 19;
+    public const RSI         = 20;
+    public const StochRSI    = 21;
+    public const T3          = 22;
+    public const ALL         = 23;
+    public const None        = 24;
 }
