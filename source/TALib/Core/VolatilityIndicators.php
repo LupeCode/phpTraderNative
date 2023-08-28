@@ -58,9 +58,9 @@ class VolatilityIndicators extends Core
         $outBegIdx1    = 0;
         $outNbElement1 = 0;
         $prevATRTemp   = static::double(1);
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 14;
-        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 1 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
         $outBegIdx     = 0;
@@ -81,10 +81,10 @@ class VolatilityIndicators extends Core
         }
         $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
         $retCode    = self::trueRange(
-            ($startIdx - $lookbackTotal + 1), $endIdx,
-                                              $inHigh, $inLow, $inClose,
-                                              $outBegIdx1, $outNbElement1,
-                                              $tempBuffer
+            $startIdx - $lookbackTotal + 1, $endIdx,
+            $inHigh, $inLow, $inClose,
+            $outBegIdx1, $outNbElement1,
+            $tempBuffer
         );
         if ($retCode !== ReturnCode::Success) {
             return $retCode;
@@ -101,8 +101,8 @@ class VolatilityIndicators extends Core
         }
         $prevATR = $prevATRTemp[0];
         $today   = $optInTimePeriod;
-        $outIdx  = (static::$unstablePeriod[UnstablePeriodFunctionID::NATR]);
-        while ($outIdx !== 0) {
+        $outIdx  = static::$unstablePeriod[UnstablePeriodFunctionID::NATR];
+        while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
             $prevATR /= $optInTimePeriod;
@@ -110,19 +110,19 @@ class VolatilityIndicators extends Core
         }
         $outIdx    = 1;
         $tempValue = $inClose[$today];
-        if (!(((-0.00000001) < $tempValue) && ($tempValue < 0.00000001))) {
-            $outReal[0] = ($prevATR / $tempValue) * 100.0;
+        if (!(-0.00000001 < $tempValue && $tempValue < 0.00000001)) {
+            $outReal[0] = $prevATR / $tempValue * 100.0;
         } else {
             $outReal[0] = 0.0;
         }
-        $nbATR = ($endIdx - $startIdx) + 1;
-        while (--$nbATR !== 0) {
+        $nbATR = $endIdx - $startIdx + 1;
+        while (--$nbATR > 0) {
             $prevATR   *= $optInTimePeriod - 1;
             $prevATR   += $tempBuffer[$today++];
             $prevATR   /= $optInTimePeriod;
             $tempValue = $inClose[$today];
-            if (!(((-0.00000001) < $tempValue) && ($tempValue < 0.00000001))) {
-                $outReal[$outIdx] = ($prevATR / $tempValue) * 100.0;
+            if (!(-0.00000001 < $tempValue && $tempValue < 0.00000001)) {
+                $outReal[$outIdx] = $prevATR / $tempValue * 100.0;
             } else {
                 $outReal[0] = 0.0;
             }

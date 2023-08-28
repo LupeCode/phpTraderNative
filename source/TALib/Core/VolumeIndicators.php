@@ -197,7 +197,7 @@ class VolumeIndicators extends Core
         $prevATR = $prevATRTemp[0];
         $today   = $optInTimePeriod;
         $outIdx  = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
-        while ($outIdx !== 0) {
+        while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
             $prevATR /= $optInTimePeriod;
@@ -206,7 +206,7 @@ class VolumeIndicators extends Core
         $outIdx     = 1;
         $outReal[0] = $prevATR;
         $nbATR      = ($endIdx - $startIdx) + 1;
-        while (--$nbATR !== 0) {
+        while (--$nbATR > 0) {
             $prevATR            *= $optInTimePeriod - 1;
             $prevATR            += $tempBuffer[$today++];
             $prevATR            /= $optInTimePeriod;

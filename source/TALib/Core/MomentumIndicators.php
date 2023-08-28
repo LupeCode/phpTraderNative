@@ -261,7 +261,7 @@ class MomentumIndicators extends Core
         $j         = 0;
         $outIdx    = 0;
         $nbElement = $endIdx - $startIdx + 2;
-        while (--$nbElement !== 0) {
+        while (--$nbElement > 0) {
             $outReal[$outIdx++] = ($adx[$i++] + $adx[$j++]) / 2.0;
         }
         $outBegIdx    = $startIdx;
@@ -701,7 +701,7 @@ class MomentumIndicators extends Core
             $prevClose = $inClose[$today];
         }
         $i = static::$unstablePeriod[UnstablePeriodFunctionID::DX] + 1;
-        while ($i-- !== 0) {
+        while ($i-- > 0) {
             $today++;
             $tempReal    = $inHigh[$today];
             $diffP       = $tempReal - $prevHigh;
@@ -1199,7 +1199,7 @@ class MomentumIndicators extends Core
             if ($diffM > 0 && $diffP < $diffM) {
                 $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod + $diffM;
             } else {
-                $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod;
+                $prevMinusDM -= $prevMinusDM / $optInTimePeriod;
             }
             {
                 $tempReal  = $prevHigh - $prevLow;
@@ -1232,7 +1232,7 @@ class MomentumIndicators extends Core
             if ($diffM > 0 && $diffP < $diffM) {
                 $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod + $diffM;
             } else {
-                $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod;
+                $prevMinusDM -= $prevMinusDM / $optInTimePeriod;
             }
             {
                 $tempReal  = $prevHigh - $prevLow;
@@ -1324,7 +1324,7 @@ class MomentumIndicators extends Core
             }
         }
         $i = static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM];
-        while ($i-- !== 0) {
+        while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
             $diffP    = $tempReal - $prevHigh;
@@ -1335,7 +1335,7 @@ class MomentumIndicators extends Core
             if ($diffM > 0 && $diffP < $diffM) {
                 $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod + $diffM;
             } else {
-                $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod;
+                $prevMinusDM -= $prevMinusDM / $optInTimePeriod;
             }
         }
         $outReal[0] = $prevMinusDM;
@@ -1351,7 +1351,7 @@ class MomentumIndicators extends Core
             if ($diffM > 0 && $diffP < $diffM) {
                 $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod + $diffM;
             } else {
-                $prevMinusDM = $prevMinusDM - $prevMinusDM / $optInTimePeriod;
+                $prevMinusDM -= $prevMinusDM / $optInTimePeriod;
             }
             $outReal[$outIdx++] = $prevMinusDM;
         }
@@ -1490,7 +1490,7 @@ class MomentumIndicators extends Core
             $prevClose = $inClose[$today];
         }
         $i = static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI] + 1;
-        while ($i-- !== 0) {
+        while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
             $diffP    = $tempReal - $prevHigh;
@@ -1501,7 +1501,7 @@ class MomentumIndicators extends Core
             if ($diffP > 0 && $diffP > $diffM) {
                 $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod + $diffP;
             } else {
-                $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod;
+                $prevPlusDM -= $prevPlusDM / $optInTimePeriod;
             }
             {
                 $tempReal  = $prevHigh - $prevLow;
@@ -1534,7 +1534,7 @@ class MomentumIndicators extends Core
             if ($diffP > 0 && $diffP > $diffM) {
                 $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod + $diffP;
             } else {
-                $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod;
+                $prevPlusDM -= $prevPlusDM / $optInTimePeriod;
             }
             {
                 $tempReal  = $prevHigh - $prevLow;
@@ -1626,7 +1626,7 @@ class MomentumIndicators extends Core
             }
         }
         $i = static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM];
-        while ($i-- !== 0) {
+        while ($i-- > 0) {
             $today++;
             $tempReal = $inHigh[$today];
             $diffP    = $tempReal - $prevHigh;
@@ -1637,7 +1637,7 @@ class MomentumIndicators extends Core
             if ($diffP > 0 && $diffP > $diffM) {
                 $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod + $diffP;
             } else {
-                $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod;
+                $prevPlusDM -= $prevPlusDM / $optInTimePeriod;
             }
         }
         $outReal[0] = $prevPlusDM;
@@ -1653,7 +1653,7 @@ class MomentumIndicators extends Core
             if ($diffP > 0 && $diffP > $diffM) {
                 $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod + $diffP;
             } else {
-                $prevPlusDM = $prevPlusDM - $prevPlusDM / $optInTimePeriod;
+                $prevPlusDM -= $prevPlusDM / $optInTimePeriod;
             }
             $outReal[$outIdx++] = $prevPlusDM;
         }

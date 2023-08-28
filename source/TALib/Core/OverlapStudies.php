@@ -55,19 +55,19 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 5;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        if ($optInNbDevUp === (-4e+37)) {
+        if ($optInNbDevUp === -4e+37) {
             $optInNbDevUp = 2.000000e+0;
-        } elseif (($optInNbDevUp < -3.000000e+37) || ($optInNbDevUp > 3.000000e+37)) {
+        } elseif ($optInNbDevUp < -3.000000e+37 || $optInNbDevUp > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInNbDevDn === (-4e+37)) {
+        if ($optInNbDevDn === -4e+37) {
             $optInNbDevDn = 2.000000e+0;
-        } elseif (($optInNbDevDn < -3.000000e+37) || ($optInNbDevDn > 3.000000e+37)) {
+        } elseif ($optInNbDevDn < -3.000000e+37 || $optInNbDevDn > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
         if ($inReal === $outRealUpperBand) {
@@ -83,11 +83,11 @@ class OverlapStudies extends Core
             $tempBuffer1 = $outRealMiddleBand;
             $tempBuffer2 = $outRealUpperBand;
         }
-        if (($tempBuffer1 === $inReal) || ($tempBuffer2 === $inReal)) {
+        if ($tempBuffer1 === $inReal || $tempBuffer2 === $inReal) {
             return ReturnCode::BadParam;
         }
         $ReturnCode = self::movingAverage($startIdx, $endIdx, $inReal, $optInTimePeriod, $optInMAType, $outBegIdx, $outNBElement, $tempBuffer1);
-        if (($ReturnCode !== ReturnCode::Success) || ($outNBElement === 0)) {
+        if ($ReturnCode !== ReturnCode::Success || $outNBElement === 0) {
             $outNBElement = 0;
 
             return $ReturnCode;
@@ -126,21 +126,21 @@ class OverlapStudies extends Core
                 $tempReal             = $tempBuffer2[$i];
                 $tempReal2            = $outRealMiddleBand[$i];
                 $outRealUpperBand[$i] = $tempReal2 + $tempReal;
-                $outRealLowerBand[$i] = $tempReal2 - ($tempReal * $optInNbDevDn);
+                $outRealLowerBand[$i] = $tempReal2 - $tempReal * $optInNbDevDn;
             }
         } elseif ($optInNbDevDn === 1.0) {
             for ($i = 0; $i < $outNBElement; $i++) {
                 $tempReal             = $tempBuffer2[$i];
                 $tempReal2            = $outRealMiddleBand[$i];
                 $outRealLowerBand[$i] = $tempReal2 - $tempReal;
-                $outRealUpperBand[$i] = $tempReal2 + ($tempReal * $optInNbDevUp);
+                $outRealUpperBand[$i] = $tempReal2 + $tempReal * $optInNbDevUp;
             }
         } else {
             for ($i = 0; $i < $outNBElement; $i++) {
                 $tempReal             = $tempBuffer2[$i];
                 $tempReal2            = $outRealMiddleBand[$i];
-                $outRealUpperBand[$i] = $tempReal2 + ($tempReal * $optInNbDevUp);
-                $outRealLowerBand[$i] = $tempReal2 - ($tempReal * $optInNbDevDn);
+                $outRealUpperBand[$i] = $tempReal2 + $tempReal * $optInNbDevUp;
+                $outRealLowerBand[$i] = $tempReal2 - $tempReal * $optInNbDevDn;
             }
         }
 
@@ -156,9 +156,9 @@ class OverlapStudies extends Core
         $firstEMANbElement  = 0;
         $secondEMABegIdx    = 0;
         $secondEMANbElement = 0;
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
         $outNBElement  = 0;
@@ -177,14 +177,14 @@ class OverlapStudies extends Core
             $tempInt  = $lookbackTotal + ($endIdx - $startIdx) + 1;
             $firstEMA = static::double($tempInt);
         }
-        $k          = (2.0 / ((double)($optInTimePeriod + 1)));
+        $k          = 2.0 / (double)($optInTimePeriod + 1);
         $ReturnCode = static::TA_INT_EMA(
             $startIdx - $lookbackEMA, $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
             $firstEMA
         );
-        if (($ReturnCode !== ReturnCode::Success) || ($firstEMANbElement === 0)) {
+        if ($ReturnCode !== ReturnCode::Success || $firstEMANbElement === 0) {
             return $ReturnCode;
         }
         $secondEMA  = static::double($firstEMANbElement);
@@ -194,13 +194,13 @@ class OverlapStudies extends Core
             $secondEMABegIdx, $secondEMANbElement,
             $secondEMA
         );
-        if (($ReturnCode !== ReturnCode::Success) || ($secondEMANbElement === 0)) {
+        if ($ReturnCode !== ReturnCode::Success || $secondEMANbElement === 0) {
             return $ReturnCode;
         }
         $firstEMAIdx = $secondEMABegIdx;
         $outIdx      = 0;
         while ($outIdx < $secondEMANbElement) {
-            $outReal[$outIdx] = (2.0 * $firstEMA[$firstEMAIdx++]) - $secondEMA[$outIdx];
+            $outReal[$outIdx] = 2.0 * $firstEMA[$firstEMAIdx++] - $secondEMA[$outIdx];
             $outIdx++;
         }
         $outBegIdx    = $firstEMABegIdx + $secondEMABegIdx;
@@ -214,16 +214,16 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
 
         return static::TA_INT_EMA(
             $startIdx, $endIdx, $inReal,
             $optInTimePeriod,
-            (2.0 / ((double)($optInTimePeriod + 1))),
+            2.0 / (double)($optInTimePeriod + 1),
             $outBegIdx, $outNBElement, $outReal
         );
     }
@@ -244,14 +244,14 @@ class OverlapStudies extends Core
         $jQ_Odd                  = static::double(3);
         $jQ_Even                 = static::double(3);
         $smoothPrice_Idx         = 0;
-        $maxIdx_smoothPricePrice = (50 - 1);
+        $maxIdx_smoothPricePrice = 50 - 1;
         {
             $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
         };
         $iTrend1       = $iTrend2 = $iTrend3 = 0.0;
         $tempReal      = atan(1);
         $rad2Deg       = 45.0 / $tempReal;
-        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendline]);
+        $lookbackTotal = 63 + static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendline];
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -350,7 +350,7 @@ class OverlapStudies extends Core
             $smoothPrice[$i] = 0.0;
         }
         while ($today <= $endIdx) {
-            $adjustedPrevPeriod = (0.075 * $period) + 0.54;
+            $adjustedPrevPeriod = 0.075 * $period + 0.54;
             $todayValue         = $inReal[$today];
             {
                 $periodWMASub     += $todayValue;
@@ -361,7 +361,7 @@ class OverlapStudies extends Core
                 $periodWMASum     -= $periodWMASub;
             };
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
-            if (($today % 2) === 0) {
+            if ($today % 2 === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = -$detrender_Even[$hilbertIdx];
@@ -409,8 +409,8 @@ class OverlapStudies extends Core
                 if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
-                $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
-                $I2            = (0.2 * ($I1ForEvenPrev3 - $jQ)) + (0.8 * $prevI2);
+                $Q2            = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2            = 0.2 * ($I1ForEvenPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForOddPrev3 = $I1ForOddPrev2;
                 $I1ForOddPrev2 = $detrender;
             } else {
@@ -458,17 +458,17 @@ class OverlapStudies extends Core
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
                 };
-                $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
-                $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
+                $Q2             = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2             = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $Re       = 0.2 * ($I2 * $prevI2 + $Q2 * $prevQ2) + 0.8 * $Re;
+            $Im       = 0.2 * ($I2 * $prevQ2 - $Q2 * $prevI2) + 0.8 * $Im;
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im !== 0.0) && ($Re !== 0.0)) {
+            if ($Im !== 0.0 && $Re !== 0.0) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -484,8 +484,8 @@ class OverlapStudies extends Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period           = (0.2 * $period) + (0.8 * $tempReal);
-            $smoothPeriod     = (0.33 * $period) + (0.67 * $smoothPeriod);
+            $period           = 0.2 * $period + 0.8 * $tempReal;
+            $smoothPeriod     = 0.33 * $period + 0.67 * $smoothPeriod;
             $DCPeriod         = $smoothPeriod + 0.5;
             $DCPeriodInt      = (int)$DCPeriod;
             $idxothPricePrice = $today;
@@ -523,14 +523,14 @@ class OverlapStudies extends Core
         }
         $constMax  = 2.0 / (30.0 + 1.0);
         $constDiff = 2.0 / (2.0 + 1.0) - $constMax;
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
         $outBegIdx     = 0;
         $outNBElement  = 0;
-        $lookbackTotal = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::KAMA]);
+        $lookbackTotal = $optInTimePeriod + static::$unstablePeriod[UnstablePeriodFunctionID::KAMA];
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -554,14 +554,14 @@ class OverlapStudies extends Core
         $tempReal2     = $inReal[$trailingIdx++];
         $periodROC     = $tempReal - $tempReal2;
         $trailingValue = $tempReal2;
-        if (($sumROC1 <= $periodROC) || (((-0.00000001) < $sumROC1) && ($sumROC1 < 0.00000001))) {
+        if ($sumROC1 <= $periodROC || -0.00000001 < $sumROC1 && $sumROC1 < 0.00000001) {
             $tempReal = 1.0;
         } else {
             $tempReal = abs($periodROC / $sumROC1);
         }
-        $tempReal = ($tempReal * $constDiff) + $constMax;
+        $tempReal = $tempReal * $constDiff + $constMax;
         $tempReal *= $tempReal;
-        $prevKAMA = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
+        $prevKAMA = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
         while ($today <= $startIdx) {
             $tempReal      = $inReal[$today];
             $tempReal2     = $inReal[$trailingIdx++];
@@ -569,14 +569,14 @@ class OverlapStudies extends Core
             $sumROC1       -= abs($trailingValue - $tempReal2);
             $sumROC1       += abs($tempReal - $inReal[$today - 1]);
             $trailingValue = $tempReal2;
-            if (($sumROC1 <= $periodROC) || (((-0.00000001) < $sumROC1) && ($sumROC1 < 0.00000001))) {
+            if ($sumROC1 <= $periodROC || -0.00000001 < $sumROC1 && $sumROC1 < 0.00000001) {
                 $tempReal = 1.0;
             } else {
                 $tempReal = abs($periodROC / $sumROC1);
             }
-            $tempReal = ($tempReal * $constDiff) + $constMax;
+            $tempReal = $tempReal * $constDiff + $constMax;
             $tempReal *= $tempReal;
-            $prevKAMA = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
+            $prevKAMA = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
         }
         $outReal[0] = $prevKAMA;
         $outIdx     = 1;
@@ -588,14 +588,14 @@ class OverlapStudies extends Core
             $sumROC1       -= abs($trailingValue - $tempReal2);
             $sumROC1       += abs($tempReal - $inReal[$today - 1]);
             $trailingValue = $tempReal2;
-            if (($sumROC1 <= $periodROC) || (((-0.00000001) < $sumROC1) && ($sumROC1 < 0.00000001))) {
+            if ($sumROC1 <= $periodROC || -0.00000001 < $sumROC1 && $sumROC1 < 0.00000001) {
                 $tempReal = 1.0;
             } else {
                 $tempReal = abs($periodROC / $sumROC1);
             }
-            $tempReal           = ($tempReal * $constDiff) + $constMax;
+            $tempReal           = $tempReal * $constDiff + $constMax;
             $tempReal           *= $tempReal;
-            $prevKAMA           = (($inReal[$today++] - $prevKAMA) * $tempReal) + $prevKAMA;
+            $prevKAMA           = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
             $outReal[$outIdx++] = $prevKAMA;
         }
         $outNBElement = $outIdx;
@@ -608,9 +608,9 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 1 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod === 1) {
@@ -667,7 +667,7 @@ class OverlapStudies extends Core
                 );
                 break;
             case MovingAverageType::MAMA:
-                $dummyBuffer = static::double(($endIdx - $startIdx + 1));
+                $dummyBuffer = static::double($endIdx - $startIdx + 1);
                 $ReturnCode  = self::mama(
                     $startIdx, $endIdx, $inReal, 0.5, 0.05,
                     $outBegIdx, $outNBElement,
@@ -704,18 +704,18 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInFastLimit === (-4e+37)) {
+        if ($optInFastLimit === -4e+37) {
             $optInFastLimit = 5.000000e-1;
-        } elseif (($optInFastLimit < 1.000000e-2) || ($optInFastLimit > 9.900000e-1)) {
+        } elseif ($optInFastLimit < 1.000000e-2 || $optInFastLimit > 9.900000e-1) {
             return ReturnCode::BadParam;
         }
-        if ($optInSlowLimit === (-4e+37)) {
+        if ($optInSlowLimit === -4e+37) {
             $optInSlowLimit = 5.000000e-2;
-        } elseif (($optInSlowLimit < 1.000000e-2) || ($optInSlowLimit > 9.900000e-1)) {
+        } elseif ($optInSlowLimit < 1.000000e-2 || $optInSlowLimit > 9.900000e-1) {
             return ReturnCode::BadParam;
         }
         $rad2Deg       = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::MAMA]);
+        $lookbackTotal = 32 + static::$unstablePeriod[UnstablePeriodFunctionID::MAMA];
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -812,7 +812,7 @@ class OverlapStudies extends Core
         $I1ForOddPrev2 = $I1ForEvenPrev2 = 0.0;
         $prevPhase     = 0.0;
         while ($today <= $endIdx) {
-            $adjustedPrevPeriod = (0.075 * $period) + 0.54;
+            $adjustedPrevPeriod = 0.075 * $period + 0.54;
             $todayValue         = $inReal[$today];
             {
                 $periodWMASub     += $todayValue;
@@ -822,7 +822,7 @@ class OverlapStudies extends Core
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
             };
-            if (($today % 2) === 0) {
+            if ($today % 2 === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = -$detrender_Even[$hilbertIdx];
@@ -870,12 +870,12 @@ class OverlapStudies extends Core
                 if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
-                $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
-                $I2            = (0.2 * ($I1ForEvenPrev3 - $jQ)) + (0.8 * $prevI2);
+                $Q2            = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2            = 0.2 * ($I1ForEvenPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForOddPrev3 = $I1ForOddPrev2;
                 $I1ForOddPrev2 = $detrender;
                 if ($I1ForEvenPrev3 !== 0.0) {
-                    $tempReal2 = (atan($Q1 / $I1ForEvenPrev3) * $rad2Deg);
+                    $tempReal2 = atan($Q1 / $I1ForEvenPrev3) * $rad2Deg;
                 } else {
                     $tempReal2 = 0.0;
                 }
@@ -924,12 +924,12 @@ class OverlapStudies extends Core
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
                 };
-                $Q2             = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
-                $I2             = (0.2 * ($I1ForOddPrev3 - $jQ)) + (0.8 * $prevI2);
+                $Q2             = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2             = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
                 if ($I1ForOddPrev3 !== 0.0) {
-                    $tempReal2 = (atan($Q1 / $I1ForOddPrev3) * $rad2Deg);
+                    $tempReal2 = atan($Q1 / $I1ForOddPrev3) * $rad2Deg;
                 } else {
                     $tempReal2 = 0.0;
                 }
@@ -947,19 +947,19 @@ class OverlapStudies extends Core
             } else {
                 $tempReal = $optInFastLimit;
             }
-            $mama     = ($tempReal * $todayValue) + ((1 - $tempReal) * $mama);
+            $mama     = $tempReal * $todayValue + (1 - $tempReal) * $mama;
             $tempReal *= 0.5;
-            $fama     = ($tempReal * $mama) + ((1 - $tempReal) * $fama);
+            $fama     = $tempReal * $mama + (1 - $tempReal) * $fama;
             if ($today >= $startIdx) {
                 $outMAMA[$outIdx]   = $mama;
                 $outFAMA[$outIdx++] = $fama;
             }
-            $Re       = (0.2 * (($I2 * $prevI2) + ($Q2 * $prevQ2))) + (0.8 * $Re);
-            $Im       = (0.2 * (($I2 * $prevQ2) - ($Q2 * $prevI2))) + (0.8 * $Im);
+            $Re       = 0.2 * ($I2 * $prevI2 + $Q2 * $prevQ2) + 0.8 * $Re;
+            $Im       = 0.2 * ($I2 * $prevQ2 - $Q2 * $prevI2) + 0.8 * $Im;
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im !== 0.0) && ($Re !== 0.0)) {
+            if ($Im !== 0.0 && $Re !== 0.0) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -975,7 +975,7 @@ class OverlapStudies extends Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period = (0.2 * $period) + (0.8 * $tempReal);
+            $period = 0.2 * $period + 0.8 * $tempReal;
             $today++;
         }
         $outNBElement = $outIdx;
@@ -990,14 +990,14 @@ class OverlapStudies extends Core
         }
         $localBegIdx    = 0;
         $localNbElement = 0;
-        if ($optInMinPeriod === (PHP_INT_MIN)) {
+        if ($optInMinPeriod === PHP_INT_MIN) {
             $optInMinPeriod = 2;
-        } elseif (($optInMinPeriod < 2) || ($optInMinPeriod > 100000)) {
+        } elseif ($optInMinPeriod < 2 || $optInMinPeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        if ($optInMaxPeriod === (PHP_INT_MIN)) {
+        if ($optInMaxPeriod === PHP_INT_MIN) {
             $optInMaxPeriod = 30;
-        } elseif (($optInMaxPeriod < 2) || ($optInMaxPeriod > 100000)) {
+        } elseif ($optInMaxPeriod < 2 || $optInMaxPeriod > 100000) {
             return ReturnCode::BadParam;
         }
         $lookbackTotal = Lookback::movingAverageLookback($optInMaxPeriod, $optInMAType);
@@ -1025,7 +1025,7 @@ class OverlapStudies extends Core
         $localOutputArray = \array_pad([], $outputSize, 0.);
         $localPeriodArray = \array_pad([], $outputSize, 0);
         for ($i = 0; $i < $outputSize; $i++) {
-            $tempInt = (int)($inPeriods[$startIdx + $i]);
+            $tempInt = (int)$inPeriods[$startIdx + $i];
             if ($tempInt < $optInMinPeriod) {
                 $tempInt = $optInMinPeriod;
             } elseif ($tempInt > $optInMaxPeriod) {
@@ -1067,12 +1067,12 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 14;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        $nbInitialElementNeeded = ($optInTimePeriod - 1);
+        $nbInitialElementNeeded = $optInTimePeriod - 1;
         if ($startIdx < $nbInitialElementNeeded) {
             $startIdx = $nbInitialElementNeeded;
         }
@@ -1110,12 +1110,12 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 14;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        $nbInitialElementNeeded = ($optInTimePeriod - 1);
+        $nbInitialElementNeeded = $optInTimePeriod - 1;
         if ($startIdx < $nbInitialElementNeeded) {
             $startIdx = $nbInitialElementNeeded;
         }
@@ -1158,14 +1158,14 @@ class OverlapStudies extends Core
         }
         $tempInt = 0;
         $ep_temp = static::double(1);
-        if ($optInAcceleration === (-4e+37)) {
+        if ($optInAcceleration === -4e+37) {
             $optInAcceleration = 2.000000e-2;
-        } elseif (($optInAcceleration < 0.000000e+0) || ($optInAcceleration > 3.000000e+37)) {
+        } elseif ($optInAcceleration < 0.000000e+0 || $optInAcceleration > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInMaximum === (-4e+37)) {
+        if ($optInMaximum === -4e+37) {
             $optInMaximum = 2.000000e-1;
-        } elseif (($optInMaximum < 0.000000e+0) || ($optInMaximum > 3.000000e+37)) {
+        } elseif ($optInMaximum < 0.000000e+0 || $optInMaximum > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
         if ($startIdx < 1) {
@@ -1305,44 +1305,44 @@ class OverlapStudies extends Core
         }
         $tempInt = 0;
         $ep_temp = static::double(1);
-        if ($optInStartValue === (-4e+37)) {
+        if ($optInStartValue < -4e+37) {
             $optInStartValue = 0.000000e+0;
-        } elseif (($optInStartValue < -3.000000e+37) || ($optInStartValue > 3.000000e+37)) {
+        } elseif ($optInStartValue < -3.000000e+37 || $optInStartValue > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInOffsetOnReverse === (-4e+37)) {
+        if ($optInOffsetOnReverse < -4e+37) {
             $optInOffsetOnReverse = 0.000000e+0;
-        } elseif (($optInOffsetOnReverse < 0.000000e+0) || ($optInOffsetOnReverse > 3.000000e+37)) {
+        } elseif ($optInOffsetOnReverse < 0.000000e+0 || $optInOffsetOnReverse > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInAccelerationInitLong === (-4e+37)) {
+        if ($optInAccelerationInitLong < -4e+37) {
             $optInAccelerationInitLong = 2.000000e-2;
-        } elseif (($optInAccelerationInitLong < 0.000000e+0) || ($optInAccelerationInitLong > 3.000000e+37)) {
+        } elseif ($optInAccelerationInitLong < 0.000000e+0 || $optInAccelerationInitLong > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInAccelerationLong === (-4e+37)) {
+        if ($optInAccelerationLong < -4e+37) {
             $optInAccelerationLong = 2.000000e-2;
-        } elseif (($optInAccelerationLong < 0.000000e+0) || ($optInAccelerationLong > 3.000000e+37)) {
+        } elseif ($optInAccelerationLong < 0.000000e+0 || $optInAccelerationLong > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInAccelerationMaxLong === (-4e+37)) {
+        if ($optInAccelerationMaxLong < -4e+37) {
             $optInAccelerationMaxLong = 2.000000e-1;
-        } elseif (($optInAccelerationMaxLong < 0.000000e+0) || ($optInAccelerationMaxLong > 3.000000e+37)) {
+        } elseif ($optInAccelerationMaxLong < 0.000000e+0 || $optInAccelerationMaxLong > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInAccelerationInitShort === (-4e+37)) {
+        if ($optInAccelerationInitShort < -4e+37) {
             $optInAccelerationInitShort = 2.000000e-2;
-        } elseif (($optInAccelerationInitShort < 0.000000e+0) || ($optInAccelerationInitShort > 3.000000e+37)) {
+        } elseif ($optInAccelerationInitShort < 0.000000e+0 || $optInAccelerationInitShort > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInAccelerationShort === (-4e+37)) {
+        if ($optInAccelerationShort < -4e+37) {
             $optInAccelerationShort = 2.000000e-2;
-        } elseif (($optInAccelerationShort < 0.000000e+0) || ($optInAccelerationShort > 3.000000e+37)) {
+        } elseif ($optInAccelerationShort < 0.000000e+0 || $optInAccelerationShort > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
-        if ($optInAccelerationMaxShort === (-4e+37)) {
+        if ($optInAccelerationMaxShort < -4e+37) {
             $optInAccelerationMaxShort = 2.000000e-1;
-        } elseif (($optInAccelerationMaxShort < 0.000000e+0) || ($optInAccelerationMaxShort > 3.000000e+37)) {
+        } elseif ($optInAccelerationMaxShort < 0.000000e+0 || $optInAccelerationMaxShort > 3.000000e+37) {
             return ReturnCode::BadParam;
         }
         if ($startIdx < 1) {
@@ -1368,7 +1368,7 @@ class OverlapStudies extends Core
         if ($optInAccelerationShort > $optInAccelerationMaxShort) {
             $optInAccelerationShort = $optInAccelerationMaxShort;
         }
-        if ($optInStartValue === 0) {
+        if ($optInStartValue === 0.0) {
             $ReturnCode = MomentumIndicators::minusDM(
                 $startIdx, $startIdx, $inHigh, $inLow, 1,
                 $tempInt, $tempInt,
@@ -1395,7 +1395,7 @@ class OverlapStudies extends Core
         $todayIdx  = $startIdx;
         $newHigh   = $inHigh[$todayIdx - 1];
         $newLow    = $inLow[$todayIdx - 1];
-        if ($optInStartValue === 0) {
+        if ($optInStartValue === 0.0) {
             if ($isLong === 1) {
                 $ep  = $inHigh[$todayIdx];
                 $sar = $newLow;
@@ -1458,45 +1458,43 @@ class OverlapStudies extends Core
                         $sar = $newLow;
                     }
                 }
+            } elseif ($newHigh >= $sar) {
+                $isLong = 1;
+                $sar    = $ep;
+                if ($sar > $prevLow) {
+                    $sar = $prevLow;
+                }
+                if ($sar > $newLow) {
+                    $sar = $newLow;
+                }
+                if ($optInOffsetOnReverse !== 0.0) {
+                    $sar -= $sar * $optInOffsetOnReverse;
+                }
+                $outReal[$outIdx++] = $sar;
+                $afLong             = $optInAccelerationInitLong;
+                $ep                 = $newHigh;
+                $sar                = $sar + $afLong * ($ep - $sar);
+                if ($sar > $prevLow) {
+                    $sar = $prevLow;
+                }
+                if ($sar > $newLow) {
+                    $sar = $newLow;
+                }
             } else {
-                if ($newHigh >= $sar) {
-                    $isLong = 1;
-                    $sar    = $ep;
-                    if ($sar > $prevLow) {
-                        $sar = $prevLow;
+                $outReal[$outIdx++] = -$sar;
+                if ($newLow < $ep) {
+                    $ep      = $newLow;
+                    $afShort += $optInAccelerationShort;
+                    if ($afShort > $optInAccelerationMaxShort) {
+                        $afShort = $optInAccelerationMaxShort;
                     }
-                    if ($sar > $newLow) {
-                        $sar = $newLow;
-                    }
-                    if ($optInOffsetOnReverse !== 0.0) {
-                        $sar -= $sar * $optInOffsetOnReverse;
-                    }
-                    $outReal[$outIdx++] = $sar;
-                    $afLong             = $optInAccelerationInitLong;
-                    $ep                 = $newHigh;
-                    $sar                = $sar + $afLong * ($ep - $sar);
-                    if ($sar > $prevLow) {
-                        $sar = $prevLow;
-                    }
-                    if ($sar > $newLow) {
-                        $sar = $newLow;
-                    }
-                } else {
-                    $outReal[$outIdx++] = -$sar;
-                    if ($newLow < $ep) {
-                        $ep      = $newLow;
-                        $afShort += $optInAccelerationShort;
-                        if ($afShort > $optInAccelerationMaxShort) {
-                            $afShort = $optInAccelerationMaxShort;
-                        }
-                    }
-                    $sar = $sar + $afShort * ($ep - $sar);
-                    if ($sar < $prevHigh) {
-                        $sar = $prevHigh;
-                    }
-                    if ($sar < $newHigh) {
-                        $sar = $newHigh;
-                    }
+                }
+                $sar = $sar + $afShort * ($ep - $sar);
+                if ($sar < $prevHigh) {
+                    $sar = $prevHigh;
+                }
+                if ($sar < $newHigh) {
+                    $sar = $newHigh;
                 }
             }
         }
@@ -1510,9 +1508,9 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
 
@@ -1528,17 +1526,17 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 5;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        if ($optInVFactor === (-4e+37)) {
+        if ($optInVFactor === -4e+37) {
             $optInVFactor = 7.000000e-1;
-        } elseif (($optInVFactor < 0.000000e+0) || ($optInVFactor > 1.000000e+0)) {
+        } elseif ($optInVFactor < 0.000000e+0 || $optInVFactor > 1.000000e+0) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = 6 * ($optInTimePeriod - 1) + (static::$unstablePeriod[UnstablePeriodFunctionID::T3]);
+        $lookbackTotal = 6 * ($optInTimePeriod - 1) + static::$unstablePeriod[UnstablePeriodFunctionID::T3];
         if ($startIdx <= $lookbackTotal) {
             $startIdx = (int)$lookbackTotal;
         }
@@ -1559,51 +1557,51 @@ class OverlapStudies extends Core
         $e1       = $tempReal / $optInTimePeriod;
         $tempReal = $e1;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
+            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
             $tempReal += $e1;
         }
         $e2       = $tempReal / $optInTimePeriod;
         $tempReal = $e2;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2       = ($k * $e1) + ($one_minus_k * $e2);
+            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2       = $k * $e1 + $one_minus_k * $e2;
             $tempReal += $e2;
         }
         $e3       = $tempReal / $optInTimePeriod;
         $tempReal = $e3;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2       = ($k * $e1) + ($one_minus_k * $e2);
-            $e3       = ($k * $e2) + ($one_minus_k * $e3);
+            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2       = $k * $e1 + $one_minus_k * $e2;
+            $e3       = $k * $e2 + $one_minus_k * $e3;
             $tempReal += $e3;
         }
         $e4       = $tempReal / $optInTimePeriod;
         $tempReal = $e4;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2       = ($k * $e1) + ($one_minus_k * $e2);
-            $e3       = ($k * $e2) + ($one_minus_k * $e3);
-            $e4       = ($k * $e3) + ($one_minus_k * $e4);
+            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2       = $k * $e1 + $one_minus_k * $e2;
+            $e3       = $k * $e2 + $one_minus_k * $e3;
+            $e4       = $k * $e3 + $one_minus_k * $e4;
             $tempReal += $e4;
         }
         $e5       = $tempReal / $optInTimePeriod;
         $tempReal = $e5;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2       = ($k * $e1) + ($one_minus_k * $e2);
-            $e3       = ($k * $e2) + ($one_minus_k * $e3);
-            $e4       = ($k * $e3) + ($one_minus_k * $e4);
-            $e5       = ($k * $e4) + ($one_minus_k * $e5);
+            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2       = $k * $e1 + $one_minus_k * $e2;
+            $e3       = $k * $e2 + $one_minus_k * $e3;
+            $e4       = $k * $e3 + $one_minus_k * $e4;
+            $e5       = $k * $e4 + $one_minus_k * $e5;
             $tempReal += $e5;
         }
         $e6 = $tempReal / $optInTimePeriod;
         while ($today <= $startIdx) {
-            $e1 = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2 = ($k * $e1) + ($one_minus_k * $e2);
-            $e3 = ($k * $e2) + ($one_minus_k * $e3);
-            $e4 = ($k * $e3) + ($one_minus_k * $e4);
-            $e5 = ($k * $e4) + ($one_minus_k * $e5);
-            $e6 = ($k * $e5) + ($one_minus_k * $e6);
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2 = $k * $e1 + $one_minus_k * $e2;
+            $e3 = $k * $e2 + $one_minus_k * $e3;
+            $e4 = $k * $e3 + $one_minus_k * $e4;
+            $e5 = $k * $e4 + $one_minus_k * $e5;
+            $e6 = $k * $e5 + $one_minus_k * $e6;
         }
         $tempReal           = $optInVFactor * $optInVFactor;
         $c1                 = -($tempReal * $optInVFactor);
@@ -1613,12 +1611,12 @@ class OverlapStudies extends Core
         $outIdx             = 0;
         $outReal[$outIdx++] = $c1 * $e6 + $c2 * $e5 + $c3 * $e4 + $c4 * $e3;
         while ($today <= $endIdx) {
-            $e1                 = ($k * $inReal[$today++]) + ($one_minus_k * $e1);
-            $e2                 = ($k * $e1) + ($one_minus_k * $e2);
-            $e3                 = ($k * $e2) + ($one_minus_k * $e3);
-            $e4                 = ($k * $e3) + ($one_minus_k * $e4);
-            $e5                 = ($k * $e4) + ($one_minus_k * $e5);
-            $e6                 = ($k * $e5) + ($one_minus_k * $e6);
+            $e1                 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2                 = $k * $e1 + $one_minus_k * $e2;
+            $e3                 = $k * $e2 + $one_minus_k * $e3;
+            $e4                 = $k * $e3 + $one_minus_k * $e4;
+            $e5                 = $k * $e4 + $one_minus_k * $e5;
+            $e6                 = $k * $e5 + $one_minus_k * $e6;
             $outReal[$outIdx++] = $c1 * $e6 + $c2 * $e5 + $c3 * $e4 + $c4 * $e3;
         }
         $outNBElement = $outIdx;
@@ -1637,9 +1635,9 @@ class OverlapStudies extends Core
         $secondEMANbElement = 0;
         $thirdEMABegIdx     = 0;
         $thirdEMANbElement  = 0;
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
         $outNBElement  = 0;
@@ -1654,14 +1652,14 @@ class OverlapStudies extends Core
         }
         $tempInt    = $lookbackTotal + ($endIdx - $startIdx) + 1;
         $firstEMA   = static::double($tempInt);
-        $k          = (2.0 / ((double)($optInTimePeriod + 1)));
+        $k          = 2.0 / (double)($optInTimePeriod + 1);
         $ReturnCode = static::TA_INT_EMA(
-            $startIdx - ($lookbackEMA * 2), $endIdx, $inReal,
+            $startIdx - $lookbackEMA * 2, $endIdx, $inReal,
             $optInTimePeriod, $k,
             $firstEMABegIdx, $firstEMANbElement,
             $firstEMA
         );
-        if (($ReturnCode !== ReturnCode::Success) || ($firstEMANbElement === 0)) {
+        if ($ReturnCode !== ReturnCode::Success || $firstEMANbElement === 0) {
             return $ReturnCode;
         }
         $secondEMA  = static::double($firstEMANbElement);
@@ -1671,7 +1669,7 @@ class OverlapStudies extends Core
             $secondEMABegIdx, $secondEMANbElement,
             $secondEMA
         );
-        if (($ReturnCode !== ReturnCode::Success) || ($secondEMANbElement === 0)) {
+        if ($ReturnCode !== ReturnCode::Success || $secondEMANbElement === 0) {
             return $ReturnCode;
         }
         $ReturnCode = static::TA_INT_EMA(
@@ -1680,7 +1678,7 @@ class OverlapStudies extends Core
             $thirdEMABegIdx, $thirdEMANbElement,
             $outReal
         );
-        if (($ReturnCode !== ReturnCode::Success) || ($thirdEMANbElement === 0)) {
+        if ($ReturnCode !== ReturnCode::Success || $thirdEMANbElement === 0) {
             return $ReturnCode;
         }
         $firstEMAIdx  = $thirdEMABegIdx + $secondEMABegIdx;
@@ -1688,7 +1686,7 @@ class OverlapStudies extends Core
         $outBegIdx    = $firstEMAIdx + $firstEMABegIdx;
         $outIdx       = 0;
         while ($outIdx < $thirdEMANbElement) {
-            $outReal[$outIdx] += (3.0 * $firstEMA[$firstEMAIdx++]) - (3.0 * $secondEMA[$secondEMAIdx++]);
+            $outReal[$outIdx] += 3.0 * $firstEMA[$firstEMAIdx++] - 3.0 * $secondEMA[$secondEMAIdx++];
             $outIdx++;
         }
         $outNBElement = $outIdx;
@@ -1701,12 +1699,12 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        $lookbackTotal = ($optInTimePeriod - 1);
+        $lookbackTotal = $optInTimePeriod - 1;
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1717,8 +1715,8 @@ class OverlapStudies extends Core
             return ReturnCode::Success;
         }
         $outIdx = 0;
-        $i            = ($optInTimePeriod >> 1);
-        if (($optInTimePeriod % 2) === 1) {
+        $i            = $optInTimePeriod >> 1;
+        if ($optInTimePeriod % 2 === 1) {
             $factor       = ($i + 1) * ($i + 1);
             $factor       = 1.0 / $factor;
             $trailingIdx  = $startIdx - $lookbackTotal;
@@ -1802,9 +1800,9 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        if ($optInTimePeriod === (PHP_INT_MIN)) {
+        if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
-        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+        } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
         $lookbackTotal = $optInTimePeriod - 1;
@@ -1817,7 +1815,7 @@ class OverlapStudies extends Core
 
             return ReturnCode::Success;
         }
-        $divider     = ($optInTimePeriod * ($optInTimePeriod + 1)) >> 1;
+        $divider     = $optInTimePeriod * ($optInTimePeriod + 1) >> 1;
         $outIdx      = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
         $periodSum   = $periodSub = 0.0;
