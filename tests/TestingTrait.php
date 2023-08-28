@@ -171,7 +171,6 @@ trait TestingTrait
         '14861600', '14752100', '14864300', '8462400', '9147300', '9506500', '8713200', '10057600',
         '16909400', '20529200', '19432500', '11803400', '7713000', '6398400',
     ];
-
     //</editor-fold>
 
     /**
@@ -181,7 +180,7 @@ trait TestingTrait
      *
      * @return array
      */
-    protected function adjustForPECL(array $outReal, int $precision = 3, int $mode = \PHP_ROUND_HALF_DOWN)
+    protected function adjustForPECL(array $outReal, int $precision = 3, int $mode = \PHP_ROUND_HALF_DOWN): array
     {
         $newOutReal = [];
         foreach ($outReal as $index => $inDouble) {
