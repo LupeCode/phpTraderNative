@@ -398,9 +398,13 @@ class StatisticFunctions extends Core
             return ReturnCode::BadParam;
         }
         $retCode = static::TA_INT_VAR(
-            $startIdx, $endIdx,
-            $inReal, $optInTimePeriod,
-            $outBegIdx, $outNBElement, $outReal
+            $startIdx,
+            $endIdx,
+            $inReal,
+            $optInTimePeriod,
+            $outBegIdx,
+            $outNBElement,
+            $outReal
         );
         if ($retCode != ReturnCode::Success) {
             return $retCode;
@@ -478,9 +482,13 @@ class StatisticFunctions extends Core
         }
 
         return static::TA_INT_VAR(
-            $startIdx, $endIdx, $inReal,
+            $startIdx,
+            $endIdx,
+            $inReal,
             $optInTimePeriod,
-            $outBegIdx, $outNBElement, $outReal
+            $outBegIdx,
+            $outNBElement,
+            $outReal
         );
     }
 }

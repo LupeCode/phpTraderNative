@@ -21,8 +21,15 @@ class LupeTraderFriendly extends TraderFriendly
      * @return array Returns an array with calculated data. [SlowK => [...], SlowD => [...]]
      * @throws \Exception
      */
-    public static function slowStochasticRelativeStrengthIndex(array $real, int $rsi_period = 14, int $fastK_Period = 5, int $slowK_Period = 3, int $slowK_MAType = MovingAverageType::SMA, int $slowD_Period = 3, int $slowD_MAType = MovingAverageType::SMA)
-    {
+    public static function slowStochasticRelativeStrengthIndex(
+        array $real,
+        int $rsi_period = 14,
+        int $fastK_Period = 5,
+        int $slowK_Period = 3,
+        int $slowK_MAType = MovingAverageType::SMA,
+        int $slowD_Period = 3,
+        int $slowD_MAType = MovingAverageType::SMA
+    ): array {
         return LupeTrader::slowstochrsi($real, $rsi_period, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
     }
 }

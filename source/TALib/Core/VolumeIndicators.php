@@ -54,16 +54,16 @@ class VolumeIndicators extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $nbBar        = $endIdx - $startIdx + 1;
+        $nbBar = $endIdx - $startIdx + 1;
         $outNBElement = $nbBar;
-        $outBegIdx    = $startIdx;
-        $currentBar   = $startIdx;
-        $outIdx       = 0;
-        $ad           = 0.0;
+        $outBegIdx = $startIdx;
+        $currentBar = $startIdx;
+        $outIdx = 0;
+        $ad = 0.0;
         while ($nbBar !== 0) {
-            $high  = $inHigh[$currentBar];
-            $low   = $inLow[$currentBar];
-            $tmp   = $high - $low;
+            $high = $inHigh[$currentBar];
+            $low = $inLow[$currentBar];
+            $tmp = $high - $low;
             $close = $inClose[$currentBar];
             if ($tmp > 0.0) {
                 $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$currentBar]);
@@ -76,8 +76,19 @@ class VolumeIndicators extends Core
         return ReturnCode::Success;
     }
 
-    public static function adOsc(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int $optInFastPeriod, int $optInSlowPeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
-    {
+    public static function adOsc(
+        int $startIdx,
+        int $endIdx,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        array $inVolume,
+        int $optInFastPeriod,
+        int $optInSlowPeriod,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outReal
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -101,22 +112,22 @@ class VolumeIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx       = $startIdx;
-        $today           = $startIdx - $lookbackTotal;
-        $ad              = 0.0;
-        $fastK           = (2.0 / ((double)($optInFastPeriod + 1)));
+        $outBegIdx = $startIdx;
+        $today = $startIdx - $lookbackTotal;
+        $ad = 0.0;
+        $fastK = (2.0 / ((double)($optInFastPeriod + 1)));
         $one_minus_fastK = 1.0 - $fastK;
-        $slowK           = (2.0 / ((double)($optInSlowPeriod + 1)));
+        $slowK = (2.0 / ((double)($optInSlowPeriod + 1)));
         $one_minus_slowK = 1.0 - $slowK;
         {
-            $high  = $inHigh[$today];
-            $low   = $inLow[$today];
-            $tmp   = $high - $low;
+            $high = $inHigh[$today];
+            $low = $inLow[$today];
+            $tmp = $high - $low;
             $close = $inClose[$today];
             if ($tmp > 0.0) {
                 $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
@@ -127,9 +138,9 @@ class VolumeIndicators extends Core
         $slowEMA = $ad;
         while ($today < $startIdx) {
             {
-                $high  = $inHigh[$today];
-                $low   = $inLow[$today];
-                $tmp   = $high - $low;
+                $high = $inHigh[$today];
+                $low = $inLow[$today];
+                $tmp = $high - $low;
                 $close = $inClose[$today];
                 if ($tmp > 0.0) {
                     $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
@@ -142,17 +153,17 @@ class VolumeIndicators extends Core
         $outIdx = 0;
         while ($today <= $endIdx) {
             {
-                $high  = $inHigh[$today];
-                $low   = $inLow[$today];
-                $tmp   = $high - $low;
+                $high = $inHigh[$today];
+                $low = $inLow[$today];
+                $tmp = $high - $low;
                 $close = $inClose[$today];
                 if ($tmp > 0.0) {
                     $ad += ((($close - $low) - ($high - $close)) / $tmp) * ((double)$inVolume[$today]);
                 }
                 $today++;
             }
-            $fastEMA            = ($fastK * $ad) + ($one_minus_fastK * $fastEMA);
-            $slowEMA            = ($slowK * $ad) + ($one_minus_slowK * $slowEMA);
+            $fastEMA = ($fastK * $ad) + ($one_minus_fastK * $fastEMA);
+            $slowEMA = ($slowK * $ad) + ($one_minus_slowK * $slowEMA);
             $outReal[$outIdx++] = $fastEMA - $slowEMA;
         }
         $outNBElement = $outIdx;
@@ -165,16 +176,16 @@ class VolumeIndicators extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $outBegIdx1    = 0;
+        $outBegIdx1 = 0;
         $outNbElement1 = 0;
-        $prevATRTemp   = static::double(1);
+        $prevATRTemp = static::double(1);
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
             return ReturnCode::BadParam;
         }
-        $outBegIdx     = 0;
-        $outNBElement  = 0;
+        $outBegIdx = 0;
+        $outNBElement = 0;
         $lookbackTotal = Lookback::atrLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -186,7 +197,7 @@ class VolumeIndicators extends Core
             return VolatilityIndicators::trueRange($startIdx, $endIdx, $inHigh, $inLow, $inClose, $outBegIdx, $outNBElement, $outReal);
         }
         $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
-        $retCode    = VolatilityIndicators::trueRange(($startIdx - $lookbackTotal + 1), $endIdx, $inHigh, $inLow, $inClose, $outBegIdx1, $outNbElement1, $tempBuffer);
+        $retCode = VolatilityIndicators::trueRange(($startIdx - $lookbackTotal + 1), $endIdx, $inHigh, $inLow, $inClose, $outBegIdx1, $outNbElement1, $tempBuffer);
         if ($retCode !== ReturnCode::Success) {
             return $retCode;
         }
@@ -195,24 +206,24 @@ class VolumeIndicators extends Core
             return $retCode;
         }
         $prevATR = $prevATRTemp[0];
-        $today   = $optInTimePeriod;
-        $outIdx  = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
+        $today = $optInTimePeriod;
+        $outIdx = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
         while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
             $prevATR /= $optInTimePeriod;
             $outIdx--;
         }
-        $outIdx     = 1;
+        $outIdx = 1;
         $outReal[0] = $prevATR;
-        $nbATR      = ($endIdx - $startIdx) + 1;
+        $nbATR = ($endIdx - $startIdx) + 1;
         while (--$nbATR > 0) {
-            $prevATR            *= $optInTimePeriod - 1;
-            $prevATR            += $tempBuffer[$today++];
-            $prevATR            /= $optInTimePeriod;
+            $prevATR *= $optInTimePeriod - 1;
+            $prevATR += $tempBuffer[$today++];
+            $prevATR /= $optInTimePeriod;
             $outReal[$outIdx++] = $prevATR;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return $retCode;
@@ -223,9 +234,9 @@ class VolumeIndicators extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $prevOBV  = $inVolume[$startIdx];
+        $prevOBV = $inVolume[$startIdx];
         $prevReal = $inReal[$startIdx];
-        $outIdx   = 0;
+        $outIdx = 0;
         for ($i = $startIdx; $i <= $endIdx; $i++) {
             $tempReal = $inReal[$i];
             if ($tempReal > $prevReal) {
@@ -234,9 +245,9 @@ class VolumeIndicators extends Core
                 $prevOBV -= $inVolume[$i];
             }
             $outReal[$outIdx++] = $prevOBV;
-            $prevReal           = $tempReal;
+            $prevReal = $tempReal;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;

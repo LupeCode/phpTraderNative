@@ -1184,8 +1184,16 @@ class Lookback extends Core
         return 1;
     }
 
-    public static function sarExtLookback(float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort): int
-    {
+    public static function sarExtLookback(
+        float $optInStartValue,
+        float $optInOffsetOnReverse,
+        float $optInAccelerationInitLong,
+        float $optInAccelerationLong,
+        float $optInAccelerationMaxLong,
+        float $optInAccelerationInitShort,
+        float $optInAccelerationShort,
+        float $optInAccelerationMaxShort
+    ): int {
         if ($optInStartValue == (-4e+37)) {
             $optInStartValue = 0.000000e+0;
         } elseif (($optInStartValue < -3.000000e+37) || ($optInStartValue > 3.000000e+37)) {

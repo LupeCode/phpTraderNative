@@ -3,7 +3,6 @@
 namespace LupeCode\phpTraderNative;
 
 use LupeCode\phpTraderNative\TALib\Enum\MovingAverageType;
-use LupeCode\phpTraderNative\Trader;
 
 class TraderFriendly
 {
@@ -1459,7 +1458,7 @@ class TraderFriendly
     /**
      * Hilbert Transform - Phasor Components
      *
-     * @param array $real    Array of real values.
+     * @param array $real Array of real values.
      *
      * @throws \Exception
      */
@@ -1644,8 +1643,15 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function movingAverageConvergenceDivergenceExtended(array $real, int $fastPeriod = 12, int $fastMAType = MovingAverageType::SMA, int $slowPeriod = 26, int $slowMAType = MovingAverageType::SMA, int $signalPeriod = 9, int $signalMAType = MovingAverageType::SMA): array
-    {
+    public static function movingAverageConvergenceDivergenceExtended(
+        array $real,
+        int $fastPeriod = 12,
+        int $fastMAType = MovingAverageType::SMA,
+        int $slowPeriod = 26,
+        int $slowMAType = MovingAverageType::SMA,
+        int $signalPeriod = 9,
+        int $signalMAType = MovingAverageType::SMA
+    ): array {
         return Trader::macdext($real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType);
     }
 
@@ -2051,9 +2057,30 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function parabolicSARExtended(array $high, array $low, float $startValue = 0.0, float $offsetOnReverse = 0.0, float $accelerationInitLong = 0.02, float $accelerationLong = 0.02, float $accelerationMaxLong = 0.2, float $accelerationInitShort = 0.02, float $accelerationShort = 0.02, float $accelerationMaxShort = 0.2): array
-    {
-        return Trader::sarext($high, $low, $startValue, $offsetOnReverse, $accelerationInitLong, $accelerationLong, $accelerationMaxLong, $accelerationInitShort, $accelerationShort, $accelerationMaxShort);
+    public static function parabolicSARExtended(
+        array $high,
+        array $low,
+        float $startValue = 0.0,
+        float $offsetOnReverse = 0.0,
+        float $accelerationInitLong = 0.02,
+        float $accelerationLong = 0.02,
+        float $accelerationMaxLong = 0.2,
+        float $accelerationInitShort = 0.02,
+        float $accelerationShort = 0.02,
+        float $accelerationMaxShort = 0.2
+    ): array {
+        return Trader::sarext(
+            $high,
+            $low,
+            $startValue,
+            $offsetOnReverse,
+            $accelerationInitLong,
+            $accelerationLong,
+            $accelerationMaxLong,
+            $accelerationInitShort,
+            $accelerationShort,
+            $accelerationMaxShort
+        );
     }
 
     /**
@@ -2139,8 +2166,16 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function stochastic(array $high, array $low, array $close, int $fastK_Period = 5, int $slowK_Period = 3, int $slowK_MAType = MovingAverageType::SMA, int $slowD_Period = 3, int $slowD_MAType = MovingAverageType::SMA): array
-    {
+    public static function stochastic(
+        array $high,
+        array $low,
+        array $close,
+        int $fastK_Period = 5,
+        int $slowK_Period = 3,
+        int $slowK_MAType = MovingAverageType::SMA,
+        int $slowD_Period = 3,
+        int $slowD_MAType = MovingAverageType::SMA
+    ): array {
         return Trader::stoch($high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
     }
 

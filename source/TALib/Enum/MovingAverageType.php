@@ -46,13 +46,13 @@ namespace LupeCode\phpTraderNative\TALib\Enum;
 
 enum MovingAverageType
 {
-    public const SMA   = 0;
-    public const EMA   = 1;
-    public const WMA   = 2;
-    public const DEMA  = 3;
-    public const TEMA  = 4;
+    public const SMA = 0;
+    public const EMA = 1;
+    public const WMA = 2;
+    public const DEMA = 3;
+    public const TEMA = 4;
     public const TRIMA = 5;
-    public const KAMA  = 6;
-    public const MAMA  = 7;
-    public const T3    = 8;
+    public const KAMA = 6;
+    public const MAMA = 7;
+    public const T3 = 8;
 }

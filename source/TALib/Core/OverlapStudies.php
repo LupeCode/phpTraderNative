@@ -50,8 +50,20 @@ use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
 class OverlapStudies extends Core
 {
-    public static function bbands(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDevUp, float $optInNbDevDn, int $optInMAType, int &$outBegIdx, int &$outNBElement, array &$outRealUpperBand, array &$outRealMiddleBand, array &$outRealLowerBand): int
-    {
+    public static function bbands(
+        int $startIdx,
+        int $endIdx,
+        array $inReal,
+        int $optInTimePeriod,
+        float $optInNbDevUp,
+        float $optInNbDevDn,
+        int $optInMAType,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outRealUpperBand,
+        array &$outRealMiddleBand,
+        array &$outRealLowerBand
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -179,9 +191,13 @@ class OverlapStudies extends Core
         }
         $k          = 2.0 / (double)($optInTimePeriod + 1);
         $ReturnCode = static::TA_INT_EMA(
-            $startIdx - $lookbackEMA, $endIdx, $inReal,
-            $optInTimePeriod, $k,
-            $firstEMABegIdx, $firstEMANbElement,
+            $startIdx - $lookbackEMA,
+            $endIdx,
+            $inReal,
+            $optInTimePeriod,
+            $k,
+            $firstEMABegIdx,
+            $firstEMANbElement,
             $firstEMA
         );
         if ($ReturnCode !== ReturnCode::Success || $firstEMANbElement === 0) {
@@ -189,9 +205,13 @@ class OverlapStudies extends Core
         }
         $secondEMA  = static::double($firstEMANbElement);
         $ReturnCode = static::TA_INT_EMA(
-            0, $firstEMANbElement - 1, $firstEMA,
-            $optInTimePeriod, $k,
-            $secondEMABegIdx, $secondEMANbElement,
+            0,
+            $firstEMANbElement - 1,
+            $firstEMA,
+            $optInTimePeriod,
+            $k,
+            $secondEMABegIdx,
+            $secondEMANbElement,
             $secondEMA
         );
         if ($ReturnCode !== ReturnCode::Success || $secondEMANbElement === 0) {
@@ -221,10 +241,14 @@ class OverlapStudies extends Core
         }
 
         return static::TA_INT_EMA(
-            $startIdx, $endIdx, $inReal,
+            $startIdx,
+            $endIdx,
+            $inReal,
             $optInTimePeriod,
             2.0 / (double)($optInTimePeriod + 1),
-            $outBegIdx, $outNBElement, $outReal
+            $outBegIdx,
+            $outNBElement,
+            $outReal
         );
     }
 
@@ -247,7 +271,7 @@ class OverlapStudies extends Core
         $maxIdx_smoothPricePrice = 50 - 1;
         {
             $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
-        };
+        }
         $iTrend1       = $iTrend2 = $iTrend3 = 0.0;
         $tempReal      = atan(1);
         $rad2Deg       = 45.0 / $tempReal;
@@ -284,7 +308,7 @@ class OverlapStudies extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
         } while (--$i !== 0);
         $hilbertIdx = 0;
         {
@@ -299,7 +323,7 @@ class OverlapStudies extends Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        };
+        }
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -312,7 +336,7 @@ class OverlapStudies extends Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        };
+        }
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -325,7 +349,7 @@ class OverlapStudies extends Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        };
+        }
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -338,7 +362,7 @@ class OverlapStudies extends Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        };
+        }
         $period        = 0.0;
         $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
@@ -359,7 +383,7 @@ class OverlapStudies extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if ($today % 2 === 0) {
                 {
@@ -372,7 +396,7 @@ class OverlapStudies extends Core
                     $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
                     $detrender                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = -$Q1_Even[$hilbertIdx];
@@ -383,7 +407,7 @@ class OverlapStudies extends Core
                     $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
                     $Q1                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
                     $jI                   = -$jI_Even[$hilbertIdx];
@@ -394,7 +418,7 @@ class OverlapStudies extends Core
                     $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
                     $jI                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = -$jQ_Even[$hilbertIdx];
@@ -405,7 +429,7 @@ class OverlapStudies extends Core
                     $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
-                };
+                }
                 if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
@@ -424,7 +448,7 @@ class OverlapStudies extends Core
                     $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
                     $detrender                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = -$Q1_Odd[$hilbertIdx];
@@ -435,7 +459,7 @@ class OverlapStudies extends Core
                     $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
                     $Q1                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
                     $jI                  = -$jI_Odd[$hilbertIdx];
@@ -446,7 +470,7 @@ class OverlapStudies extends Core
                     $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
                     $jI                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = -$jQ_Odd[$hilbertIdx];
@@ -457,7 +481,7 @@ class OverlapStudies extends Core
                     $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
-                };
+                }
                 $Q2             = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
                 $I2             = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -508,7 +532,7 @@ class OverlapStudies extends Core
                 if ($smoothPrice_Idx > $maxIdx_smoothPricePrice) {
                     $smoothPrice_Idx = 0;
                 }
-            };
+            }
             $today++;
         }
         $outNBElement = $outIdx;
@@ -626,59 +650,105 @@ class OverlapStudies extends Core
         switch ($optInMAType) {
             case MovingAverageType::SMA:
                 $ReturnCode = self::sma(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::EMA:
                 $ReturnCode = self::ema(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::WMA:
                 $ReturnCode = self::wma(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::DEMA:
                 $ReturnCode = self::dema(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::TEMA:
                 $ReturnCode = self::tema(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::TRIMA:
                 $ReturnCode = self::trima(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::KAMA:
                 $ReturnCode = self::kama(
-                    $startIdx, $endIdx, $inReal, $optInTimePeriod,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             case MovingAverageType::MAMA:
                 $dummyBuffer = static::double($endIdx - $startIdx + 1);
                 $ReturnCode  = self::mama(
-                    $startIdx, $endIdx, $inReal, 0.5, 0.05,
-                    $outBegIdx, $outNBElement,
-                    $outReal, $dummyBuffer
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    0.5,
+                    0.05,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal,
+                    $dummyBuffer
                 );
                 break;
             case MovingAverageType::T3:
                 $ReturnCode = self::t3(
-                    $startIdx, $endIdx, $inReal,
-                    $optInTimePeriod, 0.7,
-                    $outBegIdx, $outNBElement, $outReal
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $optInTimePeriod,
+                    0.7,
+                    $outBegIdx,
+                    $outNBElement,
+                    $outReal
                 );
                 break;
             default:
@@ -748,7 +818,7 @@ class OverlapStudies extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
         } while (--$i !== 0);
         $hilbertIdx = 0;
         {
@@ -763,7 +833,7 @@ class OverlapStudies extends Core
             $prev_detrender_Even       = 0.0;
             $prev_detrender_input_Odd  = 0.0;
             $prev_detrender_input_Even = 0.0;
-        };
+        }
         {
             $Q1_Odd[0]          = 0.0;
             $Q1_Odd[1]          = 0.0;
@@ -776,7 +846,7 @@ class OverlapStudies extends Core
             $prev_Q1_Even       = 0.0;
             $prev_Q1_input_Odd  = 0.0;
             $prev_Q1_input_Even = 0.0;
-        };
+        }
         {
             $jI_Odd[0]          = 0.0;
             $jI_Odd[1]          = 0.0;
@@ -789,7 +859,7 @@ class OverlapStudies extends Core
             $prev_jI_Even       = 0.0;
             $prev_jI_input_Odd  = 0.0;
             $prev_jI_input_Even = 0.0;
-        };
+        }
         {
             $jQ_Odd[0]          = 0.0;
             $jQ_Odd[1]          = 0.0;
@@ -802,7 +872,7 @@ class OverlapStudies extends Core
             $prev_jQ_Even       = 0.0;
             $prev_jQ_input_Odd  = 0.0;
             $prev_jQ_input_Even = 0.0;
-        };
+        }
         $period        = 0.0;
         $outIdx        = 0;
         $prevI2        = $prevQ2 = 0.0;
@@ -821,7 +891,7 @@ class OverlapStudies extends Core
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
-            };
+            }
             if ($today % 2 === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
@@ -833,7 +903,7 @@ class OverlapStudies extends Core
                     $detrender                   += $prev_detrender_Even;
                     $prev_detrender_input_Even   = $smoothedValue;
                     $detrender                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $detrender;
                     $Q1                   = -$Q1_Even[$hilbertIdx];
@@ -844,7 +914,7 @@ class OverlapStudies extends Core
                     $Q1                   += $prev_Q1_Even;
                     $prev_Q1_input_Even   = $detrender;
                     $Q1                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $I1ForEvenPrev3;
                     $jI                   = -$jI_Even[$hilbertIdx];
@@ -855,7 +925,7 @@ class OverlapStudies extends Core
                     $jI                   += $prev_jI_Even;
                     $prev_jI_input_Even   = $I1ForEvenPrev3;
                     $jI                   *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal      = $a * $Q1;
                     $jQ                   = -$jQ_Even[$hilbertIdx];
@@ -866,7 +936,7 @@ class OverlapStudies extends Core
                     $jQ                   += $prev_jQ_Even;
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
-                };
+                }
                 if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
@@ -890,7 +960,7 @@ class OverlapStudies extends Core
                     $detrender                  += $prev_detrender_Odd;
                     $prev_detrender_input_Odd   = $smoothedValue;
                     $detrender                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $detrender;
                     $Q1                  = -$Q1_Odd[$hilbertIdx];
@@ -901,7 +971,7 @@ class OverlapStudies extends Core
                     $Q1                  += $prev_Q1_Odd;
                     $prev_Q1_input_Odd   = $detrender;
                     $Q1                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $I1ForOddPrev3;
                     $jI                  = -$jI_Odd[$hilbertIdx];
@@ -912,7 +982,7 @@ class OverlapStudies extends Core
                     $jI                  += $prev_jI_Odd;
                     $prev_jI_input_Odd   = $I1ForOddPrev3;
                     $jI                  *= $adjustedPrevPeriod;
-                };
+                }
                 {
                     $hilbertTempReal     = $a * $Q1;
                     $jQ                  = -$jQ_Odd[$hilbertIdx];
@@ -923,7 +993,7 @@ class OverlapStudies extends Core
                     $jQ                  += $prev_jQ_Odd;
                     $prev_jQ_input_Odd   = $Q1;
                     $jQ                  *= $adjustedPrevPeriod;
-                };
+                }
                 $Q2             = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
                 $I2             = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
@@ -983,8 +1053,18 @@ class OverlapStudies extends Core
         return ReturnCode::Success;
     }
 
-    public static function movingAverageVariablePeriod(int $startIdx, int $endIdx, array $inReal, array &$inPeriods, int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType, int &$outBegIdx, int &$outNBElement, array &$outReal): int
-    {
+    public static function movingAverageVariablePeriod(
+        int $startIdx,
+        int $endIdx,
+        array $inReal,
+        array &$inPeriods,
+        int $optInMinPeriod,
+        int $optInMaxPeriod,
+        int $optInMAType,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outReal
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -1037,9 +1117,14 @@ class OverlapStudies extends Core
             $curPeriod = $localPeriodArray[$i];
             if ($curPeriod !== 0) {
                 $ReturnCode = self::movingAverage(
-                    $startIdx, $endIdx, $inReal,
-                    $curPeriod, $optInMAType,
-                    $localBegIdx, $localNbElement, $localOutputArray
+                    $startIdx,
+                    $endIdx,
+                    $inReal,
+                    $curPeriod,
+                    $optInMAType,
+                    $localBegIdx,
+                    $localNbElement,
+                    $localOutputArray
                 );
                 if ($ReturnCode !== ReturnCode::Success) {
                     $outBegIdx    = 0;
@@ -1182,8 +1267,13 @@ class OverlapStudies extends Core
             $af = $optInAcceleration = $optInMaximum;
         }
         $ReturnCode = MomentumIndicators::minusDM(
-            $startIdx, $startIdx, $inHigh, $inLow, 1,
-            $tempInt, $tempInt,
+            $startIdx,
+            $startIdx,
+            $inHigh,
+            $inLow,
+            1,
+            $tempInt,
+            $tempInt,
             $ep_temp
         );
         if ($ep_temp[0] > 0) {
@@ -1298,8 +1388,23 @@ class OverlapStudies extends Core
         return ReturnCode::Success;
     }
 
-    public static function sarExt(int $startIdx, int $endIdx, array $inHigh, array $inLow, float $optInStartValue, float $optInOffsetOnReverse, float $optInAccelerationInitLong, float $optInAccelerationLong, float $optInAccelerationMaxLong, float $optInAccelerationInitShort, float $optInAccelerationShort, float $optInAccelerationMaxShort, int &$outBegIdx, int &$outNBElement, array &$outReal): int
-    {
+    public static function sarExt(
+        int $startIdx,
+        int $endIdx,
+        array $inHigh,
+        array $inLow,
+        float $optInStartValue,
+        float $optInOffsetOnReverse,
+        float $optInAccelerationInitLong,
+        float $optInAccelerationLong,
+        float $optInAccelerationMaxLong,
+        float $optInAccelerationInitShort,
+        float $optInAccelerationShort,
+        float $optInAccelerationMaxShort,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outReal
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -1370,8 +1475,13 @@ class OverlapStudies extends Core
         }
         if ($optInStartValue === 0.0) {
             $ReturnCode = MomentumIndicators::minusDM(
-                $startIdx, $startIdx, $inHigh, $inLow, 1,
-                $tempInt, $tempInt,
+                $startIdx,
+                $startIdx,
+                $inHigh,
+                $inLow,
+                1,
+                $tempInt,
+                $tempInt,
                 $ep_temp
             );
             if ($ep_temp[0] > 0) {
@@ -1515,9 +1625,13 @@ class OverlapStudies extends Core
         }
 
         return static::TA_INT_SMA(
-            $startIdx, $endIdx,
-            $inReal, $optInTimePeriod,
-            $outBegIdx, $outNBElement, $outReal
+            $startIdx,
+            $endIdx,
+            $inReal,
+            $optInTimePeriod,
+            $outBegIdx,
+            $outNBElement,
+            $outReal
         );
     }
 
@@ -1654,9 +1768,13 @@ class OverlapStudies extends Core
         $firstEMA   = static::double($tempInt);
         $k          = 2.0 / (double)($optInTimePeriod + 1);
         $ReturnCode = static::TA_INT_EMA(
-            $startIdx - $lookbackEMA * 2, $endIdx, $inReal,
-            $optInTimePeriod, $k,
-            $firstEMABegIdx, $firstEMANbElement,
+            $startIdx - $lookbackEMA * 2,
+            $endIdx,
+            $inReal,
+            $optInTimePeriod,
+            $k,
+            $firstEMABegIdx,
+            $firstEMANbElement,
             $firstEMA
         );
         if ($ReturnCode !== ReturnCode::Success || $firstEMANbElement === 0) {
@@ -1664,18 +1782,26 @@ class OverlapStudies extends Core
         }
         $secondEMA  = static::double($firstEMANbElement);
         $ReturnCode = static::TA_INT_EMA(
-            0, $firstEMANbElement - 1, $firstEMA,
-            $optInTimePeriod, $k,
-            $secondEMABegIdx, $secondEMANbElement,
+            0,
+            $firstEMANbElement - 1,
+            $firstEMA,
+            $optInTimePeriod,
+            $k,
+            $secondEMABegIdx,
+            $secondEMANbElement,
             $secondEMA
         );
         if ($ReturnCode !== ReturnCode::Success || $secondEMANbElement === 0) {
             return $ReturnCode;
         }
         $ReturnCode = static::TA_INT_EMA(
-            0, $secondEMANbElement - 1, $secondEMA,
-            $optInTimePeriod, $k,
-            $thirdEMABegIdx, $thirdEMANbElement,
+            0,
+            $secondEMANbElement - 1,
+            $secondEMA,
+            $optInTimePeriod,
+            $k,
+            $thirdEMABegIdx,
+            $thirdEMANbElement,
             $outReal
         );
         if ($ReturnCode !== ReturnCode::Success || $thirdEMANbElement === 0) {
@@ -1715,7 +1841,7 @@ class OverlapStudies extends Core
             return ReturnCode::Success;
         }
         $outIdx = 0;
-        $i            = $optInTimePeriod >> 1;
+        $i      = $optInTimePeriod >> 1;
         if ($optInTimePeriod % 2 === 1) {
             $factor       = ($i + 1) * ($i + 1);
             $factor       = 1.0 / $factor;

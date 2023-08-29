@@ -7,13 +7,13 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
+ * @formatter:off
  */
 
 use LupeCode\phpTraderNative\Trader;
 
-if (extension_loaded('trader')) {
-    return;
-}
+if (extension_loaded('trader')) { return; }
 
 /*
  * Define any missing Trader constants

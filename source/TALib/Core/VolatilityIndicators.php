@@ -74,16 +74,25 @@ class VolatilityIndicators extends Core
         }
         if ($optInTimePeriod <= 1) {
             return self::trueRange(
-                $startIdx, $endIdx,
-                $inHigh, $inLow, $inClose,
-                $outBegIdx, $outNBElement, $outReal
+                $startIdx,
+                $endIdx,
+                $inHigh,
+                $inLow,
+                $inClose,
+                $outBegIdx,
+                $outNBElement,
+                $outReal
             );
         }
         $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
         $retCode    = self::trueRange(
-            $startIdx - $lookbackTotal + 1, $endIdx,
-            $inHigh, $inLow, $inClose,
-            $outBegIdx1, $outNbElement1,
+            $startIdx - $lookbackTotal + 1,
+            $endIdx,
+            $inHigh,
+            $inLow,
+            $inClose,
+            $outBegIdx1,
+            $outNbElement1,
             $tempBuffer
         );
         if ($retCode !== ReturnCode::Success) {
@@ -92,8 +101,10 @@ class VolatilityIndicators extends Core
         $retCode = static::TA_INT_SMA(
             $optInTimePeriod - 1,
             $optInTimePeriod - 1,
-            $tempBuffer, $optInTimePeriod,
-            $outBegIdx1, $outNbElement1,
+            $tempBuffer,
+            $optInTimePeriod,
+            $outBegIdx1,
+            $outNbElement1,
             $prevATRTemp
         );
         if ($retCode !== ReturnCode::Success) {

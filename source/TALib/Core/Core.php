@@ -136,8 +136,19 @@ class Core
         return ReturnCode::Success;
     }
 
-    protected static function TA_INT_PO(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInMethod_2, int &$outBegIdx, int &$outNBElement, array &$outReal, array &$tempBuffer, bool $doPercentageOutput): int
-    {
+    protected static function TA_INT_PO(
+        int $startIdx,
+        int $endIdx,
+        array $inReal,
+        int $optInFastPeriod,
+        int $optInSlowPeriod,
+        int $optInMethod_2,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outReal,
+        array &$tempBuffer,
+        bool $doPercentageOutput
+    ): int {
         $outBegIdx1    = 0;
         $outNbElement1 = 0;
         $outBegIdx2    = 0;
@@ -178,8 +189,19 @@ class Core
         return $ReturnCode;
     }
 
-    protected static function TA_INT_MACD(int $startIdx, int $endIdx, array $inReal, int $optInFastPeriod, int $optInSlowPeriod, int $optInSignalPeriod_2, int &$outBegIdx, int &$outNBElement, array &$outMACD, array &$outMACDSignal, array &$outMACDHist): int
-    {
+    protected static function TA_INT_MACD(
+        int $startIdx,
+        int $endIdx,
+        array $inReal,
+        int $optInFastPeriod,
+        int $optInSlowPeriod,
+        int $optInSignalPeriod_2,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outMACD,
+        array &$outMACDSignal,
+        array &$outMACDHist
+    ): int {
         //double[] $slowEMABuffer;
         //double[] $fastEMABuffer;
         //double $k1, $k2;
