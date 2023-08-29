@@ -196,7 +196,7 @@ class CycleIndicators extends Core
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im != 0.0) && ($Re != 0.0)) {
+            if (($Im !== 0.0) && ($Re !== 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -291,7 +291,7 @@ class CycleIndicators extends Core
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
             }
-        } while (--$i != 0);
+        } while (--$i > 0);
         $hilbertIdx = 0;
         {
             $detrender_Odd[0]          = 0.0;
@@ -368,7 +368,7 @@ class CycleIndicators extends Core
                 $periodWMASum     -= $periodWMASub;
             }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
-            if (($today % 2) == 0) {
+            if (($today % 2) === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = -$detrender_Even[$hilbertIdx];
@@ -413,7 +413,7 @@ class CycleIndicators extends Core
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
                 }
-                if (++$hilbertIdx == 3) {
+                if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
                 $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
@@ -475,7 +475,7 @@ class CycleIndicators extends Core
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im != 0.0) && ($Re != 0.0)) {
+            if (($Im !== 0.0) && ($Re !== 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -503,7 +503,7 @@ class CycleIndicators extends Core
                 $tempReal2 = $smoothPrice[$idxothPricePrice];
                 $realPart  += sin($tempReal) * $tempReal2;
                 $imagPart  += cos($tempReal) * $tempReal2;
-                if ($idxothPricePrice == 0) {
+                if ($idxothPricePrice === 0) {
                     $idxothPricePrice = 50 - 1;
                 } else {
                     $idxothPricePrice--;
@@ -603,7 +603,7 @@ class CycleIndicators extends Core
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
             }
-        } while (--$i != 0);
+        } while (--$i > 0);
         $hilbertIdx = 0;
         {
             $detrender_Odd[0]          = 0.0;
@@ -674,7 +674,7 @@ class CycleIndicators extends Core
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
             }
-            if (($today % 2) == 0) {
+            if (($today % 2) === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = -$detrender_Even[$hilbertIdx];
@@ -723,7 +723,7 @@ class CycleIndicators extends Core
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
                 }
-                if (++$hilbertIdx == 3) {
+                if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
                 $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
@@ -789,7 +789,7 @@ class CycleIndicators extends Core
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im != 0.0) && ($Re != 0.0)) {
+            if (($Im !== 0.0) && ($Re !== 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -882,7 +882,7 @@ class CycleIndicators extends Core
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
             }
-        } while (--$i != 0);
+        } while (--$i > 0);
         $hilbertIdx = 0;
         {
             $detrender_Odd[0]          = 0.0;
@@ -959,7 +959,7 @@ class CycleIndicators extends Core
                 $periodWMASum     -= $periodWMASub;
             }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
-            if (($today % 2) == 0) {
+            if (($today % 2) === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = -$detrender_Even[$hilbertIdx];
@@ -1004,7 +1004,7 @@ class CycleIndicators extends Core
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
                 }
-                if (++$hilbertIdx == 3) {
+                if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
                 $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
@@ -1066,7 +1066,7 @@ class CycleIndicators extends Core
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im != 0.0) && ($Re != 0.0)) {
+            if (($Im !== 0.0) && ($Re !== 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -1094,7 +1094,7 @@ class CycleIndicators extends Core
                 $tempReal2 = $smoothPrice[$idxothPricePrice];
                 $realPart  += sin($tempReal) * $tempReal2;
                 $imagPart  += cos($tempReal) * $tempReal2;
-                if ($idxothPricePrice == 0) {
+                if ($idxothPricePrice === 0) {
                     $idxothPricePrice = 50 - 1;
                 } else {
                     $idxothPricePrice--;
@@ -1208,7 +1208,7 @@ class CycleIndicators extends Core
                 $smoothedValue    = $periodWMASum * 0.1;
                 $periodWMASum     -= $periodWMASub;
             }
-        } while (--$i != 0);
+        } while (--$i > 0);
         $hilbertIdx = 0;
         {
             $detrender_Odd[0]          = 0.0;
@@ -1285,7 +1285,7 @@ class CycleIndicators extends Core
                 $periodWMASum     -= $periodWMASub;
             }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
-            if (($today % 2) == 0) {
+            if (($today % 2) === 0) {
                 {
                     $hilbertTempReal             = $a * $smoothedValue;
                     $detrender                   = -$detrender_Even[$hilbertIdx];
@@ -1330,7 +1330,7 @@ class CycleIndicators extends Core
                     $prev_jQ_input_Even   = $Q1;
                     $jQ                   *= $adjustedPrevPeriod;
                 }
-                if (++$hilbertIdx == 3) {
+                if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
                 $Q2            = (0.2 * ($Q1 + $jI)) + (0.8 * $prevQ2);
@@ -1392,7 +1392,7 @@ class CycleIndicators extends Core
             $prevQ2   = $Q2;
             $prevI2   = $I2;
             $tempReal = $period;
-            if (($Im != 0.0) && ($Re != 0.0)) {
+            if (($Im !== 0.0) && ($Re !== 0.0)) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
             }
             $tempReal2 = 1.5 * $tempReal;
@@ -1421,7 +1421,7 @@ class CycleIndicators extends Core
                 $tempReal2 = $smoothPrice[$idxothPricePrice];
                 $realPart  += sin($tempReal) * $tempReal2;
                 $imagPart  += cos($tempReal) * $tempReal2;
-                if ($idxothPricePrice == 0) {
+                if ($idxothPricePrice === 0) {
                     $idxothPricePrice = 50 - 1;
                 } else {
                     $idxothPricePrice--;
@@ -1457,7 +1457,7 @@ class CycleIndicators extends Core
                 $tempReal += $inReal[$idxothPricePrice--];
             }
             if ($DCPeriodInt > 0) {
-                $tempReal = $tempReal / (double)$DCPeriodInt;
+                $tempReal /= (double)$DCPeriodInt;
             }
             $trendline = (4.0 * $tempReal + 3.0 * $iTrend1 + 2.0 * $iTrend2 + $iTrend3) / 10.0;
             $iTrend3   = $iTrend2;
@@ -1474,12 +1474,12 @@ class CycleIndicators extends Core
                 $trend = 0;
             }
             $tempReal = $DCPhase - $prevDCPhase;
-            if (($smoothPeriod != 0.0) &&
+            if (($smoothPeriod !== 0.0) &&
                 (($tempReal > (0.67 * 360.0 / $smoothPeriod)) && ($tempReal < (1.5 * 360.0 / $smoothPeriod)))) {
                 $trend = 0;
             }
             $tempReal = $smoothPrice[$smoothPrice_Idx];
-            if (($trendline != 0.0) && (abs(($tempReal - $trendline) / $trendline) >= 0.015)) {
+            if (($trendline !== 0.0) && (abs(($tempReal - $trendline) / $trendline) >= 0.015)) {
                 $trend = 1;
             }
             if ($today >= $startIdx) {
