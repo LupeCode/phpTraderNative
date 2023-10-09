@@ -44,22 +44,13 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-enum ReturnCode: int
+enum ReturnMessages: string
 {
-    case Success = 0;
-    case BadParam = 1;
-    case OutOfRangeStartIndex = 2;
-    case OutOfRangeEndIndex = 3;
-    case AllocError = 4;
-    case InternalError = 5;
-    case UnevenParameters = 6;
-    public const Messages = [
-        "Success",
-        "Bad parameter",
-        "Allocation error",
-        "Out of range on start index",
-        "Out of range on end index",
-        "Internal error",
-        "The count of the input arrays do not match each other",
-    ];
+    case Success = "Success";
+    case BadParam = "Bad parameter";
+    case OutOfRangeStartIndex = "Allocation error";
+    case OutOfRangeEndIndex = "Out of range on start index";
+    case AllocError = "Out of range on end index";
+    case InternalError = "Internal error";
+    case UnevenParameters = "The count of the input arrays do not match each other";
 }

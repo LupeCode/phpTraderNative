@@ -60,7 +60,7 @@ class CycleIndicators extends Core
      *
      * @return int
      */
-    public static function htDcPeriod(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function htDcPeriod(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -69,7 +69,7 @@ class CycleIndicators extends Core
         $b             = 0.5769;
         $detrender_Odd = $detrender_Even = $Q1_Odd = $Q1_Even = $jI_Odd = $jI_Even = $jQ_Odd = $jQ_Even = static::double(3);
         $rad2Deg       = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
+        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -234,7 +234,7 @@ class CycleIndicators extends Core
      *
      * @return int
      */
-    public static function htDcPhase(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function htDcPhase(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -257,7 +257,7 @@ class CycleIndicators extends Core
         $tempReal          = atan(1);
         $rad2Deg           = 45.0 / $tempReal;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal     = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase]);
+        $lookbackTotal     = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -554,7 +554,7 @@ class CycleIndicators extends Core
      *
      * @return int
      */
-    public static function htPhasor(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInPhase, array &$outQuadrature): int
+    public static function htPhasor(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInPhase, array &$outQuadrature): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -569,7 +569,7 @@ class CycleIndicators extends Core
         $jI_Even        = static::double(3);
         $jQ_Odd         = static::double(3);
         $rad2Deg        = 180.0 / (4.0 * atan(1));
-        $lookbackTotal  = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
+        $lookbackTotal  = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -824,7 +824,7 @@ class CycleIndicators extends Core
      *
      * @return int
      */
-    public static function htSine(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outSine, array &$outLeadSine): int
+    public static function htSine(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outSine, array &$outLeadSine): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -848,7 +848,7 @@ class CycleIndicators extends Core
         $rad2Deg           = 45.0 / $tempReal;
         $deg2Rad           = 1.0 / $rad2Deg;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal     = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine]);
+        $lookbackTotal     = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1145,7 +1145,7 @@ class CycleIndicators extends Core
      *
      * @return int
      */
-    public static function htTrendMode(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
+    public static function htTrendMode(int $startIdx, int $endIdx, array $inReal, int &$outBegIdx, int &$outNBElement, array &$outInteger): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -1174,7 +1174,7 @@ class CycleIndicators extends Core
         $rad2Deg           = 45.0 / $tempReal;
         $deg2Rad           = 1.0 / $rad2Deg;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal     = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode]);
+        $lookbackTotal     = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }

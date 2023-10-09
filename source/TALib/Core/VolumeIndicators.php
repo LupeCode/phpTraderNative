@@ -49,7 +49,7 @@ use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
 class VolumeIndicators extends Core
 {
-    public static function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function ad(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, array $inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -88,7 +88,7 @@ class VolumeIndicators extends Core
         int &$outBegIdx,
         int &$outNBElement,
         array &$outReal
-    ): int {
+    ): ReturnCode {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -171,7 +171,7 @@ class VolumeIndicators extends Core
         return ReturnCode::Success;
     }
 
-    public static function atr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function atr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -207,7 +207,7 @@ class VolumeIndicators extends Core
         }
         $prevATR = $prevATRTemp[0];
         $today = $optInTimePeriod;
-        $outIdx = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
+        $outIdx = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR->value]);
         while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
@@ -229,7 +229,7 @@ class VolumeIndicators extends Core
         return $retCode;
     }
 
-    public static function obv(int $startIdx, int $endIdx, array $inReal, array &$inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function obv(int $startIdx, int $endIdx, array $inReal, array &$inVolume, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;

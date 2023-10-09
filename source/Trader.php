@@ -13,22 +13,24 @@ use LupeCode\phpTraderNative\TALib\Core\PriceTransform;
 use LupeCode\phpTraderNative\TALib\Core\StatisticFunctions;
 use LupeCode\phpTraderNative\TALib\Core\VolatilityIndicators;
 use LupeCode\phpTraderNative\TALib\Core\VolumeIndicators;
+use LupeCode\phpTraderNative\TALib\Enum\Compatibility;
 use LupeCode\phpTraderNative\TALib\Enum\MovingAverageType;
 use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
+use LupeCode\phpTraderNative\TALib\Enum\ReturnMessages;
 
 class Trader
 {
 
-    protected static ?CycleIndicators $cycleIndicators = null;
-    protected static ?MathOperators $mathOperators = null;
-    protected static ?MathTransform $mathTransform = null;
-    protected static ?MomentumIndicators $momentumIndicators = null;
-    protected static ?OverlapStudies $overlapStudies = null;
-    protected static ?PatternRecognition $patternRecognition = null;
-    protected static ?PriceTransform $priceTransform = null;
-    protected static ?StatisticFunctions $statisticFunctions = null;
+    protected static ?CycleIndicators      $cycleIndicators      = null;
+    protected static ?MathOperators        $mathOperators        = null;
+    protected static ?MathTransform        $mathTransform        = null;
+    protected static ?MomentumIndicators   $momentumIndicators   = null;
+    protected static ?OverlapStudies       $overlapStudies       = null;
+    protected static ?PatternRecognition   $patternRecognition   = null;
+    protected static ?PriceTransform       $priceTransform       = null;
+    protected static ?StatisticFunctions   $statisticFunctions   = null;
     protected static ?VolatilityIndicators $volatilityIndicators = null;
-    protected static ?VolumeIndicators $volumeIndicators = null;
+    protected static ?VolumeIndicators     $volumeIndicators     = null;
 
     protected static int $outBegIdx;
     protected static int $outNBElement;
@@ -149,13 +151,13 @@ class Trader
         self::$outNBElement = 0;
     }
 
-    protected static function checkForError(int $ReturnCode): void
+    protected static function checkForError(ReturnCode $ReturnCode): void
     {
         if ($ReturnCode === ReturnCode::Success) {
             return;
         }
 
-        throw new \RuntimeException(ReturnCode::Messages[$ReturnCode], $ReturnCode);
+        throw new \RuntimeException(ReturnCode::Messages[$ReturnCode->value], $ReturnCode->value);
     }
 
     protected static function verifyArrayCounts(array $arrays): int
@@ -163,7 +165,7 @@ class Trader
         $count = count($arrays[0]);
         foreach ($arrays as &$array) {
             if (count($array) !== $count) {
-                throw new \RuntimeException(ReturnCode::Messages[ReturnCode::UnevenParameters], ReturnCode::UnevenParameters);
+                throw new \RuntimeException(ReturnMessages::UnevenParameters->value, ReturnCode::UnevenParameters->value);
             }
             $array = \array_values($array);
         }
@@ -192,12 +194,12 @@ class Trader
         return Core::getUnstablePeriod($functionId);
     }
 
-    public static function set_compat(int $compatibility): void
+    public static function set_compat(Compatibility $compatibility): void
     {
         Core::setCompatibility($compatibility);
     }
 
-    public static function get_compat(): int
+    public static function get_compat(): Compatibility
     {
         return Core::getCompatibility();
     }
@@ -370,12 +372,12 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function apo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
+    public static function apo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
         $real    = \array_values($real);
         $endIdx  = count($real) - 1;
         $outReal = [];
-        self::checkForError(self::getMomentumIndicators()::apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
+        self::checkForError(self::getMomentumIndicators()::apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal));
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
     }
@@ -531,7 +533,7 @@ class Trader
      * @return array Returns a 2D array with calculated data. [UpperBand => [...], MiddleBand => [...], LowerBand => [...]]
      * @throws \Exception
      */
-    public static function bbands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, int $mAType = MovingAverageType::SMA): array
+    public static function bbands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
         $real              = \array_values($real);
         $endIdx            = count($real) - 1;
@@ -546,21 +548,20 @@ class Trader
                 $timePeriod,
                 $nbDevUp,
                 $nbDevDn,
-                $mAType,
+                $mAType->value,
                 self::$outBegIdx,
                 self::$outNBElement,
                 $outRealUpperBand,
                 $outRealMiddleBand,
-                $outRealLowerBand
-            )
+                $outRealLowerBand,
+            ),
         );
 
-        return
-            [
-                'UpperBand'  => self::adjustIndexes($outRealUpperBand, self::$outBegIdx),
-                'MiddleBand' => self::adjustIndexes($outRealMiddleBand, self::$outBegIdx),
-                'LowerBand'  => self::adjustIndexes($outRealLowerBand, self::$outBegIdx),
-            ];
+        return [
+            'UpperBand'  => self::adjustIndexes($outRealUpperBand, self::$outBegIdx),
+            'MiddleBand' => self::adjustIndexes($outRealMiddleBand, self::$outBegIdx),
+            'LowerBand'  => self::adjustIndexes($outRealLowerBand, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -2271,12 +2272,12 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function ma(array $real, int $timePeriod = 30, int $mAType = MovingAverageType::SMA): array
+    public static function ma(array $real, int $timePeriod = 30, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
         $real    = \array_values($real);
         $endIdx  = count($real) - 1;
         $outReal = [];
-        self::checkForError(self::getOverlapStudies()::movingAverage(0, $endIdx, $real, $timePeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
+        self::checkForError(self::getOverlapStudies()::movingAverage(0, $endIdx, $real, $timePeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal));
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
     }
@@ -2299,15 +2300,14 @@ class Trader
         $outMACDSignal = [];
         $outMACDHist   = [];
         self::checkForError(
-            self::getMomentumIndicators()::macd(0, $endIdx, $real, $fastPeriod, $slowPeriod, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist)
+            self::getMomentumIndicators()::macd(0, $endIdx, $real, $fastPeriod, $slowPeriod, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist),
         );
 
-        return
-            [
-                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
-                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
-                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
-            ];
+        return [
+            'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+            'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+            'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -2326,11 +2326,11 @@ class Trader
     public static function macdext(
         array $real,
         int $fastPeriod = 12,
-        int $fastMAType = MovingAverageType::SMA,
+        MovingAverageType $fastMAType = MovingAverageType::SMA,
         int $slowPeriod = 26,
-        int $slowMAType = MovingAverageType::SMA,
+        MovingAverageType $slowMAType = MovingAverageType::SMA,
         int $signalPeriod = 9,
-        int $signalMAType = MovingAverageType::SMA
+        MovingAverageType $signalMAType = MovingAverageType::SMA,
     ): array {
         $real          = \array_values($real);
         $endIdx        = count($real) - 1;
@@ -2343,25 +2343,24 @@ class Trader
                 $endIdx,
                 $real,
                 $fastPeriod,
-                $fastMAType,
+                $fastMAType->value,
                 $slowPeriod,
-                $slowMAType,
+                $slowMAType->value,
                 $signalPeriod,
-                $signalMAType,
+                $signalMAType->value,
                 self::$outBegIdx,
                 self::$outNBElement,
                 $outMACD,
                 $outMACDSignal,
-                $outMACDHist
-            )
+                $outMACDHist,
+            ),
         );
 
-        return
-            [
-                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
-                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
-                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
-            ];
+        return [
+            'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+            'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+            'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -2381,12 +2380,11 @@ class Trader
         $outMACDHist   = [];
         self::checkForError(self::getMomentumIndicators()::macdFix(0, $endIdx, $real, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist));
 
-        return
-            [
-                'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
-                'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
-                'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
-            ];
+        return [
+            'MACD'       => self::adjustIndexes($outMACD, self::$outBegIdx),
+            'MACDSignal' => self::adjustIndexes($outMACDSignal, self::$outBegIdx),
+            'MACDHist'   => self::adjustIndexes($outMACDHist, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -2406,11 +2404,10 @@ class Trader
         $outFAMA = [];
         self::checkForError(self::getOverlapStudies()::mama(0, $endIdx, $real, $fastLimit, $slowLimit, self::$outBegIdx, self::$outNBElement, $outMAMA, $outFAMA));
 
-        return
-            [
-                'MAMA' => self::adjustIndexes($outMAMA, self::$outBegIdx),
-                'FAMA' => self::adjustIndexes($outFAMA, self::$outBegIdx),
-            ];
+        return [
+            'MAMA' => self::adjustIndexes($outMAMA, self::$outBegIdx),
+            'FAMA' => self::adjustIndexes($outFAMA, self::$outBegIdx),
+        ];
     }
 
     /**
@@ -2424,12 +2421,14 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function mavp(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, int $mAType = MovingAverageType::SMA): array
+    public static function mavp(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
         $real    = \array_values($real);
         $endIdx  = count($real) - 1;
         $outReal = [];
-        self::checkForError(self::getOverlapStudies()::movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
+        self::checkForError(
+            self::getOverlapStudies()::movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal),
+        );
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
     }
@@ -2780,12 +2779,12 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function ppo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
+    public static function ppo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
         $real    = \array_values($real);
         $endIdx  = count($real) - 1;
         $outReal = [];
-        self::checkForError(self::getMomentumIndicators()::ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType, self::$outBegIdx, self::$outNBElement, $outReal));
+        self::checkForError(self::getMomentumIndicators()::ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal));
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
     }
@@ -2925,7 +2924,7 @@ class Trader
         float $accelerationMaxLong = 0.2,
         float $accelerationInitShort = 0.02,
         float $accelerationShort = 0.02,
-        float $accelerationMaxShort = 0.2
+        float $accelerationMaxShort = 0.2,
     ): array {
         $endIdx  = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
@@ -2945,8 +2944,8 @@ class Trader
                 $accelerationMaxShort,
                 self::$outBegIdx,
                 self::$outNBElement,
-                $outReal
-            )
+                $outReal,
+            ),
         );
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
@@ -3066,9 +3065,9 @@ class Trader
         array $close,
         int $fastK_Period = 5,
         int $slowK_Period = 3,
-        int $slowK_MAType = MovingAverageType::SMA,
+        MovingAverageType $slowK_MAType = MovingAverageType::SMA,
         int $slowD_Period = 3,
-        int $slowD_MAType = MovingAverageType::SMA
+        MovingAverageType $slowD_MAType = MovingAverageType::SMA,
     ): array {
         $endIdx   = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outSlowK = [];
@@ -3082,14 +3081,14 @@ class Trader
                 $close,
                 $fastK_Period,
                 $slowK_Period,
-                $slowK_MAType,
+                $slowK_MAType->value,
                 $slowD_Period,
-                $slowD_MAType,
+                $slowD_MAType->value,
                 self::$outBegIdx,
                 self::$outNBElement,
                 $outSlowK,
-                $outSlowD
-            )
+                $outSlowD,
+            ),
         );
 
         return [
@@ -3110,13 +3109,13 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function stochf(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
+    public static function stochf(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, MovingAverageType $fastD_MAType = MovingAverageType::SMA): array
     {
         $endIdx   = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outFastK = [];
         $outFastD = [];
         self::checkForError(
-            self::getMomentumIndicators()::stochF(0, $endIdx, $high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD)
+            self::getMomentumIndicators()::stochF(0, $endIdx, $high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType->value, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD),
         );
 
         return [
@@ -3136,14 +3135,14 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function stochrsi(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
+    public static function stochrsi(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, MovingAverageType $fastD_MAType = MovingAverageType::SMA): array
     {
         $real     = \array_values($real);
         $endIdx   = count($real) - 1;
         $outFastK = [];
         $outFastD = [];
         self::checkForError(
-            self::getMomentumIndicators()::stochRsi(0, $endIdx, $real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD)
+            self::getMomentumIndicators()::stochRsi(0, $endIdx, $real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType->value, self::$outBegIdx, self::$outNBElement, $outFastK, $outFastD),
         );
 
         return [

@@ -212,9 +212,9 @@ class LupeTrader extends Trader
         int $rsi_period = 14,
         int $fastK_Period = 5,
         int $slowK_Period = 3,
-        int $slowK_MAType = MovingAverageType::SMA,
+        MovingAverageType $slowK_MAType = MovingAverageType::SMA,
         int $slowD_Period = 3,
-        int $slowD_MAType = MovingAverageType::SMA
+        MovingAverageType $slowD_MAType = MovingAverageType::SMA
     ): array {
         $real   = \array_values($real);
         $endIdx = count($real) - 1;
@@ -233,9 +233,9 @@ class LupeTrader extends Trader
                 $rsi,
                 $fastK_Period,
                 $slowK_Period,
-                $slowK_MAType,
+                $slowK_MAType->value,
                 $slowD_Period,
-                $slowD_MAType,
+                $slowD_MAType->value,
                 self::$outBegIdx,
                 self::$outNBElement,
                 $outSlowK,

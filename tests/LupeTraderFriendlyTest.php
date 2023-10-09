@@ -21,7 +21,7 @@ class LupeTraderFriendlyTest extends TraderFriendlyTest
         $optInSlowD_MAType = MovingAverageType::SMA;
         $Output            = LupeTraderFriendly::slowStochasticRelativeStrengthIndex($this->Close, $rsi_period, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
         $traderRsi         = \trader_rsi($this->Close, $rsi_period);
-        [$traderSlowK, $traderSlowD] = \trader_stoch($traderRsi, $traderRsi, $traderRsi, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
+        [$traderSlowK, $traderSlowD] = \trader_stoch($traderRsi, $traderRsi, $traderRsi, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType->value, $optInSlowD_Period, $optInSlowD_MAType->value);
         $this->assertEqualsWithDelta($traderSlowK, $this->adjustForPECL($Output['SlowK']), 0.1);
         $this->assertEqualsWithDelta($traderSlowD, $this->adjustForPECL($Output['SlowD']), 0.1);
     }

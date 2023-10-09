@@ -63,7 +63,7 @@ class Core
     protected static array $unstablePeriod;
     /** @var CandleSetting[] */
     protected static array $candleSettings;
-    public static int $compatibility = Compatibility::Default;
+    public static Compatibility $compatibility = Compatibility::Default;
 
     /**
      * Core constructor.
@@ -109,12 +109,12 @@ class Core
         return static::$unstablePeriod[$functionID];
     }
 
-    public static function setCompatibility(int $compatibility): void
+    public static function setCompatibility(Compatibility $compatibility): void
     {
         static::$compatibility = $compatibility;
     }
 
-    public static function getCompatibility(): int
+    public static function getCompatibility(): Compatibility
     {
         return static::$compatibility;
     }
@@ -124,7 +124,7 @@ class Core
         return \array_pad([], $size, 0.);
     }
 
-    protected static function validateStartEndIndexes(int $startIdx, int $endIdx): int
+    protected static function validateStartEndIndexes(int $startIdx, int $endIdx): ?ReturnCode
     {
         if ($startIdx < 0) {
             return ReturnCode::OutOfRangeStartIndex;
@@ -133,7 +133,7 @@ class Core
             return ReturnCode::OutOfRangeEndIndex;
         }
 
-        return ReturnCode::Success;
+        return null;
     }
 
     protected static function TA_INT_PO(
@@ -148,7 +148,7 @@ class Core
         array &$outReal,
         array &$tempBuffer,
         bool $doPercentageOutput
-    ): int {
+    ): ReturnCode {
         $outBegIdx1    = 0;
         $outNbElement1 = 0;
         $outBegIdx2    = 0;
@@ -201,7 +201,7 @@ class Core
         array &$outMACD,
         array &$outMACDSignal,
         array &$outMACDHist
-    ): int {
+    ): ReturnCode {
         //double[] $slowEMABuffer;
         //double[] $fastEMABuffer;
         //double $k1, $k2;
@@ -290,7 +290,7 @@ class Core
         return ReturnCode::Success;
     }
 
-    protected static function TA_INT_EMA(int $startIdx, int $endIdx, $inReal, int $optInTimePeriod, float $optInK_1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    protected static function TA_INT_EMA(int $startIdx, int $endIdx, $inReal, int $optInTimePeriod, float $optInK_1, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         //double $tempReal, $prevMA;
         //int $i, $today, $outIdx, $lookbackTotal;
@@ -331,7 +331,7 @@ class Core
         return ReturnCode::Success;
     }
 
-    protected static function TA_INT_SMA(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    protected static function TA_INT_SMA(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         //double $periodTotal, $tempReal;
         //int $i, $outIdx, $trailingIdx, $lookbackTotal;
@@ -366,7 +366,7 @@ class Core
         return ReturnCode::Success;
     }
 
-    protected static function TA_INT_stddev_using_precalc_ma(array $inReal, array $inMovAvg, int $inMovAvgBegIdx, int $inMovAvgNbElement, int $timePeriod, array &$output): int
+    protected static function TA_INT_stddev_using_precalc_ma(array $inReal, array $inMovAvg, int $inMovAvgBegIdx, int $inMovAvgNbElement, int $timePeriod, array &$output): ReturnCode
     {
         //double $tempReal, $periodTotal2, $meanValue2;
         //int $outIdx;
@@ -400,7 +400,7 @@ class Core
         return ReturnCode::Success;
     }
 
-    protected static function TA_INT_VAR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    protected static function TA_INT_VAR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         //double $tempReal, $periodTotal1, $periodTotal2, $meanValue1, $meanValue2;
         //int $i, $outIdx, $trailingIdx, $nbInitialElementNeeded;

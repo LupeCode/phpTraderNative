@@ -15,6 +15,8 @@ use LupeCode\phpTraderNative\Trader;
 
 if (extension_loaded('trader')) { return; }
 
+\LupeCode\phpTraderNative\TALib\Core\Core::construct();
+
 /*
  * Define any missing Trader constants
  */

@@ -44,27 +44,34 @@
 
 namespace LupeCode\phpTraderNative\TALib\Classes;
 
+use LupeCode\phpTraderNative\TALib\Enum\CandleSettingType;
+use LupeCode\phpTraderNative\TALib\Enum\RangeType;
+
 class CandleSetting
 {
 
-    /** @var int */
-    public $settingType;
-    /** @var int */
-    public $rangeType;
-    /** @var int */
-    public $avgPeriod;
-    /** @var float */
-    public $factor;
+    public int    $settingType;
+    public ?int   $rangeType;
+    public ?int   $avgPeriod;
+    public ?float $factor;
 
-    public function __construct(int $settingType, int $rangeType = null, int $avgPeriod = null, float $factor = null)
+    public function __construct(int|CandleSettingType $settingType, int|RangeType|null $rangeType = null, int $avgPeriod = null, float $factor = null)
     {
-        $this->settingType = $settingType;
-        $this->rangeType   = $rangeType;
-        $this->avgPeriod   = $avgPeriod;
-        $this->factor      = $factor;
+        if (is_int($settingType)) {
+            $this->settingType = $settingType;
+        } else {
+            $this->settingType = $settingType->value;
+        }
+        if (is_int($rangeType) || is_null($rangeType)) {
+            $this->rangeType = $rangeType;
+        } else {
+            $this->rangeType = $rangeType->value;
+        }
+        $this->avgPeriod = $avgPeriod;
+        $this->factor    = $factor;
     }
 
-    public function CopyFrom(CandleSetting $source)
+    public function CopyFrom(CandleSetting $source): void
     {
         $this->settingType = $source->settingType;
         $this->rangeType   = $source->rangeType;
@@ -72,7 +79,7 @@ class CandleSetting
         $this->factor      = $source->factor;
     }
 
-    public function CandleSetting(CandleSetting $that)
+    public function CandleSetting(CandleSetting $that): void
     {
         $this->settingType = $that->settingType;
         $this->rangeType   = $that->rangeType;

@@ -50,7 +50,7 @@ use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 class VolatilityIndicators extends Core
 {
 
-    public static function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function natr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
@@ -112,7 +112,7 @@ class VolatilityIndicators extends Core
         }
         $prevATR = $prevATRTemp[0];
         $today   = $optInTimePeriod;
-        $outIdx  = static::$unstablePeriod[UnstablePeriodFunctionID::NATR];
+        $outIdx  = static::$unstablePeriod[UnstablePeriodFunctionID::NATR->value];
         while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
@@ -145,7 +145,7 @@ class VolatilityIndicators extends Core
         return $retCode;
     }
 
-    public static function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    public static function trueRange(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;

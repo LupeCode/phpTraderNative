@@ -269,28 +269,28 @@ class TraderFriendlyTest extends TestCase
     public function testAbsolutePriceOscillator()
     {
         $optInMAType     = MovingAverageType::SMA;
-        $optInFastPeriod = 5;
-        $optInSlowPeriod = 12;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $optInFastPeriod = 12;
+        $optInSlowPeriod = 26;
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInFastPeriod = 7;
         $optInSlowPeriod = 20;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::EMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::WMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::DEMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::TEMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::TRIMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::KAMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::MAMA;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInMAType = MovingAverageType::T3;
-        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::absolutePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
     }
 
     /**
@@ -358,7 +358,7 @@ class TraderFriendlyTest extends TestCase
         $optInNbDevUp    = 2.0;
         $optInNbDevDn    = 2.0;
         $optInMAType     = MovingAverageType::SMA;
-        list($traderUpperBand, $traderMiddleBand, $traderLowerBand) = \trader_bbands($this->High, $optInTimePeriod, $optInNbDevUp, $optInNbDevDn, $optInMAType);
+        list($traderUpperBand, $traderMiddleBand, $traderLowerBand) = \trader_bbands($this->High, $optInTimePeriod, $optInNbDevUp, $optInNbDevDn, $optInMAType->value);
         $Output = TraderFriendly::bollingerBands($this->High, $optInTimePeriod, $optInNbDevUp, $optInNbDevDn, $optInMAType);
         $this->assertEquals($traderUpperBand, $this->adjustForPECL($Output['UpperBand']));
         $this->assertEquals($traderMiddleBand, $this->adjustForPECL($Output['MiddleBand']));
@@ -1101,7 +1101,7 @@ class TraderFriendlyTest extends TestCase
     {
         $optInTimePeriod = 10;
         $optInMAType     = MovingAverageType::SMA;
-        $this->assertEquals(\trader_ma($this->High, $optInTimePeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::movingAverage($this->High, $optInTimePeriod, $optInMAType)));
+        $this->assertEquals(\trader_ma($this->High, $optInTimePeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::movingAverage($this->High, $optInTimePeriod, $optInMAType)));
     }
 
     /**
@@ -1130,7 +1130,7 @@ class TraderFriendlyTest extends TestCase
         $optInSlowMAType   = MovingAverageType::SMA;
         $optInSignalPeriod = 5;
         $optInSignalMAType = MovingAverageType::SMA;
-        list($traderMACD, $traderMACDSignal, $traderMACDHist) = \trader_macdext($this->High, $optInFastPeriod, $optInFastMAType, $optInSlowPeriod, $optInSlowMAType, $optInSignalPeriod, $optInSignalMAType);
+        list($traderMACD, $traderMACDSignal, $traderMACDHist) = \trader_macdext($this->High, $optInFastPeriod, $optInFastMAType->value, $optInSlowPeriod, $optInSlowMAType->value, $optInSignalPeriod, $optInSignalMAType->value);
         $Output = TraderFriendly::movingAverageConvergenceDivergenceExtended($this->High, $optInFastPeriod, $optInFastMAType, $optInSlowPeriod, $optInSlowMAType, $optInSignalPeriod, $optInSignalMAType);
         $this->assertEquals($traderMACD, $this->adjustForPECL($Output['MACD']));
         $this->assertEquals($traderMACDSignal, $this->adjustForPECL($Output['MACDSignal']));
@@ -1172,7 +1172,7 @@ class TraderFriendlyTest extends TestCase
         $optInMinPeriod = 2;
         $optInMaxPeriod = 20;
         $optInMAType    = MovingAverageType::SMA;
-        $this->assertEquals(\trader_mavp($this->High, $inPeriods, $optInMinPeriod, $optInMaxPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::movingAverageVariablePeriod($this->High, $inPeriods, $optInMinPeriod, $optInMaxPeriod, $optInMAType)));
+        $this->assertEquals(\trader_mavp($this->High, $inPeriods, $optInMinPeriod, $optInMaxPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::movingAverageVariablePeriod($this->High, $inPeriods, $optInMinPeriod, $optInMaxPeriod, $optInMAType)));
     }
 
     /**
@@ -1352,7 +1352,7 @@ class TraderFriendlyTest extends TestCase
         $optInFastPeriod = 10;
         $optInSlowPeriod = 10;
         $optInMAType     = MovingAverageType::SMA;
-        $this->assertEquals(\trader_ppo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(TraderFriendly::percentagePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
+        $this->assertEquals(\trader_ppo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType->value), $this->adjustForPECL(TraderFriendly::percentagePriceOscillator($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
     }
 
     /**
@@ -1423,7 +1423,6 @@ class TraderFriendlyTest extends TestCase
         $optInAccelerationInitShort = 2.0;
         $optInAccelerationShort     = 2.0;
         $optInAccelerationMaxShort  = 2.0;
-        $optInAccelerationMaxShort  = 2.0;
         $this->assertEquals(\trader_sarext($this->High, $this->Low, $optInStartValue, $optInOffsetOnReverse, $optInAccelerationInitLong, $optInAccelerationLong, $optInAccelerationMaxLong, $optInAccelerationInitShort, $optInAccelerationShort, $optInAccelerationMaxShort), $this->adjustForPECL(TraderFriendly::parabolicSARExtended($this->High, $this->Low, $optInStartValue, $optInOffsetOnReverse, $optInAccelerationInitLong, $optInAccelerationLong, $optInAccelerationMaxLong, $optInAccelerationInitShort, $optInAccelerationShort, $optInAccelerationMaxShort)));
     }
 
@@ -1480,7 +1479,7 @@ class TraderFriendlyTest extends TestCase
         $optInSlowK_MAType = MovingAverageType::SMA;
         $optInSlowD_Period = 20;
         $optInSlowD_MAType = MovingAverageType::SMA;
-        list($traderSlowK, $traderSlowD) = \trader_stoch($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
+        list($traderSlowK, $traderSlowD) = \trader_stoch($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType->value, $optInSlowD_Period, $optInSlowD_MAType->value);
         $Output = TraderFriendly::stochastic($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
         $this->assertEquals($traderSlowK, $this->adjustForPECL($Output['SlowK']));
         $this->assertEquals($traderSlowD, $this->adjustForPECL($Output['SlowD']));
@@ -1494,7 +1493,7 @@ class TraderFriendlyTest extends TestCase
         $optInFastK_Period = 2;
         $optInFastD_Period = 10;
         $optInFastD_MAType = MovingAverageType::SMA;
-        list($traderFastK, $traderFastD) = \trader_stochf($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        list($traderFastK, $traderFastD) = \trader_stochf($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType->value);
         $Output = TraderFriendly::stochasticFast($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
         $this->assertEquals($traderFastK, $this->adjustForPECL($Output['FastK']));
         $this->assertEquals($traderFastD, $this->adjustForPECL($Output['FastD']));
@@ -1509,7 +1508,7 @@ class TraderFriendlyTest extends TestCase
         $optInFastK_Period = 2;
         $optInFastD_Period = 10;
         $optInFastD_MAType = MovingAverageType::SMA;
-        list($traderFastK, $traderFastD) = \trader_stochrsi($this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
+        list($traderFastK, $traderFastD) = \trader_stochrsi($this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType->value);
         $Output = TraderFriendly::stochasticRelativeStrengthIndex($this->High, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
         $this->assertEquals($traderFastK, $this->adjustForPECL($Output['FastK']));
         $this->assertEquals($traderFastD, $this->adjustForPECL($Output['FastD']));
