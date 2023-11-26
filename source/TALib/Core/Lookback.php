@@ -690,6 +690,17 @@ class Lookback extends Core
         return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode]);
     }
 
+    public static function imiLookback(int $optInTimePeriod): int
+    {
+        if ($optInTimePeriod === (PHP_INT_MIN)) {
+            $optInTimePeriod = 14;
+        } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
+            return -1;
+        }
+
+        return $optInTimePeriod - 1;
+    }
+
     public static function kamaLookback(int $optInTimePeriod): int
     {
         if ($optInTimePeriod === (PHP_INT_MIN)) {
@@ -820,7 +831,7 @@ class Lookback extends Core
             return -1;
         }
         if ($optInSlowPeriod < $optInFastPeriod) {
-            $tempInteger     = $optInSlowPeriod;
+            $tempInteger = $optInSlowPeriod;
             $optInSlowPeriod = $optInFastPeriod;
             $optInFastPeriod = $tempInteger;
         }
@@ -848,7 +859,7 @@ class Lookback extends Core
             return -1;
         }
         $lookbackLargest = self::movingAverageLookback($optInFastPeriod, $optInFastMAType);
-        $tempInteger     = self::movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
+        $tempInteger = self::movingAverageLookback($optInSlowPeriod, $optInSlowMAType);
         if ($tempInteger > $lookbackLargest) {
             $lookbackLargest = $tempInteger;
         }

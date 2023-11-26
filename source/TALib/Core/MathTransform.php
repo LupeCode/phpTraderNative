@@ -68,7 +68,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = acos($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -92,7 +92,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = asin($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -116,7 +116,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = atan($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -140,7 +140,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = ceil($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -164,7 +164,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = cos($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -188,7 +188,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = cosh($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -212,7 +212,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = exp($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -236,7 +236,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = floor($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -260,7 +260,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = log($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -284,7 +284,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = log10($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -308,7 +308,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = sin($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -332,7 +332,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = sinh($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -356,7 +356,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = sqrt($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -380,7 +380,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = tan($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -404,7 +404,7 @@ class MathTransform extends Core
             $outReal[$outIdx] = tanh($inReal[$i]);
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }

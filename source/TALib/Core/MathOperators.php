@@ -58,7 +58,7 @@ class MathOperators extends Core
             $outReal[$outIdx] = $inReal0[$i] + $inReal1[$i];
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -72,7 +72,7 @@ class MathOperators extends Core
             $outReal[$outIdx] = $inReal0[$i] / $inReal1[$i];
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -92,38 +92,38 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $highestIdx  = -1;
-        $highest     = 0.0;
+        $highestIdx = -1;
+        $highest = 0.0;
         while ($today <= $endIdx) {
             $tmp = $inReal[$today];
             if ($highestIdx < $trailingIdx) {
                 $highestIdx = $trailingIdx;
-                $highest    = $inReal[$highestIdx];
-                $i          = $highestIdx;
+                $highest = $inReal[$highestIdx];
+                $i = $highestIdx;
                 while (++$i <= $today) {
                     $tmp = $inReal[$i];
                     if ($tmp > $highest) {
                         $highestIdx = $i;
-                        $highest    = $tmp;
+                        $highest = $tmp;
                     }
                 }
             } elseif ($tmp >= $highest) {
                 $highestIdx = $today;
-                $highest    = $tmp;
+                $highest = $tmp;
             }
             $outReal[$outIdx++] = $highest;
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -144,38 +144,38 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $highestIdx  = -1;
-        $highest     = 0.0;
+        $highestIdx = -1;
+        $highest = 0.0;
         while ($today <= $endIdx) {
             $tmp = $inReal[$today];
             if ($highestIdx < $trailingIdx) {
                 $highestIdx = $trailingIdx;
-                $highest    = $inReal[$highestIdx];
-                $i          = $highestIdx;
+                $highest = $inReal[$highestIdx];
+                $i = $highestIdx;
                 while (++$i <= $today) {
                     $tmp = $inReal[$i];
                     if ($tmp > $highest) {
                         $highestIdx = $i;
-                        $highest    = $tmp;
+                        $highest = $tmp;
                     }
                 }
             } elseif ($tmp >= $highest) {
                 $highestIdx = $today;
-                $highest    = $tmp;
+                $highest = $tmp;
             }
             $outInteger[$outIdx++] = $highestIdx;
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -196,38 +196,38 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $lowestIdx   = -1;
-        $lowest      = 0.0;
+        $lowestIdx = -1;
+        $lowest = 0.0;
         while ($today <= $endIdx) {
             $tmp = $inReal[$today];
             if ($lowestIdx < $trailingIdx) {
                 $lowestIdx = $trailingIdx;
-                $lowest    = $inReal[$lowestIdx];
-                $i         = $lowestIdx;
+                $lowest = $inReal[$lowestIdx];
+                $i = $lowestIdx;
                 while (++$i <= $today) {
                     $tmp = $inReal[$i];
                     if ($tmp < $lowest) {
                         $lowestIdx = $i;
-                        $lowest    = $tmp;
+                        $lowest = $tmp;
                     }
                 }
             } elseif ($tmp <= $lowest) {
                 $lowestIdx = $today;
-                $lowest    = $tmp;
+                $lowest = $tmp;
             }
             $outReal[$outIdx++] = $lowest;
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -248,38 +248,38 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $lowestIdx   = -1;
-        $lowest      = 0.0;
+        $lowestIdx = -1;
+        $lowest = 0.0;
         while ($today <= $endIdx) {
             $tmp = $inReal[$today];
             if ($lowestIdx < $trailingIdx) {
                 $lowestIdx = $trailingIdx;
-                $lowest    = $inReal[$lowestIdx];
-                $i         = $lowestIdx;
+                $lowest = $inReal[$lowestIdx];
+                $i = $lowestIdx;
                 while (++$i <= $today) {
                     $tmp = $inReal[$i];
                     if ($tmp < $lowest) {
                         $lowestIdx = $i;
-                        $lowest    = $tmp;
+                        $lowest = $tmp;
                     }
                 }
             } elseif ($tmp <= $lowest) {
                 $lowestIdx = $today;
-                $lowest    = $tmp;
+                $lowest = $tmp;
             }
             $outInteger[$outIdx++] = $lowestIdx;
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -300,49 +300,49 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $highestIdx  = -1;
-        $highest     = 0.0;
-        $lowestIdx   = -1;
-        $lowest      = 0.0;
+        $highestIdx = -1;
+        $highest = 0.0;
+        $lowestIdx = -1;
+        $lowest = 0.0;
         while ($today <= $endIdx) {
             $tmpLow = $tmpHigh = $inReal[$today];
             if ($highestIdx < $trailingIdx) {
                 $highestIdx = $trailingIdx;
-                $highest    = $inReal[$highestIdx];
-                $i          = $highestIdx;
+                $highest = $inReal[$highestIdx];
+                $i = $highestIdx;
                 while (++$i <= $today) {
                     $tmpHigh = $inReal[$i];
                     if ($tmpHigh > $highest) {
                         $highestIdx = $i;
-                        $highest    = $tmpHigh;
+                        $highest = $tmpHigh;
                     }
                 }
             } elseif ($tmpHigh >= $highest) {
                 $highestIdx = $today;
-                $highest    = $tmpHigh;
+                $highest = $tmpHigh;
             }
             if ($lowestIdx < $trailingIdx) {
                 $lowestIdx = $trailingIdx;
-                $lowest    = $inReal[$lowestIdx];
-                $i         = $lowestIdx;
+                $lowest = $inReal[$lowestIdx];
+                $i = $lowestIdx;
                 while (++$i <= $today) {
                     $tmpLow = $inReal[$i];
                     if ($tmpLow < $lowest) {
                         $lowestIdx = $i;
-                        $lowest    = $tmpLow;
+                        $lowest = $tmpLow;
                     }
                 }
             } elseif ($tmpLow <= $lowest) {
                 $lowestIdx = $today;
-                $lowest    = $tmpLow;
+                $lowest = $tmpLow;
             }
             $outMax[$outIdx] = $highest;
             $outMin[$outIdx] = $lowest;
@@ -350,7 +350,7 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -371,49 +371,49 @@ class MathOperators extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
-        $highestIdx  = -1;
-        $highest     = 0.0;
-        $lowestIdx   = -1;
-        $lowest      = 0.0;
+        $highestIdx = -1;
+        $highest = 0.0;
+        $lowestIdx = -1;
+        $lowest = 0.0;
         while ($today <= $endIdx) {
             $tmpLow = $tmpHigh = $inReal[$today];
             if ($highestIdx < $trailingIdx) {
                 $highestIdx = $trailingIdx;
-                $highest    = $inReal[$highestIdx];
-                $i          = $highestIdx;
+                $highest = $inReal[$highestIdx];
+                $i = $highestIdx;
                 while (++$i <= $today) {
                     $tmpHigh = $inReal[$i];
                     if ($tmpHigh > $highest) {
                         $highestIdx = $i;
-                        $highest    = $tmpHigh;
+                        $highest = $tmpHigh;
                     }
                 }
             } elseif ($tmpHigh >= $highest) {
                 $highestIdx = $today;
-                $highest    = $tmpHigh;
+                $highest = $tmpHigh;
             }
             if ($lowestIdx < $trailingIdx) {
                 $lowestIdx = $trailingIdx;
-                $lowest    = $inReal[$lowestIdx];
-                $i         = $lowestIdx;
+                $lowest = $inReal[$lowestIdx];
+                $i = $lowestIdx;
                 while (++$i <= $today) {
                     $tmpLow = $inReal[$i];
                     if ($tmpLow < $lowest) {
                         $lowestIdx = $i;
-                        $lowest    = $tmpLow;
+                        $lowest = $tmpLow;
                     }
                 }
             } elseif ($tmpLow <= $lowest) {
                 $lowestIdx = $today;
-                $lowest    = $tmpLow;
+                $lowest = $tmpLow;
             }
             $outMaxIdx[$outIdx] = $highestIdx;
             $outMinIdx[$outIdx] = $lowestIdx;
@@ -421,7 +421,7 @@ class MathOperators extends Core
             $trailingIdx++;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -436,7 +436,7 @@ class MathOperators extends Core
             $outReal[$outIdx] = $inReal0[$i] * $inReal1[$i];
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -450,7 +450,7 @@ class MathOperators extends Core
             $outReal[$outIdx] = $inReal0[$i] - $inReal1[$i];
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -470,14 +470,14 @@ class MathOperators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $periodTotal = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
-        $i           = $trailingIdx;
+        $i = $trailingIdx;
         if ($optInTimePeriod > 1) {
             while ($i < $startIdx) {
                 $periodTotal += $inReal[$i++];
@@ -485,13 +485,13 @@ class MathOperators extends Core
         }
         $outIdx = 0;
         do {
-            $periodTotal        += $inReal[$i++];
-            $tempReal           = $periodTotal;
-            $periodTotal        -= $inReal[$trailingIdx++];
+            $periodTotal += $inReal[$i++];
+            $tempReal = $periodTotal;
+            $periodTotal -= $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $tempReal;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }

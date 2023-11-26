@@ -55,16 +55,16 @@ class VolatilityIndicators extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $outBegIdx1    = 0;
+        $outBegIdx1 = 0;
         $outNbElement1 = 0;
-        $prevATRTemp   = static::double(1);
+        $prevATRTemp = static::double(1);
         if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 14;
         } elseif ($optInTimePeriod < 1 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        $outBegIdx     = 0;
-        $outNBElement  = 0;
+        $outBegIdx = 0;
+        $outNBElement = 0;
         $lookbackTotal = Lookback::natrLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
@@ -85,7 +85,7 @@ class VolatilityIndicators extends Core
             );
         }
         $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
-        $retCode    = self::trueRange(
+        $retCode = self::trueRange(
             $startIdx - $lookbackTotal + 1,
             $endIdx,
             $inHigh,
@@ -111,15 +111,15 @@ class VolatilityIndicators extends Core
             return $retCode;
         }
         $prevATR = $prevATRTemp[0];
-        $today   = $optInTimePeriod;
-        $outIdx  = static::$unstablePeriod[UnstablePeriodFunctionID::NATR];
+        $today = $optInTimePeriod;
+        $outIdx = static::$unstablePeriod[UnstablePeriodFunctionID::NATR];
         while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
             $prevATR /= $optInTimePeriod;
             $outIdx--;
         }
-        $outIdx    = 1;
+        $outIdx = 1;
         $tempValue = $inClose[$today];
         if (!(-0.00000001 < $tempValue && $tempValue < 0.00000001)) {
             $outReal[0] = $prevATR / $tempValue * 100.0;
@@ -128,9 +128,9 @@ class VolatilityIndicators extends Core
         }
         $nbATR = $endIdx - $startIdx + 1;
         while (--$nbATR > 0) {
-            $prevATR   *= $optInTimePeriod - 1;
-            $prevATR   += $tempBuffer[$today++];
-            $prevATR   /= $optInTimePeriod;
+            $prevATR *= $optInTimePeriod - 1;
+            $prevATR += $tempBuffer[$today++];
+            $prevATR /= $optInTimePeriod;
             $tempValue = $inClose[$today];
             if (!(-0.00000001 < $tempValue && $tempValue < 0.00000001)) {
                 $outReal[$outIdx] = $prevATR / $tempValue * 100.0;
@@ -139,7 +139,7 @@ class VolatilityIndicators extends Core
             }
             $outIdx++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return $retCode;
@@ -154,19 +154,19 @@ class VolatilityIndicators extends Core
             $startIdx = 1;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $outIdx = 0;
-        $today  = $startIdx;
+        $today = $startIdx;
         while ($today <= $endIdx) {
-            $tempLT   = $inLow[$today];
-            $tempHT   = $inHigh[$today];
-            $tempCY   = $inClose[$today - 1];
+            $tempLT = $inLow[$today];
+            $tempHT = $inHigh[$today];
+            $tempCY = $inClose[$today - 1];
             $greatest = $tempHT - $tempLT;
-            $val2     = abs($tempCY - $tempHT);
+            $val2 = abs($tempCY - $tempHT);
             if ($val2 > $greatest) {
                 $greatest = $val2;
             }
@@ -178,7 +178,7 @@ class VolatilityIndicators extends Core
             $today++;
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }

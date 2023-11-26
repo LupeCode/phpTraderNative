@@ -61,19 +61,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                   = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == 1 &&
@@ -93,7 +93,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -108,7 +108,7 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -116,15 +116,15 @@ class PatternRecognition extends Core
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                             = $ShadowVeryShortTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $ShadowVeryShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $ShadowVeryShortPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 3] >= $inOpen[$i - 3] ? 1 : -1) == 1 &&
@@ -152,7 +152,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -167,16 +167,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -186,7 +186,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -202,14 +202,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -224,21 +224,21 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $NearPeriodTotal[3] = 0;
         $NearPeriodTotal[2] = 0;
-        $NearTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i                  = $NearTrailingIdx;
+        $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $i = $NearTrailingIdx;
         while ($i < $startIdx) {
             $NearPeriodTotal[3] += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 3] - $inOpen[$i - 3])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 3] - $inLow[$i - 3]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 3] - ($inClose[$i - 3] >= $inOpen[$i - 3] ? $inClose[$i - 3] : $inOpen[$i - 3])) + (($inClose[$i - 3] >= $inOpen[$i - 3] ? $inOpen[$i - 3] : $inClose[$i - 3]) - $inLow[$i - 3]) : 0)));
             $NearPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 3] >= $inOpen[$i - 3] ? 1 : -1) == ($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) &&
@@ -275,7 +275,7 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -290,12 +290,12 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == 1 && ($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == -1 &&
@@ -315,7 +315,7 @@ class PatternRecognition extends Core
             $i++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -326,26 +326,26 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = static::double(2);
-        $lookbackTotal              = Lookback::cdl3StarsInSouthLookback();
+        $lookbackTotal = Lookback::cdl3StarsInSouthLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal           = 0;
-        $BodyLongTrailingIdx           = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $ShadowLongPeriodTotal         = 0;
-        $ShadowLongTrailingIdx         = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
+        $BodyLongPeriodTotal = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $ShadowLongPeriodTotal = 0;
+        $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $BodyShortPeriodTotal          = 0;
-        $BodyShortTrailingIdx          = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                             = $BodyLongTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $BodyShortPeriodTotal = 0;
+        $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $i++;
@@ -366,7 +366,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == -1 &&
@@ -388,8 +388,8 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))
-                                      - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 2] - $inOpen[$BodyLongTrailingIdx - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 2] - $inLow[$BodyLongTrailingIdx - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 2] - ($inClose[$BodyLongTrailingIdx - 2] >= $inOpen[$BodyLongTrailingIdx - 2] ? $inClose[$BodyLongTrailingIdx - 2] : $inOpen[$BodyLongTrailingIdx - 2])) + (($inClose[$BodyLongTrailingIdx - 2] >= $inOpen[$BodyLongTrailingIdx - 2] ? $inOpen[$BodyLongTrailingIdx - 2] : $inClose[$BodyLongTrailingIdx - 2]) - $inLow[$BodyLongTrailingIdx - 2]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))
+                                    - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 2] - $inOpen[$BodyLongTrailingIdx - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 2] - $inLow[$BodyLongTrailingIdx - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 2] - ($inClose[$BodyLongTrailingIdx - 2] >= $inOpen[$BodyLongTrailingIdx - 2] ? $inClose[$BodyLongTrailingIdx - 2] : $inOpen[$BodyLongTrailingIdx - 2])) + (($inClose[$BodyLongTrailingIdx - 2] >= $inOpen[$BodyLongTrailingIdx - 2] ? $inOpen[$BodyLongTrailingIdx - 2] : $inClose[$BodyLongTrailingIdx - 2]) - $inLow[$BodyLongTrailingIdx - 2]) : 0)));
             $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))
                                       - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx - 2] - $inOpen[$ShadowLongTrailingIdx - 2])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx - 2] - $inLow[$ShadowLongTrailingIdx - 2]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx - 2] - ($inClose[$ShadowLongTrailingIdx - 2] >= $inOpen[$ShadowLongTrailingIdx - 2] ? $inClose[$ShadowLongTrailingIdx - 2] : $inOpen[$ShadowLongTrailingIdx - 2])) + (($inClose[$ShadowLongTrailingIdx - 2] >= $inOpen[$ShadowLongTrailingIdx - 2] ? $inOpen[$ShadowLongTrailingIdx - 2] : $inClose[$ShadowLongTrailingIdx - 2]) - $inLow[$ShadowLongTrailingIdx - 2]) : 0)));
             for ($totIdx = 1; $totIdx >= 0; --$totIdx) {
@@ -405,7 +405,7 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -416,14 +416,14 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = static::double(3);
-        $NearPeriodTotal            = static::double(3);
-        $FarPeriodTotal             = static::double(3);
-        $lookbackTotal              = Lookback::cdl3WhiteSoldiersLookback();
+        $NearPeriodTotal = static::double(3);
+        $FarPeriodTotal = static::double(3);
+        $lookbackTotal = Lookback::cdl3WhiteSoldiersLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -431,18 +431,18 @@ class PatternRecognition extends Core
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $NearPeriodTotal[2]            = 0;
-        $NearPeriodTotal[1]            = 0;
-        $NearPeriodTotal[0]            = 0;
-        $NearTrailingIdx               = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $FarPeriodTotal[2]             = 0;
-        $FarPeriodTotal[1]             = 0;
-        $FarPeriodTotal[0]             = 0;
-        $FarTrailingIdx                = $startIdx - (static::$candleSettings[CandleSettingType::Far]->avgPeriod);
-        $BodyShortPeriodTotal          = 0;
-        $BodyShortTrailingIdx          = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                             = $ShadowVeryShortTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $NearPeriodTotal[2] = 0;
+        $NearPeriodTotal[1] = 0;
+        $NearPeriodTotal[0] = 0;
+        $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $FarPeriodTotal[2] = 0;
+        $FarPeriodTotal[1] = 0;
+        $FarPeriodTotal[0] = 0;
+        $FarTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Far]->avgPeriod);
+        $BodyShortPeriodTotal = 0;
+        $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $ShadowVeryShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
@@ -466,7 +466,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == 1 &&
@@ -493,8 +493,8 @@ class PatternRecognition extends Core
                                                         - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx - $totIdx] - $inOpen[$ShadowVeryShortTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx - $totIdx] - $inLow[$ShadowVeryShortTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx - $totIdx] - ($inClose[$ShadowVeryShortTrailingIdx - $totIdx] >= $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] ? $inClose[$ShadowVeryShortTrailingIdx - $totIdx] : $inOpen[$ShadowVeryShortTrailingIdx - $totIdx])) + (($inClose[$ShadowVeryShortTrailingIdx - $totIdx] >= $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] ? $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] : $inClose[$ShadowVeryShortTrailingIdx - $totIdx]) - $inLow[$ShadowVeryShortTrailingIdx - $totIdx]) : 0)));
             }
             for ($totIdx = 2; $totIdx >= 1; --$totIdx) {
-                $FarPeriodTotal[$totIdx]  += ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                             - ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$FarTrailingIdx - $totIdx] - $inOpen[$FarTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$FarTrailingIdx - $totIdx] - $inLow[$FarTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$FarTrailingIdx - $totIdx] - ($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inClose[$FarTrailingIdx - $totIdx] : $inOpen[$FarTrailingIdx - $totIdx])) + (($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inOpen[$FarTrailingIdx - $totIdx] : $inClose[$FarTrailingIdx - $totIdx]) - $inLow[$FarTrailingIdx - $totIdx]) : 0)));
+                $FarPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
+                                            - ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$FarTrailingIdx - $totIdx] - $inOpen[$FarTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$FarTrailingIdx - $totIdx] - $inLow[$FarTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$FarTrailingIdx - $totIdx] - ($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inClose[$FarTrailingIdx - $totIdx] : $inOpen[$FarTrailingIdx - $totIdx])) + (($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inOpen[$FarTrailingIdx - $totIdx] : $inClose[$FarTrailingIdx - $totIdx]) - $inLow[$FarTrailingIdx - $totIdx]) : 0)));
                 $NearPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
                                              - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx - $totIdx] - $inOpen[$NearTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx - $totIdx] - $inLow[$NearTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx - $totIdx] - ($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inClose[$NearTrailingIdx - $totIdx] : $inOpen[$NearTrailingIdx - $totIdx])) + (($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inOpen[$NearTrailingIdx - $totIdx] : $inClose[$NearTrailingIdx - $totIdx]) - $inLow[$NearTrailingIdx - $totIdx]) : 0)));
             }
@@ -506,13 +506,23 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlAbandonedBaby(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlAbandonedBaby(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -526,18 +536,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
-        $BodyDojiPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
+        $BodyDojiPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyDojiTrailingIdx  = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyDojiTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -552,7 +562,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -578,8 +588,8 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyDojiPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
@@ -587,7 +597,7 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -598,15 +608,15 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowShortPeriodTotal = static::double(3);
-        $ShadowLongPeriodTotal  = static::double(2);
-        $NearPeriodTotal        = static::double(3);
-        $FarPeriodTotal         = static::double(3);
-        $lookbackTotal          = Lookback::cdlAdvanceBlockLookback();
+        $ShadowLongPeriodTotal = static::double(2);
+        $NearPeriodTotal = static::double(3);
+        $FarPeriodTotal = static::double(3);
+        $lookbackTotal = Lookback::cdlAdvanceBlockLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -614,21 +624,21 @@ class PatternRecognition extends Core
         $ShadowShortPeriodTotal[2] = 0;
         $ShadowShortPeriodTotal[1] = 0;
         $ShadowShortPeriodTotal[0] = 0;
-        $ShadowShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod);
-        $ShadowLongPeriodTotal[1]  = 0;
-        $ShadowLongPeriodTotal[0]  = 0;
-        $ShadowLongTrailingIdx     = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
-        $NearPeriodTotal[2]        = 0;
-        $NearPeriodTotal[1]        = 0;
-        $NearPeriodTotal[0]        = 0;
-        $NearTrailingIdx           = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $FarPeriodTotal[2]         = 0;
-        $FarPeriodTotal[1]         = 0;
-        $FarPeriodTotal[0]         = 0;
-        $FarTrailingIdx            = $startIdx - (static::$candleSettings[CandleSettingType::Far]->avgPeriod);
-        $BodyLongPeriodTotal       = 0;
-        $BodyLongTrailingIdx       = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                         = $ShadowShortTrailingIdx;
+        $ShadowShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod);
+        $ShadowLongPeriodTotal[1] = 0;
+        $ShadowLongPeriodTotal[0] = 0;
+        $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
+        $NearPeriodTotal[2] = 0;
+        $NearPeriodTotal[1] = 0;
+        $NearPeriodTotal[0] = 0;
+        $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $FarPeriodTotal[2] = 0;
+        $FarPeriodTotal[1] = 0;
+        $FarPeriodTotal[0] = 0;
+        $FarTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Far]->avgPeriod);
+        $BodyLongPeriodTotal = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $ShadowShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowShortPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $ShadowShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
@@ -658,7 +668,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == 1 &&
@@ -706,8 +716,8 @@ class PatternRecognition extends Core
                                                    - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx - $totIdx] - $inOpen[$ShadowLongTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx - $totIdx] - $inLow[$ShadowLongTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx - $totIdx] - ($inClose[$ShadowLongTrailingIdx - $totIdx] >= $inOpen[$ShadowLongTrailingIdx - $totIdx] ? $inClose[$ShadowLongTrailingIdx - $totIdx] : $inOpen[$ShadowLongTrailingIdx - $totIdx])) + (($inClose[$ShadowLongTrailingIdx - $totIdx] >= $inOpen[$ShadowLongTrailingIdx - $totIdx] ? $inOpen[$ShadowLongTrailingIdx - $totIdx] : $inClose[$ShadowLongTrailingIdx - $totIdx]) - $inLow[$ShadowLongTrailingIdx - $totIdx]) : 0)));
             }
             for ($totIdx = 2; $totIdx >= 1; --$totIdx) {
-                $FarPeriodTotal[$totIdx]  += ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                             - ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$FarTrailingIdx - $totIdx] - $inOpen[$FarTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$FarTrailingIdx - $totIdx] - $inLow[$FarTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$FarTrailingIdx - $totIdx] - ($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inClose[$FarTrailingIdx - $totIdx] : $inOpen[$FarTrailingIdx - $totIdx])) + (($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inOpen[$FarTrailingIdx - $totIdx] : $inClose[$FarTrailingIdx - $totIdx]) - $inLow[$FarTrailingIdx - $totIdx]) : 0)));
+                $FarPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
+                                            - ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::RealBody ? (abs($inClose[$FarTrailingIdx - $totIdx] - $inOpen[$FarTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::HighLow ? ($inHigh[$FarTrailingIdx - $totIdx] - $inLow[$FarTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Far]->rangeType) == RangeType::Shadows ? ($inHigh[$FarTrailingIdx - $totIdx] - ($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inClose[$FarTrailingIdx - $totIdx] : $inOpen[$FarTrailingIdx - $totIdx])) + (($inClose[$FarTrailingIdx - $totIdx] >= $inOpen[$FarTrailingIdx - $totIdx] ? $inOpen[$FarTrailingIdx - $totIdx] : $inClose[$FarTrailingIdx - $totIdx]) - $inLow[$FarTrailingIdx - $totIdx]) : 0)));
                 $NearPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
                                              - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx - $totIdx] - $inOpen[$NearTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx - $totIdx] - $inLow[$NearTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx - $totIdx] - ($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inClose[$NearTrailingIdx - $totIdx] : $inOpen[$NearTrailingIdx - $totIdx])) + (($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inOpen[$NearTrailingIdx - $totIdx] : $inClose[$NearTrailingIdx - $totIdx]) - $inLow[$NearTrailingIdx - $totIdx]) : 0)));
             }
@@ -720,7 +730,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -735,16 +745,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal        = 0;
-        $BodyLongTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongPeriodTotal = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -771,7 +781,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -779,7 +789,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -794,19 +804,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                   = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 4] - $inOpen[$i - 4])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 4] - $inLow[$i - 4]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 4] - ($inClose[$i - 4] >= $inOpen[$i - 4] ? $inClose[$i - 4] : $inOpen[$i - 4])) + (($inClose[$i - 4] >= $inOpen[$i - 4] ? $inOpen[$i - 4] : $inClose[$i - 4]) - $inLow[$i - 4]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 4] - $inOpen[$i - 4])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 4] - $inOpen[$i - 4])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 4] - $inLow[$i - 4]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 4] - ($inClose[$i - 4] >= $inOpen[$i - 4] ? $inClose[$i - 4] : $inOpen[$i - 4])) + (($inClose[$i - 4] >= $inOpen[$i - 4] ? $inOpen[$i - 4] : $inClose[$i - 4]) - $inLow[$i - 4]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -839,7 +849,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -854,16 +864,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal        = 0;
-        $BodyLongTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongPeriodTotal = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -890,7 +900,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -898,7 +908,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -909,12 +919,12 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = static::double(4);
-        $lookbackTotal              = Lookback::cdlConcealBabysWallLookback();
+        $lookbackTotal = Lookback::cdlConcealBabysWallLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -922,15 +932,15 @@ class PatternRecognition extends Core
         $ShadowVeryShortPeriodTotal[3] = 0;
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                             = $ShadowVeryShortTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal[3] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 3] - $inOpen[$i - 3])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 3] - $inLow[$i - 3]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 3] - ($inClose[$i - 3] >= $inOpen[$i - 3] ? $inClose[$i - 3] : $inOpen[$i - 3])) + (($inClose[$i - 3] >= $inOpen[$i - 3] ? $inOpen[$i - 3] : $inClose[$i - 3]) - $inLow[$i - 3]) : 0)));
             $ShadowVeryShortPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $ShadowVeryShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 3] >= $inOpen[$i - 3] ? 1 : -1) == -1 &&
@@ -958,7 +968,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -969,22 +979,22 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $BodyLongPeriodTotal = static::double(2);
-        $lookbackTotal       = Lookback::cdlCounterAttackLookback();
+        $lookbackTotal = Lookback::cdlCounterAttackLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $EqualPeriodTotal       = 0;
-        $EqualTrailingIdx       = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
+        $EqualPeriodTotal = 0;
+        $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
         $BodyLongPeriodTotal[1] = 0;
         $BodyLongPeriodTotal[0] = 0;
-        $BodyLongTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                      = $EqualTrailingIdx;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $EqualTrailingIdx;
         while ($i < $startIdx) {
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
@@ -995,7 +1005,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -($inClose[$i] >= $inOpen[$i] ? 1 : -1) &&
@@ -1018,13 +1028,23 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlDarkCloudCover(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlDarkCloudCover(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -1038,19 +1058,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                   = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == 1 &&
@@ -1069,7 +1089,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1084,14 +1104,14 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyDojiPeriodTotal = 0;
         $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
-        $i                   = $BodyDojiTrailingIdx;
+        $i = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1108,7 +1128,7 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1123,7 +1143,7 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -1132,7 +1152,7 @@ class PatternRecognition extends Core
         $BodyDojiPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
-        $i                   = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 1) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1161,7 +1181,7 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1176,16 +1196,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyDojiPeriodTotal        = 0;
-        $BodyDojiTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyDojiPeriodTotal = 0;
+        $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyDojiTrailingIdx;
+        $i = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1205,7 +1225,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyDojiPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -1213,7 +1233,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1228,12 +1248,12 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((($inClose[$i] >= $inOpen[$i] ? 1 : -1) == 1 && ($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -1251,13 +1271,23 @@ class PatternRecognition extends Core
             $i++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlEveningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlEveningDojiStar(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -1271,18 +1301,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
-        $BodyDojiPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
+        $BodyDojiPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyDojiTrailingIdx  = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyDojiTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1297,7 +1327,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -1312,8 +1342,8 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyDojiPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
@@ -1321,13 +1351,23 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlEveningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlEveningStar(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -1341,28 +1381,28 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal   = 0;
-        $BodyShortPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
+        $BodyShortPeriodTotal = 0;
         $BodyShortPeriodTotal2 = 0;
-        $BodyLongTrailingIdx   = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyShortTrailingIdx  = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                     = $BodyLongTrailingIdx;
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyShortTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
         $i = $BodyShortTrailingIdx;
         while ($i < $startIdx - 1) {
-            $BodyShortPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
+            $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $BodyShortPeriodTotal2 += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i + 1] - $inOpen[$i + 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i + 1] - $inLow[$i + 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i + 1] - ($inClose[$i + 1] >= $inOpen[$i + 1] ? $inClose[$i + 1] : $inOpen[$i + 1])) + (($inClose[$i + 1] >= $inOpen[$i + 1] ? $inOpen[$i + 1] : $inClose[$i + 1]) - $inLow[$i + 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -1377,15 +1417,15 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyShortPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $BodyShortPeriodTotal2 += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx + 1] - $inOpen[$BodyShortTrailingIdx + 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx + 1] - $inLow[$BodyShortTrailingIdx + 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx + 1] - ($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inClose[$BodyShortTrailingIdx + 1] : $inOpen[$BodyShortTrailingIdx + 1])) + (($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inOpen[$BodyShortTrailingIdx + 1] : $inClose[$BodyShortTrailingIdx + 1]) - $inLow[$BodyShortTrailingIdx + 1]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1400,16 +1440,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $NearPeriodTotal  = 0;
+        $NearPeriodTotal = 0;
         $EqualPeriodTotal = 0;
-        $NearTrailingIdx  = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
         $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
-        $i                = $NearTrailingIdx;
+        $i = $NearTrailingIdx;
         while ($i < $startIdx) {
             $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
@@ -1419,7 +1459,7 @@ class PatternRecognition extends Core
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (
@@ -1439,14 +1479,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $NearPeriodTotal  += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx - 1] - $inOpen[$NearTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx - 1] - $inLow[$NearTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx - 1] - ($inClose[$NearTrailingIdx - 1] >= $inOpen[$NearTrailingIdx - 1] ? $inClose[$NearTrailingIdx - 1] : $inOpen[$NearTrailingIdx - 1])) + (($inClose[$NearTrailingIdx - 1] >= $inOpen[$NearTrailingIdx - 1] ? $inOpen[$NearTrailingIdx - 1] : $inClose[$NearTrailingIdx - 1]) - $inLow[$NearTrailingIdx - 1]) : 0)));
+            $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx - 1] - $inOpen[$NearTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx - 1] - $inLow[$NearTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx - 1] - ($inClose[$NearTrailingIdx - 1] >= $inOpen[$NearTrailingIdx - 1] ? $inClose[$NearTrailingIdx - 1] : $inOpen[$NearTrailingIdx - 1])) + (($inClose[$NearTrailingIdx - 1] >= $inOpen[$NearTrailingIdx - 1] ? $inOpen[$NearTrailingIdx - 1] : $inClose[$NearTrailingIdx - 1]) - $inLow[$NearTrailingIdx - 1]) : 0)));
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
             $i++;
             $NearTrailingIdx++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1461,16 +1501,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyDojiPeriodTotal        = 0;
-        $BodyDojiTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyDojiPeriodTotal = 0;
+        $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyDojiTrailingIdx;
+        $i = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1490,7 +1530,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyDojiPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -1498,7 +1538,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1513,20 +1553,20 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal            = 0;
-        $BodyTrailingIdx            = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $ShadowLongPeriodTotal      = 0;
-        $ShadowLongTrailingIdx      = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $ShadowLongPeriodTotal = 0;
+        $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $NearPeriodTotal            = 0;
-        $NearTrailingIdx            = $startIdx - 1 - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i                          = $BodyTrailingIdx;
+        $NearPeriodTotal = 0;
+        $NearTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1546,7 +1586,7 @@ class PatternRecognition extends Core
             $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i] - $inOpen[$i])) < ((static::$candleSettings[CandleSettingType::BodyShort]->factor) * ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod) != 0.0 ? $BodyPeriodTotal / (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -1558,14 +1598,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal            += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
-            $ShadowLongPeriodTotal      += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                      - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
-            $NearPeriodTotal            += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx] - $inOpen[$NearTrailingIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx] - $inLow[$NearTrailingIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx] - ($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inClose[$NearTrailingIdx] : $inOpen[$NearTrailingIdx])) + (($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inOpen[$NearTrailingIdx] : $inClose[$NearTrailingIdx]) - $inLow[$NearTrailingIdx]) : 0)));
+            $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
+                                - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx] - $inOpen[$NearTrailingIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx] - $inLow[$NearTrailingIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx] - ($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inClose[$NearTrailingIdx] : $inOpen[$NearTrailingIdx])) + (($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inOpen[$NearTrailingIdx] : $inClose[$NearTrailingIdx]) - $inLow[$NearTrailingIdx]) : 0)));
             $i++;
             $BodyTrailingIdx++;
             $ShadowLongTrailingIdx++;
@@ -1573,7 +1613,7 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1588,20 +1628,20 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal            = 0;
-        $BodyTrailingIdx            = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $ShadowLongPeriodTotal      = 0;
-        $ShadowLongTrailingIdx      = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $ShadowLongPeriodTotal = 0;
+        $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $NearPeriodTotal            = 0;
-        $NearTrailingIdx            = $startIdx - 1 - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i                          = $BodyTrailingIdx;
+        $NearPeriodTotal = 0;
+        $NearTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1621,7 +1661,7 @@ class PatternRecognition extends Core
             $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i] - $inOpen[$i])) < ((static::$candleSettings[CandleSettingType::BodyShort]->factor) * ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod) != 0.0 ? $BodyPeriodTotal / (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -1633,14 +1673,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal            += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
-            $ShadowLongPeriodTotal      += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                      - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
-            $NearPeriodTotal            += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx] - $inOpen[$NearTrailingIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx] - $inLow[$NearTrailingIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx] - ($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inClose[$NearTrailingIdx] : $inOpen[$NearTrailingIdx])) + (($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inOpen[$NearTrailingIdx] : $inClose[$NearTrailingIdx]) - $inLow[$NearTrailingIdx]) : 0)));
+            $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
+                                - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx] - $inOpen[$NearTrailingIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx] - $inLow[$NearTrailingIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx] - ($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inClose[$NearTrailingIdx] : $inOpen[$NearTrailingIdx])) + (($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inOpen[$NearTrailingIdx] : $inClose[$NearTrailingIdx]) - $inLow[$NearTrailingIdx]) : 0)));
             $i++;
             $BodyTrailingIdx++;
             $ShadowLongTrailingIdx++;
@@ -1648,7 +1688,7 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1663,16 +1703,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 1) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1682,7 +1722,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 1] - $inOpen[$i - 1])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -1694,14 +1734,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1716,7 +1756,7 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -1725,7 +1765,7 @@ class PatternRecognition extends Core
         $BodyDojiPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
-        $i                   = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 1) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1735,7 +1775,7 @@ class PatternRecognition extends Core
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 1] - $inOpen[$i - 1])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -1754,7 +1794,7 @@ class PatternRecognition extends Core
             $BodyDojiTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1769,16 +1809,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal   = 0;
-        $BodyTrailingIdx   = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowPeriodTotal = 0;
         $ShadowTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod);
-        $i                 = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -1797,14 +1837,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowTrailingIdx] - $inOpen[$ShadowTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowTrailingIdx] - $inLow[$ShadowTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowTrailingIdx] - ($inClose[$ShadowTrailingIdx] >= $inOpen[$ShadowTrailingIdx] ? $inClose[$ShadowTrailingIdx] : $inOpen[$ShadowTrailingIdx])) + (($inClose[$ShadowTrailingIdx] >= $inOpen[$ShadowTrailingIdx] ? $inOpen[$ShadowTrailingIdx] : $inClose[$ShadowTrailingIdx]) - $inLow[$ShadowTrailingIdx]) : 0)));
             $i++;
             $BodyTrailingIdx++;
             $ShadowTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1819,14 +1859,14 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $patternIdx    = 0;
+        $patternIdx = 0;
         $patternResult = 0;
-        $i             = $startIdx - 3;
+        $i = $startIdx - 3;
         while ($i < $startIdx) {
             if ($inHigh[$i - 1] < $inHigh[$i - 2] && $inLow[$i - 1] > $inLow[$i - 2] &&
                 (($inHigh[$i] < $inHigh[$i - 1] && $inLow[$i] < $inLow[$i - 1])
@@ -1835,7 +1875,7 @@ class PatternRecognition extends Core
                 )
             ) {
                 $patternResult = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
-                $patternIdx    = $i;
+                $patternIdx = $i;
             } elseif ($i <= $patternIdx + 3 &&
                       (($patternResult > 0 && $inClose[$i] > $inHigh[$patternIdx - 1])
                        ||
@@ -1846,7 +1886,7 @@ class PatternRecognition extends Core
             }
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ($inHigh[$i - 1] < $inHigh[$i - 2] && $inLow[$i - 1] > $inLow[$i - 2] &&
@@ -1855,8 +1895,8 @@ class PatternRecognition extends Core
                  ($inHigh[$i] > $inHigh[$i - 1] && $inLow[$i] > $inLow[$i - 1])
                 )
             ) {
-                $patternResult         = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
-                $patternIdx            = $i;
+                $patternResult = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
+                $patternIdx = $i;
                 $outInteger[$outIdx++] = $patternResult;
             } elseif ($i <= $patternIdx + 3 &&
                       (($patternResult > 0 && $inClose[$i] > $inHigh[$patternIdx - 1])
@@ -1865,14 +1905,14 @@ class PatternRecognition extends Core
                       )
             ) {
                 $outInteger[$outIdx++] = $patternResult + 100 * ($patternResult > 0 ? 1 : -1);
-                $patternIdx            = 0;
+                $patternIdx = 0;
             } else {
                 $outInteger[$outIdx++] = 0;
             }
             $i++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1887,21 +1927,21 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $NearPeriodTotal = 0;
         $NearTrailingIdx = $startIdx - 3 - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i               = $NearTrailingIdx;
+        $i = $NearTrailingIdx;
         while ($i < $startIdx - 3) {
             $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $i++;
         }
-        $patternIdx    = 0;
+        $patternIdx = 0;
         $patternResult = 0;
-        $i             = $startIdx - 3;
+        $i = $startIdx - 3;
         while ($i < $startIdx) {
             if ($inHigh[$i - 2] < $inHigh[$i - 3] && $inLow[$i - 2] > $inLow[$i - 3] &&
                 $inHigh[$i - 1] < $inHigh[$i - 2] && $inLow[$i - 1] > $inLow[$i - 2] &&
@@ -1915,7 +1955,7 @@ class PatternRecognition extends Core
                 )
             ) {
                 $patternResult = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
-                $patternIdx    = $i;
+                $patternIdx = $i;
             } elseif ($i <= $patternIdx + 3 &&
                       (($patternResult > 0 && $inClose[$i] > $inHigh[$patternIdx - 1])
                        ||
@@ -1928,7 +1968,7 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ($inHigh[$i - 2] < $inHigh[$i - 3] && $inLow[$i - 2] > $inLow[$i - 3] &&
@@ -1942,8 +1982,8 @@ class PatternRecognition extends Core
                  )
                 )
             ) {
-                $patternResult         = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
-                $patternIdx            = $i;
+                $patternResult = 100 * ($inHigh[$i] < $inHigh[$i - 1] ? 1 : -1);
+                $patternIdx = $i;
                 $outInteger[$outIdx++] = $patternResult;
             } elseif ($i <= $patternIdx + 3 &&
                       (($patternResult > 0 && $inClose[$i] > $inHigh[$patternIdx - 1])
@@ -1952,7 +1992,7 @@ class PatternRecognition extends Core
                       )
             ) {
                 $outInteger[$outIdx++] = $patternResult + 100 * ($patternResult > 0 ? 1 : -1);
-                $patternIdx            = 0;
+                $patternIdx = 0;
             } else {
                 $outInteger[$outIdx++] = 0;
             }
@@ -1961,7 +2001,7 @@ class PatternRecognition extends Core
             $i++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1976,16 +2016,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
@@ -1995,7 +2035,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -2009,14 +2049,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 1] - $inOpen[$BodyLongTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 1] - $inLow[$BodyLongTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 1] - ($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inClose[$BodyLongTrailingIdx - 1] : $inOpen[$BodyLongTrailingIdx - 1])) + (($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inOpen[$BodyLongTrailingIdx - 1] : $inClose[$BodyLongTrailingIdx - 1]) - $inLow[$BodyLongTrailingIdx - 1]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 1] - $inOpen[$BodyLongTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 1] - $inLow[$BodyLongTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 1] - ($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inClose[$BodyLongTrailingIdx - 1] : $inOpen[$BodyLongTrailingIdx - 1])) + (($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inOpen[$BodyLongTrailingIdx - 1] : $inClose[$BodyLongTrailingIdx - 1]) - $inLow[$BodyLongTrailingIdx - 1]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2027,13 +2067,13 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = static::double(3);
-        $EqualPeriodTotal           = static::double(3);
-        $lookbackTotal              = Lookback::cdlIdentical3CrowsLookback();
+        $EqualPeriodTotal = static::double(3);
+        $lookbackTotal = Lookback::cdlIdentical3CrowsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -2041,12 +2081,12 @@ class PatternRecognition extends Core
         $ShadowVeryShortPeriodTotal[2] = 0;
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $EqualPeriodTotal[2]           = 0;
-        $EqualPeriodTotal[1]           = 0;
-        $EqualPeriodTotal[0]           = 0;
-        $EqualTrailingIdx              = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
-        $i                             = $ShadowVeryShortTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $EqualPeriodTotal[2] = 0;
+        $EqualPeriodTotal[1] = 0;
+        $EqualPeriodTotal[0] = 0;
+        $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $ShadowVeryShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
@@ -2059,7 +2099,7 @@ class PatternRecognition extends Core
             $EqualPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == -1 &&
@@ -2092,7 +2132,7 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2107,16 +2147,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $EqualPeriodTotal    = 0;
-        $EqualTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
+        $EqualPeriodTotal = 0;
+        $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                   = $EqualTrailingIdx;
+        $i = $EqualTrailingIdx;
         while ($i < $startIdx) {
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
@@ -2126,7 +2166,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -2140,7 +2180,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $EqualPeriodTotal    += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
+            $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
                                     - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 1] - $inOpen[$BodyLongTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 1] - $inLow[$BodyLongTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 1] - ($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inClose[$BodyLongTrailingIdx - 1] : $inOpen[$BodyLongTrailingIdx - 1])) + (($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inOpen[$BodyLongTrailingIdx - 1] : $inClose[$BodyLongTrailingIdx - 1]) - $inLow[$BodyLongTrailingIdx - 1]) : 0)));
             $i++;
@@ -2148,7 +2188,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2163,18 +2203,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal            = 0;
-        $BodyTrailingIdx            = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $ShadowLongPeriodTotal      = 0;
-        $ShadowLongTrailingIdx      = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $ShadowLongPeriodTotal = 0;
+        $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -2199,10 +2239,10 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal            += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
-            $ShadowLongPeriodTotal      += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                      - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -2211,7 +2251,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2222,24 +2262,24 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = static::double(2);
-        $BodyLongPeriodTotal        = static::double(2);
-        $lookbackTotal              = Lookback::cdlKickingLookback();
+        $BodyLongPeriodTotal = static::double(2);
+        $lookbackTotal = Lookback::cdlKickingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $BodyLongPeriodTotal[1]        = 0;
-        $BodyLongPeriodTotal[0]        = 0;
-        $BodyLongTrailingIdx           = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                             = $ShadowVeryShortTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $BodyLongPeriodTotal[1] = 0;
+        $BodyLongPeriodTotal[0] = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $ShadowVeryShortPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
@@ -2251,7 +2291,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -($inClose[$i] >= $inOpen[$i] ? 1 : -1) &&
@@ -2272,8 +2312,8 @@ class PatternRecognition extends Core
                 $outInteger[$outIdx++] = 0;
             }
             for ($totIdx = 1; $totIdx >= 0; --$totIdx) {
-                $BodyLongPeriodTotal[$totIdx]        += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                                        - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - $totIdx] - $inOpen[$BodyLongTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - $inLow[$BodyLongTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - ($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inClose[$BodyLongTrailingIdx - $totIdx] : $inOpen[$BodyLongTrailingIdx - $totIdx])) + (($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inOpen[$BodyLongTrailingIdx - $totIdx] : $inClose[$BodyLongTrailingIdx - $totIdx]) - $inLow[$BodyLongTrailingIdx - $totIdx]) : 0)));
+                $BodyLongPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
+                                                 - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - $totIdx] - $inOpen[$BodyLongTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - $inLow[$BodyLongTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - ($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inClose[$BodyLongTrailingIdx - $totIdx] : $inOpen[$BodyLongTrailingIdx - $totIdx])) + (($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inOpen[$BodyLongTrailingIdx - $totIdx] : $inClose[$BodyLongTrailingIdx - $totIdx]) - $inLow[$BodyLongTrailingIdx - $totIdx]) : 0)));
                 $ShadowVeryShortPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
                                                         - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx - $totIdx] - $inOpen[$ShadowVeryShortTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx - $totIdx] - $inLow[$ShadowVeryShortTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx - $totIdx] - ($inClose[$ShadowVeryShortTrailingIdx - $totIdx] >= $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] ? $inClose[$ShadowVeryShortTrailingIdx - $totIdx] : $inOpen[$ShadowVeryShortTrailingIdx - $totIdx])) + (($inClose[$ShadowVeryShortTrailingIdx - $totIdx] >= $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] ? $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] : $inClose[$ShadowVeryShortTrailingIdx - $totIdx]) - $inLow[$ShadowVeryShortTrailingIdx - $totIdx]) : 0)));
             }
@@ -2282,7 +2322,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2293,24 +2333,24 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $ShadowVeryShortPeriodTotal = static::double(2);
-        $BodyLongPeriodTotal        = static::double(2);
-        $lookbackTotal              = Lookback::cdlKickingByLengthLookback();
+        $BodyLongPeriodTotal = static::double(2);
+        $lookbackTotal = Lookback::cdlKickingByLengthLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal[1] = 0;
         $ShadowVeryShortPeriodTotal[0] = 0;
-        $ShadowVeryShortTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $BodyLongPeriodTotal[1]        = 0;
-        $BodyLongPeriodTotal[0]        = 0;
-        $BodyLongTrailingIdx           = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                             = $ShadowVeryShortTrailingIdx;
+        $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
+        $BodyLongPeriodTotal[1] = 0;
+        $BodyLongPeriodTotal[0] = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $ShadowVeryShortPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
@@ -2322,7 +2362,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -($inClose[$i] >= $inOpen[$i] ? 1 : -1) &&
@@ -2343,8 +2383,8 @@ class PatternRecognition extends Core
                 $outInteger[$outIdx++] = 0;
             }
             for ($totIdx = 1; $totIdx >= 0; --$totIdx) {
-                $BodyLongPeriodTotal[$totIdx]        += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                                        - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - $totIdx] - $inOpen[$BodyLongTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - $inLow[$BodyLongTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - ($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inClose[$BodyLongTrailingIdx - $totIdx] : $inOpen[$BodyLongTrailingIdx - $totIdx])) + (($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inOpen[$BodyLongTrailingIdx - $totIdx] : $inClose[$BodyLongTrailingIdx - $totIdx]) - $inLow[$BodyLongTrailingIdx - $totIdx]) : 0)));
+                $BodyLongPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
+                                                 - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - $totIdx] - $inOpen[$BodyLongTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - $inLow[$BodyLongTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - ($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inClose[$BodyLongTrailingIdx - $totIdx] : $inOpen[$BodyLongTrailingIdx - $totIdx])) + (($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inOpen[$BodyLongTrailingIdx - $totIdx] : $inClose[$BodyLongTrailingIdx - $totIdx]) - $inLow[$BodyLongTrailingIdx - $totIdx]) : 0)));
                 $ShadowVeryShortPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
                                                         - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx - $totIdx] - $inOpen[$ShadowVeryShortTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx - $totIdx] - $inLow[$ShadowVeryShortTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx - $totIdx] - ($inClose[$ShadowVeryShortTrailingIdx - $totIdx] >= $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] ? $inClose[$ShadowVeryShortTrailingIdx - $totIdx] : $inOpen[$ShadowVeryShortTrailingIdx - $totIdx])) + (($inClose[$ShadowVeryShortTrailingIdx - $totIdx] >= $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] ? $inOpen[$ShadowVeryShortTrailingIdx - $totIdx] : $inClose[$ShadowVeryShortTrailingIdx - $totIdx]) - $inLow[$ShadowVeryShortTrailingIdx - $totIdx]) : 0)));
             }
@@ -2353,7 +2393,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2368,19 +2408,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $ShadowVeryShortTrailingIdx;
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (
@@ -2403,7 +2443,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2418,16 +2458,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyDojiPeriodTotal   = 0;
-        $BodyDojiTrailingIdx   = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyDojiPeriodTotal = 0;
+        $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $ShadowLongPeriodTotal = 0;
         $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
-        $i                     = $BodyDojiTrailingIdx;
+        $i = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -2449,14 +2489,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyDojiPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
             $i++;
             $BodyDojiTrailingIdx++;
             $ShadowLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2471,16 +2511,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal   = 0;
-        $BodyTrailingIdx   = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $ShadowPeriodTotal = 0;
         $ShadowTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod);
-        $i                 = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -2499,14 +2539,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowTrailingIdx] - $inOpen[$ShadowTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowTrailingIdx] - $inLow[$ShadowTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowTrailingIdx] - ($inClose[$ShadowTrailingIdx] >= $inOpen[$ShadowTrailingIdx] ? $inClose[$ShadowTrailingIdx] : $inOpen[$ShadowTrailingIdx])) + (($inClose[$ShadowTrailingIdx] >= $inOpen[$ShadowTrailingIdx] ? $inOpen[$ShadowTrailingIdx] : $inClose[$ShadowTrailingIdx]) - $inLow[$ShadowTrailingIdx]) : 0)));
             $i++;
             $BodyTrailingIdx++;
             $ShadowTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2521,16 +2561,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal        = 0;
-        $BodyLongTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongPeriodTotal = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -2549,7 +2589,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -2557,7 +2597,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2572,19 +2612,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $EqualPeriodTotal = 0;
         $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
-        $i                = $EqualTrailingIdx;
+        $i = $EqualTrailingIdx;
         while ($i < $startIdx) {
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -2601,13 +2641,23 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlMatHold(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlMatHold(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -2622,19 +2672,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal[4]   = 0;
-        $BodyPeriodTotal[3]   = 0;
-        $BodyPeriodTotal[2]   = 0;
-        $BodyPeriodTotal[1]   = 0;
-        $BodyPeriodTotal[0]   = 0;
+        $BodyPeriodTotal[4] = 0;
+        $BodyPeriodTotal[3] = 0;
+        $BodyPeriodTotal[2] = 0;
+        $BodyPeriodTotal[1] = 0;
+        $BodyPeriodTotal[0] = 0;
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $BodyLongTrailingIdx  = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                    = $BodyShortTrailingIdx;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $BodyShortTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal[3] += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 3] - $inOpen[$i - 3])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 3] - $inLow[$i - 3]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 3] - ($inClose[$i - 3] >= $inOpen[$i - 3] ? $inClose[$i - 3] : $inOpen[$i - 3])) + (($inClose[$i - 3] >= $inOpen[$i - 3] ? $inOpen[$i - 3] : $inClose[$i - 3]) - $inLow[$i - 3]) : 0)));
             $BodyPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
@@ -2646,7 +2696,7 @@ class PatternRecognition extends Core
             $BodyPeriodTotal[4] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 4] - $inOpen[$i - 4])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 4] - $inLow[$i - 4]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 4] - ($inClose[$i - 4] >= $inOpen[$i - 4] ? $inClose[$i - 4] : $inOpen[$i - 4])) + (($inClose[$i - 4] >= $inOpen[$i - 4] ? $inOpen[$i - 4] : $inClose[$i - 4]) - $inLow[$i - 4]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (
@@ -2681,13 +2731,23 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlMorningDojiStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlMorningDojiStar(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -2701,18 +2761,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
-        $BodyDojiPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
+        $BodyDojiPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyDojiTrailingIdx  = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyDojiTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -2727,7 +2787,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -2742,8 +2802,8 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyDojiPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
@@ -2751,13 +2811,23 @@ class PatternRecognition extends Core
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
 
-    public static function cdlMorningStar(int $startIdx, int $endIdx, array $inOpen, array $inHigh, array $inLow, array $inClose, float $optInPenetration, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
-    {
+    public static function cdlMorningStar(
+        int $startIdx,
+        int $endIdx,
+        array $inOpen,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        float $optInPenetration,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outInteger
+    ): int {
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -2771,28 +2841,28 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal   = 0;
-        $BodyShortPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
+        $BodyShortPeriodTotal = 0;
         $BodyShortPeriodTotal2 = 0;
-        $BodyLongTrailingIdx   = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyShortTrailingIdx  = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                     = $BodyLongTrailingIdx;
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyShortTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
         $i = $BodyShortTrailingIdx;
         while ($i < $startIdx - 1) {
-            $BodyShortPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
+            $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $BodyShortPeriodTotal2 += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i + 1] - $inOpen[$i + 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i + 1] - $inLow[$i + 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i + 1] - ($inClose[$i + 1] >= $inOpen[$i + 1] ? $inClose[$i + 1] : $inOpen[$i + 1])) + (($inClose[$i + 1] >= $inOpen[$i + 1] ? $inOpen[$i + 1] : $inClose[$i + 1]) - $inLow[$i + 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -2807,15 +2877,15 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $BodyShortPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $BodyShortPeriodTotal2 += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx + 1] - $inOpen[$BodyShortTrailingIdx + 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx + 1] - $inLow[$BodyShortTrailingIdx + 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx + 1] - ($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inClose[$BodyShortTrailingIdx + 1] : $inOpen[$BodyShortTrailingIdx + 1])) + (($inClose[$BodyShortTrailingIdx + 1] >= $inOpen[$BodyShortTrailingIdx + 1] ? $inOpen[$BodyShortTrailingIdx + 1] : $inClose[$BodyShortTrailingIdx + 1]) - $inLow[$BodyShortTrailingIdx + 1]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2830,16 +2900,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $EqualPeriodTotal    = 0;
-        $EqualTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
+        $EqualPeriodTotal = 0;
+        $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                   = $EqualTrailingIdx;
+        $i = $EqualTrailingIdx;
         while ($i < $startIdx) {
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
@@ -2849,7 +2919,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -2863,7 +2933,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $EqualPeriodTotal    += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
+            $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
                                     - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 1] - $inOpen[$BodyLongTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 1] - $inLow[$BodyLongTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 1] - ($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inClose[$BodyLongTrailingIdx - 1] : $inOpen[$BodyLongTrailingIdx - 1])) + (($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inOpen[$BodyLongTrailingIdx - 1] : $inClose[$BodyLongTrailingIdx - 1]) - $inLow[$BodyLongTrailingIdx - 1]) : 0)));
             $i++;
@@ -2871,7 +2941,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2882,26 +2952,26 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $BodyLongPeriodTotal = static::double(2);
-        $lookbackTotal       = Lookback::cdlPiercingLookback();
+        $lookbackTotal = Lookback::cdlPiercingLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyLongPeriodTotal[1] = 0;
         $BodyLongPeriodTotal[0] = 0;
-        $BodyLongTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                      = $BodyLongTrailingIdx;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $BodyLongPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -2924,7 +2994,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -2939,18 +3009,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyDojiPeriodTotal   = 0;
-        $BodyDojiTrailingIdx   = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyDojiPeriodTotal = 0;
+        $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $ShadowLongPeriodTotal = 0;
         $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
-        $NearPeriodTotal       = 0;
-        $NearTrailingIdx       = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i                     = $BodyDojiTrailingIdx;
+        $NearPeriodTotal = 0;
+        $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $i = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -2982,16 +3052,16 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyDojiPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
-            $NearPeriodTotal       += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx] - $inOpen[$NearTrailingIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx] - $inLow[$NearTrailingIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx] - ($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inClose[$NearTrailingIdx] : $inOpen[$NearTrailingIdx])) + (($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inOpen[$NearTrailingIdx] : $inClose[$NearTrailingIdx]) - $inLow[$NearTrailingIdx]) : 0)));
+            $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx] - $inOpen[$NearTrailingIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx] - $inLow[$NearTrailingIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx] - ($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inClose[$NearTrailingIdx] : $inOpen[$NearTrailingIdx])) + (($inClose[$NearTrailingIdx] >= $inOpen[$NearTrailingIdx] ? $inOpen[$NearTrailingIdx] : $inClose[$NearTrailingIdx]) - $inLow[$NearTrailingIdx]) : 0)));
             $i++;
             $BodyDojiTrailingIdx++;
             $ShadowLongTrailingIdx++;
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3002,24 +3072,24 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $BodyPeriodTotal = static::double(5);
-        $lookbackTotal   = Lookback::cdlRiseFall3MethodsLookback();
+        $lookbackTotal = Lookback::cdlRiseFall3MethodsLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal[4]   = 0;
-        $BodyPeriodTotal[3]   = 0;
-        $BodyPeriodTotal[2]   = 0;
-        $BodyPeriodTotal[1]   = 0;
-        $BodyPeriodTotal[0]   = 0;
+        $BodyPeriodTotal[4] = 0;
+        $BodyPeriodTotal[3] = 0;
+        $BodyPeriodTotal[2] = 0;
+        $BodyPeriodTotal[1] = 0;
+        $BodyPeriodTotal[0] = 0;
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $BodyLongTrailingIdx  = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                    = $BodyShortTrailingIdx;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $i = $BodyShortTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal[3] += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 3] - $inOpen[$i - 3])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 3] - $inLow[$i - 3]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 3] - ($inClose[$i - 3] >= $inOpen[$i - 3] ? $inClose[$i - 3] : $inOpen[$i - 3])) + (($inClose[$i - 3] >= $inOpen[$i - 3] ? $inOpen[$i - 3] : $inClose[$i - 3]) - $inLow[$i - 3]) : 0)));
             $BodyPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
@@ -3032,7 +3102,7 @@ class PatternRecognition extends Core
             $BodyPeriodTotal[0] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (
@@ -3068,7 +3138,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3083,18 +3153,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $BodyLongPeriodTotal        = 0;
-        $BodyLongTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $EqualPeriodTotal           = 0;
-        $EqualTrailingIdx           = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
-        $i                          = $ShadowVeryShortTrailingIdx;
+        $BodyLongPeriodTotal = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $EqualPeriodTotal = 0;
+        $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
+        $i = $ShadowVeryShortTrailingIdx;
         while ($i < $startIdx) {
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3109,7 +3179,7 @@ class PatternRecognition extends Core
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -($inClose[$i] >= $inOpen[$i] ? 1 : -1) &&
@@ -3132,15 +3202,15 @@ class PatternRecognition extends Core
             }
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
-            $BodyLongPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
-            $EqualPeriodTotal           += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
             $i++;
             $ShadowVeryShortTrailingIdx++;
             $BodyLongTrailingIdx++;
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3155,18 +3225,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal            = 0;
-        $BodyTrailingIdx            = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $ShadowLongPeriodTotal      = 0;
-        $ShadowLongTrailingIdx      = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $ShadowLongPeriodTotal = 0;
+        $ShadowLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $i                          = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3191,10 +3261,10 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal            += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
-            $ShadowLongPeriodTotal      += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $ShadowLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                      - ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowLongTrailingIdx] - $inOpen[$ShadowLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowLongTrailingIdx] - $inLow[$ShadowLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowLongTrailingIdx] - ($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inClose[$ShadowLongTrailingIdx] : $inOpen[$ShadowLongTrailingIdx])) + (($inClose[$ShadowLongTrailingIdx] >= $inOpen[$ShadowLongTrailingIdx] ? $inOpen[$ShadowLongTrailingIdx] : $inClose[$ShadowLongTrailingIdx]) - $inLow[$ShadowLongTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
             $i++;
@@ -3203,7 +3273,7 @@ class PatternRecognition extends Core
             $ShadowVeryShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3218,16 +3288,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyPeriodTotal   = 0;
-        $BodyTrailingIdx   = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyPeriodTotal = 0;
+        $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowPeriodTotal = 0;
         $ShadowTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod);
-        $i                 = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3246,14 +3316,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyPeriodTotal   += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
+            $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyTrailingIdx] - $inOpen[$BodyTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyTrailingIdx] - $inLow[$BodyTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyTrailingIdx] - ($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inClose[$BodyTrailingIdx] : $inOpen[$BodyTrailingIdx])) + (($inClose[$BodyTrailingIdx] >= $inOpen[$BodyTrailingIdx] ? $inOpen[$BodyTrailingIdx] : $inClose[$BodyTrailingIdx]) - $inLow[$BodyTrailingIdx]) : 0)));
             $ShadowPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowTrailingIdx] - $inOpen[$ShadowTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowTrailingIdx] - $inLow[$ShadowTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowTrailingIdx] - ($inClose[$ShadowTrailingIdx] >= $inOpen[$ShadowTrailingIdx] ? $inClose[$ShadowTrailingIdx] : $inOpen[$ShadowTrailingIdx])) + (($inClose[$ShadowTrailingIdx] >= $inOpen[$ShadowTrailingIdx] ? $inOpen[$ShadowTrailingIdx] : $inClose[$ShadowTrailingIdx]) - $inLow[$ShadowTrailingIdx]) : 0)));
             $i++;
             $BodyTrailingIdx++;
             $ShadowTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3268,14 +3338,14 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyPeriodTotal = 0;
         $BodyTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i               = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3295,7 +3365,7 @@ class PatternRecognition extends Core
             $BodyTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3306,30 +3376,30 @@ class PatternRecognition extends Core
             return $RetCode;
         }
         $BodyLongPeriodTotal = static::double(3);
-        $NearPeriodTotal     = static::double(3);
-        $lookbackTotal       = Lookback::cdlStalledPatternLookback();
+        $NearPeriodTotal = static::double(3);
+        $lookbackTotal = Lookback::cdlStalledPatternLookback();
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal[2]     = 0;
-        $BodyLongPeriodTotal[1]     = 0;
-        $BodyLongPeriodTotal[0]     = 0;
-        $BodyLongTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $BodyShortPeriodTotal       = 0;
-        $BodyShortTrailingIdx       = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        $BodyLongPeriodTotal[2] = 0;
+        $BodyLongPeriodTotal[1] = 0;
+        $BodyLongPeriodTotal[0] = 0;
+        $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyShortPeriodTotal = 0;
+        $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $NearPeriodTotal[2]         = 0;
-        $NearPeriodTotal[1]         = 0;
-        $NearPeriodTotal[0]         = 0;
-        $NearTrailingIdx            = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i                          = $BodyLongTrailingIdx;
+        $NearPeriodTotal[2] = 0;
+        $NearPeriodTotal[1] = 0;
+        $NearPeriodTotal[0] = 0;
+        $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx) {
             $BodyLongPeriodTotal[2] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $BodyLongPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
@@ -3351,7 +3421,7 @@ class PatternRecognition extends Core
             $NearPeriodTotal[1] += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == 1 &&
@@ -3373,10 +3443,10 @@ class PatternRecognition extends Core
             for ($totIdx = 2; $totIdx >= 1; --$totIdx) {
                 $BodyLongPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
                                                  - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - $totIdx] - $inOpen[$BodyLongTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - $inLow[$BodyLongTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - $totIdx] - ($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inClose[$BodyLongTrailingIdx - $totIdx] : $inOpen[$BodyLongTrailingIdx - $totIdx])) + (($inClose[$BodyLongTrailingIdx - $totIdx] >= $inOpen[$BodyLongTrailingIdx - $totIdx] ? $inOpen[$BodyLongTrailingIdx - $totIdx] : $inClose[$BodyLongTrailingIdx - $totIdx]) - $inLow[$BodyLongTrailingIdx - $totIdx]) : 0)));
-                $NearPeriodTotal[$totIdx]     += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
-                                                 - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx - $totIdx] - $inOpen[$NearTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx - $totIdx] - $inLow[$NearTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx - $totIdx] - ($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inClose[$NearTrailingIdx - $totIdx] : $inOpen[$NearTrailingIdx - $totIdx])) + (($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inOpen[$NearTrailingIdx - $totIdx] : $inClose[$NearTrailingIdx - $totIdx]) - $inLow[$NearTrailingIdx - $totIdx]) : 0)));
+                $NearPeriodTotal[$totIdx] += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - $totIdx] - $inOpen[$i - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - $totIdx] - $inLow[$i - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - $totIdx] - ($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inClose[$i - $totIdx] : $inOpen[$i - $totIdx])) + (($inClose[$i - $totIdx] >= $inOpen[$i - $totIdx] ? $inOpen[$i - $totIdx] : $inClose[$i - $totIdx]) - $inLow[$i - $totIdx]) : 0)))
+                                             - ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$NearTrailingIdx - $totIdx] - $inOpen[$NearTrailingIdx - $totIdx])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$NearTrailingIdx - $totIdx] - $inLow[$NearTrailingIdx - $totIdx]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$NearTrailingIdx - $totIdx] - ($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inClose[$NearTrailingIdx - $totIdx] : $inOpen[$NearTrailingIdx - $totIdx])) + (($inClose[$NearTrailingIdx - $totIdx] >= $inOpen[$NearTrailingIdx - $totIdx] ? $inOpen[$NearTrailingIdx - $totIdx] : $inClose[$NearTrailingIdx - $totIdx]) - $inLow[$NearTrailingIdx - $totIdx]) : 0)));
             }
-            $BodyShortPeriodTotal       += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
+            $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx - 1] - $inOpen[$ShadowVeryShortTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx - 1] - $inLow[$ShadowVeryShortTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx - 1] - ($inClose[$ShadowVeryShortTrailingIdx - 1] >= $inOpen[$ShadowVeryShortTrailingIdx - 1] ? $inClose[$ShadowVeryShortTrailingIdx - 1] : $inOpen[$ShadowVeryShortTrailingIdx - 1])) + (($inClose[$ShadowVeryShortTrailingIdx - 1] >= $inOpen[$ShadowVeryShortTrailingIdx - 1] ? $inOpen[$ShadowVeryShortTrailingIdx - 1] : $inClose[$ShadowVeryShortTrailingIdx - 1]) - $inLow[$ShadowVeryShortTrailingIdx - 1]) : 0)));
             $i++;
@@ -3386,7 +3456,7 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3401,19 +3471,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $EqualPeriodTotal = 0;
         $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
-        $i                = $EqualTrailingIdx;
+        $i = $EqualTrailingIdx;
         while ($i < $startIdx) {
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == -1 &&
@@ -3432,7 +3502,7 @@ class PatternRecognition extends Core
             $EqualTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3447,18 +3517,18 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyDojiPeriodTotal        = 0;
-        $BodyDojiTrailingIdx        = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        $BodyDojiPeriodTotal = 0;
+        $BodyDojiTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
         $ShadowVeryShortPeriodTotal = 0;
         $ShadowVeryShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod);
-        $ShadowVeryLongPeriodTotal  = 0;
-        $ShadowVeryLongTrailingIdx  = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod);
-        $i                          = $BodyDojiTrailingIdx;
+        $ShadowVeryLongPeriodTotal = 0;
+        $ShadowVeryLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod);
+        $i = $BodyDojiTrailingIdx;
         while ($i < $startIdx) {
             $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3483,18 +3553,18 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyDojiPeriodTotal        += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
+            $BodyDojiPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyDojiTrailingIdx] - $inOpen[$BodyDojiTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyDojiTrailingIdx] - $inLow[$BodyDojiTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyDojiTrailingIdx] - ($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inClose[$BodyDojiTrailingIdx] : $inOpen[$BodyDojiTrailingIdx])) + (($inClose[$BodyDojiTrailingIdx] >= $inOpen[$BodyDojiTrailingIdx] ? $inOpen[$BodyDojiTrailingIdx] : $inClose[$BodyDojiTrailingIdx]) - $inLow[$BodyDojiTrailingIdx]) : 0)));
             $ShadowVeryShortPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
                                            - ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryShortTrailingIdx] - $inOpen[$ShadowVeryShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryShortTrailingIdx] - $inLow[$ShadowVeryShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryShortTrailingIdx] - ($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inClose[$ShadowVeryShortTrailingIdx] : $inOpen[$ShadowVeryShortTrailingIdx])) + (($inClose[$ShadowVeryShortTrailingIdx] >= $inOpen[$ShadowVeryShortTrailingIdx] ? $inOpen[$ShadowVeryShortTrailingIdx] : $inClose[$ShadowVeryShortTrailingIdx]) - $inLow[$ShadowVeryShortTrailingIdx]) : 0)));
-            $ShadowVeryLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
-                                           - ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryLongTrailingIdx] - $inOpen[$ShadowVeryLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryLongTrailingIdx] - $inLow[$ShadowVeryLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryLongTrailingIdx] - ($inClose[$ShadowVeryLongTrailingIdx] >= $inOpen[$ShadowVeryLongTrailingIdx] ? $inClose[$ShadowVeryLongTrailingIdx] : $inOpen[$ShadowVeryLongTrailingIdx])) + (($inClose[$ShadowVeryLongTrailingIdx] >= $inOpen[$ShadowVeryLongTrailingIdx] ? $inOpen[$ShadowVeryLongTrailingIdx] : $inClose[$ShadowVeryLongTrailingIdx]) - $inLow[$ShadowVeryLongTrailingIdx]) : 0)));
+            $ShadowVeryLongPeriodTotal += ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)))
+                                          - ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$ShadowVeryLongTrailingIdx] - $inOpen[$ShadowVeryLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::HighLow ? ($inHigh[$ShadowVeryLongTrailingIdx] - $inLow[$ShadowVeryLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->rangeType) == RangeType::Shadows ? ($inHigh[$ShadowVeryLongTrailingIdx] - ($inClose[$ShadowVeryLongTrailingIdx] >= $inOpen[$ShadowVeryLongTrailingIdx] ? $inClose[$ShadowVeryLongTrailingIdx] : $inOpen[$ShadowVeryLongTrailingIdx])) + (($inClose[$ShadowVeryLongTrailingIdx] >= $inOpen[$ShadowVeryLongTrailingIdx] ? $inOpen[$ShadowVeryLongTrailingIdx] : $inClose[$ShadowVeryLongTrailingIdx]) - $inLow[$ShadowVeryLongTrailingIdx]) : 0)));
             $i++;
             $BodyDojiTrailingIdx++;
             $ShadowVeryShortTrailingIdx++;
             $ShadowVeryLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3509,19 +3579,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $NearPeriodTotal = 0;
         $NearTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Near]->avgPeriod);
-        $i               = $NearTrailingIdx;
+        $i = $NearTrailingIdx;
         while ($i < $startIdx) {
             $NearPeriodTotal += ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Near]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (
@@ -3553,7 +3623,7 @@ class PatternRecognition extends Core
             $NearTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3568,16 +3638,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $EqualPeriodTotal    = 0;
-        $EqualTrailingIdx    = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
+        $EqualPeriodTotal = 0;
+        $EqualTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::Equal]->avgPeriod);
         $BodyLongPeriodTotal = 0;
         $BodyLongTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
-        $i                   = $EqualTrailingIdx;
+        $i = $EqualTrailingIdx;
         while ($i < $startIdx) {
             $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
@@ -3587,7 +3657,7 @@ class PatternRecognition extends Core
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
@@ -3601,7 +3671,7 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $EqualPeriodTotal    += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
+            $EqualPeriodTotal += ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::RealBody ? (abs($inClose[$EqualTrailingIdx - 1] - $inOpen[$EqualTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::HighLow ? ($inHigh[$EqualTrailingIdx - 1] - $inLow[$EqualTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::Equal]->rangeType) == RangeType::Shadows ? ($inHigh[$EqualTrailingIdx - 1] - ($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inClose[$EqualTrailingIdx - 1] : $inOpen[$EqualTrailingIdx - 1])) + (($inClose[$EqualTrailingIdx - 1] >= $inOpen[$EqualTrailingIdx - 1] ? $inOpen[$EqualTrailingIdx - 1] : $inClose[$EqualTrailingIdx - 1]) - $inLow[$EqualTrailingIdx - 1]) : 0)));
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0)))
                                     - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx - 1] - $inOpen[$BodyLongTrailingIdx - 1])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx - 1] - $inLow[$BodyLongTrailingIdx - 1]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx - 1] - ($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inClose[$BodyLongTrailingIdx - 1] : $inOpen[$BodyLongTrailingIdx - 1])) + (($inClose[$BodyLongTrailingIdx - 1] >= $inOpen[$BodyLongTrailingIdx - 1] ? $inOpen[$BodyLongTrailingIdx - 1] : $inClose[$BodyLongTrailingIdx - 1]) - $inLow[$BodyLongTrailingIdx - 1]) : 0)));
             $i++;
@@ -3609,7 +3679,7 @@ class PatternRecognition extends Core
             $BodyLongTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3624,19 +3694,19 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $BodyPeriodTotal = 0;
         $BodyTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
-        $i               = $BodyTrailingIdx;
+        $i = $BodyTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) <= ((static::$candleSettings[CandleSettingType::BodyDoji]->factor) * ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod) != 0.0 ? $BodyPeriodTotal / (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyDoji]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -3664,7 +3734,7 @@ class PatternRecognition extends Core
             $BodyTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3679,16 +3749,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3698,7 +3768,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if ((abs($inClose[$i - 2] - $inOpen[$i - 2])) > ((static::$candleSettings[CandleSettingType::BodyLong]->factor) * ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) != 0.0 ? $BodyLongPeriodTotal / (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0)))) / ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? 2.0 : 1.0)) &&
@@ -3714,14 +3784,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3736,16 +3806,16 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $BodyLongPeriodTotal  = 0;
+        $BodyLongPeriodTotal = 0;
         $BodyShortPeriodTotal = 0;
-        $BodyLongTrailingIdx  = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
+        $BodyLongTrailingIdx = $startIdx - 2 - (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod);
         $BodyShortTrailingIdx = $startIdx - 1 - (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
-        $i                    = $BodyLongTrailingIdx;
+        $i = $BodyLongTrailingIdx;
         while ($i < $startIdx - 2) {
             $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
@@ -3755,7 +3825,7 @@ class PatternRecognition extends Core
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i] - $inOpen[$i])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i] - $inLow[$i]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i] - ($inClose[$i] >= $inOpen[$i] ? $inClose[$i] : $inOpen[$i])) + (($inClose[$i] >= $inOpen[$i] ? $inOpen[$i] : $inClose[$i]) - $inLow[$i]) : 0)));
             $i++;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == 1 &&
@@ -3771,14 +3841,14 @@ class PatternRecognition extends Core
             } else {
                 $outInteger[$outIdx++] = 0;
             }
-            $BodyLongPeriodTotal  += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
+            $BodyLongPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 2] - $inOpen[$i - 2])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 2] - $inLow[$i - 2]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 2] - ($inClose[$i - 2] >= $inOpen[$i - 2] ? $inClose[$i - 2] : $inOpen[$i - 2])) + (($inClose[$i - 2] >= $inOpen[$i - 2] ? $inOpen[$i - 2] : $inClose[$i - 2]) - $inLow[$i - 2]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyLongTrailingIdx] - $inOpen[$BodyLongTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyLongTrailingIdx] - $inLow[$BodyLongTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyLong]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyLongTrailingIdx] - ($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inClose[$BodyLongTrailingIdx] : $inOpen[$BodyLongTrailingIdx])) + (($inClose[$BodyLongTrailingIdx] >= $inOpen[$BodyLongTrailingIdx] ? $inOpen[$BodyLongTrailingIdx] : $inClose[$BodyLongTrailingIdx]) - $inLow[$BodyLongTrailingIdx]) : 0)));
             $BodyShortPeriodTotal += ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$i - 1] - $inOpen[$i - 1])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$i - 1] - $inLow[$i - 1]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$i - 1] - ($inClose[$i - 1] >= $inOpen[$i - 1] ? $inClose[$i - 1] : $inOpen[$i - 1])) + (($inClose[$i - 1] >= $inOpen[$i - 1] ? $inOpen[$i - 1] : $inClose[$i - 1]) - $inLow[$i - 1]) : 0))) - ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::RealBody ? (abs($inClose[$BodyShortTrailingIdx] - $inOpen[$BodyShortTrailingIdx])) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::HighLow ? ($inHigh[$BodyShortTrailingIdx] - $inLow[$BodyShortTrailingIdx]) : ((static::$candleSettings[CandleSettingType::BodyShort]->rangeType) == RangeType::Shadows ? ($inHigh[$BodyShortTrailingIdx] - ($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inClose[$BodyShortTrailingIdx] : $inOpen[$BodyShortTrailingIdx])) + (($inClose[$BodyShortTrailingIdx] >= $inOpen[$BodyShortTrailingIdx] ? $inOpen[$BodyShortTrailingIdx] : $inClose[$BodyShortTrailingIdx]) - $inLow[$BodyShortTrailingIdx]) : 0)));
             $i++;
             $BodyLongTrailingIdx++;
             $BodyShortTrailingIdx++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -3793,12 +3863,12 @@ class PatternRecognition extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $i      = $startIdx;
+        $i = $startIdx;
         $outIdx = 0;
         do {
             if (($inClose[$i - 2] >= $inOpen[$i - 2] ? 1 : -1) == ($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) &&
@@ -3824,7 +3894,7 @@ class PatternRecognition extends Core
             $i++;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }

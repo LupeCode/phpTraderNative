@@ -59,25 +59,25 @@ class CandleSetting
     public function __construct(int $settingType, int $rangeType = null, int $avgPeriod = null, float $factor = null)
     {
         $this->settingType = $settingType;
-        $this->rangeType   = $rangeType;
-        $this->avgPeriod   = $avgPeriod;
-        $this->factor      = $factor;
+        $this->rangeType = $rangeType;
+        $this->avgPeriod = $avgPeriod;
+        $this->factor = $factor;
     }
 
     public function CopyFrom(CandleSetting $source)
     {
         $this->settingType = $source->settingType;
-        $this->rangeType   = $source->rangeType;
-        $this->avgPeriod   = $source->avgPeriod;
-        $this->factor      = $source->factor;
+        $this->rangeType = $source->rangeType;
+        $this->avgPeriod = $source->avgPeriod;
+        $this->factor = $source->factor;
     }
 
     public function CandleSetting(CandleSetting $that)
     {
         $this->settingType = $that->settingType;
-        $this->rangeType   = $that->rangeType;
-        $this->avgPeriod   = $that->avgPeriod;
-        $this->factor      = $that->factor;
+        $this->rangeType = $that->rangeType;
+        $this->avgPeriod = $that->avgPeriod;
+        $this->factor = $that->factor;
     }
 
 }
