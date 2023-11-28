@@ -70,6 +70,13 @@ cd phpTraderNative
 composer install --dev
 ~~~
 
+### Directory Structure
+
+* `source` - The source code for the library.
+* `tests` - The PHPUnit tests for the library.
+* `pecl` - The PECL Trader extension source code.
+* `talib` - The TA-LIB source code that the PECL Trader extension uses.
+
 ### Testing
 
 Two PHPUnit XML files are included, one for testing and the other for coverage.  This is due to the fact that when some tests are run with coverage, PHP hangs and never finishes.
