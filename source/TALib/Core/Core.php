@@ -96,7 +96,9 @@ class Core
             /* when measuring distance between parts of candles or width of gaps "equal" means "<= 5% of the average of the 5 previous candles' high-low range" */
             new CandleSetting(CandleSettingType::Equal, RangeType::HighLow, 5, 0.05),
         ];
-        static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL - 2, 0);
+        // Changed to correct array size to avoid the "Uncaught ErrorException: Undefined array key 22" 
+        // static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL - 2, 0);
+        static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
     }
 
     public static function setUnstablePeriod(int $functionID, int $unstablePeriod): void
