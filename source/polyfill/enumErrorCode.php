@@ -1,0 +1,59 @@
+<?php
+
+if (!defined('TRADER_ERR_SUCCESS')) {
+    define('TRADER_ERR_SUCCESS', 0);
+}
+if (!defined('TRADER_ERR_LIB_NOT_INITIALIZE')) {
+    define('TRADER_ERR_LIB_NOT_INITIALIZE', 1);
+}
+if (!defined('TRADER_ERR_BAD_PARAM')) {
+    define('TRADER_ERR_BAD_PARAM', 2);
+}
+if (!defined('TRADER_ERR_ALLOC_ERR')) {
+    define('TRADER_ERR_ALLOC_ERR', 3);
+}
+if (!defined('TRADER_ERR_GROUP_NOT_FOUND')) {
+    define('TRADER_ERR_GROUP_NOT_FOUND', 4);
+}
+if (!defined('TRADER_ERR_FUNC_NOT_FOUND')) {
+    define('TRADER_ERR_FUNC_NOT_FOUND', 5);
+}
+if (!defined('TRADER_ERR_INVALID_HANDLE')) {
+    define('TRADER_ERR_INVALID_HANDLE', 6);
+}
+if (!defined('TRADER_ERR_INVALID_PARAM_HOLDER')) {
+    define('TRADER_ERR_INVALID_PARAM_HOLDER', 7);
+}
+if (!defined('TRADER_ERR_INVALID_PARAM_HOLDER_TYPE')) {
+    define('TRADER_ERR_INVALID_PARAM_HOLDER_TYPE', 8);
+}
+if (!defined('TRADER_ERR_INVALID_PARAM_FUNCTION')) {
+    define('TRADER_ERR_INVALID_PARAM_FUNCTION', 9);
+}
+if (!defined('TRADER_ERR_INPUT_NOT_ALL_INITIALIZE')) {
+    define('TRADER_ERR_INPUT_NOT_ALL_INITIALIZE', 10);
+}
+if (!defined('TRADER_ERR_OUTPUT_NOT_ALL_INITIALIZE')) {
+    define('TRADER_ERR_OUTPUT_NOT_ALL_INITIALIZE', 11);
+}
+if (!defined('TRADER_ERR_OUT_OF_RANGE_START_INDEX')) {
+    define('TRADER_ERR_OUT_OF_RANGE_START_INDEX', 12);
+}
+if (!defined('TRADER_ERR_OUT_OF_RANGE_END_INDEX')) {
+    define('TRADER_ERR_OUT_OF_RANGE_END_INDEX', 13);
+}
+if (!defined('TRADER_ERR_INVALID_LIST_TYPE')) {
+    define('TRADER_ERR_INVALID_LIST_TYPE', 14);
+}
+if (!defined('TRADER_ERR_BAD_OBJECT')) {
+    define('TRADER_ERR_BAD_OBJECT', 15);
+}
+if (!defined('TRADER_ERR_NOT_SUPPORTED')) {
+    define('TRADER_ERR_NOT_SUPPORTED', 16);
+}
+if (!defined('TRADER_ERR_INTERNAL_ERROR')) {
+    define('TRADER_ERR_INTERNAL_ERROR', 5000);
+}
+if (!defined('TRADER_ERR_UNKNOWN_ERROR')) {
+    define('TRADER_ERR_UNKNOWN_ERROR', 65535);
+}
