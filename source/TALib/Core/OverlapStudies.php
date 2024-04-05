@@ -50,6 +50,105 @@ use LupeCode\phpTraderNative\TALib\Enum\UnstablePeriodFunctionID;
 
 class OverlapStudies extends Core
 {
+    public static function accbands(
+        int $startIdx,
+        int $endIdx,
+        array $inHigh,
+        array $inLow,
+        array $inClose,
+        int $optInTimePeriod,
+        int &$outBegIdx,
+        int &$outNBElement,
+        array &$outRealUpperBand,
+        array &$outRealMiddleBand,
+        array &$outRealLowerBand
+    ): int {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
+
+        $lookbackTotal = Lookback::smaLookback($optInTimePeriod);
+
+        if ($startIdx < $lookbackTotal) {
+            $startIdx = $lookbackTotal;
+        }
+
+        if ($startIdx > $endIdx) {
+            $outBegIdx = 0;
+            $outNBElement = 0;
+
+            return ReturnCode::Success;
+        }
+
+        $outputSize = $endIdx - $startIdx + 1;
+        $bufferSize = $outputSize + $lookbackTotal;
+        $tempBuffer1 = static::double($bufferSize);
+        $tempBuffer2 = static::double($bufferSize);
+
+        for ($j = 0, $i = $startIdx - $lookbackTotal; $i <= $endIdx; $i++, $j++) {
+            $tempReal = $inHigh[$i] + $inLow[$i];
+
+            if ($tempReal !== 0.0) {
+                $tempReal = 4 * ($inHigh[$i] - $inLow[$i]) / $tempReal;
+                $tempBuffer1[$j] = $inHigh[$i] * (1 + $tempReal);
+                $tempBuffer2[$j] = $inLow[$i] * (1 - $tempReal);
+            } else {
+                $tempBuffer1[$j] = $inHigh[$i];
+                $tempBuffer2[$j] = $inLow[$i];
+            }
+        }
+
+        $outRealMiddleBand = static::double($outputSize);
+        $retCode = static::sma(
+            $startIdx,
+            $endIdx,
+            $inClose,
+            $optInTimePeriod,
+            $outBegIdx,
+            $outNBElement,
+            $outRealMiddleBand
+        );
+
+        if ($retCode !== ReturnCode::Success || $outNBElement !== $outputSize) {
+            return $retCode;
+        }
+
+        $outRealUpperBand = static::double($outputSize);
+        $retCode = static::sma(
+            0,
+            $bufferSize - 1,
+            $tempBuffer1,
+            $optInTimePeriod,
+            $outBegIdx,
+            $outNBElement,
+            $outRealUpperBand
+        );
+
+        if ($retCode !== ReturnCode::Success || $outNBElement !== $outputSize) {
+            return $retCode;
+        }
+
+        $outRealLowerBand = static::double($outputSize);
+        $retCode = static::sma(
+            0,
+            $bufferSize - 1,
+            $tempBuffer2,
+            $optInTimePeriod,
+            $outBegIdx,
+            $outNBElement,
+            $outRealLowerBand
+        );
+
+        if ($retCode !== ReturnCode::Success || $outNBElement !== $outputSize) {
+            return $retCode;
+        }
+
+        $outBegIdx = $startIdx;
+        $outNBElement = $outputSize;
+
+        return ReturnCode::Success;
+    }
+
     public static function bbands(
         int $startIdx,
         int $endIdx,
@@ -120,37 +219,37 @@ class OverlapStudies extends Core
         if ($optInNbDevUp === $optInNbDevDn) {
             if ($optInNbDevUp === 1.0) {
                 for ($i = 0; $i < $outNBElement; $i++) {
-                    $tempReal             = $tempBuffer2[$i];
-                    $tempReal2            = $outRealMiddleBand[$i];
+                    $tempReal = $tempBuffer2[$i];
+                    $tempReal2 = $outRealMiddleBand[$i];
                     $outRealUpperBand[$i] = $tempReal2 + $tempReal;
                     $outRealLowerBand[$i] = $tempReal2 - $tempReal;
                 }
             } else {
                 for ($i = 0; $i < $outNBElement; $i++) {
-                    $tempReal             = $tempBuffer2[$i] * $optInNbDevUp;
-                    $tempReal2            = $outRealMiddleBand[$i];
+                    $tempReal = $tempBuffer2[$i] * $optInNbDevUp;
+                    $tempReal2 = $outRealMiddleBand[$i];
                     $outRealUpperBand[$i] = $tempReal2 + $tempReal;
                     $outRealLowerBand[$i] = $tempReal2 - $tempReal;
                 }
             }
         } elseif ($optInNbDevUp === 1.0) {
             for ($i = 0; $i < $outNBElement; $i++) {
-                $tempReal             = $tempBuffer2[$i];
-                $tempReal2            = $outRealMiddleBand[$i];
+                $tempReal = $tempBuffer2[$i];
+                $tempReal2 = $outRealMiddleBand[$i];
                 $outRealUpperBand[$i] = $tempReal2 + $tempReal;
                 $outRealLowerBand[$i] = $tempReal2 - $tempReal * $optInNbDevDn;
             }
         } elseif ($optInNbDevDn === 1.0) {
             for ($i = 0; $i < $outNBElement; $i++) {
-                $tempReal             = $tempBuffer2[$i];
-                $tempReal2            = $outRealMiddleBand[$i];
+                $tempReal = $tempBuffer2[$i];
+                $tempReal2 = $outRealMiddleBand[$i];
                 $outRealLowerBand[$i] = $tempReal2 - $tempReal;
                 $outRealUpperBand[$i] = $tempReal2 + $tempReal * $optInNbDevUp;
             }
         } else {
             for ($i = 0; $i < $outNBElement; $i++) {
-                $tempReal             = $tempBuffer2[$i];
-                $tempReal2            = $outRealMiddleBand[$i];
+                $tempReal = $tempBuffer2[$i];
+                $tempReal2 = $outRealMiddleBand[$i];
                 $outRealUpperBand[$i] = $tempReal2 + $tempReal * $optInNbDevUp;
                 $outRealLowerBand[$i] = $tempReal2 - $tempReal * $optInNbDevDn;
             }
@@ -164,18 +263,18 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $firstEMABegIdx     = 0;
-        $firstEMANbElement  = 0;
-        $secondEMABegIdx    = 0;
+        $firstEMABegIdx = 0;
+        $firstEMANbElement = 0;
+        $secondEMABegIdx = 0;
         $secondEMANbElement = 0;
         if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
         } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        $outNBElement  = 0;
-        $outBegIdx     = 0;
-        $lookbackEMA   = Lookback::emaLookback($optInTimePeriod);
+        $outNBElement = 0;
+        $outBegIdx = 0;
+        $lookbackEMA = Lookback::emaLookback($optInTimePeriod);
         $lookbackTotal = $lookbackEMA * 2;
         if ($startIdx < $lookbackTotal) {
             $startIdx = (int)$lookbackTotal;
@@ -186,10 +285,10 @@ class OverlapStudies extends Core
         if ($inReal === $outReal) {
             $firstEMA = $outReal;
         } else {
-            $tempInt  = $lookbackTotal + ($endIdx - $startIdx) + 1;
+            $tempInt = $lookbackTotal + ($endIdx - $startIdx) + 1;
             $firstEMA = static::double($tempInt);
         }
-        $k          = 2.0 / (double)($optInTimePeriod + 1);
+        $k = 2.0 / (double)($optInTimePeriod + 1);
         $ReturnCode = static::TA_INT_EMA(
             $startIdx - $lookbackEMA,
             $endIdx,
@@ -203,7 +302,7 @@ class OverlapStudies extends Core
         if ($ReturnCode !== ReturnCode::Success || $firstEMANbElement === 0) {
             return $ReturnCode;
         }
-        $secondEMA  = static::double($firstEMANbElement);
+        $secondEMA = static::double($firstEMANbElement);
         $ReturnCode = static::TA_INT_EMA(
             0,
             $firstEMANbElement - 1,
@@ -218,12 +317,12 @@ class OverlapStudies extends Core
             return $ReturnCode;
         }
         $firstEMAIdx = $secondEMABegIdx;
-        $outIdx      = 0;
+        $outIdx = 0;
         while ($outIdx < $secondEMANbElement) {
             $outReal[$outIdx] = 2.0 * $firstEMA[$firstEMAIdx++] - $secondEMA[$outIdx];
             $outIdx++;
         }
-        $outBegIdx    = $firstEMABegIdx + $secondEMABegIdx;
+        $outBegIdx = $firstEMABegIdx + $secondEMABegIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -257,17 +356,17 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $a                       = 0.0962;
-        $b                       = 0.5769;
-        $detrender_Odd           = static::double(3);
-        $detrender_Even          = static::double(3);
-        $Q1_Odd                  = static::double(3);
-        $Q1_Even                 = static::double(3);
-        $jI_Odd                  = static::double(3);
-        $jI_Even                 = static::double(3);
-        $jQ_Odd                  = static::double(3);
-        $jQ_Even                 = static::double(3);
-        $smoothPrice_Idx         = 0;
+        $a = 0.0962;
+        $b = 0.5769;
+        $detrender_Odd = static::double(3);
+        $detrender_Even = static::double(3);
+        $Q1_Odd = static::double(3);
+        $Q1_Even = static::double(3);
+        $jI_Odd = static::double(3);
+        $jI_Even = static::double(3);
+        $jQ_Odd = static::double(3);
+        $jQ_Even = static::double(3);
+        $smoothPrice_Idx = 0;
         $maxIdx_smoothPricePrice = 50 - 1;
         {
             $smoothPrice = static::double($maxIdx_smoothPricePrice + 1);
@@ -280,217 +379,217 @@ class OverlapStudies extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx        = $startIdx;
-        $trailingWMAIdx   = $startIdx - $lookbackTotal;
-        $today            = $trailingWMAIdx;
-        $tempReal         = $inReal[$today++];
-        $periodWMASub     = $tempReal;
-        $periodWMASum     = $tempReal;
-        $tempReal         = $inReal[$today++];
-        $periodWMASub     += $tempReal;
-        $periodWMASum     += $tempReal * 2.0;
-        $tempReal         = $inReal[$today++];
-        $periodWMASub     += $tempReal;
-        $periodWMASum     += $tempReal * 3.0;
+        $outBegIdx = $startIdx;
+        $trailingWMAIdx = $startIdx - $lookbackTotal;
+        $today = $trailingWMAIdx;
+        $tempReal = $inReal[$today++];
+        $periodWMASub = $tempReal;
+        $periodWMASum = $tempReal;
+        $tempReal = $inReal[$today++];
+        $periodWMASub += $tempReal;
+        $periodWMASum += $tempReal * 2.0;
+        $tempReal = $inReal[$today++];
+        $periodWMASub += $tempReal;
+        $periodWMASum += $tempReal * 3.0;
         $trailingWMAValue = 0.0;
-        $i                = 34;
+        $i = 34;
         do {
             $tempReal = $inReal[$today++];
             {
-                $periodWMASub     += $tempReal;
-                $periodWMASub     -= $trailingWMAValue;
-                $periodWMASum     += $tempReal * 4.0;
+                $periodWMASub += $tempReal;
+                $periodWMASub -= $trailingWMAValue;
+                $periodWMASum += $tempReal * 4.0;
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
-                $smoothedValue    = $periodWMASum * 0.1;
-                $periodWMASum     -= $periodWMASub;
+                $smoothedValue = $periodWMASum * 0.1;
+                $periodWMASum -= $periodWMASub;
             }
         } while (--$i !== 0);
         $hilbertIdx = 0;
         {
-            $detrender_Odd[0]          = 0.0;
-            $detrender_Odd[1]          = 0.0;
-            $detrender_Odd[2]          = 0.0;
-            $detrender_Even[0]         = 0.0;
-            $detrender_Even[1]         = 0.0;
-            $detrender_Even[2]         = 0.0;
-            $detrender                 = 0.0;
-            $prev_detrender_Odd        = 0.0;
-            $prev_detrender_Even       = 0.0;
-            $prev_detrender_input_Odd  = 0.0;
+            $detrender_Odd[0] = 0.0;
+            $detrender_Odd[1] = 0.0;
+            $detrender_Odd[2] = 0.0;
+            $detrender_Even[0] = 0.0;
+            $detrender_Even[1] = 0.0;
+            $detrender_Even[2] = 0.0;
+            $detrender = 0.0;
+            $prev_detrender_Odd = 0.0;
+            $prev_detrender_Even = 0.0;
+            $prev_detrender_input_Odd = 0.0;
             $prev_detrender_input_Even = 0.0;
         }
         {
-            $Q1_Odd[0]          = 0.0;
-            $Q1_Odd[1]          = 0.0;
-            $Q1_Odd[2]          = 0.0;
-            $Q1_Even[0]         = 0.0;
-            $Q1_Even[1]         = 0.0;
-            $Q1_Even[2]         = 0.0;
-            $Q1                 = 0.0;
-            $prev_Q1_Odd        = 0.0;
-            $prev_Q1_Even       = 0.0;
-            $prev_Q1_input_Odd  = 0.0;
+            $Q1_Odd[0] = 0.0;
+            $Q1_Odd[1] = 0.0;
+            $Q1_Odd[2] = 0.0;
+            $Q1_Even[0] = 0.0;
+            $Q1_Even[1] = 0.0;
+            $Q1_Even[2] = 0.0;
+            $Q1 = 0.0;
+            $prev_Q1_Odd = 0.0;
+            $prev_Q1_Even = 0.0;
+            $prev_Q1_input_Odd = 0.0;
             $prev_Q1_input_Even = 0.0;
         }
         {
-            $jI_Odd[0]          = 0.0;
-            $jI_Odd[1]          = 0.0;
-            $jI_Odd[2]          = 0.0;
-            $jI_Even[0]         = 0.0;
-            $jI_Even[1]         = 0.0;
-            $jI_Even[2]         = 0.0;
-            $jI                 = 0.0;
-            $prev_jI_Odd        = 0.0;
-            $prev_jI_Even       = 0.0;
-            $prev_jI_input_Odd  = 0.0;
+            $jI_Odd[0] = 0.0;
+            $jI_Odd[1] = 0.0;
+            $jI_Odd[2] = 0.0;
+            $jI_Even[0] = 0.0;
+            $jI_Even[1] = 0.0;
+            $jI_Even[2] = 0.0;
+            $jI = 0.0;
+            $prev_jI_Odd = 0.0;
+            $prev_jI_Even = 0.0;
+            $prev_jI_input_Odd = 0.0;
             $prev_jI_input_Even = 0.0;
         }
         {
-            $jQ_Odd[0]          = 0.0;
-            $jQ_Odd[1]          = 0.0;
-            $jQ_Odd[2]          = 0.0;
-            $jQ_Even[0]         = 0.0;
-            $jQ_Even[1]         = 0.0;
-            $jQ_Even[2]         = 0.0;
-            $jQ                 = 0.0;
-            $prev_jQ_Odd        = 0.0;
-            $prev_jQ_Even       = 0.0;
-            $prev_jQ_input_Odd  = 0.0;
+            $jQ_Odd[0] = 0.0;
+            $jQ_Odd[1] = 0.0;
+            $jQ_Odd[2] = 0.0;
+            $jQ_Even[0] = 0.0;
+            $jQ_Even[1] = 0.0;
+            $jQ_Even[2] = 0.0;
+            $jQ = 0.0;
+            $prev_jQ_Odd = 0.0;
+            $prev_jQ_Even = 0.0;
+            $prev_jQ_input_Odd = 0.0;
             $prev_jQ_input_Even = 0.0;
         }
-        $period        = 0.0;
-        $outIdx        = 0;
-        $prevI2        = $prevQ2 = 0.0;
-        $Re            = $Im = 0.0;
+        $period = 0.0;
+        $outIdx = 0;
+        $prevI2 = $prevQ2 = 0.0;
+        $Re = $Im = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
         $I1ForOddPrev2 = $I1ForEvenPrev2 = 0.0;
-        $smoothPeriod  = 0.0;
+        $smoothPeriod = 0.0;
         for ($i = 0; $i < 50; $i++) {
             $smoothPrice[$i] = 0.0;
         }
         while ($today <= $endIdx) {
             $adjustedPrevPeriod = 0.075 * $period + 0.54;
-            $todayValue         = $inReal[$today];
+            $todayValue = $inReal[$today];
             {
-                $periodWMASub     += $todayValue;
-                $periodWMASub     -= $trailingWMAValue;
-                $periodWMASum     += $todayValue * 4.0;
+                $periodWMASub += $todayValue;
+                $periodWMASub -= $trailingWMAValue;
+                $periodWMASum += $todayValue * 4.0;
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
-                $smoothedValue    = $periodWMASum * 0.1;
-                $periodWMASum     -= $periodWMASub;
+                $smoothedValue = $periodWMASum * 0.1;
+                $periodWMASum -= $periodWMASub;
             }
             $smoothPrice[$smoothPrice_Idx] = $smoothedValue;
             if ($today % 2 === 0) {
                 {
-                    $hilbertTempReal             = $a * $smoothedValue;
-                    $detrender                   = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $smoothedValue;
+                    $detrender = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                   += $hilbertTempReal;
-                    $detrender                   -= $prev_detrender_Even;
-                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
-                    $detrender                   += $prev_detrender_Even;
-                    $prev_detrender_input_Even   = $smoothedValue;
-                    $detrender                   *= $adjustedPrevPeriod;
+                    $detrender += $hilbertTempReal;
+                    $detrender -= $prev_detrender_Even;
+                    $prev_detrender_Even = $b * $prev_detrender_input_Even;
+                    $detrender += $prev_detrender_Even;
+                    $prev_detrender_input_Even = $smoothedValue;
+                    $detrender *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal      = $a * $detrender;
-                    $Q1                   = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $detrender;
+                    $Q1 = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                   += $hilbertTempReal;
-                    $Q1                   -= $prev_Q1_Even;
-                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
-                    $Q1                   += $prev_Q1_Even;
-                    $prev_Q1_input_Even   = $detrender;
-                    $Q1                   *= $adjustedPrevPeriod;
+                    $Q1 += $hilbertTempReal;
+                    $Q1 -= $prev_Q1_Even;
+                    $prev_Q1_Even = $b * $prev_Q1_input_Even;
+                    $Q1 += $prev_Q1_Even;
+                    $prev_Q1_input_Even = $detrender;
+                    $Q1 *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
-                    $jI                   = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $I1ForEvenPrev3;
+                    $jI = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                   += $hilbertTempReal;
-                    $jI                   -= $prev_jI_Even;
-                    $prev_jI_Even         = $b * $prev_jI_input_Even;
-                    $jI                   += $prev_jI_Even;
-                    $prev_jI_input_Even   = $I1ForEvenPrev3;
-                    $jI                   *= $adjustedPrevPeriod;
+                    $jI += $hilbertTempReal;
+                    $jI -= $prev_jI_Even;
+                    $prev_jI_Even = $b * $prev_jI_input_Even;
+                    $jI += $prev_jI_Even;
+                    $prev_jI_input_Even = $I1ForEvenPrev3;
+                    $jI *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal      = $a * $Q1;
-                    $jQ                   = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $Q1;
+                    $jQ = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                   += $hilbertTempReal;
-                    $jQ                   -= $prev_jQ_Even;
-                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
-                    $jQ                   += $prev_jQ_Even;
-                    $prev_jQ_input_Even   = $Q1;
-                    $jQ                   *= $adjustedPrevPeriod;
+                    $jQ += $hilbertTempReal;
+                    $jQ -= $prev_jQ_Even;
+                    $prev_jQ_Even = $b * $prev_jQ_input_Even;
+                    $jQ += $prev_jQ_Even;
+                    $prev_jQ_input_Even = $Q1;
+                    $jQ *= $adjustedPrevPeriod;
                 }
                 if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
-                $Q2            = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
-                $I2            = 0.2 * ($I1ForEvenPrev3 - $jQ) + 0.8 * $prevI2;
+                $Q2 = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2 = 0.2 * ($I1ForEvenPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForOddPrev3 = $I1ForOddPrev2;
                 $I1ForOddPrev2 = $detrender;
             } else {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $smoothedValue;
+                    $detrender = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Odd;
-                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
-                    $detrender                  += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd   = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender += $hilbertTempReal;
+                    $detrender -= $prev_detrender_Odd;
+                    $prev_detrender_Odd = $b * $prev_detrender_input_Odd;
+                    $detrender += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd = $smoothedValue;
+                    $detrender *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $detrender;
+                    $Q1 = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Odd;
-                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
-                    $Q1                  += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd   = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1 += $hilbertTempReal;
+                    $Q1 -= $prev_Q1_Odd;
+                    $prev_Q1_Odd = $b * $prev_Q1_input_Odd;
+                    $Q1 += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd = $detrender;
+                    $Q1 *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal     = $a * $I1ForOddPrev3;
-                    $jI                  = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $I1ForOddPrev3;
+                    $jI = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Odd;
-                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
-                    $jI                  += $prev_jI_Odd;
-                    $prev_jI_input_Odd   = $I1ForOddPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI += $hilbertTempReal;
+                    $jI -= $prev_jI_Odd;
+                    $prev_jI_Odd = $b * $prev_jI_input_Odd;
+                    $jI += $prev_jI_Odd;
+                    $prev_jI_input_Odd = $I1ForOddPrev3;
+                    $jI *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $Q1;
+                    $jQ = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Odd;
-                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
-                    $jQ                  += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd   = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ += $hilbertTempReal;
+                    $jQ -= $prev_jQ_Odd;
+                    $prev_jQ_Odd = $b * $prev_jQ_input_Odd;
+                    $jQ += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd = $Q1;
+                    $jQ *= $adjustedPrevPeriod;
                 }
-                $Q2             = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
-                $I2             = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
+                $Q2 = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2 = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
             }
-            $Re       = 0.2 * ($I2 * $prevI2 + $Q2 * $prevQ2) + 0.8 * $Re;
-            $Im       = 0.2 * ($I2 * $prevQ2 - $Q2 * $prevI2) + 0.8 * $Im;
-            $prevQ2   = $Q2;
-            $prevI2   = $I2;
+            $Re = 0.2 * ($I2 * $prevI2 + $Q2 * $prevQ2) + 0.8 * $Re;
+            $Im = 0.2 * ($I2 * $prevQ2 - $Q2 * $prevI2) + 0.8 * $Im;
+            $prevQ2 = $Q2;
+            $prevI2 = $I2;
             $tempReal = $period;
             if ($Im !== 0.0 && $Re !== 0.0) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -508,12 +607,12 @@ class OverlapStudies extends Core
             } elseif ($period > 50) {
                 $period = 50;
             }
-            $period           = 0.2 * $period + 0.8 * $tempReal;
-            $smoothPeriod     = 0.33 * $period + 0.67 * $smoothPeriod;
-            $DCPeriod         = $smoothPeriod + 0.5;
-            $DCPeriodInt      = (int)$DCPeriod;
+            $period = 0.2 * $period + 0.8 * $tempReal;
+            $smoothPeriod = 0.33 * $period + 0.67 * $smoothPeriod;
+            $DCPeriod = $smoothPeriod + 0.5;
+            $DCPeriodInt = (int)$DCPeriod;
             $idxothPricePrice = $today;
-            $tempReal         = 0.0;
+            $tempReal = 0.0;
             for ($i = 0; $i < $DCPeriodInt; $i++) {
                 $tempReal += $inReal[$idxothPricePrice--];
             }
@@ -521,9 +620,9 @@ class OverlapStudies extends Core
                 $tempReal = $tempReal / (double)$DCPeriodInt;
             }
             $tempReal2 = (4.0 * $tempReal + 3.0 * $iTrend1 + 2.0 * $iTrend2 + $iTrend3) / 10.0;
-            $iTrend3   = $iTrend2;
-            $iTrend2   = $iTrend1;
-            $iTrend1   = $tempReal;
+            $iTrend3 = $iTrend2;
+            $iTrend2 = $iTrend1;
+            $iTrend1 = $tempReal;
             if ($today >= $startIdx) {
                 $outReal[$outIdx++] = $tempReal2;
             }
@@ -545,7 +644,7 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $constMax  = 2.0 / (30.0 + 1.0);
+        $constMax = 2.0 / (30.0 + 1.0);
         $constDiff = 2.0 / (2.0 + 1.0) - $constMax;
         if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
@@ -559,24 +658,24 @@ class OverlapStudies extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $sumROC1     = 0.0;
-        $today       = $startIdx - $lookbackTotal;
+        $sumROC1 = 0.0;
+        $today = $startIdx - $lookbackTotal;
         $trailingIdx = $today;
-        $i           = $optInTimePeriod;
+        $i = $optInTimePeriod;
         while ($i-- > 0) {
             $tempReal = $inReal[$today++];
             $tempReal -= $inReal[$today];
-            $sumROC1  += abs($tempReal);
+            $sumROC1 += abs($tempReal);
         }
-        $prevKAMA      = $inReal[$today - 1];
-        $tempReal      = $inReal[$today];
-        $tempReal2     = $inReal[$trailingIdx++];
-        $periodROC     = $tempReal - $tempReal2;
+        $prevKAMA = $inReal[$today - 1];
+        $tempReal = $inReal[$today];
+        $tempReal2 = $inReal[$trailingIdx++];
+        $periodROC = $tempReal - $tempReal2;
         $trailingValue = $tempReal2;
         if ($sumROC1 <= $periodROC || (-0.00000001 < $sumROC1 && $sumROC1 < 0.00000001)) {
             $tempReal = 1.0;
@@ -587,11 +686,11 @@ class OverlapStudies extends Core
         $tempReal *= $tempReal;
         $prevKAMA = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
         while ($today <= $startIdx) {
-            $tempReal      = $inReal[$today];
-            $tempReal2     = $inReal[$trailingIdx++];
-            $periodROC     = $tempReal - $tempReal2;
-            $sumROC1       -= abs($trailingValue - $tempReal2);
-            $sumROC1       += abs($tempReal - $inReal[$today - 1]);
+            $tempReal = $inReal[$today];
+            $tempReal2 = $inReal[$trailingIdx++];
+            $periodROC = $tempReal - $tempReal2;
+            $sumROC1 -= abs($trailingValue - $tempReal2);
+            $sumROC1 += abs($tempReal - $inReal[$today - 1]);
             $trailingValue = $tempReal2;
             if ($sumROC1 <= $periodROC || (-0.00000001 < $sumROC1 && $sumROC1 < 0.00000001)) {
                 $tempReal = 1.0;
@@ -603,23 +702,23 @@ class OverlapStudies extends Core
             $prevKAMA = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
         }
         $outReal[0] = $prevKAMA;
-        $outIdx     = 1;
-        $outBegIdx  = $today - 1;
+        $outIdx = 1;
+        $outBegIdx = $today - 1;
         while ($today <= $endIdx) {
-            $tempReal      = $inReal[$today];
-            $tempReal2     = $inReal[$trailingIdx++];
-            $periodROC     = $tempReal - $tempReal2;
-            $sumROC1       -= abs($trailingValue - $tempReal2);
-            $sumROC1       += abs($tempReal - $inReal[$today - 1]);
+            $tempReal = $inReal[$today];
+            $tempReal2 = $inReal[$trailingIdx++];
+            $periodROC = $tempReal - $tempReal2;
+            $sumROC1 -= abs($trailingValue - $tempReal2);
+            $sumROC1 += abs($tempReal - $inReal[$today - 1]);
             $trailingValue = $tempReal2;
             if ($sumROC1 <= $periodROC || (-0.00000001 < $sumROC1 && $sumROC1 < 0.00000001)) {
                 $tempReal = 1.0;
             } else {
                 $tempReal = abs($periodROC / $sumROC1);
             }
-            $tempReal           = $tempReal * $constDiff + $constMax;
-            $tempReal           *= $tempReal;
-            $prevKAMA           = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
+            $tempReal = $tempReal * $constDiff + $constMax;
+            $tempReal *= $tempReal;
+            $prevKAMA = ($inReal[$today++] - $prevKAMA) * $tempReal + $prevKAMA;
             $outReal[$outIdx++] = $prevKAMA;
         }
         $outNBElement = $outIdx;
@@ -638,7 +737,7 @@ class OverlapStudies extends Core
             return ReturnCode::BadParam;
         }
         if ($optInTimePeriod === 1) {
-            $nbElement    = $endIdx - $startIdx + 1;
+            $nbElement = $endIdx - $startIdx + 1;
             $outNBElement = $nbElement;
             for ($todayIdx = $startIdx, $outIdx = 0; $outIdx < $nbElement; $outIdx++, $todayIdx++) {
                 $outReal[$outIdx] = $inReal[$todayIdx];
@@ -727,7 +826,7 @@ class OverlapStudies extends Core
                 break;
             case MovingAverageType::MAMA:
                 $dummyBuffer = static::double($endIdx - $startIdx + 1);
-                $ReturnCode  = self::mama(
+                $ReturnCode = self::mama(
                     $startIdx,
                     $endIdx,
                     $inReal,
@@ -761,16 +860,16 @@ class OverlapStudies extends Core
 
     public static function mama(int $startIdx, int $endIdx, array $inReal, float $optInFastLimit, float $optInSlowLimit, int &$outBegIdx, int &$outNBElement, array &$outMAMA, array &$outFAMA): ReturnCode
     {
-        $a              = 0.0962;
-        $b              = 0.5769;
-        $detrender_Odd  = static::double(3);
+        $a = 0.0962;
+        $b = 0.5769;
+        $detrender_Odd = static::double(3);
         $detrender_Even = static::double(3);
-        $Q1_Odd         = static::double(3);
-        $Q1_Even        = static::double(3);
-        $jI_Odd         = static::double(3);
-        $jI_Even        = static::double(3);
-        $jQ_Odd         = static::double(3);
-        $jQ_Even        = static::double(3);
+        $Q1_Odd = static::double(3);
+        $Q1_Even = static::double(3);
+        $jI_Odd = static::double(3);
+        $jI_Even = static::double(3);
+        $jQ_Odd = static::double(3);
+        $jQ_Even = static::double(3);
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
@@ -790,158 +889,158 @@ class OverlapStudies extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx        = $startIdx;
-        $trailingWMAIdx   = $startIdx - $lookbackTotal;
-        $today            = $trailingWMAIdx;
-        $tempReal         = $inReal[$today++];
-        $periodWMASub     = $tempReal;
-        $periodWMASum     = $tempReal;
-        $tempReal         = $inReal[$today++];
-        $periodWMASub     += $tempReal;
-        $periodWMASum     += $tempReal * 2.0;
-        $tempReal         = $inReal[$today++];
-        $periodWMASub     += $tempReal;
-        $periodWMASum     += $tempReal * 3.0;
+        $outBegIdx = $startIdx;
+        $trailingWMAIdx = $startIdx - $lookbackTotal;
+        $today = $trailingWMAIdx;
+        $tempReal = $inReal[$today++];
+        $periodWMASub = $tempReal;
+        $periodWMASum = $tempReal;
+        $tempReal = $inReal[$today++];
+        $periodWMASub += $tempReal;
+        $periodWMASum += $tempReal * 2.0;
+        $tempReal = $inReal[$today++];
+        $periodWMASub += $tempReal;
+        $periodWMASum += $tempReal * 3.0;
         $trailingWMAValue = 0.0;
-        $i                = 9;
+        $i = 9;
         do {
             $tempReal = $inReal[$today++];
             {
-                $periodWMASub     += $tempReal;
-                $periodWMASub     -= $trailingWMAValue;
-                $periodWMASum     += $tempReal * 4.0;
+                $periodWMASub += $tempReal;
+                $periodWMASub -= $trailingWMAValue;
+                $periodWMASum += $tempReal * 4.0;
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
-                $smoothedValue    = $periodWMASum * 0.1;
-                $periodWMASum     -= $periodWMASub;
+                $smoothedValue = $periodWMASum * 0.1;
+                $periodWMASum -= $periodWMASub;
             }
         } while (--$i !== 0);
         $hilbertIdx = 0;
         {
-            $detrender_Odd[0]          = 0.0;
-            $detrender_Odd[1]          = 0.0;
-            $detrender_Odd[2]          = 0.0;
-            $detrender_Even[0]         = 0.0;
-            $detrender_Even[1]         = 0.0;
-            $detrender_Even[2]         = 0.0;
-            $detrender                 = 0.0;
-            $prev_detrender_Odd        = 0.0;
-            $prev_detrender_Even       = 0.0;
-            $prev_detrender_input_Odd  = 0.0;
+            $detrender_Odd[0] = 0.0;
+            $detrender_Odd[1] = 0.0;
+            $detrender_Odd[2] = 0.0;
+            $detrender_Even[0] = 0.0;
+            $detrender_Even[1] = 0.0;
+            $detrender_Even[2] = 0.0;
+            $detrender = 0.0;
+            $prev_detrender_Odd = 0.0;
+            $prev_detrender_Even = 0.0;
+            $prev_detrender_input_Odd = 0.0;
             $prev_detrender_input_Even = 0.0;
         }
         {
-            $Q1_Odd[0]          = 0.0;
-            $Q1_Odd[1]          = 0.0;
-            $Q1_Odd[2]          = 0.0;
-            $Q1_Even[0]         = 0.0;
-            $Q1_Even[1]         = 0.0;
-            $Q1_Even[2]         = 0.0;
-            $Q1                 = 0.0;
-            $prev_Q1_Odd        = 0.0;
-            $prev_Q1_Even       = 0.0;
-            $prev_Q1_input_Odd  = 0.0;
+            $Q1_Odd[0] = 0.0;
+            $Q1_Odd[1] = 0.0;
+            $Q1_Odd[2] = 0.0;
+            $Q1_Even[0] = 0.0;
+            $Q1_Even[1] = 0.0;
+            $Q1_Even[2] = 0.0;
+            $Q1 = 0.0;
+            $prev_Q1_Odd = 0.0;
+            $prev_Q1_Even = 0.0;
+            $prev_Q1_input_Odd = 0.0;
             $prev_Q1_input_Even = 0.0;
         }
         {
-            $jI_Odd[0]          = 0.0;
-            $jI_Odd[1]          = 0.0;
-            $jI_Odd[2]          = 0.0;
-            $jI_Even[0]         = 0.0;
-            $jI_Even[1]         = 0.0;
-            $jI_Even[2]         = 0.0;
-            $jI                 = 0.0;
-            $prev_jI_Odd        = 0.0;
-            $prev_jI_Even       = 0.0;
-            $prev_jI_input_Odd  = 0.0;
+            $jI_Odd[0] = 0.0;
+            $jI_Odd[1] = 0.0;
+            $jI_Odd[2] = 0.0;
+            $jI_Even[0] = 0.0;
+            $jI_Even[1] = 0.0;
+            $jI_Even[2] = 0.0;
+            $jI = 0.0;
+            $prev_jI_Odd = 0.0;
+            $prev_jI_Even = 0.0;
+            $prev_jI_input_Odd = 0.0;
             $prev_jI_input_Even = 0.0;
         }
         {
-            $jQ_Odd[0]          = 0.0;
-            $jQ_Odd[1]          = 0.0;
-            $jQ_Odd[2]          = 0.0;
-            $jQ_Even[0]         = 0.0;
-            $jQ_Even[1]         = 0.0;
-            $jQ_Even[2]         = 0.0;
-            $jQ                 = 0.0;
-            $prev_jQ_Odd        = 0.0;
-            $prev_jQ_Even       = 0.0;
-            $prev_jQ_input_Odd  = 0.0;
+            $jQ_Odd[0] = 0.0;
+            $jQ_Odd[1] = 0.0;
+            $jQ_Odd[2] = 0.0;
+            $jQ_Even[0] = 0.0;
+            $jQ_Even[1] = 0.0;
+            $jQ_Even[2] = 0.0;
+            $jQ = 0.0;
+            $prev_jQ_Odd = 0.0;
+            $prev_jQ_Even = 0.0;
+            $prev_jQ_input_Odd = 0.0;
             $prev_jQ_input_Even = 0.0;
         }
-        $period        = 0.0;
-        $outIdx        = 0;
-        $prevI2        = $prevQ2 = 0.0;
-        $Re            = $Im = 0.0;
-        $mama          = $fama = 0.0;
+        $period = 0.0;
+        $outIdx = 0;
+        $prevI2 = $prevQ2 = 0.0;
+        $Re = $Im = 0.0;
+        $mama = $fama = 0.0;
         $I1ForOddPrev3 = $I1ForEvenPrev3 = 0.0;
         $I1ForOddPrev2 = $I1ForEvenPrev2 = 0.0;
-        $prevPhase     = 0.0;
+        $prevPhase = 0.0;
         while ($today <= $endIdx) {
             $adjustedPrevPeriod = 0.075 * $period + 0.54;
-            $todayValue         = $inReal[$today];
+            $todayValue = $inReal[$today];
             {
-                $periodWMASub     += $todayValue;
-                $periodWMASub     -= $trailingWMAValue;
-                $periodWMASum     += $todayValue * 4.0;
+                $periodWMASub += $todayValue;
+                $periodWMASub -= $trailingWMAValue;
+                $periodWMASum += $todayValue * 4.0;
                 $trailingWMAValue = $inReal[$trailingWMAIdx++];
-                $smoothedValue    = $periodWMASum * 0.1;
-                $periodWMASum     -= $periodWMASub;
+                $smoothedValue = $periodWMASum * 0.1;
+                $periodWMASum -= $periodWMASub;
             }
             if ($today % 2 === 0) {
                 {
-                    $hilbertTempReal             = $a * $smoothedValue;
-                    $detrender                   = -$detrender_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $smoothedValue;
+                    $detrender = -$detrender_Even[$hilbertIdx];
                     $detrender_Even[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                   += $hilbertTempReal;
-                    $detrender                   -= $prev_detrender_Even;
-                    $prev_detrender_Even         = $b * $prev_detrender_input_Even;
-                    $detrender                   += $prev_detrender_Even;
-                    $prev_detrender_input_Even   = $smoothedValue;
-                    $detrender                   *= $adjustedPrevPeriod;
+                    $detrender += $hilbertTempReal;
+                    $detrender -= $prev_detrender_Even;
+                    $prev_detrender_Even = $b * $prev_detrender_input_Even;
+                    $detrender += $prev_detrender_Even;
+                    $prev_detrender_input_Even = $smoothedValue;
+                    $detrender *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal      = $a * $detrender;
-                    $Q1                   = -$Q1_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $detrender;
+                    $Q1 = -$Q1_Even[$hilbertIdx];
                     $Q1_Even[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                   += $hilbertTempReal;
-                    $Q1                   -= $prev_Q1_Even;
-                    $prev_Q1_Even         = $b * $prev_Q1_input_Even;
-                    $Q1                   += $prev_Q1_Even;
-                    $prev_Q1_input_Even   = $detrender;
-                    $Q1                   *= $adjustedPrevPeriod;
+                    $Q1 += $hilbertTempReal;
+                    $Q1 -= $prev_Q1_Even;
+                    $prev_Q1_Even = $b * $prev_Q1_input_Even;
+                    $Q1 += $prev_Q1_Even;
+                    $prev_Q1_input_Even = $detrender;
+                    $Q1 *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal      = $a * $I1ForEvenPrev3;
-                    $jI                   = -$jI_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $I1ForEvenPrev3;
+                    $jI = -$jI_Even[$hilbertIdx];
                     $jI_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jI                   += $hilbertTempReal;
-                    $jI                   -= $prev_jI_Even;
-                    $prev_jI_Even         = $b * $prev_jI_input_Even;
-                    $jI                   += $prev_jI_Even;
-                    $prev_jI_input_Even   = $I1ForEvenPrev3;
-                    $jI                   *= $adjustedPrevPeriod;
+                    $jI += $hilbertTempReal;
+                    $jI -= $prev_jI_Even;
+                    $prev_jI_Even = $b * $prev_jI_input_Even;
+                    $jI += $prev_jI_Even;
+                    $prev_jI_input_Even = $I1ForEvenPrev3;
+                    $jI *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal      = $a * $Q1;
-                    $jQ                   = -$jQ_Even[$hilbertIdx];
+                    $hilbertTempReal = $a * $Q1;
+                    $jQ = -$jQ_Even[$hilbertIdx];
                     $jQ_Even[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                   += $hilbertTempReal;
-                    $jQ                   -= $prev_jQ_Even;
-                    $prev_jQ_Even         = $b * $prev_jQ_input_Even;
-                    $jQ                   += $prev_jQ_Even;
-                    $prev_jQ_input_Even   = $Q1;
-                    $jQ                   *= $adjustedPrevPeriod;
+                    $jQ += $hilbertTempReal;
+                    $jQ -= $prev_jQ_Even;
+                    $prev_jQ_Even = $b * $prev_jQ_input_Even;
+                    $jQ += $prev_jQ_Even;
+                    $prev_jQ_input_Even = $Q1;
+                    $jQ *= $adjustedPrevPeriod;
                 }
                 if (++$hilbertIdx === 3) {
                     $hilbertIdx = 0;
                 }
-                $Q2            = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
-                $I2            = 0.2 * ($I1ForEvenPrev3 - $jQ) + 0.8 * $prevI2;
+                $Q2 = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2 = 0.2 * ($I1ForEvenPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForOddPrev3 = $I1ForOddPrev2;
                 $I1ForOddPrev2 = $detrender;
                 if ($I1ForEvenPrev3 !== 0.0) {
@@ -951,51 +1050,51 @@ class OverlapStudies extends Core
                 }
             } else {
                 {
-                    $hilbertTempReal            = $a * $smoothedValue;
-                    $detrender                  = -$detrender_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $smoothedValue;
+                    $detrender = -$detrender_Odd[$hilbertIdx];
                     $detrender_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $detrender                  += $hilbertTempReal;
-                    $detrender                  -= $prev_detrender_Odd;
-                    $prev_detrender_Odd         = $b * $prev_detrender_input_Odd;
-                    $detrender                  += $prev_detrender_Odd;
-                    $prev_detrender_input_Odd   = $smoothedValue;
-                    $detrender                  *= $adjustedPrevPeriod;
+                    $detrender += $hilbertTempReal;
+                    $detrender -= $prev_detrender_Odd;
+                    $prev_detrender_Odd = $b * $prev_detrender_input_Odd;
+                    $detrender += $prev_detrender_Odd;
+                    $prev_detrender_input_Odd = $smoothedValue;
+                    $detrender *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal     = $a * $detrender;
-                    $Q1                  = -$Q1_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $detrender;
+                    $Q1 = -$Q1_Odd[$hilbertIdx];
                     $Q1_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $Q1                  += $hilbertTempReal;
-                    $Q1                  -= $prev_Q1_Odd;
-                    $prev_Q1_Odd         = $b * $prev_Q1_input_Odd;
-                    $Q1                  += $prev_Q1_Odd;
-                    $prev_Q1_input_Odd   = $detrender;
-                    $Q1                  *= $adjustedPrevPeriod;
+                    $Q1 += $hilbertTempReal;
+                    $Q1 -= $prev_Q1_Odd;
+                    $prev_Q1_Odd = $b * $prev_Q1_input_Odd;
+                    $Q1 += $prev_Q1_Odd;
+                    $prev_Q1_input_Odd = $detrender;
+                    $Q1 *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal     = $a * $I1ForOddPrev3;
-                    $jI                  = -$jI_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $I1ForOddPrev3;
+                    $jI = -$jI_Odd[$hilbertIdx];
                     $jI_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jI                  += $hilbertTempReal;
-                    $jI                  -= $prev_jI_Odd;
-                    $prev_jI_Odd         = $b * $prev_jI_input_Odd;
-                    $jI                  += $prev_jI_Odd;
-                    $prev_jI_input_Odd   = $I1ForOddPrev3;
-                    $jI                  *= $adjustedPrevPeriod;
+                    $jI += $hilbertTempReal;
+                    $jI -= $prev_jI_Odd;
+                    $prev_jI_Odd = $b * $prev_jI_input_Odd;
+                    $jI += $prev_jI_Odd;
+                    $prev_jI_input_Odd = $I1ForOddPrev3;
+                    $jI *= $adjustedPrevPeriod;
                 }
                 {
-                    $hilbertTempReal     = $a * $Q1;
-                    $jQ                  = -$jQ_Odd[$hilbertIdx];
+                    $hilbertTempReal = $a * $Q1;
+                    $jQ = -$jQ_Odd[$hilbertIdx];
                     $jQ_Odd[$hilbertIdx] = $hilbertTempReal;
-                    $jQ                  += $hilbertTempReal;
-                    $jQ                  -= $prev_jQ_Odd;
-                    $prev_jQ_Odd         = $b * $prev_jQ_input_Odd;
-                    $jQ                  += $prev_jQ_Odd;
-                    $prev_jQ_input_Odd   = $Q1;
-                    $jQ                  *= $adjustedPrevPeriod;
+                    $jQ += $hilbertTempReal;
+                    $jQ -= $prev_jQ_Odd;
+                    $prev_jQ_Odd = $b * $prev_jQ_input_Odd;
+                    $jQ += $prev_jQ_Odd;
+                    $prev_jQ_input_Odd = $Q1;
+                    $jQ *= $adjustedPrevPeriod;
                 }
-                $Q2             = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
-                $I2             = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
+                $Q2 = 0.2 * ($Q1 + $jI) + 0.8 * $prevQ2;
+                $I2 = 0.2 * ($I1ForOddPrev3 - $jQ) + 0.8 * $prevI2;
                 $I1ForEvenPrev3 = $I1ForEvenPrev2;
                 $I1ForEvenPrev2 = $detrender;
                 if ($I1ForOddPrev3 !== 0.0) {
@@ -1004,7 +1103,7 @@ class OverlapStudies extends Core
                     $tempReal2 = 0.0;
                 }
             }
-            $tempReal  = $prevPhase - $tempReal2;
+            $tempReal = $prevPhase - $tempReal2;
             $prevPhase = $tempReal2;
             if ($tempReal < 1.0) {
                 $tempReal = 1.0;
@@ -1017,17 +1116,17 @@ class OverlapStudies extends Core
             } else {
                 $tempReal = $optInFastLimit;
             }
-            $mama     = $tempReal * $todayValue + (1 - $tempReal) * $mama;
+            $mama = $tempReal * $todayValue + (1 - $tempReal) * $mama;
             $tempReal *= 0.5;
-            $fama     = $tempReal * $mama + (1 - $tempReal) * $fama;
+            $fama = $tempReal * $mama + (1 - $tempReal) * $fama;
             if ($today >= $startIdx) {
-                $outMAMA[$outIdx]   = $mama;
+                $outMAMA[$outIdx] = $mama;
                 $outFAMA[$outIdx++] = $fama;
             }
-            $Re       = 0.2 * ($I2 * $prevI2 + $Q2 * $prevQ2) + 0.8 * $Re;
-            $Im       = 0.2 * ($I2 * $prevQ2 - $Q2 * $prevI2) + 0.8 * $Im;
-            $prevQ2   = $Q2;
-            $prevI2   = $I2;
+            $Re = 0.2 * ($I2 * $prevI2 + $Q2 * $prevQ2) + 0.8 * $Re;
+            $Im = 0.2 * ($I2 * $prevQ2 - $Q2 * $prevI2) + 0.8 * $Im;
+            $prevQ2 = $Q2;
+            $prevI2 = $I2;
             $tempReal = $period;
             if ($Im !== 0.0 && $Re !== 0.0) {
                 $period = 360.0 / (atan($Im / $Re) * $rad2Deg);
@@ -1068,7 +1167,7 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $localBegIdx    = 0;
+        $localBegIdx = 0;
         $localNbElement = 0;
         if ($optInMinPeriod === PHP_INT_MIN) {
             $optInMinPeriod = 2;
@@ -1085,7 +1184,7 @@ class OverlapStudies extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -1096,12 +1195,12 @@ class OverlapStudies extends Core
             $tempInt = $startIdx;
         }
         if ($tempInt > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outputSize       = $endIdx - $tempInt + 1;
+        $outputSize = $endIdx - $tempInt + 1;
         $localOutputArray = \array_pad([], $outputSize, 0.);
         $localPeriodArray = \array_pad([], $outputSize, 0);
         for ($i = 0; $i < $outputSize; $i++) {
@@ -1127,7 +1226,7 @@ class OverlapStudies extends Core
                     $localOutputArray
                 );
                 if ($ReturnCode !== ReturnCode::Success) {
-                    $outBegIdx    = 0;
+                    $outBegIdx = 0;
                     $outNBElement = 0;
 
                     return $ReturnCode;
@@ -1136,12 +1235,12 @@ class OverlapStudies extends Core
                 for ($j = $i + 1; $j < $outputSize; $j++) {
                     if ($localPeriodArray[$j] === $curPeriod) {
                         $localPeriodArray[$j] = 0;
-                        $outReal[$j]          = $localOutputArray[$j];
+                        $outReal[$j] = $localOutputArray[$j];
                     }
                 }
             }
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outputSize;
 
         return ReturnCode::Success;
@@ -1162,16 +1261,16 @@ class OverlapStudies extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
         while ($today <= $endIdx) {
-            $lowest  = $inReal[$trailingIdx++];
+            $lowest = $inReal[$trailingIdx++];
             $highest = $lowest;
             for ($i = $trailingIdx; $i <= $today; $i++) {
                 $tmp = $inReal[$i];
@@ -1184,7 +1283,7 @@ class OverlapStudies extends Core
             $outReal[$outIdx++] = ($highest + $lowest) / 2.0;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -1205,16 +1304,16 @@ class OverlapStudies extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx      = 0;
-        $today       = $startIdx;
+        $outIdx = 0;
+        $today = $startIdx;
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
         while ($today <= $endIdx) {
-            $lowest  = $inLow[$trailingIdx];
+            $lowest = $inLow[$trailingIdx];
             $highest = $inHigh[$trailingIdx];
             $trailingIdx++;
             for ($i = $trailingIdx; $i <= $today; $i++) {
@@ -1230,7 +1329,7 @@ class OverlapStudies extends Core
             $outReal[$outIdx++] = ($highest + $lowest) / 2.0;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -1257,7 +1356,7 @@ class OverlapStudies extends Core
             $startIdx = 1;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
@@ -1282,35 +1381,35 @@ class OverlapStudies extends Core
             $isLong = 1;
         }
         if ($ReturnCode !== ReturnCode::Success) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return $ReturnCode;
         }
         $outBegIdx = $startIdx;
-        $outIdx    = 0;
-        $todayIdx  = $startIdx;
-        $newHigh   = $inHigh[$todayIdx - 1];
-        $newLow    = $inLow[$todayIdx - 1];
+        $outIdx = 0;
+        $todayIdx = $startIdx;
+        $newHigh = $inHigh[$todayIdx - 1];
+        $newLow = $inLow[$todayIdx - 1];
         if ($isLong === 1) {
-            $ep  = $inHigh[$todayIdx];
+            $ep = $inHigh[$todayIdx];
             $sar = $newLow;
         } else {
-            $ep  = $inLow[$todayIdx];
+            $ep = $inLow[$todayIdx];
             $sar = $newHigh;
         }
-        $newLow  = $inLow[$todayIdx];
+        $newLow = $inLow[$todayIdx];
         $newHigh = $inHigh[$todayIdx];
         while ($todayIdx <= $endIdx) {
-            $prevLow  = $newLow;
+            $prevLow = $newLow;
             $prevHigh = $newHigh;
-            $newLow   = $inLow[$todayIdx];
-            $newHigh  = $inHigh[$todayIdx];
+            $newLow = $inLow[$todayIdx];
+            $newHigh = $inHigh[$todayIdx];
             $todayIdx++;
             if ($isLong === 1) {
                 if ($newLow <= $sar) {
                     $isLong = 0;
-                    $sar    = $ep;
+                    $sar = $ep;
                     if ($sar < $prevHigh) {
                         $sar = $prevHigh;
                     }
@@ -1318,9 +1417,9 @@ class OverlapStudies extends Core
                         $sar = $newHigh;
                     }
                     $outReal[$outIdx++] = $sar;
-                    $af                 = $optInAcceleration;
-                    $ep                 = $newLow;
-                    $sar                = $sar + $af * ($ep - $sar);
+                    $af = $optInAcceleration;
+                    $ep = $newLow;
+                    $sar = $sar + $af * ($ep - $sar);
                     if ($sar < $prevHigh) {
                         $sar = $prevHigh;
                     }
@@ -1347,7 +1446,7 @@ class OverlapStudies extends Core
             } else {
                 if ($newHigh >= $sar) {
                     $isLong = 1;
-                    $sar    = $ep;
+                    $sar = $ep;
                     if ($sar > $prevLow) {
                         $sar = $prevLow;
                     }
@@ -1355,9 +1454,9 @@ class OverlapStudies extends Core
                         $sar = $newLow;
                     }
                     $outReal[$outIdx++] = $sar;
-                    $af                 = $optInAcceleration;
-                    $ep                 = $newHigh;
-                    $sar                = $sar + $af * ($ep - $sar);
+                    $af = $optInAcceleration;
+                    $ep = $newHigh;
+                    $sar = $sar + $af * ($ep - $sar);
                     if ($sar > $prevLow) {
                         $sar = $prevLow;
                     }
@@ -1454,12 +1553,12 @@ class OverlapStudies extends Core
             $startIdx = 1;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $afLong  = $optInAccelerationInitLong;
+        $afLong = $optInAccelerationInitLong;
         $afShort = $optInAccelerationInitShort;
         if ($afLong > $optInAccelerationMaxLong) {
             $afLong = $optInAccelerationInitLong = $optInAccelerationMaxLong;
@@ -1490,7 +1589,7 @@ class OverlapStudies extends Core
                 $isLong = 1;
             }
             if ($ReturnCode !== ReturnCode::Success) {
-                $outBegIdx    = 0;
+                $outBegIdx = 0;
                 $outNBElement = 0;
 
                 return $ReturnCode;
@@ -1501,37 +1600,37 @@ class OverlapStudies extends Core
             $isLong = 0;
         }
         $outBegIdx = $startIdx;
-        $outIdx    = 0;
-        $todayIdx  = $startIdx;
-        $newHigh   = $inHigh[$todayIdx - 1];
-        $newLow    = $inLow[$todayIdx - 1];
+        $outIdx = 0;
+        $todayIdx = $startIdx;
+        $newHigh = $inHigh[$todayIdx - 1];
+        $newLow = $inLow[$todayIdx - 1];
         if ($optInStartValue === 0.0) {
             if ($isLong === 1) {
-                $ep  = $inHigh[$todayIdx];
+                $ep = $inHigh[$todayIdx];
                 $sar = $newLow;
             } else {
-                $ep  = $inLow[$todayIdx];
+                $ep = $inLow[$todayIdx];
                 $sar = $newHigh;
             }
         } elseif ($optInStartValue > 0) {
-            $ep  = $inHigh[$todayIdx];
+            $ep = $inHigh[$todayIdx];
             $sar = $optInStartValue;
         } else {
-            $ep  = $inLow[$todayIdx];
+            $ep = $inLow[$todayIdx];
             $sar = abs($optInStartValue);
         }
-        $newLow  = $inLow[$todayIdx];
+        $newLow = $inLow[$todayIdx];
         $newHigh = $inHigh[$todayIdx];
         while ($todayIdx <= $endIdx) {
-            $prevLow  = $newLow;
+            $prevLow = $newLow;
             $prevHigh = $newHigh;
-            $newLow   = $inLow[$todayIdx];
-            $newHigh  = $inHigh[$todayIdx];
+            $newLow = $inLow[$todayIdx];
+            $newHigh = $inHigh[$todayIdx];
             $todayIdx++;
             if ($isLong === 1) {
                 if ($newLow <= $sar) {
                     $isLong = 0;
-                    $sar    = $ep;
+                    $sar = $ep;
                     if ($sar < $prevHigh) {
                         $sar = $prevHigh;
                     }
@@ -1542,9 +1641,9 @@ class OverlapStudies extends Core
                         $sar += $sar * $optInOffsetOnReverse;
                     }
                     $outReal[$outIdx++] = -$sar;
-                    $afShort            = $optInAccelerationInitShort;
-                    $ep                 = $newLow;
-                    $sar                = $sar + $afShort * ($ep - $sar);
+                    $afShort = $optInAccelerationInitShort;
+                    $ep = $newLow;
+                    $sar = $sar + $afShort * ($ep - $sar);
                     if ($sar < $prevHigh) {
                         $sar = $prevHigh;
                     }
@@ -1554,7 +1653,7 @@ class OverlapStudies extends Core
                 } else {
                     $outReal[$outIdx++] = $sar;
                     if ($newHigh > $ep) {
-                        $ep     = $newHigh;
+                        $ep = $newHigh;
                         $afLong += $optInAccelerationLong;
                         if ($afLong > $optInAccelerationMaxLong) {
                             $afLong = $optInAccelerationMaxLong;
@@ -1570,7 +1669,7 @@ class OverlapStudies extends Core
                 }
             } elseif ($newHigh >= $sar) {
                 $isLong = 1;
-                $sar    = $ep;
+                $sar = $ep;
                 if ($sar > $prevLow) {
                     $sar = $prevLow;
                 }
@@ -1581,9 +1680,9 @@ class OverlapStudies extends Core
                     $sar -= $sar * $optInOffsetOnReverse;
                 }
                 $outReal[$outIdx++] = $sar;
-                $afLong             = $optInAccelerationInitLong;
-                $ep                 = $newHigh;
-                $sar                = $sar + $afLong * ($ep - $sar);
+                $afLong = $optInAccelerationInitLong;
+                $ep = $newHigh;
+                $sar = $sar + $afLong * ($ep - $sar);
                 if ($sar > $prevLow) {
                     $sar = $prevLow;
                 }
@@ -1593,7 +1692,7 @@ class OverlapStudies extends Core
             } else {
                 $outReal[$outIdx++] = -$sar;
                 if ($newLow < $ep) {
-                    $ep      = $newLow;
+                    $ep = $newLow;
                     $afShort += $optInAccelerationShort;
                     if ($afShort > $optInAccelerationMaxShort) {
                         $afShort = $optInAccelerationMaxShort;
@@ -1656,56 +1755,56 @@ class OverlapStudies extends Core
         }
         if ($startIdx > $endIdx) {
             $outNBElement = 0;
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx   = $startIdx;
-        $today       = $startIdx - $lookbackTotal;
-        $k           = 2.0 / ($optInTimePeriod + 1.0);
+        $outBegIdx = $startIdx;
+        $today = $startIdx - $lookbackTotal;
+        $k = 2.0 / ($optInTimePeriod + 1.0);
         $one_minus_k = 1.0 - $k;
-        $tempReal    = $inReal[$today++];
+        $tempReal = $inReal[$today++];
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
             $tempReal += $inReal[$today++];
         }
-        $e1       = $tempReal / $optInTimePeriod;
+        $e1 = $tempReal / $optInTimePeriod;
         $tempReal = $e1;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
             $tempReal += $e1;
         }
-        $e2       = $tempReal / $optInTimePeriod;
+        $e2 = $tempReal / $optInTimePeriod;
         $tempReal = $e2;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
-            $e2       = $k * $e1 + $one_minus_k * $e2;
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2 = $k * $e1 + $one_minus_k * $e2;
             $tempReal += $e2;
         }
-        $e3       = $tempReal / $optInTimePeriod;
+        $e3 = $tempReal / $optInTimePeriod;
         $tempReal = $e3;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
-            $e2       = $k * $e1 + $one_minus_k * $e2;
-            $e3       = $k * $e2 + $one_minus_k * $e3;
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2 = $k * $e1 + $one_minus_k * $e2;
+            $e3 = $k * $e2 + $one_minus_k * $e3;
             $tempReal += $e3;
         }
-        $e4       = $tempReal / $optInTimePeriod;
+        $e4 = $tempReal / $optInTimePeriod;
         $tempReal = $e4;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
-            $e2       = $k * $e1 + $one_minus_k * $e2;
-            $e3       = $k * $e2 + $one_minus_k * $e3;
-            $e4       = $k * $e3 + $one_minus_k * $e4;
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2 = $k * $e1 + $one_minus_k * $e2;
+            $e3 = $k * $e2 + $one_minus_k * $e3;
+            $e4 = $k * $e3 + $one_minus_k * $e4;
             $tempReal += $e4;
         }
-        $e5       = $tempReal / $optInTimePeriod;
+        $e5 = $tempReal / $optInTimePeriod;
         $tempReal = $e5;
         for ($i = $optInTimePeriod - 1; $i > 0; $i--) {
-            $e1       = $k * $inReal[$today++] + $one_minus_k * $e1;
-            $e2       = $k * $e1 + $one_minus_k * $e2;
-            $e3       = $k * $e2 + $one_minus_k * $e3;
-            $e4       = $k * $e3 + $one_minus_k * $e4;
-            $e5       = $k * $e4 + $one_minus_k * $e5;
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2 = $k * $e1 + $one_minus_k * $e2;
+            $e3 = $k * $e2 + $one_minus_k * $e3;
+            $e4 = $k * $e3 + $one_minus_k * $e4;
+            $e5 = $k * $e4 + $one_minus_k * $e5;
             $tempReal += $e5;
         }
         $e6 = $tempReal / $optInTimePeriod;
@@ -1717,20 +1816,20 @@ class OverlapStudies extends Core
             $e5 = $k * $e4 + $one_minus_k * $e5;
             $e6 = $k * $e5 + $one_minus_k * $e6;
         }
-        $tempReal           = $optInVFactor * $optInVFactor;
-        $c1                 = -($tempReal * $optInVFactor);
-        $c2                 = 3.0 * ($tempReal - $c1);
-        $c3                 = -6.0 * $tempReal - 3.0 * ($optInVFactor - $c1);
-        $c4                 = 1.0 + 3.0 * $optInVFactor - $c1 + 3.0 * $tempReal;
-        $outIdx             = 0;
+        $tempReal = $optInVFactor * $optInVFactor;
+        $c1 = -($tempReal * $optInVFactor);
+        $c2 = 3.0 * ($tempReal - $c1);
+        $c3 = -6.0 * $tempReal - 3.0 * ($optInVFactor - $c1);
+        $c4 = 1.0 + 3.0 * $optInVFactor - $c1 + 3.0 * $tempReal;
+        $outIdx = 0;
         $outReal[$outIdx++] = $c1 * $e6 + $c2 * $e5 + $c3 * $e4 + $c4 * $e3;
         while ($today <= $endIdx) {
-            $e1                 = $k * $inReal[$today++] + $one_minus_k * $e1;
-            $e2                 = $k * $e1 + $one_minus_k * $e2;
-            $e3                 = $k * $e2 + $one_minus_k * $e3;
-            $e4                 = $k * $e3 + $one_minus_k * $e4;
-            $e5                 = $k * $e4 + $one_minus_k * $e5;
-            $e6                 = $k * $e5 + $one_minus_k * $e6;
+            $e1 = $k * $inReal[$today++] + $one_minus_k * $e1;
+            $e2 = $k * $e1 + $one_minus_k * $e2;
+            $e3 = $k * $e2 + $one_minus_k * $e3;
+            $e4 = $k * $e3 + $one_minus_k * $e4;
+            $e5 = $k * $e4 + $one_minus_k * $e5;
+            $e6 = $k * $e5 + $one_minus_k * $e6;
             $outReal[$outIdx++] = $c1 * $e6 + $c2 * $e5 + $c3 * $e4 + $c4 * $e3;
         }
         $outNBElement = $outIdx;
@@ -1743,20 +1842,20 @@ class OverlapStudies extends Core
         if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
             return $RetCode;
         }
-        $firstEMABegIdx     = 0;
-        $firstEMANbElement  = 0;
-        $secondEMABegIdx    = 0;
+        $firstEMABegIdx = 0;
+        $firstEMANbElement = 0;
+        $secondEMABegIdx = 0;
         $secondEMANbElement = 0;
-        $thirdEMABegIdx     = 0;
-        $thirdEMANbElement  = 0;
+        $thirdEMABegIdx = 0;
+        $thirdEMANbElement = 0;
         if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 30;
         } elseif ($optInTimePeriod < 2 || $optInTimePeriod > 100000) {
             return ReturnCode::BadParam;
         }
-        $outNBElement  = 0;
-        $outBegIdx     = 0;
-        $lookbackEMA   = Lookback::emaLookback($optInTimePeriod);
+        $outNBElement = 0;
+        $outBegIdx = 0;
+        $lookbackEMA = Lookback::emaLookback($optInTimePeriod);
         $lookbackTotal = $lookbackEMA * 3;
         if ($startIdx < $lookbackTotal) {
             $startIdx = (int)$lookbackTotal;
@@ -1764,9 +1863,9 @@ class OverlapStudies extends Core
         if ($startIdx > $endIdx) {
             return ReturnCode::Success;
         }
-        $tempInt    = $lookbackTotal + ($endIdx - $startIdx) + 1;
-        $firstEMA   = static::double($tempInt);
-        $k          = 2.0 / (double)($optInTimePeriod + 1);
+        $tempInt = $lookbackTotal + ($endIdx - $startIdx) + 1;
+        $firstEMA = static::double($tempInt);
+        $k = 2.0 / (double)($optInTimePeriod + 1);
         $ReturnCode = static::TA_INT_EMA(
             $startIdx - $lookbackEMA * 2,
             $endIdx,
@@ -1780,7 +1879,7 @@ class OverlapStudies extends Core
         if ($ReturnCode !== ReturnCode::Success || $firstEMANbElement === 0) {
             return $ReturnCode;
         }
-        $secondEMA  = static::double($firstEMANbElement);
+        $secondEMA = static::double($firstEMANbElement);
         $ReturnCode = static::TA_INT_EMA(
             0,
             $firstEMANbElement - 1,
@@ -1807,10 +1906,10 @@ class OverlapStudies extends Core
         if ($ReturnCode !== ReturnCode::Success || $thirdEMANbElement === 0) {
             return $ReturnCode;
         }
-        $firstEMAIdx  = $thirdEMABegIdx + $secondEMABegIdx;
+        $firstEMAIdx = $thirdEMABegIdx + $secondEMABegIdx;
         $secondEMAIdx = $thirdEMABegIdx;
-        $outBegIdx    = $firstEMAIdx + $firstEMABegIdx;
-        $outIdx       = 0;
+        $outBegIdx = $firstEMAIdx + $firstEMABegIdx;
+        $outIdx = 0;
         while ($outIdx < $thirdEMANbElement) {
             $outReal[$outIdx] += 3.0 * $firstEMA[$firstEMAIdx++] - 3.0 * $secondEMA[$secondEMAIdx++];
             $outIdx++;
@@ -1835,88 +1934,88 @@ class OverlapStudies extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
         $outIdx = 0;
-        $i      = $optInTimePeriod >> 1;
+        $i = $optInTimePeriod >> 1;
         if ($optInTimePeriod % 2 === 1) {
-            $factor       = ($i + 1) * ($i + 1);
-            $factor       = 1.0 / $factor;
-            $trailingIdx  = $startIdx - $lookbackTotal;
-            $middleIdx    = $trailingIdx + $i;
-            $todayIdx     = $middleIdx + $i;
-            $numerator    = 0.0;
+            $factor = ($i + 1) * ($i + 1);
+            $factor = 1.0 / $factor;
+            $trailingIdx = $startIdx - $lookbackTotal;
+            $middleIdx = $trailingIdx + $i;
+            $todayIdx = $middleIdx + $i;
+            $numerator = 0.0;
             $numeratorSub = 0.0;
             for ($i = $middleIdx; $i >= $trailingIdx; $i--) {
-                $tempReal     = $inReal[$i];
+                $tempReal = $inReal[$i];
                 $numeratorSub += $tempReal;
-                $numerator    += $numeratorSub;
+                $numerator += $numeratorSub;
             }
             $numeratorAdd = 0.0;
             $middleIdx++;
             for ($i = $middleIdx; $i <= $todayIdx; $i++) {
-                $tempReal     = $inReal[$i];
+                $tempReal = $inReal[$i];
                 $numeratorAdd += $tempReal;
-                $numerator    += $numeratorAdd;
+                $numerator += $numeratorAdd;
             }
-            $tempReal           = $inReal[$trailingIdx++];
+            $tempReal = $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $numerator * $factor;
             $todayIdx++;
             while ($todayIdx <= $endIdx) {
-                $numerator          -= $numeratorSub;
-                $numeratorSub       -= $tempReal;
-                $tempReal           = $inReal[$middleIdx++];
-                $numeratorSub       += $tempReal;
-                $numerator          += $numeratorAdd;
-                $numeratorAdd       -= $tempReal;
-                $tempReal           = $inReal[$todayIdx++];
-                $numeratorAdd       += $tempReal;
-                $numerator          += $tempReal;
-                $tempReal           = $inReal[$trailingIdx++];
+                $numerator -= $numeratorSub;
+                $numeratorSub -= $tempReal;
+                $tempReal = $inReal[$middleIdx++];
+                $numeratorSub += $tempReal;
+                $numerator += $numeratorAdd;
+                $numeratorAdd -= $tempReal;
+                $tempReal = $inReal[$todayIdx++];
+                $numeratorAdd += $tempReal;
+                $numerator += $tempReal;
+                $tempReal = $inReal[$trailingIdx++];
                 $outReal[$outIdx++] = $numerator * $factor;
             }
         } else {
-            $factor       = $i * ($i + 1);
-            $factor       = 1.0 / $factor;
-            $trailingIdx  = $startIdx - $lookbackTotal;
-            $middleIdx    = $trailingIdx + $i - 1;
-            $todayIdx     = $middleIdx + $i;
-            $numerator    = 0.0;
+            $factor = $i * ($i + 1);
+            $factor = 1.0 / $factor;
+            $trailingIdx = $startIdx - $lookbackTotal;
+            $middleIdx = $trailingIdx + $i - 1;
+            $todayIdx = $middleIdx + $i;
+            $numerator = 0.0;
             $numeratorSub = 0.0;
             for ($i = $middleIdx; $i >= $trailingIdx; $i--) {
-                $tempReal     = $inReal[$i];
+                $tempReal = $inReal[$i];
                 $numeratorSub += $tempReal;
-                $numerator    += $numeratorSub;
+                $numerator += $numeratorSub;
             }
             $numeratorAdd = 0.0;
             $middleIdx++;
             for ($i = $middleIdx; $i <= $todayIdx; $i++) {
-                $tempReal     = $inReal[$i];
+                $tempReal = $inReal[$i];
                 $numeratorAdd += $tempReal;
-                $numerator    += $numeratorAdd;
+                $numerator += $numeratorAdd;
             }
-            $tempReal           = $inReal[$trailingIdx++];
+            $tempReal = $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $numerator * $factor;
             $todayIdx++;
             while ($todayIdx <= $endIdx) {
-                $numerator          -= $numeratorSub;
-                $numeratorSub       -= $tempReal;
-                $tempReal           = $inReal[$middleIdx++];
-                $numeratorSub       += $tempReal;
-                $numeratorAdd       -= $tempReal;
-                $numerator          += $numeratorAdd;
-                $tempReal           = $inReal[$todayIdx++];
-                $numeratorAdd       += $tempReal;
-                $numerator          += $tempReal;
-                $tempReal           = $inReal[$trailingIdx++];
+                $numerator -= $numeratorSub;
+                $numeratorSub -= $tempReal;
+                $tempReal = $inReal[$middleIdx++];
+                $numeratorSub += $tempReal;
+                $numeratorAdd -= $tempReal;
+                $numerator += $numeratorAdd;
+                $tempReal = $inReal[$todayIdx++];
+                $numeratorAdd += $tempReal;
+                $numerator += $tempReal;
+                $tempReal = $inReal[$trailingIdx++];
                 $outReal[$outIdx++] = $numerator * $factor;
             }
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -1936,35 +2035,35 @@ class OverlapStudies extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $divider     = $optInTimePeriod * ($optInTimePeriod + 1) >> 1;
-        $outIdx      = 0;
+        $divider = $optInTimePeriod * ($optInTimePeriod + 1) >> 1;
+        $outIdx = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
-        $periodSum   = $periodSub = 0.0;
-        $inIdx       = $trailingIdx;
-        $i           = 1;
+        $periodSum = $periodSub = 0.0;
+        $inIdx = $trailingIdx;
+        $i = 1;
         while ($inIdx < $startIdx) {
-            $tempReal  = $inReal[$inIdx++];
+            $tempReal = $inReal[$inIdx++];
             $periodSub += $tempReal;
             $periodSum += $tempReal * $i;
             $i++;
         }
         $trailingValue = 0.0;
         while ($inIdx <= $endIdx) {
-            $tempReal           = $inReal[$inIdx++];
-            $periodSub          += $tempReal;
-            $periodSub          -= $trailingValue;
-            $periodSum          += $tempReal * $optInTimePeriod;
-            $trailingValue      = $inReal[$trailingIdx++];
+            $tempReal = $inReal[$inIdx++];
+            $periodSub += $tempReal;
+            $periodSub -= $trailingValue;
+            $periodSum += $tempReal * $optInTimePeriod;
+            $trailingValue = $inReal[$trailingIdx++];
             $outReal[$outIdx++] = $periodSum / $divider;
-            $periodSum          -= $periodSub;
+            $periodSum -= $periodSub;
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }

@@ -59,7 +59,7 @@ class PriceTransform extends Core
             $outReal[$outIdx++] = ($inHigh[$i] + $inLow[$i] + $inClose[$i] + $inOpen[$i]) / 4;
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -74,7 +74,7 @@ class PriceTransform extends Core
             $outReal[$outIdx++] = ($inHigh[$i] + $inLow[$i]) / 2.0;
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -91,7 +91,7 @@ class PriceTransform extends Core
                                    $inClose[$i]) / 3.0;
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -108,7 +108,7 @@ class PriceTransform extends Core
                                    ($inClose[$i] * 2.0)) / 4.0;
         }
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }

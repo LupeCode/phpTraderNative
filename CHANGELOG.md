@@ -1,5 +1,32 @@
 # Change Log
 
+## 2.1.1
+  * Figured out how to use .gitattributes to exclude files from the composer package.
+    * Now I can add the TA-Lib C source files to the repository and not have them show up in the composer package. 🎉
+## 2.1.0
+  * Added new functions from TA-Lib v0.6.0.
+    * [ACCBANDS](https://github.com/TA-Lib/ta-lib/blob/main/src/ta_func/ta_ACCBANDS.c)
+    * [AVGDEV](https://github.com/TA-Lib/ta-lib/blob/main/src/ta_func/ta_AVGDEV.c)
+    * [IMI](https://github.com/TA-Lib/ta-lib/blob/main/src/ta_func/ta_IMI.c)
+## 2.0.1
+  * Fixed [Issue #16](https://github.com/LupeCode/phpTraderNative/issues/16)
+  * Removed version from composer.json as per their spec.
+## 2.0.0
+  * Cleaned up git repository.
+  * Drop support for PHP 7.X and 8.0.
+  * Updated dependencies.
+  * Cleaned up the code and use PSR-12 formatting.
+  * Changed the LICENSE to MIT.
+  * Updated PHPUnit.
+  * Added better testing data.
+## 1.2.3
+  * Small updates and bug fixes.
+  * Added .deepsource.toml for DeepSource.io.
+## 1.2.2
+  * GitLab CI and TravisCI no longer build this package
+## 1.2.1
+  * Added PHP 7.0.x to the CI tests.
+    * Also various things to get this to work in the CI runners.
 ## 1.2.0
   * Added the static variable to the test. Use this instead of a string just in case the string for the errors change.
   * Test all of the MA types that stochrsi supports.

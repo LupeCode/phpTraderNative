@@ -32,7 +32,7 @@ This library is intended to be a drop-in replacement for the Trader extension, i
 
 Another option that this package provides is to use functions that have an easier to understand name.
 
-If you do not to use `adosc` because it is not descriptive enough, you can instead use `chaikinAccumulationDistributionOscillator` like this:
+If you do not want to use `adosc` because it is not descriptive enough, you can instead use `chaikinAccumulationDistributionOscillator` like this:
 `TraderFriendly::chaikinAccumulationDistributionOscillator($high, $low, $close, $volume, $fastPeriod, $slowPeriod)`
 
 ## Note about default values
@@ -69,6 +69,13 @@ git checkout git@github.com:LupeCode/phpTraderNative.git
 cd phpTraderNative
 composer install --dev
 ~~~
+
+### Directory Structure
+
+* `source` - The source code for the library.
+* `tests` - The PHPUnit tests for the library.
+* `pecl` - The PECL Trader extension source code.
+* `talib` - The TA-LIB source code that the PECL Trader extension uses.
 
 ### Testing
 

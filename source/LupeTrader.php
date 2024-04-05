@@ -43,14 +43,14 @@ class LupeTrader extends Trader
      */
     public static function chaikinAccumulationDistributionLine(array $high, array $low, array $close, array $volume): array
     {
-        $count           = self::verifyArrayCounts([$high, $low, $close, $volume]);
-        $result          = new \SplFixedArray($count + 1);
+        $count = self::verifyArrayCounts([$high, $low, $close, $volume]);
+        $result = new \SplFixedArray($count + 1);
         $moneyFlowVolume = 0.0;
         for ($i = 0; $i <= $count; $i++) {
             $denominator = $high[$i] - $low[$i];
             if ($denominator > 0) {
                 $moneyFlowMultiplier = (($close[$i] - $low[$i]) - ($high[$i] - $close[$i])) / $denominator;
-                $moneyFlowVolume     += ($moneyFlowMultiplier * $volume[$i]);
+                $moneyFlowVolume += ($moneyFlowMultiplier * $volume[$i]);
             }
             $result[$i] = $moneyFlowVolume;
         }
@@ -101,19 +101,19 @@ class LupeTrader extends Trader
      */
     public static function chaikinOscillator(array $high, array $low, array $close, array $volume, int $fastPeriod = 3, int $slowPeriod = 10): array
     {
-        $count         = self::verifyArrayCounts([$high, $low, $close, $volume]);
-        $fastK         = 2 / ($fastPeriod + 1);
-        $slowK         = 2 / ($slowPeriod + 1);
+        $count = self::verifyArrayCounts([$high, $low, $close, $volume]);
+        $fastK = 2 / ($fastPeriod + 1);
+        $slowK = 2 / ($slowPeriod + 1);
         $oneMinusFastK = 1 - $fastK;
         $oneMinusSlowK = 1 - $slowK;
 
-        $ad      = self::ad($high, $low, $close, $volume);
+        $ad = self::ad($high, $low, $close, $volume);
         $fastEma = $slowEma = $ad[0];
-        $output  = [];
+        $output = [];
 
         for ($i = 1; $i <= $count; $i++) {
-            $fastEma    = ($fastK * $ad[$i]) + ($oneMinusFastK * $fastEma);
-            $slowEma    = ($slowK * $ad[$i]) + ($oneMinusSlowK * $slowEma);
+            $fastEma = ($fastK * $ad[$i]) + ($oneMinusFastK * $fastEma);
+            $slowEma = ($slowK * $ad[$i]) + ($oneMinusSlowK * $slowEma);
             $output[$i] = $fastEma - $slowEma;
         }
 
@@ -149,10 +149,10 @@ class LupeTrader extends Trader
      */
     public static function averageDirectionalMovementIndex(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $count  = self::verifyArrayCounts([$high, $low, $close]);
-        $plus   = self::plusDI($high, $low, $close, $timePeriod);
-        $minus  = self::minusDI($high, $low, $close, $timePeriod);
-        $sum    = self::add($plus, $minus);
+        $count = self::verifyArrayCounts([$high, $low, $close]);
+        $plus = self::plusDI($high, $low, $close, $timePeriod);
+        $minus = self::minusDI($high, $low, $close, $timePeriod);
+        $sum = self::add($plus, $minus);
         $result = new \SplFixedArray($count + 1);
         for ($i = 0; $i <= $count; $i++) {
             $result[$i] = $sum[$i] > 0 ? 100 * abs($plus[$i] - $minus[$i]) / $sum[$i] : 0;
@@ -216,12 +216,12 @@ class LupeTrader extends Trader
         int $slowD_Period = 3,
         MovingAverageType $slowD_MAType = MovingAverageType::SMA
     ): array {
-        $real   = \array_values($real);
+        $real = \array_values($real);
         $endIdx = count($real) - 1;
-        $rsi    = [];
+        $rsi = [];
         self::checkForError(self::getMomentumIndicators()::rsi(0, $endIdx, $real, $rsi_period, self::$outBegIdx, self::$outNBElement, $rsi));
-        $rsi      = array_values($rsi);
-        $endIdx   = self::verifyArrayCounts([&$rsi]);
+        $rsi = array_values($rsi);
+        $endIdx = self::verifyArrayCounts([&$rsi]);
         $outSlowK = [];
         $outSlowD = [];
         self::checkForError(

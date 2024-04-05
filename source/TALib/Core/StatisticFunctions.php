@@ -48,6 +48,50 @@ use LupeCode\phpTraderNative\TALib\Enum\ReturnCode;
 
 class StatisticFunctions extends Core
 {
+    public static function avgdev(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
+    {
+        if ($RetCode = static::validateStartEndIndexes($startIdx, $endIdx)) {
+            return $RetCode;
+        }
+
+        $lookback = $optInTimePeriod - 1;
+
+        if ($startIdx < $lookback) {
+            $startIdx = $lookback;
+        }
+        $today = $startIdx;
+
+        if ($today > $endIdx) {
+            $outBegIdx = 0;
+            $outNBElement = 0;
+
+            return ReturnCode::Success;
+        }
+
+        $outBegIdx = $today;
+
+        $outIdx = 0;
+
+        while ($today <= $endIdx) {
+            $todaySum = 0.0;
+            for ($i = 0; $i < $optInTimePeriod; $i++) {
+                $todaySum += $inReal[$today - $i];
+            }
+
+            $todayDev = 0.0;
+            for ($i = 0; $i < $optInTimePeriod; $i++) {
+                $todayDev += abs($inReal[$today - $i] - $todaySum / $optInTimePeriod);
+            }
+            $outReal[$outIdx] = $todayDev / $optInTimePeriod;
+
+            $outIdx++;
+            $today++;
+        }
+
+        $outNBElement = $outIdx;
+
+        return ReturnCode::Success;
+    }
 
     public static function beta(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): ReturnCode
     {
@@ -64,16 +108,16 @@ class StatisticFunctions extends Core
             $startIdx = $nbInitialElementNeeded;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $trailingIdx  = $startIdx - $nbInitialElementNeeded;
+        $trailingIdx = $startIdx - $nbInitialElementNeeded;
         $last_price_x = $trailing_last_price_x = $inReal0[$trailingIdx];
         $last_price_y = $trailing_last_price_y = $inReal1[$trailingIdx];
-        $i            = ++$trailingIdx;
-        $S_xx         = $S_xy = $S_x = $S_y = 0;
+        $i = ++$trailingIdx;
+        $S_xx = $S_xy = $S_x = $S_y = 0;
         while ($i < $startIdx) {
             $tmp_real = $inReal0[$i];
             if (!(((-0.00000001) < $last_price_x) && ($last_price_x < 0.00000001))) {
@@ -82,20 +126,20 @@ class StatisticFunctions extends Core
                 $x = 0.0;
             }
             $last_price_x = $tmp_real;
-            $tmp_real     = $inReal1[$i++];
+            $tmp_real = $inReal1[$i++];
             if (!(((-0.00000001) < $last_price_y) && ($last_price_y < 0.00000001))) {
                 $y = ($tmp_real - $last_price_y) / $last_price_y;
             } else {
                 $y = 0.0;
             }
             $last_price_y = $tmp_real;
-            $S_xx         += $x * $x;
-            $S_xy         += $x * $y;
-            $S_x          += $x;
-            $S_y          += $y;
+            $S_xx += $x * $x;
+            $S_xy += $x * $y;
+            $S_x += $x;
+            $S_y += $y;
         }
         $outIdx = 0;
-        $n      = (double)$optInTimePeriod;
+        $n = (double)$optInTimePeriod;
         do {
             $tmp_real = $inReal0[$i];
             if (!(((-0.00000001) < $last_price_x) && ($last_price_x < 0.00000001))) {
@@ -104,32 +148,32 @@ class StatisticFunctions extends Core
                 $x = 0.0;
             }
             $last_price_x = $tmp_real;
-            $tmp_real     = $inReal1[$i++];
+            $tmp_real = $inReal1[$i++];
             if (!(((-0.00000001) < $last_price_y) && ($last_price_y < 0.00000001))) {
                 $y = ($tmp_real - $last_price_y) / $last_price_y;
             } else {
                 $y = 0.0;
             }
             $last_price_y = $tmp_real;
-            $S_xx         += $x * $x;
-            $S_xy         += $x * $y;
-            $S_x          += $x;
-            $S_y          += $y;
-            $tmp_real     = $inReal0[$trailingIdx];
+            $S_xx += $x * $x;
+            $S_xy += $x * $y;
+            $S_x += $x;
+            $S_y += $y;
+            $tmp_real = $inReal0[$trailingIdx];
             if (!(((-0.00000001) < $trailing_last_price_x) && ($trailing_last_price_x < 0.00000001))) {
                 $x = ($tmp_real - $trailing_last_price_x) / $trailing_last_price_x;
             } else {
                 $x = 0.0;
             }
             $trailing_last_price_x = $tmp_real;
-            $tmp_real              = $inReal1[$trailingIdx++];
+            $tmp_real = $inReal1[$trailingIdx++];
             if (!(((-0.00000001) < $trailing_last_price_y) && ($trailing_last_price_y < 0.00000001))) {
                 $y = ($tmp_real - $trailing_last_price_y) / $trailing_last_price_y;
             } else {
                 $y = 0.0;
             }
             $trailing_last_price_y = $tmp_real;
-            $tmp_real              = ($n * $S_xx) - ($S_x * $S_x);
+            $tmp_real = ($n * $S_xx) - ($S_x * $S_x);
             if (!(((-0.00000001) < $tmp_real) && ($tmp_real < 0.00000001))) {
                 $outReal[$outIdx++] = (($n * $S_xy) - ($S_x * $S_y)) / $tmp_real;
             } else {
@@ -137,11 +181,11 @@ class StatisticFunctions extends Core
             }
             $S_xx -= $x * $x;
             $S_xy -= $x * $y;
-            $S_x  -= $x;
-            $S_y  -= $y;
+            $S_x -= $x;
+            $S_y -= $y;
         } while ($i <= $endIdx);
         $outNBElement = $outIdx;
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
 
         return ReturnCode::Success;
     }
@@ -161,26 +205,26 @@ class StatisticFunctions extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outBegIdx   = $startIdx;
+        $outBegIdx = $startIdx;
         $trailingIdx = $startIdx - $lookbackTotal;
-        $sumXY       = $sumX = $sumY = $sumX2 = $sumY2 = 0.0;
+        $sumXY = $sumX = $sumY = $sumX2 = $sumY2 = 0.0;
         for ($today = $trailingIdx; $today <= $startIdx; $today++) {
-            $x     = $inReal0[$today];
-            $sumX  += $x;
+            $x = $inReal0[$today];
+            $sumX += $x;
             $sumX2 += $x * $x;
-            $y     = $inReal1[$today];
+            $y = $inReal1[$today];
             $sumXY += $x * $y;
-            $sumY  += $y;
+            $sumY += $y;
             $sumY2 += $y * $y;
         }
         $trailingX = $inReal0[$trailingIdx];
         $trailingY = $inReal1[$trailingIdx++];
-        $tempReal  = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
+        $tempReal = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
         if (!($tempReal < 0.00000001)) {
             $outReal[0] = ($sumXY - (($sumX * $sumY) / $optInTimePeriod)) / sqrt($tempReal);
         } else {
@@ -188,21 +232,21 @@ class StatisticFunctions extends Core
         }
         $outIdx = 1;
         while ($today <= $endIdx) {
-            $sumX      -= $trailingX;
-            $sumX2     -= $trailingX * $trailingX;
-            $sumXY     -= $trailingX * $trailingY;
-            $sumY      -= $trailingY;
-            $sumY2     -= $trailingY * $trailingY;
-            $x         = $inReal0[$today];
-            $sumX      += $x;
-            $sumX2     += $x * $x;
-            $y         = $inReal1[$today++];
-            $sumXY     += $x * $y;
-            $sumY      += $y;
-            $sumY2     += $y * $y;
+            $sumX -= $trailingX;
+            $sumX2 -= $trailingX * $trailingX;
+            $sumXY -= $trailingX * $trailingY;
+            $sumY -= $trailingY;
+            $sumY2 -= $trailingY * $trailingY;
+            $x = $inReal0[$today];
+            $sumX += $x;
+            $sumX2 += $x * $x;
+            $y = $inReal1[$today++];
+            $sumXY += $x * $y;
+            $sumY += $y;
+            $sumY2 += $y * $y;
             $trailingX = $inReal0[$trailingIdx];
             $trailingY = $inReal1[$trailingIdx++];
-            $tempReal  = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
+            $tempReal = ($sumX2 - (($sumX * $sumX) / $optInTimePeriod)) * ($sumY2 - (($sumY * $sumY) / $optInTimePeriod));
             if (!($tempReal < 0.00000001)) {
                 $outReal[$outIdx++] = ($sumXY - (($sumX * $sumY) / $optInTimePeriod)) / sqrt($tempReal);
             } else {
@@ -229,29 +273,29 @@ class StatisticFunctions extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx  = 0;
-        $today   = $startIdx;
-        $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
+        $outIdx = 0;
+        $today = $startIdx;
+        $SumX = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
         while ($today <= $endIdx) {
             $SumXY = 0;
-            $SumY  = 0;
+            $SumY = 0;
             for ($i = $optInTimePeriod; $i-- != 0;) {
-                $SumY  += $tempValue1 = $inReal[$today - $i];
+                $SumY += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
-            $b                  = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
+            $m = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $b = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
             $outReal[$outIdx++] = $b + $m * (double)($optInTimePeriod - 1);
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -272,28 +316,28 @@ class StatisticFunctions extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx  = 0;
-        $today   = $startIdx;
-        $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
+        $outIdx = 0;
+        $today = $startIdx;
+        $SumX = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
         while ($today <= $endIdx) {
             $SumXY = 0;
-            $SumY  = 0;
+            $SumY = 0;
             for ($i = $optInTimePeriod; $i-- != 0;) {
-                $SumY  += $tempValue1 = $inReal[$today - $i];
+                $SumY += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $m = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
             $outReal[$outIdx++] = atan($m) * (180.0 / 3.14159265358979323846);
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -314,28 +358,28 @@ class StatisticFunctions extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx  = 0;
-        $today   = $startIdx;
-        $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
+        $outIdx = 0;
+        $today = $startIdx;
+        $SumX = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
         while ($today <= $endIdx) {
             $SumXY = 0;
-            $SumY  = 0;
+            $SumY = 0;
             for ($i = $optInTimePeriod; $i-- != 0;) {
-                $SumY  += $tempValue1 = $inReal[$today - $i];
+                $SumY += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $m = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
             $outReal[$outIdx++] = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -356,27 +400,27 @@ class StatisticFunctions extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx  = 0;
-        $today   = $startIdx;
-        $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
+        $outIdx = 0;
+        $today = $startIdx;
+        $SumX = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
         while ($today <= $endIdx) {
             $SumXY = 0;
-            $SumY  = 0;
+            $SumY = 0;
             for ($i = $optInTimePeriod; $i-- != 0;) {
-                $SumY  += $tempValue1 = $inReal[$today - $i];
+                $SumY += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
             $outReal[$outIdx++] = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;
@@ -437,29 +481,29 @@ class StatisticFunctions extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            $outBegIdx    = 0;
+            $outBegIdx = 0;
             $outNBElement = 0;
 
             return ReturnCode::Success;
         }
-        $outIdx  = 0;
-        $today   = $startIdx;
-        $SumX    = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
+        $outIdx = 0;
+        $today = $startIdx;
+        $SumX = $optInTimePeriod * ($optInTimePeriod - 1) * 0.5;
         $SumXSqr = $optInTimePeriod * ($optInTimePeriod - 1) * (2 * $optInTimePeriod - 1) / 6;
         $Divisor = $SumX * $SumX - $optInTimePeriod * $SumXSqr;
         while ($today <= $endIdx) {
             $SumXY = 0;
-            $SumY  = 0;
+            $SumY = 0;
             for ($i = $optInTimePeriod; $i-- != 0;) {
-                $SumY  += $tempValue1 = $inReal[$today - $i];
+                $SumY += $tempValue1 = $inReal[$today - $i];
                 $SumXY += (double)$i * $tempValue1;
             }
-            $m                  = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
-            $b                  = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
+            $m = ($optInTimePeriod * $SumXY - $SumX * $SumY) / $Divisor;
+            $b = ($SumY - $m * $SumX) / (double)$optInTimePeriod;
             $outReal[$outIdx++] = $b + $m * (double)$optInTimePeriod;
             $today++;
         }
-        $outBegIdx    = $startIdx;
+        $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
         return ReturnCode::Success;

@@ -74,17 +74,17 @@ class CandleSetting
     public function CopyFrom(CandleSetting $source): void
     {
         $this->settingType = $source->settingType;
-        $this->rangeType   = $source->rangeType;
-        $this->avgPeriod   = $source->avgPeriod;
-        $this->factor      = $source->factor;
+        $this->rangeType = $source->rangeType;
+        $this->avgPeriod = $source->avgPeriod;
+        $this->factor = $source->factor;
     }
 
     public function CandleSetting(CandleSetting $that): void
     {
         $this->settingType = $that->settingType;
-        $this->rangeType   = $that->rangeType;
-        $this->avgPeriod   = $that->avgPeriod;
-        $this->factor      = $that->factor;
+        $this->rangeType = $that->rangeType;
+        $this->avgPeriod = $that->avgPeriod;
+        $this->factor = $that->factor;
     }
 
 }

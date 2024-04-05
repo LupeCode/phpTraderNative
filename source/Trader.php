@@ -147,7 +147,7 @@ class Trader
 
     protected static function prep(): void
     {
-        self::$outBegIdx    = 0;
+        self::$outBegIdx = 0;
         self::$outNBElement = 0;
     }
 
@@ -176,7 +176,7 @@ class Trader
     protected static function adjustIndexes(array $outReal, int $offset): array
     {
         $newOutReal = [];
-        $outReal    = \array_values($outReal);
+        $outReal = \array_values($outReal);
         foreach ($outReal as $index => $inDouble) {
             $newOutReal[$index + $offset] = $inDouble;
         }
@@ -204,6 +204,24 @@ class Trader
         return Core::getCompatibility();
     }
 
+    public static function accbands(array $high, array $low, array $close, int $timePeriod): array
+    {
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $outReal = [];
+
+        $outRealUpperBand = [];
+        $outRealMiddleBand = [];
+        $outRealLowerBand = [];
+
+        self::checkForError(self::getOverlapStudies()::accBands(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outRealUpperBand, $outRealMiddleBand, $outRealLowerBand));
+
+        $outReal['UpperBand'] = self::adjustIndexes($outRealUpperBand, self::$outBegIdx);
+        $outReal['MiddleBand'] = self::adjustIndexes($outRealMiddleBand, self::$outBegIdx);
+        $outReal['LowerBand'] = self::adjustIndexes($outRealLowerBand, self::$outBegIdx);
+
+        return $outReal;
+    }
+
     /**
      * Vector arc cosine
      *
@@ -215,8 +233,8 @@ class Trader
      */
     public static function acos(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::acos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -244,7 +262,7 @@ class Trader
      */
     public static function ad(array $high, array $low, array $close, array $volume): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::ad(0, $endIdx, $high, $low, $close, $volume, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -261,7 +279,7 @@ class Trader
      */
     public static function add(array $real0, array $real1): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
+        $endIdx = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::checkForError(self::getMathOperators()::add(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -291,7 +309,7 @@ class Trader
      */
     public static function adosc(array $high, array $low, array $close, array $volume, int $fastPeriod = 3, int $slowPeriod = 10): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::adOsc(0, $endIdx, $high, $low, $close, $volume, $fastPeriod, $slowPeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -321,7 +339,7 @@ class Trader
      */
     public static function adx(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::adx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -346,7 +364,7 @@ class Trader
      */
     public static function adxr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::adxr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -374,8 +392,8 @@ class Trader
      */
     public static function apo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::apo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -400,9 +418,9 @@ class Trader
      */
     public static function aroon(array $high, array $low, int $timePeriod = 14): array
     {
-        $endIdx       = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outAroonDown = [];
-        $outAroonUp   = [];
+        $outAroonUp = [];
         self::checkForError(self::getMomentumIndicators()::aroon(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outAroonDown, $outAroonUp));
 
         return ['AroonDown' => self::adjustIndexes($outAroonDown, self::$outBegIdx), 'AroonUp' => self::adjustIndexes($outAroonUp, self::$outBegIdx)];
@@ -422,7 +440,7 @@ class Trader
      */
     public static function aroonosc(array $high, array $low, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::aroonOsc(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -440,8 +458,8 @@ class Trader
      */
     public static function asin(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::asin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -459,8 +477,8 @@ class Trader
      */
     public static function atan(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::atan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -486,9 +504,20 @@ class Trader
      */
     public static function atr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::atr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
+
+        return self::adjustIndexes($outReal, self::$outBegIdx);
+    }
+
+    public static function avgdev(array $real, int $timePeriod = 14): array
+    {
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outReal = [];
+
+        self::checkForError(self::getStatisticFunctions()::avgDev(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
         return self::adjustIndexes($outReal, self::$outBegIdx);
     }
@@ -508,7 +537,7 @@ class Trader
      */
     public static function avgprice(array $open, array $high, array $low, array $close): array
     {
-        $endIdx  = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getPriceTransform()::avgPrice(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -535,11 +564,11 @@ class Trader
      */
     public static function bbands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
-        $real              = \array_values($real);
-        $endIdx            = count($real) - 1;
-        $outRealUpperBand  = [];
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outRealUpperBand = [];
         $outRealMiddleBand = [];
-        $outRealLowerBand  = [];
+        $outRealLowerBand = [];
         self::checkForError(
             self::getOverlapStudies()::bbands(
                 0,
@@ -583,7 +612,7 @@ class Trader
      */
     public static function beta(array $real0, array $real1, int $timePeriod = 5): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
+        $endIdx = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::beta(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -602,7 +631,7 @@ class Trader
      */
     public static function bop(array $open, array $high, array $low, array $close): array
     {
-        $endIdx  = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::bop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -624,7 +653,7 @@ class Trader
      */
     public static function cci(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::cci(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -643,7 +672,7 @@ class Trader
      */
     public static function cdl2crows(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -662,7 +691,7 @@ class Trader
      */
     public static function cdl3blackcrows(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3BlackCrows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -681,7 +710,7 @@ class Trader
      */
     public static function cdl3inside(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3Inside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -700,7 +729,7 @@ class Trader
      */
     public static function cdl3linestrike(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3LineStrike(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -719,7 +748,7 @@ class Trader
      */
     public static function cdl3outside(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3Outside(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -738,7 +767,7 @@ class Trader
      */
     public static function cdl3starsinsouth(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3StarsInSouth(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -757,7 +786,7 @@ class Trader
      */
     public static function cdl3whitesoldiers(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdl3WhiteSoldiers(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -777,7 +806,7 @@ class Trader
      */
     public static function cdlabandonedbaby(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlAbandonedBaby(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -796,7 +825,7 @@ class Trader
      */
     public static function cdladvanceblock(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlAdvanceBlock(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -815,7 +844,7 @@ class Trader
      */
     public static function cdlbelthold(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlBeltHold(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -834,7 +863,7 @@ class Trader
      */
     public static function cdlbreakaway(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlBreakaway(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -853,7 +882,7 @@ class Trader
      */
     public static function cdlclosingmarubozu(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlClosingMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -872,7 +901,7 @@ class Trader
      */
     public static function cdlconcealbabyswall(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlConcealBabysWall(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -891,7 +920,7 @@ class Trader
      */
     public static function cdlcounterattack(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlCounterAttack(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -911,7 +940,7 @@ class Trader
      */
     public static function cdldarkcloudcover(array $open, array $high, array $low, array $close, float $penetration = 0.5): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlDarkCloudCover(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -930,7 +959,7 @@ class Trader
      */
     public static function cdldoji(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -949,7 +978,7 @@ class Trader
      */
     public static function cdldojistar(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdldojistar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -968,7 +997,7 @@ class Trader
      */
     public static function cdldragonflydoji(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlDragonflyDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -987,7 +1016,7 @@ class Trader
      */
     public static function cdlengulfing(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlEngulfing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1007,7 +1036,7 @@ class Trader
      */
     public static function cdleveningdojistar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlEveningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1027,7 +1056,7 @@ class Trader
      */
     public static function cdleveningstar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlEveningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1046,7 +1075,7 @@ class Trader
      */
     public static function cdlgapsidesidewhite(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlGapSideSideWhite(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1066,7 +1095,7 @@ class Trader
      */
     public static function cdlgravestonedoji(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlGravestoneDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1085,7 +1114,7 @@ class Trader
      */
     public static function cdlhammer(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1104,7 +1133,7 @@ class Trader
      */
     public static function cdlhangingman(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHangingMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1123,7 +1152,7 @@ class Trader
      */
     public static function cdlharami(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHarami(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1142,7 +1171,7 @@ class Trader
      */
     public static function cdlharamicross(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHaramiCross(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1161,7 +1190,7 @@ class Trader
      */
     public static function cdlhighwave(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHighWave(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1180,7 +1209,7 @@ class Trader
      */
     public static function cdlhikkake(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHikkake(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1199,7 +1228,7 @@ class Trader
      */
     public static function cdlhikkakemod(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHikkakeMod(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1218,7 +1247,7 @@ class Trader
      */
     public static function cdlhomingpigeon(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlHomingPigeon(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1237,7 +1266,7 @@ class Trader
      */
     public static function cdlidentical3crows(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlIdentical3Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1256,7 +1285,7 @@ class Trader
      */
     public static function cdlinneck(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlInNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1275,7 +1304,7 @@ class Trader
      */
     public static function cdlinvertedhammer(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlInvertedHammer(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1294,7 +1323,7 @@ class Trader
      */
     public static function cdlkicking(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlKicking(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1313,7 +1342,7 @@ class Trader
      */
     public static function cdlkickingbylength(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlKickingByLength(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1332,7 +1361,7 @@ class Trader
      */
     public static function cdlladderbottom(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlLadderBottom(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1351,7 +1380,7 @@ class Trader
      */
     public static function cdllongleggeddoji(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlLongLeggedDoji(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1370,7 +1399,7 @@ class Trader
      */
     public static function cdllongline(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlLongLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1389,7 +1418,7 @@ class Trader
      */
     public static function cdlmarubozu(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMarubozu(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1408,7 +1437,7 @@ class Trader
      */
     public static function cdlmatchinglow(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMatchingLow(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1428,7 +1457,7 @@ class Trader
      */
     public static function cdlmathold(array $open, array $high, array $low, array $close, float $penetration = 0.5): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMatHold(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1448,7 +1477,7 @@ class Trader
      */
     public static function cdlmorningdojistar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMorningDojiStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1468,7 +1497,7 @@ class Trader
      */
     public static function cdlmorningstar(array $open, array $high, array $low, array $close, float $penetration = 0.3): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlMorningStar(0, $endIdx, $open, $high, $low, $close, $penetration, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1487,7 +1516,7 @@ class Trader
      */
     public static function cdlonneck(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlOnNeck(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1506,7 +1535,7 @@ class Trader
      */
     public static function cdlpiercing(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlPiercing(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1525,7 +1554,7 @@ class Trader
      */
     public static function cdlrickshawman(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlRickshawMan(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1544,7 +1573,7 @@ class Trader
      */
     public static function cdlrisefall3methods(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlRiseFall3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1563,7 +1592,7 @@ class Trader
      */
     public static function cdlseparatinglines(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlSeparatingLines(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1582,7 +1611,7 @@ class Trader
      */
     public static function cdlshootingstar(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlShootingStar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1601,7 +1630,7 @@ class Trader
      */
     public static function cdlshortline(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlShortLine(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1620,7 +1649,7 @@ class Trader
      */
     public static function cdlspinningtop(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlSpinningTop(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1639,7 +1668,7 @@ class Trader
      */
     public static function cdlstalledpattern(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlStalledPattern(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1658,7 +1687,7 @@ class Trader
      */
     public static function cdlsticksandwich(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlStickSandwich(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1677,7 +1706,7 @@ class Trader
      */
     public static function cdltakuri(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlTakuri(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1696,7 +1725,7 @@ class Trader
      */
     public static function cdltasukigap(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlTasukiGap(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1715,7 +1744,7 @@ class Trader
      */
     public static function cdlthrusting(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlThrusting(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1734,7 +1763,7 @@ class Trader
      */
     public static function cdltristar(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlTristar(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1753,7 +1782,7 @@ class Trader
      */
     public static function cdlunique3river(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlUnique3River(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1772,7 +1801,7 @@ class Trader
      */
     public static function cdlupsidegap2crows(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlUpsideGap2Crows(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1791,7 +1820,7 @@ class Trader
      */
     public static function cdlxsidegap3methods(array $open, array $high, array $low, array $close): array
     {
-        $endIdx     = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$open, &$high, &$low, &$close]);
         $outInteger = [];
         self::checkForError(self::getPatternRecognition()::cdlXSideGap3Methods(0, $endIdx, $open, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outInteger));
 
@@ -1809,8 +1838,8 @@ class Trader
      */
     public static function ceil(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::ceil(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1831,8 +1860,8 @@ class Trader
      */
     public static function cmo(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::cmo(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1852,7 +1881,7 @@ class Trader
      */
     public static function correl(array $real0, array $real1, int $timePeriod = 30): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
+        $endIdx = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::correl(0, $endIdx, $real0, $real1, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1870,8 +1899,8 @@ class Trader
      */
     public static function cos(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::cos(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1889,8 +1918,8 @@ class Trader
      */
     public static function cosh(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::cosh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1910,8 +1939,8 @@ class Trader
      */
     public static function dema(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::dema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1930,7 +1959,7 @@ class Trader
      */
     public static function div(array $real0, array $real1): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
+        $endIdx = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::checkForError(self::getMathOperators()::div(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1953,7 +1982,7 @@ class Trader
      */
     public static function dx(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::dx(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1974,8 +2003,8 @@ class Trader
      */
     public static function ema(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::ema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -1993,8 +2022,8 @@ class Trader
      */
     public static function exp(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::exp(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2012,8 +2041,8 @@ class Trader
      */
     public static function floor(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::floor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2029,8 +2058,8 @@ class Trader
      */
     public static function ht_dcperiod(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getCycleIndicators()::htDcPeriod(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2046,8 +2075,8 @@ class Trader
      */
     public static function ht_dcphase(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getCycleIndicators()::htDcPhase(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2063,9 +2092,9 @@ class Trader
      */
     public static function ht_phasor(array $real): array
     {
-        $real          = \array_values($real);
-        $endIdx        = count($real) - 1;
-        $outInPhase    = [];
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outInPhase = [];
         $outQuadrature = [];
         self::checkForError(self::getCycleIndicators()::htPhasor(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInPhase, $outQuadrature));
 
@@ -2084,9 +2113,9 @@ class Trader
      */
     public static function ht_sine(array $real): array
     {
-        $real        = \array_values($real);
-        $endIdx      = count($real) - 1;
-        $outSine     = [];
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outSine = [];
         $outLeadSine = [];
         self::checkForError(self::getCycleIndicators()::htSine(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outSine, $outLeadSine));
 
@@ -2105,8 +2134,8 @@ class Trader
      */
     public static function ht_trendline(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::htTrendline(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2122,12 +2151,21 @@ class Trader
      */
     public static function ht_trendmode(array $real): array
     {
-        $real       = \array_values($real);
-        $endIdx     = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outInteger = [];
         self::checkForError(self::getCycleIndicators()::htTrendMode(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outInteger));
 
         return self::adjustIndexes($outInteger, self::$outBegIdx);
+    }
+
+    public static function imi(array $open, array $close, int $timePeriod = 14): array
+    {
+        $endIdx = self::verifyArrayCounts([&$open, &$close]);
+        $outReal = [];
+        self::checkForError(self::getMomentumIndicators()::imi(0, $endIdx, $open, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
+
+        return self::adjustIndexes($outReal, self::$outBegIdx);
     }
 
     /**
@@ -2145,8 +2183,8 @@ class Trader
      */
     public static function kama(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::kama(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2163,8 +2201,8 @@ class Trader
      */
     public static function linearreg_angle(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearRegAngle(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2181,8 +2219,8 @@ class Trader
      */
     public static function linearreg_intercept(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearRegIntercept(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2199,8 +2237,8 @@ class Trader
      */
     public static function linearreg_slope(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearRegSlope(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2217,8 +2255,8 @@ class Trader
      */
     public static function linearreg(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::linearReg(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2236,8 +2274,8 @@ class Trader
      */
     public static function ln(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::ln(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2255,8 +2293,8 @@ class Trader
      */
     public static function log10(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::log10(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2274,8 +2312,8 @@ class Trader
      */
     public static function ma(array $real, int $timePeriod = 30, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::movingAverage(0, $endIdx, $real, $timePeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2294,11 +2332,11 @@ class Trader
      */
     public static function macd(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $signalPeriod = 9): array
     {
-        $real          = \array_values($real);
-        $endIdx        = count($real) - 1;
-        $outMACD       = [];
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outMACD = [];
         $outMACDSignal = [];
-        $outMACDHist   = [];
+        $outMACDHist = [];
         self::checkForError(
             self::getMomentumIndicators()::macd(0, $endIdx, $real, $fastPeriod, $slowPeriod, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist),
         );
@@ -2332,11 +2370,11 @@ class Trader
         int $signalPeriod = 9,
         MovingAverageType $signalMAType = MovingAverageType::SMA,
     ): array {
-        $real          = \array_values($real);
-        $endIdx        = count($real) - 1;
-        $outMACD       = [];
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outMACD = [];
         $outMACDSignal = [];
-        $outMACDHist   = [];
+        $outMACDHist = [];
         self::checkForError(
             self::getMomentumIndicators()::macdExt(
                 0,
@@ -2373,11 +2411,11 @@ class Trader
      */
     public static function macdfix(array $real, int $signalPeriod = 9): array
     {
-        $real          = \array_values($real);
-        $endIdx        = count($real) - 1;
-        $outMACD       = [];
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
+        $outMACD = [];
         $outMACDSignal = [];
-        $outMACDHist   = [];
+        $outMACDHist = [];
         self::checkForError(self::getMomentumIndicators()::macdFix(0, $endIdx, $real, $signalPeriod, self::$outBegIdx, self::$outNBElement, $outMACD, $outMACDSignal, $outMACDHist));
 
         return [
@@ -2398,8 +2436,8 @@ class Trader
      */
     public static function mama(array $real, float $fastLimit = 0.5, float $slowLimit = 0.05): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outMAMA = [];
         $outFAMA = [];
         self::checkForError(self::getOverlapStudies()::mama(0, $endIdx, $real, $fastLimit, $slowLimit, self::$outBegIdx, self::$outNBElement, $outMAMA, $outFAMA));
@@ -2423,8 +2461,8 @@ class Trader
      */
     public static function mavp(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(
             self::getOverlapStudies()::movingAverageVariablePeriod(0, $endIdx, $real, $periods, $minPeriod, $maxPeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal),
@@ -2443,8 +2481,8 @@ class Trader
      */
     public static function max(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathOperators()::max(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2461,8 +2499,8 @@ class Trader
      */
     public static function maxindex(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathOperators()::maxIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2479,7 +2517,7 @@ class Trader
      */
     public static function medprice(array $high, array $low): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(self::getPriceTransform()::medPrice(0, $endIdx, $high, $low, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2499,7 +2537,7 @@ class Trader
      */
     public static function mfi(array $high, array $low, array $close, array $volume, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close, &$volume]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::mfi(0, $endIdx, $high, $low, $close, $volume, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2516,8 +2554,8 @@ class Trader
      */
     public static function midpoint(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::midPoint(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2535,7 +2573,7 @@ class Trader
      */
     public static function midprice(array $high, array $low, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::midPrice(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2552,8 +2590,8 @@ class Trader
      */
     public static function min(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathOperators()::min(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2570,8 +2608,8 @@ class Trader
      */
     public static function minindex(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathOperators()::minIndex(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2588,7 +2626,7 @@ class Trader
      */
     public static function minmax(array $real, int $timePeriod = 30): array
     {
-        $real   = \array_values($real);
+        $real = \array_values($real);
         $endIdx = count($real) - 1;
         $outMin = [];
         $outMax = [];
@@ -2610,7 +2648,7 @@ class Trader
      */
     public static function minmaxindex(array $real, int $timePeriod = 30): array
     {
-        $real   = \array_values($real);
+        $real = \array_values($real);
         $endIdx = count($real) - 1;
         $outMin = [];
         $outMax = [];
@@ -2634,7 +2672,7 @@ class Trader
      */
     public static function minus_di(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::minusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2652,7 +2690,7 @@ class Trader
      */
     public static function minus_dm(array $high, array $low, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::minusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2669,8 +2707,8 @@ class Trader
      */
     public static function mom(array $real, int $timePeriod = 10): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::mom(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2689,7 +2727,7 @@ class Trader
      */
     public static function mult(array $real0, array $real1): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
+        $endIdx = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::checkForError(self::getMathOperators()::mult(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2708,7 +2746,7 @@ class Trader
      */
     public static function natr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getVolatilityIndicators()::natr(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2725,7 +2763,7 @@ class Trader
      */
     public static function obv(array $real, array $volume): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real, &$volume]);
+        $endIdx = self::verifyArrayCounts([&$real, &$volume]);
         $outReal = [];
         self::checkForError(self::getVolumeIndicators()::obv(0, $endIdx, $real, $volume, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2744,7 +2782,7 @@ class Trader
      */
     public static function plus_di(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::plusDI(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2762,7 +2800,7 @@ class Trader
      */
     public static function plus_dm(array $high, array $low, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::plusDM(0, $endIdx, $high, $low, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2781,8 +2819,8 @@ class Trader
      */
     public static function ppo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, MovingAverageType $mAType = MovingAverageType::SMA): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::ppo(0, $endIdx, $real, $fastPeriod, $slowPeriod, $mAType->value, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2799,8 +2837,8 @@ class Trader
      */
     public static function roc(array $real, int $timePeriod = 10): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::roc(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2817,8 +2855,8 @@ class Trader
      */
     public static function rocp(array $real, int $timePeriod = 10): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rocp(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2835,8 +2873,8 @@ class Trader
      */
     public static function rocr100(array $real, int $timePeriod = 10): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rocr100(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2853,8 +2891,8 @@ class Trader
      */
     public static function rocr(array $real, int $timePeriod = 10): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rocr(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2871,8 +2909,8 @@ class Trader
      */
     public static function rsi(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::rsi(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2891,7 +2929,7 @@ class Trader
      */
     public static function sar(array $high, array $low, float $acceleration = 0.02, float $maximum = 0.2): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::sar(0, $endIdx, $high, $low, $acceleration, $maximum, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2926,7 +2964,7 @@ class Trader
         float $accelerationShort = 0.02,
         float $accelerationMaxShort = 0.2,
     ): array {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low]);
         $outReal = [];
         self::checkForError(
             self::getOverlapStudies()::sarExt(
@@ -2962,8 +3000,8 @@ class Trader
      */
     public static function sin(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::sin(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2981,8 +3019,8 @@ class Trader
      */
     public static function sinh(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::sinh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -2999,8 +3037,8 @@ class Trader
      */
     public static function sma(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::sma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3018,8 +3056,8 @@ class Trader
      */
     public static function sqrt(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::sqrt(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3037,8 +3075,8 @@ class Trader
      */
     public static function stddev(array $real, int $timePeriod = 5, float $nbDev = 1.0): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::stddev(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3069,7 +3107,7 @@ class Trader
         int $slowD_Period = 3,
         MovingAverageType $slowD_MAType = MovingAverageType::SMA,
     ): array {
-        $endIdx   = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outSlowK = [];
         $outSlowD = [];
         self::checkForError(
@@ -3111,7 +3149,7 @@ class Trader
      */
     public static function stochf(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, MovingAverageType $fastD_MAType = MovingAverageType::SMA): array
     {
-        $endIdx   = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outFastK = [];
         $outFastD = [];
         self::checkForError(
@@ -3137,8 +3175,8 @@ class Trader
      */
     public static function stochrsi(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, MovingAverageType $fastD_MAType = MovingAverageType::SMA): array
     {
-        $real     = \array_values($real);
-        $endIdx   = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outFastK = [];
         $outFastD = [];
         self::checkForError(
@@ -3163,7 +3201,7 @@ class Trader
      */
     public static function sub(array $real0, array $real1): array
     {
-        $endIdx  = self::verifyArrayCounts([&$real0, &$real1]);
+        $endIdx = self::verifyArrayCounts([&$real0, &$real1]);
         $outReal = [];
         self::checkForError(self::getMathOperators()::sub(0, $endIdx, $real0, $real1, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3180,8 +3218,8 @@ class Trader
      */
     public static function sum(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathOperators()::sum(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3199,8 +3237,8 @@ class Trader
      */
     public static function t3(array $real, int $timePeriod = 5, float $vFactor = 0.7): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::t3(0, $endIdx, $real, $timePeriod, $vFactor, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3218,8 +3256,8 @@ class Trader
      */
     public static function tan(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::tan(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3237,8 +3275,8 @@ class Trader
      */
     public static function tanh(array $real): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMathTransform()::tanh(0, $endIdx, $real, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3255,8 +3293,8 @@ class Trader
      */
     public static function tema(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::tema(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3274,7 +3312,7 @@ class Trader
      */
     public static function trange(array $high, array $low, array $close): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getVolatilityIndicators()::trueRange(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3291,8 +3329,8 @@ class Trader
      */
     public static function trima(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::trima(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3309,8 +3347,8 @@ class Trader
      */
     public static function trix(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::trix(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3327,8 +3365,8 @@ class Trader
      */
     public static function tsf(array $real, int $timePeriod = 14): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::tsf(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3346,7 +3384,7 @@ class Trader
      */
     public static function typprice(array $high, array $low, array $close): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getPriceTransform()::typPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3367,7 +3405,7 @@ class Trader
      */
     public static function ultosc(array $high, array $low, array $close, int $timePeriod1 = 7, int $timePeriod2 = 14, int $timePeriod3 = 28): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::ultOsc(0, $endIdx, $high, $low, $close, $timePeriod1, $timePeriod2, $timePeriod3, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3385,8 +3423,8 @@ class Trader
      */
     public static function var(array $real, int $timePeriod = 5, float $nbDev = 1.0): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getStatisticFunctions()::variance(0, $endIdx, $real, $timePeriod, $nbDev, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3404,7 +3442,7 @@ class Trader
      */
     public static function wclprice(array $high, array $low, array $close): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getPriceTransform()::wclPrice(0, $endIdx, $high, $low, $close, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3423,7 +3461,7 @@ class Trader
      */
     public static function willr(array $high, array $low, array $close, int $timePeriod = 14): array
     {
-        $endIdx  = self::verifyArrayCounts([&$high, &$low, &$close]);
+        $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outReal = [];
         self::checkForError(self::getMomentumIndicators()::willR(0, $endIdx, $high, $low, $close, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
@@ -3440,8 +3478,8 @@ class Trader
      */
     public static function wma(array $real, int $timePeriod = 30): array
     {
-        $real    = \array_values($real);
-        $endIdx  = count($real) - 1;
+        $real = \array_values($real);
+        $endIdx = count($real) - 1;
         $outReal = [];
         self::checkForError(self::getOverlapStudies()::wma(0, $endIdx, $real, $timePeriod, self::$outBegIdx, self::$outNBElement, $outReal));
 
