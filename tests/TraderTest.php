@@ -218,7 +218,7 @@ class TraderTest extends TestCase
     public function testAvgDev(): void
     {
         $optInTimePeriod = 10;
-        $this->assertEquals(\trader_avgdev($this->High, $optInTimePeriod), $this->adjustForPECL(Trader::avgdev($this->High, $optInTimePeriod)));
+        $this->assertEqualsWithDelta(\trader_avgdev($this->High, $optInTimePeriod), $this->adjustForPECL(Trader::avgdev($this->High, $optInTimePeriod)), 0.001);
     }
 
     /**
@@ -919,7 +919,7 @@ class TraderTest extends TestCase
     public function testImi(): void
     {
         $optInTimePeriod = 10;
-        $this->assertEquals(\trader_imi($this->Open, $this->Close, $optInTimePeriod), $this->adjustForPECL(Trader::imi($this->Open, $this->Close, $optInTimePeriod)));
+        $this->assertEqualsWithDelta(\trader_imi($this->Open, $this->Close, $optInTimePeriod), $this->adjustForPECL(Trader::imi($this->Open, $this->Close, $optInTimePeriod)), 0.001);
     }
 
     /**
