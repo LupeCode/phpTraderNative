@@ -41,7 +41,9 @@ nbproject
 
 # Project specific files and directories #
 ##########################################
-/ta-lib/
+ta-lib/
+talib/
+pecl/
 logs/
 test-results/
 metrics/
