@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -63,7 +63,7 @@ class Core
     protected static array $unstablePeriod;
     /** @var CandleSetting[] */
     protected static array $candleSettings;
-    public static int $compatibility = Compatibility::Default;
+    public static int $compatibility = Compatibility::Default->value;
 
     /**
      * Core constructor.
@@ -74,31 +74,31 @@ class Core
     {
         static::$candleSettings = [
             /* real body is long when it's longer than the average of the 10 previous candles' real body */
-            new CandleSetting(CandleSettingType::BodyLong, RangeType::RealBody, 10, 1.),
+            new CandleSetting(CandleSettingType::BodyLong->value, RangeType::RealBody->value, 10, 1.),
             /* real body is very long when it's longer than 3 times the average of the 10 previous candles' real body */
-            new CandleSetting(CandleSettingType::BodyVeryLong, RangeType::RealBody, 10, 3.),
+            new CandleSetting(CandleSettingType::BodyVeryLong->value, RangeType::RealBody->value, 10, 3.),
             /* real body is short when it's shorter than the average of the 10 previous candles' real bodies */
-            new CandleSetting(CandleSettingType::BodyShort, RangeType::RealBody, 10, 1.),
+            new CandleSetting(CandleSettingType::BodyShort->value, RangeType::RealBody->value, 10, 1.),
             /* real body is like doji's body when it's shorter than 10% the average of the 10 previous candles' high-low range */
-            new CandleSetting(CandleSettingType::BodyDoji, RangeType::HighLow, 10, 0.1),
+            new CandleSetting(CandleSettingType::BodyDoji->value, RangeType::HighLow->value, 10, 0.1),
             /* shadow is long when it's longer than the real body */
-            new CandleSetting(CandleSettingType::ShadowLong, RangeType::RealBody, 0, 1.),
+            new CandleSetting(CandleSettingType::ShadowLong->value, RangeType::RealBody->value, 0, 1.),
             /* shadow is very long when it's longer than 2 times the real body */
-            new CandleSetting(CandleSettingType::ShadowVeryLong, RangeType::RealBody, 0, 2.),
+            new CandleSetting(CandleSettingType::ShadowVeryLong->value, RangeType::RealBody->value, 0, 2.),
             /* shadow is short when it's shorter than half the average of the 10 previous candles' sum of shadows */
-            new CandleSetting(CandleSettingType::ShadowShort, RangeType::Shadows, 10, 1.),
+            new CandleSetting(CandleSettingType::ShadowShort->value, RangeType::Shadows->value, 10, 1.),
             /* shadow is very short when it's shorter than 10% the average of the 10 previous candles' high-low range */
-            new CandleSetting(CandleSettingType::ShadowVeryShort, RangeType::HighLow, 10, 0.1),
+            new CandleSetting(CandleSettingType::ShadowVeryShort->value, RangeType::HighLow->value, 10, 0.1),
             /* when measuring distance between parts of candles or width of gaps "near" means "<= 20% of the average of the 5 previous candles' high-low range" */
-            new CandleSetting(CandleSettingType::Near, RangeType::HighLow, 5, 0.2),
+            new CandleSetting(CandleSettingType::Near->value, RangeType::HighLow->value, 5, 0.2),
             /* when measuring distance between parts of candles or width of gaps "far" means ">= 60% of the average of the 5 previous candles' high-low range" */
-            new CandleSetting(CandleSettingType::Far, RangeType::HighLow, 5, 0.6),
+            new CandleSetting(CandleSettingType::Far->value, RangeType::HighLow->value, 5, 0.6),
             /* when measuring distance between parts of candles or width of gaps "equal" means "<= 5% of the average of the 5 previous candles' high-low range" */
-            new CandleSetting(CandleSettingType::Equal, RangeType::HighLow, 5, 0.05),
+            new CandleSetting(CandleSettingType::Equal->value, RangeType::HighLow->value, 5, 0.05),
         ];
-        // Changed to correct array size to avoid the "Uncaught ErrorException: Undefined array key 22" 
+        // Changed to correct array size to avoid the "Uncaught ErrorException: Undefined array key 22"
         // static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL - 2, 0);
-        static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL, 0);
+        static::$unstablePeriod = \array_pad([], UnstablePeriodFunctionID::ALL->value, 0);
     }
 
     public static function setUnstablePeriod(int $functionID, int $unstablePeriod): void
@@ -129,13 +129,13 @@ class Core
     protected static function validateStartEndIndexes(int $startIdx, int $endIdx): int
     {
         if ($startIdx < 0) {
-            return ReturnCode::OutOfRangeStartIndex;
+            return ReturnCode::OutOfRangeStartIndex->value;
         }
         if (($endIdx < 0) || ($endIdx < $startIdx)) {
-            return ReturnCode::OutOfRangeEndIndex;
+            return ReturnCode::OutOfRangeEndIndex->value;
         }
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     protected static function TA_INT_PO(
@@ -161,9 +161,9 @@ class Core
             $optInFastPeriod = $tempInteger;
         }
         $ReturnCode = OverlapStudies::movingAverage($startIdx, $endIdx, $inReal, $optInFastPeriod, $optInMethod_2, $outBegIdx2, $outNbElement2, $tempBuffer);
-        if ($ReturnCode === ReturnCode::Success) {
+        if ($ReturnCode === ReturnCode::Success->value) {
             $ReturnCode = OverlapStudies::movingAverage($startIdx, $endIdx, $inReal, $optInSlowPeriod, $optInMethod_2, $outBegIdx1, $outNbElement1, $outReal);
-            if ($ReturnCode === ReturnCode::Success) {
+            if ($ReturnCode === ReturnCode::Success->value) {
                 $tempInteger = $outBegIdx1 - $outBegIdx2;
                 if ($doPercentageOutput) {
                     for ($i = 0, $j = $tempInteger; $i < $outNbElement1; $i++, $j++) {
@@ -183,7 +183,7 @@ class Core
                 $outNBElement = $outNbElement1;
             }
         }
-        if ($ReturnCode !== ReturnCode::Success) {
+        if ($ReturnCode !== ReturnCode::Success->value) {
             $outBegIdx = 0;
             $outNBElement = 0;
         }
@@ -242,21 +242,21 @@ class Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $tempInteger = ($endIdx - $startIdx) + 1 + $lookbackSignal;
         $fastEMABuffer = static::double($tempInteger);
         $slowEMABuffer = static::double($tempInteger);
         $tempInteger = $startIdx - $lookbackSignal;
         $ReturnCode = static::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInSlowPeriod, $k1, $outBegIdx1, $outNbElement1, $slowEMABuffer);
-        if ($ReturnCode !== ReturnCode::Success) {
+        if ($ReturnCode !== ReturnCode::Success->value) {
             $outBegIdx = 0;
             $outNBElement = 0;
 
             return $ReturnCode;
         }
         $ReturnCode = static::TA_INT_EMA($tempInteger, $endIdx, $inReal, $optInFastPeriod, $k2, $outBegIdx2, $outNbElement2, $fastEMABuffer);
-        if ($ReturnCode !== ReturnCode::Success) {
+        if ($ReturnCode !== ReturnCode::Success->value) {
             $outBegIdx = 0;
             $outNBElement = 0;
 
@@ -269,7 +269,7 @@ class Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return (ReturnCode::InternalError);
+            return ReturnCode::InternalError->value;
         }
         for ($i = 0; $i < $outNbElement1; $i++) {
             $fastEMABuffer[$i] -= $slowEMABuffer[$i];
@@ -277,7 +277,7 @@ class Core
         //System::arraycopy($fastEMABuffer, $lookbackSignal, $outMACD, 0, ($endIdx - $startIdx) + 1);
         $outMACD = \array_slice($fastEMABuffer, $lookbackSignal, ($endIdx - $startIdx) + 1);
         $ReturnCode = static::TA_INT_EMA(0, $outNbElement1 - 1, $fastEMABuffer, $optInSignalPeriod_2, (2.0 / ((double)($optInSignalPeriod_2 + 1))), $outBegIdx2, $outNbElement2, $outMACDSignal);
-        if ($ReturnCode !== ReturnCode::Success) {
+        if ($ReturnCode !== ReturnCode::Success->value) {
             $outBegIdx = 0;
             $outNBElement = 0;
 
@@ -289,7 +289,7 @@ class Core
         $outBegIdx = $startIdx;
         $outNBElement = $outNbElement2;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     protected static function TA_INT_EMA(int $startIdx, int $endIdx, $inReal, int $optInTimePeriod, float $optInK_1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -304,10 +304,10 @@ class Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
-        if ((static::$compatibility) === Compatibility::Default) {
+        if ((static::$compatibility) === Compatibility::Default->value) {
             $today = $startIdx - $lookbackTotal;
             $i = $optInTimePeriod;
             $tempReal = 0.0;
@@ -330,7 +330,7 @@ class Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     protected static function TA_INT_SMA(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -345,7 +345,7 @@ class Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $periodTotal = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
@@ -365,7 +365,7 @@ class Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     protected static function TA_INT_stddev_using_precalc_ma(array $inReal, array $inMovAvg, int $inMovAvgBegIdx, int $inMovAvgNbElement, int $timePeriod, array &$output): int
@@ -399,7 +399,7 @@ class Core
             }
         }
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     protected static function TA_INT_VAR(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -414,7 +414,7 @@ class Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $periodTotal1 = 0;
         $periodTotal2 = 0;
@@ -445,6 +445,6 @@ class Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 }

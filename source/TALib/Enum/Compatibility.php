@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -44,8 +44,8 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-enum Compatibility
+enum Compatibility: int
 {
-    public const Default = 0;
-    public const Metastock = 1;
+    case Default = 0;
+    case Metastock = 1;
 }

@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -60,7 +60,7 @@ class MathOperators extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function div(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -74,7 +74,7 @@ class MathOperators extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function max(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -85,7 +85,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = ($optInTimePeriod - 1);
         if ($startIdx < $nbInitialElementNeeded) {
@@ -95,7 +95,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -126,7 +126,7 @@ class MathOperators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function maxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
@@ -137,7 +137,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = ($optInTimePeriod - 1);
         if ($startIdx < $nbInitialElementNeeded) {
@@ -147,7 +147,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -178,7 +178,7 @@ class MathOperators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function min(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -189,7 +189,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = ($optInTimePeriod - 1);
         if ($startIdx < $nbInitialElementNeeded) {
@@ -199,7 +199,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -230,7 +230,7 @@ class MathOperators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function minIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outInteger): int
@@ -241,7 +241,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = ($optInTimePeriod - 1);
         if ($startIdx < $nbInitialElementNeeded) {
@@ -251,7 +251,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -282,7 +282,7 @@ class MathOperators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function minMax(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outMin, array &$outMax): int
@@ -293,7 +293,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = ($optInTimePeriod - 1);
         if ($startIdx < $nbInitialElementNeeded) {
@@ -303,7 +303,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -353,7 +353,7 @@ class MathOperators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function minMaxIndex(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outMinIdx, array &$outMaxIdx): int
@@ -364,7 +364,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = ($optInTimePeriod - 1);
         if ($startIdx < $nbInitialElementNeeded) {
@@ -374,7 +374,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -424,7 +424,7 @@ class MathOperators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function mult(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -438,7 +438,7 @@ class MathOperators extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function sub(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -452,7 +452,7 @@ class MathOperators extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function sum(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -463,7 +463,7 @@ class MathOperators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = ($optInTimePeriod - 1);
         if ($startIdx < $lookbackTotal) {
@@ -473,7 +473,7 @@ class MathOperators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $periodTotal = 0;
         $trailingIdx = $startIdx - $lookbackTotal;
@@ -493,7 +493,7 @@ class MathOperators extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
 }

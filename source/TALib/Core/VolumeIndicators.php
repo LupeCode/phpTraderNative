@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -73,7 +73,7 @@ class VolumeIndicators extends Core
             $nbBar--;
         }
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function adOsc(
@@ -95,12 +95,12 @@ class VolumeIndicators extends Core
         if ($optInFastPeriod === (PHP_INT_MIN)) {
             $optInFastPeriod = 3;
         } elseif (($optInFastPeriod < 2) || ($optInFastPeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         if ($optInSlowPeriod === (PHP_INT_MIN)) {
             $optInSlowPeriod = 10;
         } elseif (($optInSlowPeriod < 2) || ($optInSlowPeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         if ($optInFastPeriod < $optInSlowPeriod) {
             $slowestPeriod = $optInSlowPeriod;
@@ -115,7 +115,7 @@ class VolumeIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $today = $startIdx - $lookbackTotal;
@@ -168,7 +168,7 @@ class VolumeIndicators extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function atr(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -182,7 +182,7 @@ class VolumeIndicators extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $outBegIdx = 0;
         $outNBElement = 0;
@@ -191,23 +191,23 @@ class VolumeIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         if ($optInTimePeriod <= 1) {
             return VolatilityIndicators::trueRange($startIdx, $endIdx, $inHigh, $inLow, $inClose, $outBegIdx, $outNBElement, $outReal);
         }
         $tempBuffer = static::double($lookbackTotal + ($endIdx - $startIdx) + 1);
         $retCode = VolatilityIndicators::trueRange(($startIdx - $lookbackTotal + 1), $endIdx, $inHigh, $inLow, $inClose, $outBegIdx1, $outNbElement1, $tempBuffer);
-        if ($retCode !== ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success->value) {
             return $retCode;
         }
         $retCode = static::TA_INT_SMA($optInTimePeriod - 1, $optInTimePeriod - 1, $tempBuffer, $optInTimePeriod, $outBegIdx1, $outNbElement1, $prevATRTemp);
-        if ($retCode !== ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success->value) {
             return $retCode;
         }
         $prevATR = $prevATRTemp[0];
         $today = $optInTimePeriod;
-        $outIdx = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
+        $outIdx = (static::$unstablePeriod[UnstablePeriodFunctionID::ATR->value]);
         while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
@@ -250,6 +250,6 @@ class VolumeIndicators extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 }

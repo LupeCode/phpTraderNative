@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -61,7 +61,7 @@ class PriceTransform extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function medPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -76,7 +76,7 @@ class PriceTransform extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function typPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -93,7 +93,7 @@ class PriceTransform extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function wclPrice(int $startIdx, int $endIdx, array $inHigh, array $inLow, array $inClose, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -110,6 +110,6 @@ class PriceTransform extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 }

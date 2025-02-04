@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -44,22 +44,40 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-enum ReturnCode
+enum ReturnCode: int
 {
-    public const Success = 0;
-    public const BadParam = 1;
-    public const OutOfRangeStartIndex = 2;
-    public const OutOfRangeEndIndex = 3;
-    public const AllocError = 4;
-    public const InternalError = 5;
-    public const UnevenParameters = 6;
-    public const Messages = [
-        self::Success              => "Success",
-        self::BadParam             => "Bad parameter",
-        self::AllocError           => "Allocation error",
-        self::OutOfRangeStartIndex => "Out of range on start index",
-        self::OutOfRangeEndIndex   => "Out of range on end index",
-        self::InternalError        => "Internal error",
-        self::UnevenParameters     => "The count of the input arrays do not match each other",
-    ];
+    case Success = 0;
+    case BadParam = 1;
+    case OutOfRangeStartIndex = 2;
+    case OutOfRangeEndIndex = 3;
+    case AllocError = 4;
+    case InternalError = 5;
+    case UnevenParameters = 6;
+
+    public static function messageFromInt(int $int): string
+    {
+        return match ($int) {
+            self::Success => ReturnMessages::Success->value,
+            self::BadParam => ReturnMessages::BadParam->value,
+            self::OutOfRangeStartIndex => ReturnMessages::OutOfRangeStartIndex->value,
+            self::OutOfRangeEndIndex => ReturnMessages::OutOfRangeEndIndex->value,
+            self::AllocError => ReturnMessages::AllocError->value,
+            self::InternalError => ReturnMessages::InternalError->value,
+            self::UnevenParameters => ReturnMessages::UnevenParameters->value,
+            default => 'Unknown return code',
+        };
+    }
+    public function message(): string
+    {
+        return match ($this->value) {
+            self::Success => ReturnMessages::Success->value,
+            self::BadParam => ReturnMessages::BadParam->value,
+            self::OutOfRangeStartIndex => ReturnMessages::OutOfRangeStartIndex->value,
+            self::OutOfRangeEndIndex => ReturnMessages::OutOfRangeEndIndex->value,
+            self::AllocError => ReturnMessages::AllocError->value,
+            self::InternalError => ReturnMessages::InternalError->value,
+            self::UnevenParameters => ReturnMessages::UnevenParameters->value,
+            default => 'Unknown return code',
+        };
+    }
 }

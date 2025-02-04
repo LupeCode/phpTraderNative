@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -65,7 +65,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
 
         $outBegIdx = $today;
@@ -90,7 +90,7 @@ class StatisticFunctions extends Core
 
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function beta(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -101,7 +101,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
         } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $nbInitialElementNeeded = $optInTimePeriod;
         if ($startIdx < $nbInitialElementNeeded) {
@@ -111,7 +111,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $trailingIdx = $startIdx - $nbInitialElementNeeded;
         $last_price_x = $trailing_last_price_x = $inReal0[$trailingIdx];
@@ -187,7 +187,7 @@ class StatisticFunctions extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function correl(int $startIdx, int $endIdx, array $inReal0, array $inReal1, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -198,7 +198,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 30;
         } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = $optInTimePeriod - 1;
         if ($startIdx < $lookbackTotal) {
@@ -208,7 +208,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $trailingIdx = $startIdx - $lookbackTotal;
@@ -255,7 +255,7 @@ class StatisticFunctions extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function linearReg(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -266,7 +266,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = Lookback::linearRegLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
@@ -276,7 +276,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -298,7 +298,7 @@ class StatisticFunctions extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function linearRegAngle(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -309,7 +309,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = Lookback::linearRegAngleLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
@@ -319,7 +319,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -340,7 +340,7 @@ class StatisticFunctions extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function linearRegIntercept(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -351,7 +351,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = Lookback::linearRegInterceptLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
@@ -361,7 +361,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -382,7 +382,7 @@ class StatisticFunctions extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function linearRegSlope(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -393,7 +393,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = Lookback::linearRegSlopeLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
@@ -403,7 +403,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -423,7 +423,7 @@ class StatisticFunctions extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function stdDev(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -434,12 +434,12 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         if ($optInNbDev === (-4e+37)) {
             $optInNbDev = 1.000000e+0;
         } elseif (($optInNbDev < -3.000000e+37) || ($optInNbDev > 3.000000e+37)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $retCode = static::TA_INT_VAR(
             $startIdx,
@@ -450,7 +450,7 @@ class StatisticFunctions extends Core
             $outNBElement,
             $outReal
         );
-        if ($retCode != ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success->value) {
             return $retCode;
         }
         if ($optInNbDev != 1.0) {
@@ -463,7 +463,7 @@ class StatisticFunctions extends Core
             }
         }
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function tsf(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -474,7 +474,7 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 14;
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $lookbackTotal = Lookback::tsfLookback($optInTimePeriod);
         if ($startIdx < $lookbackTotal) {
@@ -484,7 +484,7 @@ class StatisticFunctions extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -506,7 +506,7 @@ class StatisticFunctions extends Core
         $outBegIdx = $startIdx;
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     public static function variance(int $startIdx, int $endIdx, array $inReal, int $optInTimePeriod, float $optInNbDev, int &$outBegIdx, int &$outNBElement, array &$outReal): int
@@ -517,12 +517,12 @@ class StatisticFunctions extends Core
         if ($optInTimePeriod === (PHP_INT_MIN)) {
             $optInTimePeriod = 5;
         } elseif (($optInTimePeriod < 1) || ($optInTimePeriod > 100000)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         if ($optInNbDev === (-4e+37)) {
             $optInNbDev = 1.000000e+0;
         } elseif (($optInNbDev < -3.000000e+37) || ($optInNbDev > 3.000000e+37)) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
 
         return static::TA_INT_VAR(

@@ -150,7 +150,7 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function absolutePriceOscillator(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
+    public static function absolutePriceOscillator(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA->value): array
     {
         return Trader::apo($real, $fastPeriod, $slowPeriod, $mAType);
     }
@@ -279,7 +279,7 @@ class TraderFriendly
      * @return array Returns a 2D array with calculated data. [UpperBand => [...], MiddleBand => [...], LowerBand => [...]]
      * @throws \Exception
      */
-    public static function bollingerBands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, int $mAType = MovingAverageType::SMA): array
+    public static function bollingerBands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, int $mAType = MovingAverageType::SMA->value): array
     {
         return Trader::bbands($real, $timePeriod, $nbDevUp, $nbDevDn, $mAType);
     }
@@ -1610,7 +1610,7 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function movingAverage(array $real, int $timePeriod = 30, int $mAType = MovingAverageType::SMA): array
+    public static function movingAverage(array $real, int $timePeriod = 30, int $mAType = MovingAverageType::SMA->value): array
     {
         return Trader::ma($real, $timePeriod, $mAType);
     }
@@ -1646,11 +1646,11 @@ class TraderFriendly
     public static function movingAverageConvergenceDivergenceExtended(
         array $real,
         int $fastPeriod = 12,
-        int $fastMAType = MovingAverageType::SMA,
+        int $fastMAType = MovingAverageType::SMA->value,
         int $slowPeriod = 26,
-        int $slowMAType = MovingAverageType::SMA,
+        int $slowMAType = MovingAverageType::SMA->value,
         int $signalPeriod = 9,
-        int $signalMAType = MovingAverageType::SMA
+        int $signalMAType = MovingAverageType::SMA->value
     ): array {
         return Trader::macdext($real, $fastPeriod, $fastMAType, $slowPeriod, $slowMAType, $signalPeriod, $signalMAType);
     }
@@ -1693,7 +1693,7 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function movingAverageVariablePeriod(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, int $mAType = MovingAverageType::SMA): array
+    public static function movingAverageVariablePeriod(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, int $mAType = MovingAverageType::SMA->value): array
     {
         return Trader::mavp($real, $periods, $minPeriod, $maxPeriod, $mAType);
     }
@@ -1956,7 +1956,7 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function percentagePriceOscillator(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
+    public static function percentagePriceOscillator(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA->value): array
     {
         return Trader::ppo($real, $fastPeriod, $slowPeriod, $mAType);
     }
@@ -2172,9 +2172,9 @@ class TraderFriendly
         array $close,
         int $fastK_Period = 5,
         int $slowK_Period = 3,
-        int $slowK_MAType = MovingAverageType::SMA,
+        int $slowK_MAType = MovingAverageType::SMA->value,
         int $slowD_Period = 3,
-        int $slowD_MAType = MovingAverageType::SMA
+        int $slowD_MAType = MovingAverageType::SMA->value
     ): array {
         return Trader::stoch($high, $low, $close, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
     }
@@ -2191,7 +2191,7 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function stochasticFast(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
+    public static function stochasticFast(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA->value): array
     {
         return Trader::stochf($high, $low, $close, $fastK_Period, $fastD_Period, $fastD_MAType);
     }
@@ -2207,7 +2207,7 @@ class TraderFriendly
      *
      * @throws \Exception
      */
-    public static function stochasticRelativeStrengthIndex(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
+    public static function stochasticRelativeStrengthIndex(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA->value): array
     {
         return Trader::stochrsi($real, $timePeriod, $fastK_Period, $fastD_Period, $fastD_MAType);
     }

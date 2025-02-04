@@ -82,8 +82,8 @@ class LupeTraderTest extends TestCase
         $optInFastK_Period = 3;
         $optInSlowK_Period = 10;
         $optInSlowD_Period = 5;
-        $optInSlowK_MAType = MovingAverageType::SMA;
-        $optInSlowD_MAType = MovingAverageType::SMA;
+        $optInSlowK_MAType = MovingAverageType::SMA->value;
+        $optInSlowD_MAType = MovingAverageType::SMA->value;
         $Output            = LupeTrader::slowstochrsi($this->Close, $rsi_period, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
         $traderRsi         = \trader_rsi($this->Close, $rsi_period);
         [$traderSlowK, $traderSlowD] = \trader_stoch($traderRsi, $traderRsi, $traderRsi, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);

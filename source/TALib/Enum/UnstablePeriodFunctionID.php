@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -44,31 +44,31 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-enum UnstablePeriodFunctionID
+enum UnstablePeriodFunctionID: int
 {
-    public const ADX = 0;
-    public const ADRX = 1;
-    public const ATR = 2;
-    public const CMO = 3;
-    public const DX = 4;
-    public const EMA = 5;
-    public const HtDcPeriod = 6;
-    public const HtDcPhase = 7;
-    public const HtPhasor = 8;
-    public const HtSine = 9;
-    public const HtTrendline = 10;
-    public const HtTrendMode = 11;
-    public const KAMA = 12;
-    public const MAMA = 13;
-    public const MFI = 14;
-    public const MinusDI = 15;
-    public const MinusDM = 16;
-    public const NATR = 17;
-    public const PlusDI = 18;
-    public const PlusDM = 19;
-    public const RSI = 20;
-    public const StochRSI = 21;
-    public const T3 = 22;
-    public const ALL = 23;
-    public const None = 24;
+    case ADX = 0;
+    case ADRX = 1;
+    case ATR = 2;
+    case CMO = 3;
+    case DX = 4;
+    case EMA = 5;
+    case HtDcPeriod = 6;
+    case HtDcPhase = 7;
+    case HtPhasor = 8;
+    case HtSine = 9;
+    case HtTrendline = 10;
+    case HtTrendMode = 11;
+    case KAMA = 12;
+    case MAMA = 13;
+    case MFI = 14;
+    case MinusDI = 15;
+    case MinusDM = 16;
+    case NATR = 17;
+    case PlusDI = 18;
+    case PlusDM = 19;
+    case RSI = 20;
+    case StochRSI = 21;
+    case T3 = 22;
+    case ALL = 23;
+    case None = 24;
 }

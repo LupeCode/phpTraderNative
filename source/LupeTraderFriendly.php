@@ -26,9 +26,9 @@ class LupeTraderFriendly extends TraderFriendly
         int $rsi_period = 14,
         int $fastK_Period = 5,
         int $slowK_Period = 3,
-        int $slowK_MAType = MovingAverageType::SMA,
+        int $slowK_MAType = MovingAverageType::SMA->value,
         int $slowD_Period = 3,
-        int $slowD_MAType = MovingAverageType::SMA
+        int $slowD_MAType = MovingAverageType::SMA->value
     ): array {
         return LupeTrader::slowstochrsi($real, $rsi_period, $fastK_Period, $slowK_Period, $slowK_MAType, $slowD_Period, $slowD_MAType);
     }

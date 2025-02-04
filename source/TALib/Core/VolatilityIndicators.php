@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -61,7 +61,7 @@ class VolatilityIndicators extends Core
         if ($optInTimePeriod === PHP_INT_MIN) {
             $optInTimePeriod = 14;
         } elseif ($optInTimePeriod < 1 || $optInTimePeriod > 100000) {
-            return ReturnCode::BadParam;
+            return ReturnCode::BadParam->value;
         }
         $outBegIdx = 0;
         $outNBElement = 0;
@@ -70,7 +70,7 @@ class VolatilityIndicators extends Core
             $startIdx = $lookbackTotal;
         }
         if ($startIdx > $endIdx) {
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         if ($optInTimePeriod <= 1) {
             return self::trueRange(
@@ -95,7 +95,7 @@ class VolatilityIndicators extends Core
             $outNbElement1,
             $tempBuffer
         );
-        if ($retCode !== ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success->value) {
             return $retCode;
         }
         $retCode = static::TA_INT_SMA(
@@ -107,12 +107,12 @@ class VolatilityIndicators extends Core
             $outNbElement1,
             $prevATRTemp
         );
-        if ($retCode !== ReturnCode::Success) {
+        if ($retCode !== ReturnCode::Success->value) {
             return $retCode;
         }
         $prevATR = $prevATRTemp[0];
         $today = $optInTimePeriod;
-        $outIdx = static::$unstablePeriod[UnstablePeriodFunctionID::NATR];
+        $outIdx = static::$unstablePeriod[UnstablePeriodFunctionID::NATR->value];
         while ($outIdx > 0) {
             $prevATR *= $optInTimePeriod - 1;
             $prevATR += $tempBuffer[$today++];
@@ -157,7 +157,7 @@ class VolatilityIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outIdx = 0;
         $today = $startIdx;
@@ -180,6 +180,6 @@ class VolatilityIndicators extends Core
         $outNBElement = $outIdx;
         $outBegIdx = $startIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 }

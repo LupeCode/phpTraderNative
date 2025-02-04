@@ -19,7 +19,7 @@ class TraderTest extends TestCase
     public function testAddUnevenParametersError(): void
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage(ReturnCode::Messages[ReturnCode::UnevenParameters]);
+        $this->expectExceptionMessage(ReturnCode::UnevenParameters->message());
         $this->expectExceptionCode(6);
         Trader::add([1, 2], [1, 2, 3]);
     }
@@ -31,7 +31,7 @@ class TraderTest extends TestCase
     public function testAddEmptyParametersError(): void
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage(ReturnCode::Messages[ReturnCode::OutOfRangeEndIndex]);
+        $this->expectExceptionMessage(ReturnCode::OutOfRangeEndIndex->message());
         $this->expectExceptionCode(3);
         Trader::add([], []);
     }
@@ -43,7 +43,7 @@ class TraderTest extends TestCase
     public function testAdxBadParameterError(): void
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage(ReturnCode::Messages[ReturnCode::BadParam]);
+        $this->expectExceptionMessage(ReturnCode::BadParam->message());
         $this->expectExceptionCode(1);
         Trader::adx([1], [1], [1], 0);
     }
@@ -139,28 +139,28 @@ class TraderTest extends TestCase
      */
     public function testApo(): void
     {
-        $optInMAType = MovingAverageType::SMA;
+        $optInMAType = MovingAverageType::SMA->value;
         $optInFastPeriod = 5;
         $optInSlowPeriod = 12;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
         $optInFastPeriod = 7;
         $optInSlowPeriod = 20;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::EMA;
+        $optInMAType = MovingAverageType::EMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::WMA;
+        $optInMAType = MovingAverageType::WMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::DEMA;
+        $optInMAType = MovingAverageType::DEMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::TEMA;
+        $optInMAType = MovingAverageType::TEMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::TRIMA;
+        $optInMAType = MovingAverageType::TRIMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::KAMA;
+        $optInMAType = MovingAverageType::KAMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::MAMA;
+        $optInMAType = MovingAverageType::MAMA->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
-        $optInMAType = MovingAverageType::T3;
+        $optInMAType = MovingAverageType::T3->value;
         $this->assertEquals(\trader_apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::apo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
     }
 
@@ -237,7 +237,7 @@ class TraderTest extends TestCase
         $optInTimePeriod = 10;
         $optInNbDevUp = 2.0;
         $optInNbDevDn = 2.0;
-        $optInMAType = MovingAverageType::SMA;
+        $optInMAType = MovingAverageType::SMA->value;
         [$traderUpperBand, $traderMiddleBand, $traderLowerBand] = \trader_bbands($this->High, $optInTimePeriod, $optInNbDevUp, $optInNbDevDn, $optInMAType);
         $Output = Trader::bbands($this->High, $optInTimePeriod, $optInNbDevUp, $optInNbDevDn, $optInMAType);
         $this->assertEquals($traderUpperBand, $this->adjustForPECL($Output['UpperBand']));
@@ -989,7 +989,7 @@ class TraderTest extends TestCase
     public function testMovingAverage(): void
     {
         $optInTimePeriod = 10;
-        $optInMAType = MovingAverageType::SMA;
+        $optInMAType = MovingAverageType::SMA->value;
         $this->assertEquals(\trader_ma($this->High, $optInTimePeriod, $optInMAType), $this->adjustForPECL(Trader::ma($this->High, $optInTimePeriod, $optInMAType)));
     }
 
@@ -1014,11 +1014,11 @@ class TraderTest extends TestCase
     public function testMacdExt(): void
     {
         $optInFastPeriod = 3;
-        $optInFastMAType = MovingAverageType::SMA;
+        $optInFastMAType = MovingAverageType::SMA->value;
         $optInSlowPeriod = 10;
-        $optInSlowMAType = MovingAverageType::SMA;
+        $optInSlowMAType = MovingAverageType::SMA->value;
         $optInSignalPeriod = 5;
-        $optInSignalMAType = MovingAverageType::SMA;
+        $optInSignalMAType = MovingAverageType::SMA->value;
         [$traderMACD, $traderMACDSignal, $traderMACDHist] = \trader_macdext($this->High, $optInFastPeriod, $optInFastMAType, $optInSlowPeriod, $optInSlowMAType, $optInSignalPeriod, $optInSignalMAType);
         $Output = Trader::macdext($this->High, $optInFastPeriod, $optInFastMAType, $optInSlowPeriod, $optInSlowMAType, $optInSignalPeriod, $optInSignalMAType);
         $this->assertEquals($traderMACD, $this->adjustForPECL($Output['MACD']));
@@ -1060,7 +1060,7 @@ class TraderTest extends TestCase
         $inPeriods = array_pad([], count($this->High), 10);
         $optInMinPeriod = 2;
         $optInMaxPeriod = 20;
-        $optInMAType = MovingAverageType::SMA;
+        $optInMAType = MovingAverageType::SMA->value;
         $this->assertEquals(\trader_mavp($this->High, $inPeriods, $optInMinPeriod, $optInMaxPeriod, $optInMAType), $this->adjustForPECL(Trader::mavp($this->High, $inPeriods, $optInMinPeriod, $optInMaxPeriod, $optInMAType)));
     }
 
@@ -1240,7 +1240,7 @@ class TraderTest extends TestCase
     {
         $optInFastPeriod = 10;
         $optInSlowPeriod = 10;
-        $optInMAType = MovingAverageType::SMA;
+        $optInMAType = MovingAverageType::SMA->value;
         $this->assertEquals(\trader_ppo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType), $this->adjustForPECL(Trader::ppo($this->High, $optInFastPeriod, $optInSlowPeriod, $optInMAType)));
     }
 
@@ -1377,9 +1377,9 @@ class TraderTest extends TestCase
     {
         $optInFastK_Period = 2;
         $optInSlowK_Period = 10;
-        $optInSlowK_MAType = MovingAverageType::SMA;
+        $optInSlowK_MAType = MovingAverageType::SMA->value;
         $optInSlowD_Period = 20;
-        $optInSlowD_MAType = MovingAverageType::SMA;
+        $optInSlowD_MAType = MovingAverageType::SMA->value;
         [$traderSlowK, $traderSlowD] = \trader_stoch($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
         $Output = Trader::stoch($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInSlowK_Period, $optInSlowK_MAType, $optInSlowD_Period, $optInSlowD_MAType);
         $this->assertEquals($traderSlowK, $this->adjustForPECL($Output['SlowK']));
@@ -1393,7 +1393,7 @@ class TraderTest extends TestCase
     {
         $optInFastK_Period = 2;
         $optInFastD_Period = 10;
-        $optInFastD_MAType = MovingAverageType::SMA;
+        $optInFastD_MAType = MovingAverageType::SMA->value;
         [$traderFastK, $traderFastD] = \trader_stochf($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
         $Output = Trader::stochf($this->High, $this->Low, $this->Close, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
         $this->assertEquals($traderFastK, $this->adjustForPECL($Output['FastK']));
@@ -1434,8 +1434,8 @@ class TraderTest extends TestCase
         $optInTimePeriod = 14;
         $optInFastK_Period = 3;
         $optInFastD_Period = 3;
-        $optInFastD_MAType = MovingAverageType::SMA;
-        for ($optInFastD_MAType = MovingAverageType::SMA; $optInFastD_MAType < MovingAverageType::MAMA; $optInFastD_MAType++) {
+        $optInFastD_MAType = MovingAverageType::SMA->value;
+        for ($optInFastD_MAType = MovingAverageType::SMA->value; $optInFastD_MAType < MovingAverageType::MAMA->value; $optInFastD_MAType++) {
             [$traderFastK, $traderFastD] = \trader_stochrsi($this->Close, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
             $Output = Trader::stochrsi($this->Close, $optInTimePeriod, $optInFastK_Period, $optInFastD_Period, $optInFastD_MAType);
             $this->assertEquals($traderFastK, $this->adjustForPECL($Output['FastK']));

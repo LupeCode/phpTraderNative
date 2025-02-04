@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -44,18 +44,18 @@
 
 namespace LupeCode\phpTraderNative\TALib\Enum;
 
-enum CandleSettingType
+enum CandleSettingType: int
 {
-    public const BodyLong = 0;
-    public const BodyVeryLong = 1;
-    public const BodyShort = 2;
-    public const BodyDoji = 3;
-    public const ShadowLong = 4;
-    public const ShadowVeryLong = 5;
-    public const ShadowShort = 6;
-    public const ShadowVeryShort = 7;
-    public const Near = 8;
-    public const Far = 9;
-    public const Equal = 10;
-    public const AllCandleSettings = 11;
+    case BodyLong = 0;
+    case BodyVeryLong = 1;
+    case BodyShort = 2;
+    case BodyDoji = 3;
+    case ShadowLong = 4;
+    case ShadowVeryLong = 5;
+    case ShadowShort = 6;
+    case ShadowVeryShort = 7;
+    case Near = 8;
+    case Far = 9;
+    case Equal = 10;
+    case AllCandleSettings = 11;
 }

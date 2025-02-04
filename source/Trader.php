@@ -151,11 +151,11 @@ class Trader
 
     protected static function checkForError(int $ReturnCode): void
     {
-        if ($ReturnCode === ReturnCode::Success) {
+        if ($ReturnCode === ReturnCode::Success->value) {
             return;
         }
 
-        throw new \RuntimeException(ReturnCode::Messages[$ReturnCode], $ReturnCode);
+        throw new \RuntimeException(ReturnCode::messageFromInt($ReturnCode), $ReturnCode);
     }
 
     protected static function verifyArrayCounts(array $arrays): int
@@ -163,7 +163,7 @@ class Trader
         $count = count($arrays[0]);
         foreach ($arrays as &$array) {
             if (count($array) !== $count) {
-                throw new \RuntimeException(ReturnCode::Messages[ReturnCode::UnevenParameters], ReturnCode::UnevenParameters);
+                throw new \RuntimeException(ReturnCode::UnevenParameters->message(), ReturnCode::UnevenParameters->value);
             }
             $array = \array_values($array);
         }
@@ -388,7 +388,7 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function apo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
+    public static function apo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA->value): array
     {
         $real = \array_values($real);
         $endIdx = count($real) - 1;
@@ -560,7 +560,7 @@ class Trader
      * @return array Returns a 2D array with calculated data. [UpperBand => [...], MiddleBand => [...], LowerBand => [...]]
      * @throws \Exception
      */
-    public static function bbands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, int $mAType = MovingAverageType::SMA): array
+    public static function bbands(array $real, int $timePeriod = 5, float $nbDevUp = 2.0, float $nbDevDn = 2.0, int $mAType = MovingAverageType::SMA->value): array
     {
         $real = \array_values($real);
         $endIdx = count($real) - 1;
@@ -2309,7 +2309,7 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function ma(array $real, int $timePeriod = 30, int $mAType = MovingAverageType::SMA): array
+    public static function ma(array $real, int $timePeriod = 30, int $mAType = MovingAverageType::SMA->value): array
     {
         $real = \array_values($real);
         $endIdx = count($real) - 1;
@@ -2364,11 +2364,11 @@ class Trader
     public static function macdext(
         array $real,
         int $fastPeriod = 12,
-        int $fastMAType = MovingAverageType::SMA,
+        int $fastMAType = MovingAverageType::SMA->value,
         int $slowPeriod = 26,
-        int $slowMAType = MovingAverageType::SMA,
+        int $slowMAType = MovingAverageType::SMA->value,
         int $signalPeriod = 9,
-        int $signalMAType = MovingAverageType::SMA
+        int $signalMAType = MovingAverageType::SMA->value
     ): array {
         $real = \array_values($real);
         $endIdx = count($real) - 1;
@@ -2462,7 +2462,7 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function mavp(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, int $mAType = MovingAverageType::SMA): array
+    public static function mavp(array $real, array $periods, int $minPeriod = 2, int $maxPeriod = 30, int $mAType = MovingAverageType::SMA->value): array
     {
         $real = \array_values($real);
         $endIdx = count($real) - 1;
@@ -2818,7 +2818,7 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function ppo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA): array
+    public static function ppo(array $real, int $fastPeriod = 12, int $slowPeriod = 26, int $mAType = MovingAverageType::SMA->value): array
     {
         $real = \array_values($real);
         $endIdx = count($real) - 1;
@@ -3104,9 +3104,9 @@ class Trader
         array $close,
         int $fastK_Period = 5,
         int $slowK_Period = 3,
-        int $slowK_MAType = MovingAverageType::SMA,
+        int $slowK_MAType = MovingAverageType::SMA->value,
         int $slowD_Period = 3,
-        int $slowD_MAType = MovingAverageType::SMA
+        int $slowD_MAType = MovingAverageType::SMA->value
     ): array {
         $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outSlowK = [];
@@ -3148,7 +3148,7 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function stochf(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
+    public static function stochf(array $high, array $low, array $close, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA->value): array
     {
         $endIdx = self::verifyArrayCounts([&$high, &$low, &$close]);
         $outFastK = [];
@@ -3174,7 +3174,7 @@ class Trader
      *
      * @throws \Exception
      */
-    public static function stochrsi(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA): array
+    public static function stochrsi(array $real, int $timePeriod = 14, int $fastK_Period = 5, int $fastD_Period = 3, int $fastD_MAType = MovingAverageType::SMA->value): array
     {
         $real = \array_values($real);
         $endIdx = count($real) - 1;

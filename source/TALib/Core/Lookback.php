@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -92,7 +92,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return (2 * $optInTimePeriod) + (static::$unstablePeriod[UnstablePeriodFunctionID::ADX]) - 1;
+        return (2 * $optInTimePeriod) + (static::$unstablePeriod[UnstablePeriodFunctionID::ADX->value]) - 1;
     }
 
     public static function adxrLookback(int $optInTimePeriod): int
@@ -165,7 +165,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::ATR]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::ATR->value]);
     }
 
     public static function avgPriceLookback(): int
@@ -223,22 +223,22 @@ class Lookback extends Core
 
     public static function cdl2CrowsLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod) + 2;
     }
 
     public static function cdl3BlackCrowsLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 3;
+        return (static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod) + 3;
     }
 
     public static function cdl3InsideLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 2;
     }
 
     public static function cdl3LineStrikeLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::Near]->avgPeriod) + 3;
+        return (static::$candleSettings[CandleSettingType::Near->value]->avgPeriod) + 3;
     }
 
     public static function cdl3OutsideLookback(): int
@@ -248,12 +248,12 @@ class Lookback extends Core
 
     public static function cdl3StarsInSouthLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))))) + 2;
     }
 
     public static function cdl3WhiteSoldiersLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))))) + 2;
     }
 
     public static function cdlAbandonedBabyLookback(float $optInPenetration): int
@@ -264,37 +264,37 @@ class Lookback extends Core
             return -1;
         }
 
-        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) + 2;
     }
 
     public static function cdlAdvanceBlockLookback(): int
     {
-        return ((((((((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)))))) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)))))) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((((((((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod)))))) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Far->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod)))))) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 2;
     }
 
     public static function cdlBeltHoldLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)));
     }
 
     public static function cdlBreakawayLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 4;
+        return (static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod) + 4;
     }
 
     public static function cdlClosingMarubozuLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)));
     }
 
     public static function cdlConcealBabysWallLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 3;
+        return (static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod) + 3;
     }
 
     public static function cdlCounterAttackLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlDarkCloudCoverLookback(float $optInPenetration): int
@@ -305,22 +305,22 @@ class Lookback extends Core
             return -1;
         }
 
-        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
+        return (static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod) + 1;
     }
 
     public static function cdlDojiLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod);
+        return (static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod);
     }
 
     public static function cdlDojiStarLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlDragonflyDojiLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)));
     }
 
     public static function cdlEngulfingLookback(): int
@@ -336,7 +336,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) + 2;
     }
 
     public static function cdlEveningStarLookback(float $optInPenetration): int
@@ -347,42 +347,42 @@ class Lookback extends Core
             return -1;
         }
 
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 2;
     }
 
     public static function cdlGapSideSideWhiteLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::Near]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod))) + 2;
     }
 
     public static function cdlGravestoneDojiLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)));
     }
 
     public static function cdlHammerLookback(): int
     {
-        return ((((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) + 1;
+        return ((((((((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) + 1;
     }
 
     public static function cdlHangingManLookback(): int
     {
-        return ((((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) + 1;
+        return ((((((((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((((((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) + 1;
     }
 
     public static function cdlHaramiLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlHaramiCrossLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlHighWaveLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong->value]->avgPeriod)));
     }
 
     public static function cdlHikkakeLookback(): int
@@ -392,62 +392,62 @@ class Lookback extends Core
 
     public static function cdlHikkakeModLookback(): int
     {
-        return (((1) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? (1) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) + 5;
+        return (((1) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? (1) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) + 5;
     }
 
     public static function cdlHomingPigeonLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlIdentical3CrowsLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod))) + 2;
     }
 
     public static function cdlInNeckLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlInvertedHammerLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) + 1;
+        return (((((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) + 1;
     }
 
     public static function cdlKickingLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlKickingByLengthLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlLadderBottomLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod) + 4;
+        return (static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod) + 4;
     }
 
     public static function cdlLongLeggedDojiLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)));
     }
 
     public static function cdlLongLineLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod)));
     }
 
     public static function cdlMarubozuLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)));
     }
 
     public static function cdlMatchingLowLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::Equal]->avgPeriod) + 1;
+        return (static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod) + 1;
     }
 
     public static function cdlMatHoldLookback(float $optInPenetration): int
@@ -458,7 +458,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 4;
     }
 
     public static function cdlMorningDojiStarLookback(float $optInPenetration): int
@@ -469,7 +469,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) + 2;
     }
 
     public static function cdlMorningStarLookback(float $optInPenetration): int
@@ -480,87 +480,87 @@ class Lookback extends Core
             return -1;
         }
 
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 2;
     }
 
     public static function cdlOnNeckLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlPiercingLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod) + 1;
+        return (static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod) + 1;
     }
 
     public static function cdlRickshawManLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod)));
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod)));
     }
 
     public static function cdlRiseFall3MethodsLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 4;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 4;
     }
 
     public static function cdlSeparatingLinesLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod))) + 1;
+        return (((((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod))) + 1;
     }
 
     public static function cdlShootingStarLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) + 1;
+        return (((((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowLong->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) + 1;
     }
 
     public static function cdlShortLineLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort]->avgPeriod)));
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowShort->value]->avgPeriod)));
     }
 
     public static function cdlSpinningTopLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod);
+        return (static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod);
     }
 
     public static function cdlStalledPatternLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near]->avgPeriod))))) + 2;
+        return (((((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)))) > (((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))))) ? (((((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)))) : (((((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::Near->value]->avgPeriod))))) + 2;
     }
 
     public static function cdlStickSandwichLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::Equal]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod) + 2;
     }
 
     public static function cdlTakuriLookback(): int
     {
-        return (((((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong]->avgPeriod)));
+        return (((((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)))) > ((static::$candleSettings[CandleSettingType::ShadowVeryLong->value]->avgPeriod))) ? (((((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::ShadowVeryShort->value]->avgPeriod)))) : ((static::$candleSettings[CandleSettingType::ShadowVeryLong->value]->avgPeriod)));
     }
 
     public static function cdlTasukiGapLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::Near]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::Near->value]->avgPeriod) + 2;
     }
 
     public static function cdlThrustingLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 1;
+        return ((((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::Equal->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 1;
     }
 
     public static function cdlTristarLookback(): int
     {
-        return (static::$candleSettings[CandleSettingType::BodyDoji]->avgPeriod) + 2;
+        return (static::$candleSettings[CandleSettingType::BodyDoji->value]->avgPeriod) + 2;
     }
 
     public static function cdlUnique3RiverLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 2;
     }
 
     public static function cdlUpsideGap2CrowsLookback(): int
     {
-        return ((((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong]->avgPeriod))) + 2;
+        return ((((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) > ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) ? ((static::$candleSettings[CandleSettingType::BodyShort->value]->avgPeriod)) : ((static::$candleSettings[CandleSettingType::BodyLong->value]->avgPeriod))) + 2;
     }
 
     public static function cdlXSideGap3MethodsLookback(): int
@@ -581,8 +581,8 @@ class Lookback extends Core
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::CMO]);
-        if ((static::$compatibility) === Compatibility::Metastock) {
+        $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::CMO->value]);
+        if ((static::$compatibility) === Compatibility::Metastock->value) {
             $retValue--;
         }
 
@@ -634,7 +634,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::DX]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::DX->value]);
     }
 
     public static function emaLookback(int $optInTimePeriod): int
@@ -647,7 +647,7 @@ class Lookback extends Core
             }
         }
 
-        return $optInTimePeriod - 1 + (static::$unstablePeriod[UnstablePeriodFunctionID::EMA]);
+        return $optInTimePeriod - 1 + (static::$unstablePeriod[UnstablePeriodFunctionID::EMA->value]);
     }
 
     public static function expLookback(): int
@@ -662,32 +662,32 @@ class Lookback extends Core
 
     public static function htDcPeriodLookback(): int
     {
-        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
+        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod->value]);
     }
 
     public static function htDcPhaseLookback(): int
     {
-        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase->value]);
     }
 
     public static function htPhasorLookback(): int
     {
-        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
+        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor->value]);
     }
 
     public static function htSineLookback(): int
     {
-        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine->value]);
     }
 
     public static function htTrendlineLookback(): int
     {
-        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendline]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendline->value]);
     }
 
     public static function htTrendModeLookback(): int
     {
-        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode]);
+        return 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode->value]);
     }
 
     public static function imiLookback(int $optInTimePeriod): int
@@ -709,7 +709,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::KAMA]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::KAMA->value]);
     }
 
     public static function linearRegLookback(int $optInTimePeriod): int
@@ -892,7 +892,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::MAMA]);
+        return 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::MAMA->value]);
     }
 
     public static function movingAverageVariablePeriodLookback(int $optInMinPeriod, int $optInMaxPeriod, int $optInMAType): int
@@ -946,7 +946,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MFI]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MFI->value]);
     }
 
     public static function midPointLookback(int $optInTimePeriod): int
@@ -1023,7 +1023,7 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDI]);
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDI->value]);
         }
 
         return 1;
@@ -1037,7 +1037,7 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM]) - 1;
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::MinusDM->value]) - 1;
         }
 
         return 1;
@@ -1067,7 +1067,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::NATR]);
+        return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::NATR->value]);
     }
 
     public static function obvLookback(): int
@@ -1083,7 +1083,7 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI]);
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDI->value]);
         }
 
         return 1;
@@ -1097,7 +1097,7 @@ class Lookback extends Core
             return -1;
         }
         if ($optInTimePeriod > 1) {
-            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM]) - 1;
+            return $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::PlusDM->value]) - 1;
         }
 
         return 1;
@@ -1171,8 +1171,8 @@ class Lookback extends Core
         } elseif (($optInTimePeriod < 2) || ($optInTimePeriod > 100000)) {
             return -1;
         }
-        $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::RSI]);
-        if ((static::$compatibility) == Compatibility::Metastock) {
+        $retValue = $optInTimePeriod + (static::$unstablePeriod[UnstablePeriodFunctionID::RSI->value]);
+        if ((static::$compatibility) === Compatibility::Metastock->value) {
             $retValue--;
         }
 
@@ -1387,7 +1387,7 @@ class Lookback extends Core
             return -1;
         }
 
-        return 6 * ($optInTimePeriod - 1) + (static::$unstablePeriod[UnstablePeriodFunctionID::T3]);
+        return 6 * ($optInTimePeriod - 1) + (static::$unstablePeriod[UnstablePeriodFunctionID::T3->value]);
     }
 
     public static function tanLookback(): int

@@ -7,9 +7,9 @@
  * The goal is that this library can be used by those whom cannot install the PHP Trader extension.
  *
  * Below is the copyright information for TA-LIB found in the source code.
- */
-
-/* TA-LIB Copyright (c) 1999-2007, Mario Fortier
+ *
+ *
+ * TA-LIB Copyright (c) 1999-2007, Mario Fortier
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or
@@ -69,7 +69,7 @@ class CycleIndicators extends Core
         $b = 0.5769;
         $detrender_Odd = $detrender_Even = $Q1_Odd = $Q1_Even = $jI_Odd = $jI_Even = $jQ_Odd = $jQ_Even = static::double(3);
         $rad2Deg = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod]);
+        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPeriod->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -77,7 +77,7 @@ class CycleIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $trailingWMAIdx = $startIdx - $lookbackTotal;
@@ -221,7 +221,7 @@ class CycleIndicators extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     /**
@@ -257,7 +257,7 @@ class CycleIndicators extends Core
         $tempReal = atan(1);
         $rad2Deg = 45.0 / $tempReal;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase]);
+        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtDcPhase->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -265,7 +265,7 @@ class CycleIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $trailingWMAIdx = $startIdx - $lookbackTotal;
@@ -540,7 +540,7 @@ class CycleIndicators extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     /**
@@ -569,7 +569,7 @@ class CycleIndicators extends Core
         $jI_Even = static::double(3);
         $jQ_Odd = static::double(3);
         $rad2Deg = 180.0 / (4.0 * atan(1));
-        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor]);
+        $lookbackTotal = 32 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtPhasor->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -577,7 +577,7 @@ class CycleIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $trailingWMAIdx = $startIdx - $lookbackTotal;
@@ -810,7 +810,7 @@ class CycleIndicators extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     /**
@@ -848,7 +848,7 @@ class CycleIndicators extends Core
         $rad2Deg = 45.0 / $tempReal;
         $deg2Rad = 1.0 / $rad2Deg;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine]);
+        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtSine->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -856,7 +856,7 @@ class CycleIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $trailingWMAIdx = $startIdx - $lookbackTotal;
@@ -1132,7 +1132,7 @@ class CycleIndicators extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
     /**
@@ -1174,7 +1174,7 @@ class CycleIndicators extends Core
         $rad2Deg = 45.0 / $tempReal;
         $deg2Rad = 1.0 / $rad2Deg;
         $constDeg2RadBy360 = $tempReal * 8.0;
-        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode]);
+        $lookbackTotal = 63 + (static::$unstablePeriod[UnstablePeriodFunctionID::HtTrendMode->value]);
         if ($startIdx < $lookbackTotal) {
             $startIdx = $lookbackTotal;
         }
@@ -1182,7 +1182,7 @@ class CycleIndicators extends Core
             $outBegIdx = 0;
             $outNBElement = 0;
 
-            return ReturnCode::Success;
+            return ReturnCode::Success->value;
         }
         $outBegIdx = $startIdx;
         $trailingWMAIdx = $startIdx - $lookbackTotal;
@@ -1495,7 +1495,7 @@ class CycleIndicators extends Core
         }
         $outNBElement = $outIdx;
 
-        return ReturnCode::Success;
+        return ReturnCode::Success->value;
     }
 
 }
