@@ -10,7 +10,7 @@ The goal is that this library can be used by those whom cannot install the PHP T
 
 ## Requirements
 
-* PHP >= 8.0.0
+* PHP >= 8.2.0
 
 That's the only thing you need!  As stated, you do not need to install any extensions for this library.
 
