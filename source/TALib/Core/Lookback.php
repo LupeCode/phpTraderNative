@@ -777,37 +777,18 @@ class Lookback extends Core
         if ($optInTimePeriod <= 1) {
             return 0;
         }
-        switch ($optInMAType) {
-            case MovingAverageType::SMA:
-                $retValue = self::smaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::EMA:
-                $retValue = self::emaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::WMA:
-                $retValue = self::wmaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::DEMA:
-                $retValue = self::demaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::TEMA:
-                $retValue = self::temaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::TRIMA:
-                $retValue = self::trimaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::KAMA:
-                $retValue = self::kamaLookback($optInTimePeriod);
-                break;
-            case MovingAverageType::MAMA:
-                $retValue = self::mamaLookback(0.5, 0.05);
-                break;
-            case MovingAverageType::T3:
-                $retValue = self::t3Lookback($optInTimePeriod, 0.7);
-                break;
-            default:
-                $retValue = 0;
-        }
+        $retValue = match ($optInMAType) {
+            MovingAverageType::SMA->value => self::smaLookback($optInTimePeriod),
+            MovingAverageType::EMA->value => self::emaLookback($optInTimePeriod),
+            MovingAverageType::WMA->value => self::wmaLookback($optInTimePeriod),
+            MovingAverageType::DEMA->value => self::demaLookback($optInTimePeriod),
+            MovingAverageType::TEMA->value => self::temaLookback($optInTimePeriod),
+            MovingAverageType::TRIMA->value => self::trimaLookback($optInTimePeriod),
+            MovingAverageType::KAMA->value => self::kamaLookback($optInTimePeriod),
+            MovingAverageType::MAMA->value => self::mamaLookback(0.5, 0.05),
+            MovingAverageType::T3->value => self::t3Lookback($optInTimePeriod, 0.7),
+            default => 0,
+        };
 
         return $retValue;
     }
