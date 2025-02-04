@@ -59,7 +59,7 @@ class TraderTest extends TestCase
 
     /**
      * @throws \Exception
-     * @group exceptions
+     * @group dev_trader
      */
     public function testAccbands(): void
     {

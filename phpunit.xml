@@ -20,6 +20,12 @@
       <exclude>tests/benchmark</exclude>
         </testsuite>
     </testsuites>
+    <groups>
+        <exclude>
+            <group>dev_trader</group>
+            <!-- This group of functions is in the official TALib but not yet in the PHPTrader extension. They can only be tested by people who build their extension by updating their extension source with the upstream TALib. -->
+        </exclude>
+    </groups>
   <source>
     <include>
             <directory suffix=".php">./source</directory>
