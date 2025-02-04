@@ -1256,26 +1256,15 @@ class PatternRecognition extends Core
         $i = $startIdx;
         $outIdx = 0;
         do {
-            if (
-                (
-                    ($inOpen[$i] < $inClose[$i] && $inOpen[$i - 1] > $inClose[$i - 1]) &&
-                    (
-                        ($inClose[$i] >= $inOpen[$i - 1] && $inOpen[$i] <= $inClose[$i - 1]) ||
-                        ($inClose[$i] > $inOpen[$i - 1] && $inOpen[$i] < $inClose[$i - 1])
-                    )
-                ) || (
-                    ($inOpen[$i] > $inClose[$i] && $inOpen[$i - 1] < $inClose[$i - 1]) &&
-                    (
-                        ($inOpen[$i] >= $inClose[$i - 1] && $inClose[$i] <= $inOpen[$i - 1]) ||
-                        ($inOpen[$i] > $inClose[$i - 1] && $inClose[$i] < $inOpen[$i - 1])
-                    )
+            if ((($inClose[$i] >= $inOpen[$i] ? 1 : -1) == 1 && ($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == -1 &&
+                 $inClose[$i] > $inOpen[$i - 1] && $inOpen[$i] < $inClose[$i - 1]
+                )
+                ||
+                (($inClose[$i] >= $inOpen[$i] ? 1 : -1) == -1 && ($inClose[$i - 1] >= $inOpen[$i - 1] ? 1 : -1) == 1 &&
+                 $inOpen[$i] > $inClose[$i - 1] && $inClose[$i] < $inOpen[$i - 1]
                 )
             ) {
-                if (($inOpen[$i] != $inClose[$i - 1]) && ($inClose[$i] != $inOpen[$i - 1])) {
-                    $outInteger[$outIdx++] = $inClose[$i] > $inOpen[$i] ? 100 : -100;
-                } else {
-                    $outInteger[$outIdx++] = $inClose[$i] > $inOpen[$i] ? 80 : -80;
-                }
+                $outInteger[$outIdx++] = ($inClose[$i] >= $inOpen[$i] ? 1 : -1) * 100;
             } else {
                 $outInteger[$outIdx++] = 0;
             }
